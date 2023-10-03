@@ -1,0 +1,23 @@
+.rc-checkbox {
+  @apply flex justify-center items-center w-[20px] h-[20px] me-4 #{!important};
+  &-input {
+    @apply w-full h-full #{!important};
+  }
+
+  &-inner {
+    @apply w-[20px] h-[20px] #{!important};
+    &::after {
+      @apply top-[2px] left-[6px] w-[6px] h-[12px] #{!important};
+    }
+  }
+
+  &-checked > &-inner {
+    @apply bg-blue border border-solid border-blue #{!important};
+  }
+
+  &:hover > &-inner ,
+  &-input:focus + &-inner{
+    @apply border-blue #{!important};
+  }
+
+}
