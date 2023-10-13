@@ -4,21 +4,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
-// assets
-import image from "@/assets/images/card-image.jpg";
-
 const AdvertiseCard = () => {
 
     return (
-        <Link href="/">
+        <Link href="/car-benz/benz-2006">
             <article className="flex justify-start items-center gap-x-4 bg-light rounded-lg p-4">
                 <div className="flex justify-center items-center">
                     <Image
-                        src={image}
+                        src="/assets/images/card-image.jpg"
                         alt="advertise"
                         width={120}
                         height={120}
-                        className="object-cover object-center rounded-lg"
+                        className="min-w-[120px] min-h-[120px] object-cover object-center rounded-lg"
                     />
                 </div>
                 <div className="flex flex-col justify-center items-start gap-y-4">

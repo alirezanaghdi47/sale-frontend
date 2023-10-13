@@ -7,7 +7,7 @@ import {LuCopyright} from "react-icons/lu";
 import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
 // assets
-import logo from "@/assets/images/logo.png";
+import logo from "../../../public/assets/images/logo.png";
 
 const Logo = () => {
 

@@ -6,7 +6,7 @@ import Link from "next/link";
 import {LuUser , LuSearch , LuPlus , LuMapPin , LuLayers} from "react-icons/lu";
 
 // assets
-import logo from "@/assets/images/logo.png";
+import logo from "../../../../public/assets/images/logo.png";
 
 // components
 import CitiesModal from "@/components/widgets/public/CitiesModal";
