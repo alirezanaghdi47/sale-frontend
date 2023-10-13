@@ -20,7 +20,8 @@ const config: Config = {
             blue: "#2563eb",
             yellow: "#facc15",
             current: 'currentColor',
-            transparent: "transparent"
+            transparent: "transparent",
+            inherit: "inherit"
         },
         fontFamily: {
             sans: ['--font-vazirmatn', 'sans-serif'],

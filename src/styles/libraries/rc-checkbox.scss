@@ -5,9 +5,9 @@
   }
 
   &-inner {
-    @apply w-[20px] h-[20px] #{!important};
+    @apply w-[20px] h-[20px] bg-secondary border border-solid border-secondary #{!important};
     &::after {
-      @apply top-[2px] left-[6px] w-[6px] h-[12px] #{!important};
+      @apply top-[2px] left-[6px] w-[6px] h-[12px] border-secondary #{!important};
     }
   }
 
@@ -15,9 +15,9 @@
     @apply bg-blue border border-solid border-blue #{!important};
   }
 
-  &:hover > &-inner ,
-  &-input:focus + &-inner{
-    @apply border-blue #{!important};
+  &:hover > &-inner,
+  &-input:focus + &-inner {
+    @apply border-secondary #{!important};
   }
 
 }
