@@ -1,0 +1,19 @@
+body {
+  @apply select-none #{!important};
+}
+
+::-webkit-scrollbar {
+  @apply w-2 rounded-lg #{!important};
+
+  &-track {
+    @apply bg-gray/25 rounded-lg #{!important};
+  }
+
+  &-thumb {
+    @apply bg-gray/75 rounded-lg #{!important};
+
+    &:hover {
+      @apply bg-gray #{!important};
+    }
+  }
+}

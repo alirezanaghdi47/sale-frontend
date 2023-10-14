@@ -19,6 +19,5 @@ export const useSegment = () => {
     });
 
     return {segment , _handleNextSection, _handlePrevSection};
-
 }
 

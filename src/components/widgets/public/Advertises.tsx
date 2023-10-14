@@ -16,6 +16,7 @@ const AdvertiseList = () => {
 
     return (
         <ul className="grid grid-cols-12 gap-4 w-full">
+
             {
                 Array(12).fill("").map((advertiseItem , index) =>
                     <AdvertiseItem
@@ -24,6 +25,7 @@ const AdvertiseList = () => {
                     />
                 )
             }
+
         </ul>
     )
 }
@@ -32,7 +34,9 @@ const Advertises = () => {
 
     return (
         <section className="flex flex-col justify-start items-start gap-y-4 w-full">
+
             <AdvertiseList/>
+
         </section>
     )
 }

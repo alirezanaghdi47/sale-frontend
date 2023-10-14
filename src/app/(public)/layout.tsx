@@ -9,9 +9,13 @@ const PublicLayout = (props) => {
     return (
         <>
             <Header/>
+
             <Appbar/>
+
             {props.children}
+
             <BottomNavigation/>
+
             <Footer/>
         </>
     )

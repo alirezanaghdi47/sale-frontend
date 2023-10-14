@@ -13,14 +13,22 @@ const linkList = [
 ];
 
 const AdvertisePage = () => {
+
     return (
         <main className="grid grid-cols-12 justify-start items-start gap-4 w-full max-w-[1200px] p-4">
+
             <Breadcrumb linkList={linkList}/>
+
             <AdvertiseAction/>
+
             <AdvertiseGallery/>
+
             <AdvertiseContent/>
+
             <AdvertiseSpecification/>
+
             <RelativeAdvertises/>
+
         </main>
     )
 }
