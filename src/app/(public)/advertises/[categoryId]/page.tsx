@@ -11,7 +11,7 @@ const linkList = [
 const CategoryPage = () => {
 
     return (
-        <main className="flex flex-col justify-center items-center gap-y-4 w-full max-w-[1200px] p-4">
+        <main className="flex flex-col justify-start items-start gap-y-4 w-full p-4">
 
             <Breadcrumb linkList={linkList}/>
 

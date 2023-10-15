@@ -1,6 +1,8 @@
 'use client';
 
 // libraries
+import Link from "next/link";
+import Image from "next/image";
 import {FiMapPin, FiSearch} from "react-icons/fi";
 
 // components
@@ -8,6 +10,21 @@ import CitiesModal from "@/components/widgets/public/CitiesModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
+
+const Logo = () => {
+
+    return (
+        <Link href="/">
+            <Image
+                src="/assets/images/logo.png"
+                alt="logo"
+                width={80}
+                height={20}
+                className="min-w-[80px]"
+            />
+        </Link>
+    )
+}
 
 const Actions = () => {
 
@@ -53,7 +70,9 @@ const Appbar = () => {
         <header
             className="fixed top-0 left-0 z-20 flex md:hidden justify-center items-center w-full h-[70px] bg-light shadow-3xl">
 
-            <div className='flex justify-center items-center gap-x-4 w-full max-w-[1200px] h-full p-4'>
+            <div className='flex justify-between items-center gap-x-4 w-full max-w-[1200px] h-full p-4'>
+
+                <Logo/>
 
                 <Actions/>
 

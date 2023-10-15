@@ -1,10 +1,12 @@
-const HomePage = () => {
+// components
+
+const FavoritePage = () => {
 
     return (
         <main className="flex flex-col justify-start items-start gap-y-4 w-full p-4">
-            home page
+            favorite page
         </main>
     );
 }
 
-export default HomePage;
+export default FavoritePage;

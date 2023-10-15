@@ -22,6 +22,7 @@ const Logo = () => {
                 alt="logo"
                 width={80}
                 height={20}
+                className="min-w-[80px]"
             />
         </Link>
     )
@@ -116,7 +117,7 @@ const Navbar = () => {
                         <span className="text-gray">
                             <LuUser size={20}/>
                         </span>
-                        پروفایل
+                        علیرضا نقدی
                     </button>
                     {/*<Link*/}
                     {/*    href={`/account/profile`}*/}
