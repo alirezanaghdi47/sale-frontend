@@ -1,7 +1,7 @@
 // components
-import Crew from "@/components/widgets/public/Crew";
-import Intro from "@/components/widgets/public/Intro";
-import Contribute from "@/components/widgets/public/Contribute";
+import Crew from "@/components/widgets/public/about-us/Crew";
+import Intro from "@/components/widgets/public/about-us/Intro";
+import Contribute from "@/components/widgets/public/about-us/Contribute";
 
 const AboutUsPage = () => {
 

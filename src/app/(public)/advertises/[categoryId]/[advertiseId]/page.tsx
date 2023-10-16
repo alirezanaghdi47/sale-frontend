@@ -1,10 +1,10 @@
 // components
-import Breadcrumb from "@/components/widgets/Breadcrumb";
-import AdvertiseGallery from "@/components/widgets/public/AdvertiseGallery";
-import AdvertiseContent from "@/components/widgets/public/AdvertiseContent";
-import RelativeAdvertises from "@/components/widgets/public/RelativeAdvertises";
-import AdvertiseSpecification from "@/components/widgets/public/AdvertiseSpecification";
-import AdvertiseAction from "@/components/widgets/public/AdvertiseAction";
+import Breadcrumb from "@/components/partials/Breadcrumb";
+import AdvertiseGallery from "@/components/widgets/public/advertise/AdvertiseGallery";
+import AdvertiseContent from "@/components/widgets/public/advertise/AdvertiseContent";
+import RelativeAdvertises from "@/components/widgets/public/advertise/RelativeAdvertises";
+import AdvertiseSpecification from "@/components/widgets/public/advertise/AdvertiseSpecification";
+import AdvertiseAction from "@/components/widgets/public/advertise/AdvertiseAction";
 
 const linkList = [
     {id: 1 , title: "خانه" , href: "/"},

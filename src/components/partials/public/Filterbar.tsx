@@ -4,8 +4,8 @@
 import {LuArrowDownWideNarrow, LuFilter, LuX} from "react-icons/lu";
 
 // components
-import FilterModal from "@/components/widgets/public/FilterModal";
-import SortModal from "@/components/widgets/public/SortModal";
+import FilterModal from "@/components/partials/public/FilterModal";
+import SortModal from "@/components/partials/public/SortModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";

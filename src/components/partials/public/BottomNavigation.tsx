@@ -5,8 +5,8 @@ import Link from "next/link";
 import {LuHome, LuLayers, LuPlus, LuUser} from "react-icons/lu";
 
 // components
-import CategoriesModal from "@/components/widgets/public/CategoriesModal";
-import AuthModal from "@/components/widgets/public/AuthModal";
+import CategoriesModal from "@/components/partials/public/CategoriesModal";
+import AuthModal from "@/components/partials/public/AuthModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";

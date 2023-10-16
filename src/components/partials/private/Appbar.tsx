@@ -5,12 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import {FiUser} from "react-icons/fi";
 
-// components
-import ProfileModal from "@/components/widgets/private/ProfileModal";
-
-// hooks
-import {useModal} from "@/hooks/useModal";
-
 const Logo = () => {
 
     return (
@@ -28,22 +22,13 @@ const Logo = () => {
 
 const Actions = () => {
 
-    const {isOpenModal: isOpenProfileModal, _handleHideModal: _handleHideProfileModal, _handleShowModal: _handleShowProfileModal} = useModal();
-
     return (
-        <>
-            <button
-                className='flex justify-center items-center text-gray p-2'
-                onClick={_handleShowProfileModal}
-            >
-                <FiUser size={20}/>
-            </button>
-
-            <ProfileModal
-                isOpenModal={isOpenProfileModal}
-                onCloseModal={_handleHideProfileModal}
-            />
-        </>
+        <Link
+            className='flex justify-center items-center text-gray p-2'
+            href="/account/profile"
+        >
+            <FiUser size={20}/>
+        </Link>
     )
 }
 

@@ -6,9 +6,9 @@ import Link from "next/link";
 import {LuUser , LuSearch , LuPlus , LuMapPin , LuLayers} from "react-icons/lu";
 
 // components
-import CitiesModal from "@/components/widgets/public/CitiesModal";
-import CategoriesModal from "@/components/widgets/public/CategoriesModal";
-import AuthModal from "@/components/widgets/public/AuthModal";
+import CitiesModal from "@/components/partials/public/CitiesModal";
+import CategoriesModal from "@/components/partials/public/CategoriesModal";
+import AuthModal from "@/components/partials/public/AuthModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";

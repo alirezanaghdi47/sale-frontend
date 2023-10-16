@@ -116,7 +116,7 @@ const Sidebar = () => {
 
     return (
         <aside
-            className="sticky top-0 right-0 z-20 hidden md:flex flex-col justify-between items-start w-[240px] h-full min-h-screen bg-light shadow-3xl p-4">
+            className="sticky top-0 right-0 z-20 hidden md:flex flex-col justify-between items-start w-[320px] h-full min-h-screen bg-light shadow-3xl p-4">
 
             <Logo/>
 

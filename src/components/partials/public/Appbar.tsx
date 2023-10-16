@@ -6,7 +6,7 @@ import Image from "next/image";
 import {FiMapPin, FiSearch} from "react-icons/fi";
 
 // components
-import CitiesModal from "@/components/widgets/public/CitiesModal";
+import CitiesModal from "@/components/partials/public/CitiesModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";

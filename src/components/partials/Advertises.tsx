@@ -1,7 +1,7 @@
 'use client';
 
 // components
-import AdvertiseCard from "@/components/widgets/AdvertiseCard";
+import AdvertiseCard from "@/components/partials/AdvertiseCard";
 
 const AdvertiseItem = ({advertiseItem}) => {
 

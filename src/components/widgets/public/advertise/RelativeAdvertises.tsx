@@ -5,7 +5,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination} from 'swiper/modules';
 
 // components
-import AdvertiseCard from "@/components/widgets/AdvertiseCard";
+import AdvertiseCard from "@/components/partials/AdvertiseCard";
 
 // styles
 import 'swiper/css';

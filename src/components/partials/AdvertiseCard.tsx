@@ -7,7 +7,7 @@ import Link from "next/link";
 const AdvertiseCard = () => {
 
     return (
-        <Link href="/car-benz/benz-2006">
+        <Link href="/advertises/car-benz/benz-2006">
 
             <article className="flex justify-start items-center gap-x-4 bg-light rounded-lg p-4">
 

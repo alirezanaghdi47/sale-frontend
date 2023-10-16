@@ -4,7 +4,7 @@
 import Dialog from "rc-dialog";
 import {useToggle} from "@react-hooks-library/core";
 import Checkbox from "rc-checkbox";
-import {LuCheck, LuX, LuPhone, LuRefreshCw, LuLayers} from "react-icons/lu";
+import {LuCheck, LuX, LuRefreshCw} from "react-icons/lu";
 
 // hooks
 import {useSegment} from "@/hooks/useSegment";
@@ -27,9 +27,6 @@ const FirstSegment = ({onNext , onCancel}) => {
                     htmlFor="phoneNumber-input"
                     className="flex justify-center items-center gap-x-2 w-full bg-secondary rounded-lg px-4 py-2"
                 >
-                      <span className="text-gray">
-                        <LuPhone size={20}/>
-                    </span>
                     <input
                         id="phoneNumber-input"
                         type="text"

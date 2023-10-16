@@ -1,7 +1,7 @@
 // components
-import Breadcrumb from "@/components/widgets/Breadcrumb";
-import Filterbar from "@/components/widgets/public/Filterbar";
-import Advertises from "@/components/widgets/public/Advertises";
+import Breadcrumb from "@/components/partials/Breadcrumb";
+import Filterbar from "@/components/partials/public/Filterbar";
+import Advertises from "@/components/partials/Advertises";
 
 const linkList = [
     {id: 1 , title: "خانه" , href: "/"},

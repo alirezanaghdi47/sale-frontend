@@ -1,12 +1,12 @@
 // components
 
-const FavoritePage = () => {
+const ChatsPage = () => {
 
     return (
         <main className="flex flex-col justify-start items-start gap-y-4 w-full p-4">
-            favorite page
+            chats page
         </main>
     );
 }
 
-export default FavoritePage;
+export default ChatsPage;
