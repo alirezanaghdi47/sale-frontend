@@ -1,10 +1,7 @@
 // components
-import Header from "@/components/partials/public/Header";
-import Footer from "@/components/partials/public/Footer";
-import Appbar from "@/components/partials/public/Appbar";
-import BottomNavigation from "@/components/partials/public/BottomNavigation";
+import {Header , Appbar , BottomNavigation , Footer} from "@/components/widgets/Public";
 
-const PublicLayout = (props) => {
+const HomeLayout = (props) => {
 
     return (
         <div className="relative flex flex-col justify-start items-start w-full max-w-[1200px] min-h-screen h-full py-[70px] md:pb-0">
@@ -23,5 +20,5 @@ const PublicLayout = (props) => {
     )
 }
 
-export default PublicLayout;
+export default HomeLayout;
 

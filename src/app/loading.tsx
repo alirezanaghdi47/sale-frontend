@@ -1,8 +1,22 @@
+"use client";
+
+// libraries
+import {BeatLoader} from "react-spinners";
+
 const Loading = () => {
 
     return (
-        <div>
-            loading
+        <div className="flex flex-col justify-center items-center gap-y-4 w-full p-4">
+
+            <BeatLoader
+                size={12}
+                color="#2563eb"
+            />
+
+            <h1 className="text-dark font-bold">
+                لطفا کمی صبر کنید
+            </h1>
+
         </div>
     )
 }

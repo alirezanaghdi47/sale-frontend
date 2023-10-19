@@ -5,7 +5,7 @@ import {useDropzone} from "react-dropzone";
 import {LuCamera} from "react-icons/lu";
 
 const AvatarInput = ({
-                         label,
+                         title,
                          name,
                          value,
                          preview,
@@ -33,25 +33,20 @@ const AvatarInput = ({
     return (
         <div
            className="flex flex-col justify-start items-start gap-y-2 w-full h-full"
-            onBlur={onBlur}
+            // onBlur={onBlur}
         >
 
             {
-                label && (
-                    <span className="font-bold text-gray text-sm"
-                        variant="subtitle2"
-                        color="textSecondary"
-                        fontWeight="bold"
-                        gutterBottom
-                    >
-                        {label}
+                title && (
+                    <span className="font-bold text-gray text-sm">
+                        {title}
                     </span>
                 )
             }
 
             <div
                 {...getRootProps()}
-                className="relative flex justify-center items-center w-[120px] h-[120px] bg-light rounded-lg p-4 overflow-hidden cursor-pointer"
+                className="relative flex justify-center items-center w-[120px] h-[120px] bg-secondary rounded-lg p-4 overflow-hidden cursor-pointer"
             >
 
                 <input
