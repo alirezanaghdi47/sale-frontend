@@ -1,0 +1,19 @@
+.szh-accordion{
+  @apply flex flex-col justify-center items-center gap-y-4 w-full #{!important};
+
+  &__item{
+    @apply w-full bg-light rounded-lg p-4 #{!important};
+
+    &-btn{
+      @apply flex justify-start items-center w-full #{!important};
+    }
+
+    &-heading{
+      @apply text-dark font-bold text-sm #{!important};
+    }
+
+    &-content{
+      @apply mt-2 #{!important};
+    }
+  }
+}

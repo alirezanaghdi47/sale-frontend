@@ -138,7 +138,11 @@ export const Favorites = () => {
 
             <List/>
 
-            <Pagination/>
+            <Pagination
+                currentPage={1}
+                pageCount={100}
+                pageSize={10}
+            />
 
         </div>
     )

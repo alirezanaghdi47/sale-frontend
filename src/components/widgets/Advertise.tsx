@@ -12,7 +12,10 @@ import AdvertiseCard from "@/components/partials/AdvertiseCard";
 // styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import "@/styles/libraries/react-swiper.scss";
+import "@/styles/libraries/swiper.scss";
+
+// utils
+import {copyToClipboard} from "@/utils/functions";
 
 const Gallery = () => {
 
@@ -143,7 +146,10 @@ const Summary = () => {
                         <LuBookmark size={20}/>
                     </button>
 
-                    <button className="text-gray p-2">
+                    <button
+                        className="text-gray p-2"
+                        onClick={() => copyToClipboard("link")}
+                    >
                         <LuShare2 size={20}/>
                     </button>
 

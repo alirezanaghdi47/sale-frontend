@@ -1,0 +1,5 @@
+.react-hot-toast{
+  div[role="status"]{
+    @apply text-sm font-bold text-dark #{!important};
+  }
+}

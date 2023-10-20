@@ -1,10 +1,10 @@
 "use client";
 
 // libraries
-import Collapse from "rc-collapse";
-import {LuArrowDownWideNarrow, LuCheck, LuChevronDown, LuFilter, LuX} from "react-icons/lu";
+import {LuArrowDownWideNarrow, LuCheck, LuFilter, LuX} from "react-icons/lu";
 
 // components
+import {Accordion , AccordionItem} from "@/components/modules/Accordion";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import Button from "@/components/modules/Button";
 import SortModal from "@/components/partials/SortModal";
@@ -14,14 +14,10 @@ import Pagination from "@/components/modules/Pagination";
 // hooks
 import {useModal} from "@/hooks/useModal";
 
-// styles
-import "rc-collapse/assets/index.css";
-import "@/styles/libraries/rc-collapse.scss";
-
 const Filters = () => {
 
     return (
-        <div className='hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px] bg-light rounded-lg p-4'>
+        <div className='hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
 
             <div className="flex justify-between items-center gap-x-4 w-full">
 
@@ -34,31 +30,32 @@ const Filters = () => {
 
             </div>
 
-            <Collapse expandIcon={() => <LuChevronDown size={20}/>}>
+            <Accordion>
 
-                <Collapse.Panel header="دسته بندی ها">
+                <AccordionItem
+                    header="دسته بندی ها"
+                    initialEntered
+                >
                     checkbox list
-                </Collapse.Panel>
+                </AccordionItem>
 
-                <Collapse.Panel header="قیمت">
+                <AccordionItem
+                    header="قیمت"
+                    initialEntered
+                >
                     range input
-                </Collapse.Panel>
+                </AccordionItem>
 
-                <Collapse.Panel header="وضعیت">
+                <AccordionItem
+                    header="وضعیت"
+                    initialEntered
+                >
                     switchbox list
-                </Collapse.Panel>
+                </AccordionItem>
 
-            </Collapse>
+            </Accordion>
 
             <div className="flex justify-end items-center gap-x-4 w-full">
-
-                <Button
-                    variant="text"
-                    color="red"
-                    startIcon={<LuX size={20}/>}
-                >
-                    حذف همه
-                </Button>
 
                 <Button
                     variant="contained"
@@ -221,7 +218,11 @@ export const Content = () => {
 
             <List/>
 
-            <Pagination/>
+            <Pagination
+                currentPage={1}
+                pageCount={100}
+                pageSize={10}
+            />
 
         </div>
     )

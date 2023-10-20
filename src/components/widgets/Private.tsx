@@ -3,9 +3,13 @@
 // libraries
 import Link from "next/link";
 import Image from "next/image";
-import {LuBookmark, LuChevronLeft, LuHome, LuLogOut, LuPieChart, LuScrollText, LuUser} from "react-icons/lu";
+import {usePathname} from "next/navigation";
+import {LuBookmark, LuChevronLeft, LuLogOut, LuPieChart, LuScrollText, LuUser} from "react-icons/lu";
+
+// components
 import Button from "@/components/modules/Button";
-import {usePathname, useRouter} from "next/navigation";
+
+// utils
 import {getTitleFromPathname} from "@/utils/functions";
 
 const Logo = () => {
@@ -50,6 +54,155 @@ const AppbarActions = () => {
     )
 }
 
+const BottomLinks = () => {
+
+    const pathname = usePathname();
+
+    return (
+        <ul className="grid grid-cols-12 gap-2 w-full">
+
+            <li className="col-span-3 flex justify-center items-center">
+                <Link
+                    href="/account/dashboard"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/dashboard" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuPieChart
+                        size={20}
+                        className="text-current"
+                    />
+                    داشبورد
+                </Link>
+            </li>
+
+            <li className="col-span-3 flex justify-center items-center">
+                <Link
+                    href="/account/my-advertises"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/my-advertises" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuScrollText
+                        size={20}
+                        className="text-current"
+                    />
+                    آگهی های من
+                </Link>
+            </li>
+
+            <li className="col-span-3 flex justify-center items-center">
+                <Link
+                    href="/account/favorites"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/favorites" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuBookmark
+                        size={20}
+                        className="text-current"
+                    />
+                    علاقه مندی ها
+                </Link>
+            </li>
+
+            <li className="col-span-3 flex justify-center items-center">
+                <Link
+                    href="/account/profile"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/profile" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuUser
+                        size={20}
+                        className="text-current"
+                    />
+                    پروفایل
+                </Link>
+            </li>
+
+        </ul>
+    )
+}
+
+const SidebarLinks = () => {
+
+    const pathname = usePathname();
+
+    return (
+        <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
+
+            <li className="flex justify-start items-center w-full">
+                <Link
+                    href="/account/dashboard"
+                    className={`flex justify-start items-center gap-x-2 ${pathname === "/account/dashboard" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuPieChart
+                        size={20}
+                        className="text-current"
+                    />
+                    داشبورد
+                </Link>
+            </li>
+
+            <li className="flex justify-start items-center w-full">
+                <Link
+                    href="/account/my-advertises"
+                    className={`flex justify-start items-center gap-x-2 ${pathname === "/account/my-advertises" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuScrollText
+                        size={20}
+                        className="text-current"
+                    />
+                    آگهی های من
+                </Link>
+            </li>
+
+            <li className="flex justify-start items-center w-full">
+                <Link
+                    href="/account/favorites"
+                    className={`flex justify-start items-center gap-x-2 ${pathname === "/account/favorites" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuBookmark
+                        size={20}
+                        className="text-current"
+                    />
+                    علاقه مندی ها
+                </Link>
+            </li>
+
+        </ul>
+    )
+}
+
+const SidebarActions = () => {
+
+    const pathname = usePathname();
+
+    return (
+        <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
+
+            <li className="flex justify-start items-center w-full">
+                <Link
+                    href="/account/profile"
+                    className={`flex justify-start items-center gap-x-2 ${pathname === "/account/profile" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuUser
+                        size={20}
+                        className="text-current"
+                    />
+                    علیرضا نقدی
+                </Link>
+            </li>
+
+            <li className="flex justify-start items-center w-full">
+                <button
+                    className="flex justify-start items-center gap-x-2 text-red text-sm font-bold whitespace-nowrap p-2"
+                >
+                    <LuLogOut
+                        size={20}
+                        className="text-current"
+                    />
+                    خروج
+                </button>
+            </li>
+
+        </ul>
+    )
+}
+
 export const Appbar = () => {
 
     return (
@@ -63,140 +216,6 @@ export const Appbar = () => {
             </div>
 
         </header>
-    )
-}
-
-const BottomLinks = () => {
-
-    return (
-        <ul className="grid grid-cols-12 gap-2 w-full">
-
-            <li className="col-span-3 flex justify-center items-center">
-                <Link
-                    href="/account/dashboard"
-                    className="flex flex-col justify-center items-center gap-y-2 text-gray text-sm font-bold whitespace-nowrap p-2"
-                >
-                   <span className="text-gray">
-                        <LuPieChart size={20}/>
-                    </span>
-                    داشبورد
-                </Link>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <Link
-                    href="/account/my-advertises"
-                    className="flex flex-col justify-center items-center gap-y-2 text-gray text-sm font-bold whitespace-nowrap p-2"
-                >
-                    <span className="text-gray">
-                        <LuScrollText size={20}/>
-                    </span>
-                    آگهی های من
-                </Link>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <Link
-                    href="/account/favorites"
-                    className="flex flex-col justify-center items-center gap-y-2 text-gray text-sm font-bold whitespace-nowrap p-2"
-                >
-                    <span className="text-gray">
-                        <LuBookmark size={20}/>
-                    </span>
-                    علاقه مندی ها
-                </Link>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <Link
-                    href="/account/profile"
-                    className="flex flex-col justify-center items-center gap-y-2 text-gray text-sm font-bold whitespace-nowrap p-2"
-                >
-                    <span className="text-gray">
-                        <LuUser size={20}/>
-                    </span>
-                    پروفایل
-                </Link>
-            </li>
-
-        </ul>
-    )
-}
-
-const SidebarLinks = () => {
-
-    return (
-        <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
-
-            <li className="flex justify-start items-center w-full">
-                <Link
-                    href={`/account/dashboard`}
-                    className="flex justify-start items-center gap-x-2 text-gray text-sm font-bold whitespace-nowrap p-2"
-                >
-                    <span className="text-gray">
-                        <LuPieChart size={20}/>
-                    </span>
-                    داشبورد
-                </Link>
-            </li>
-
-            <li className="flex justify-start items-center w-full">
-                <Link
-                    href={`/account/my-advertises`}
-                    className="flex justify-start items-center gap-x-2 text-gray text-sm font-bold whitespace-nowrap p-2"
-                >
-                    <span className="text-gray">
-                        <LuScrollText size={20}/>
-                    </span>
-                    آگهی های من
-                </Link>
-            </li>
-
-            <li className="flex justify-start items-center w-full">
-                <Link
-                    href={`/account/favorites`}
-                    className="flex justify-start items-center gap-x-2 text-gray text-sm font-bold whitespace-nowrap p-2"
-                >
-                    <span className="text-gray">
-                        <LuBookmark size={20}/>
-                    </span>
-                    علاقه مندی ها
-                </Link>
-            </li>
-
-        </ul>
-    )
-}
-
-const SidebarActions = () => {
-
-    return (
-        <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
-
-            <li className="flex justify-start items-center w-full">
-                <Link
-                    href={`/account/profile`}
-                    className="flex justify-start items-center gap-x-2 text-gray text-sm font-bold whitespace-nowrap p-2"
-                >
-                    <span className="text-gray">
-                        <LuUser size={20}/>
-                    </span>
-                    علیرضا نقدی
-                </Link>
-            </li>
-
-            <li className="flex justify-start items-center w-full">
-                <button
-                    className="flex justify-start items-center gap-x-2 text-red text-sm font-bold whitespace-nowrap p-2"
-                >
-                    <span className="text-red">
-                        <LuLogOut size={20}/>
-                    </span>
-                    خروج
-                </button>
-            </li>
-
-        </ul>
     )
 }
 

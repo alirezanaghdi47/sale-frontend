@@ -1,5 +1,8 @@
+// helpers
+import notification from "@/helpers/notification";
+
 export const getTitleFromPathname = (pathname) => {
-    switch (pathname){
+    switch (pathname) {
         case "/account/dashboard":
             return "داشبورد"
         case "/account/my-advertises":
@@ -9,4 +12,10 @@ export const getTitleFromPathname = (pathname) => {
         case "/account/profile":
             return "پروفایل"
     }
+}
+
+export const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text)
+        .then(res => notification("کپی شد" , "success"))
+        .catch(err => notification("کپی نشد" , "error"));
 }

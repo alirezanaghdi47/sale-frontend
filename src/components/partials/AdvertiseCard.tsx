@@ -3,10 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import {LuPencil, LuShare2, LuTrash2} from "react-icons/lu";
 
-const AdvertiseCard = ({advertise , toolbar}) => {
+const AdvertiseCard = ({advertise , toolbar , disabled}) => {
 
     return (
-        <article className="flex justify-start items-center gap-x-4 bg-light rounded-lg p-4">
+        <article className="relative flex justify-start items-center gap-x-4 bg-light rounded-lg p-4">
+
+            {
+                disabled && (
+                    <div className="absolute top-0 left-0 z-10 flex justify-center items-center w-full h-full bg-light/90 rounded-lg">
+                        <span className="bg-secondary text-gray font-bold rounded-lg px-4 py-2">
+                            {disabled?.message}
+                        </span>
+                    </div>
+                )
+            }
 
             <Link
                 className="flex justify-center items-center"

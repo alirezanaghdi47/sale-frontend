@@ -3,14 +3,28 @@
 // libraries
 import Image from "next/image";
 import Link from "next/link";
-import {LuBookmark, LuHome, LuPlus, LuScrollText, LuUser, LuSearch, LuCopyright, LuMapPin} from "react-icons/lu";
+import {usePathname} from "next/navigation";
+import {
+    LuHome,
+    LuPlus,
+    LuScrollText,
+    LuUser,
+    LuSearch,
+    LuCopyright,
+    LuMapPin,
+    LuPieChart,
+    LuBookmark
+} from "react-icons/lu";
 import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
 // components
+import {DropdownMenu , DropdownMenuItem} from "@/components/modules/DropdownMenu";
 import TextInput from "@/components/modules/TextInput";
 import Button from "@/components/modules/Button";
-import {useModal} from "@/hooks/useModal";
 import CitiesModal from "@/components/partials/CitiesModal";
+
+// hooks
+import {useModal} from "@/hooks/useModal";
 
 const Logo = () => {
 
@@ -85,29 +99,33 @@ export const Appbar = () => {
 
 const BottomLinks = () => {
 
+    const pathname = usePathname();
+
     return (
         <ul className="grid grid-cols-12 gap-2 w-full">
 
             <li className="col-span-3 flex justify-center items-center">
                 <Link
                     href="/"
-                    className="flex flex-col justify-center items-center gap-y-2 text-gray text-sm font-bold whitespace-nowrap p-2"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
                 >
-                    <span className="text-gray">
-                        <LuHome size={20}/>
-                    </span>
+                    <LuHome
+                        size={20}
+                        className="text-current"
+                    />
                     خانه
                 </Link>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
                 <Link
-                    href="/src/components/widgets/Advertises"
-                    className="flex flex-col justify-center items-center gap-y-2 text-gray text-sm font-bold whitespace-nowrap p-2"
+                    href="/advertises"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/advertises" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
                 >
-                    <span className="text-gray">
-                        <LuScrollText size={20}/>
-                    </span>
+                    <LuScrollText
+                        size={20}
+                        className="text-current"
+                    />
                     آگهی ها
                 </Link>
             </li>
@@ -115,11 +133,12 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <Link
                     href="/account/my-advertises/add"
-                    className="flex flex-col justify-center items-center gap-y-2 text-gray text-sm font-bold whitespace-nowrap p-2"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/my-advertises/add" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
                 >
-                   <span className="text-gray">
-                        <LuPlus size={20}/>
-                    </span>
+                    <LuPlus
+                        size={20}
+                        className="text-current"
+                    />
                     افزودن آگهی
                 </Link>
             </li>
@@ -127,11 +146,12 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <Link
                     href="/account/profile"
-                    className="flex flex-col justify-center items-center gap-y-2 text-gray text-sm font-bold whitespace-nowrap p-2"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/profile" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
                 >
-                    <span className="text-gray">
-                        <LuUser size={20}/>
-                    </span>
+                    <LuUser
+                        size={20}
+                        className="text-current"
+                    />
                     پروفایل
                 </Link>
             </li>
@@ -199,32 +219,57 @@ const HeaderActions = () => {
 const HeaderLinks = () => {
 
     return (
-        <ul className="flex justify-start items-center gap-x-4">
+        <div className="flex justify-start items-center gap-x-4">
 
-            <li className="flex justify-center items-center">
-                <button
-                    className="flex justify-center items-center gap-x-2 text-gray text-sm font-bold whitespace-nowrap px-4 py-2"
-                >
-                        <span className="text-gray">
-                            <LuUser size={20}/>
-                        </span>
+            <DropdownMenu
+                menuButton={
+                    <button
+                        className="flex justify-center items-center gap-x-2 text-gray text-sm font-bold whitespace-nowrap px-4 py-2"
+                    >
+                        <Image
+                            src="/assets/images/avatar.jpg"
+                            alt="logo"
+                            width={24}
+                            height={24}
+                            className="rounded-full object-cover object-center"
+                        />
+                        علیرضا نقدی
+                    </button>
+                }
+                arrow
+                align="start"
+                direction="bottom"
+            >
+                <DropdownMenuItem href="/account/dashboard">
+                    <LuPieChart size={20}/>
+                    داشبورد
+                </DropdownMenuItem>
+                <DropdownMenuItem href="/account/my-advertises">
+                    <LuScrollText size={20}/>
+                    آگهی های من
+                </DropdownMenuItem>
+                <DropdownMenuItem href="/account/favorites">
+                    <LuBookmark size={20}/>
+                    علاقه مندی ها
+                </DropdownMenuItem>
+                <DropdownMenuItem href="/account/profile">
+                    <LuUser size={20}/>
                     پروفایل
-                </button>
-            </li>
+                </DropdownMenuItem>
+            </DropdownMenu>
 
-            <li className="flex justify-center items-center">
-                <Link
-                    href="/account/my-advertises/add"
-                    className="flex justify-center items-center gap-x-2 bg-blue text-light text-sm font-bold whitespace-nowrap rounded-lg px-4 py-2"
-                >
-                         <span className="text-light">
-                            <LuPlus size={20}/>
-                        </span>
-                    افزودن آگهی
-                </Link>
-            </li>
+            <Link
+                href="/account/my-advertises/add"
+                className="flex justify-center items-center gap-x-2 bg-blue text-light text-sm font-bold whitespace-nowrap rounded-lg px-4 py-2"
+            >
+                <LuPlus
+                    size={20}
+                    className="text-current"
+                />
+                افزودن آگهی
+            </Link>
 
-        </ul>
+        </div>
     )
 }
 
@@ -274,9 +319,10 @@ const CopyRight = () => {
     return (
         <div className="order-3 md:order-2 flex justify-center items-center">
             <p className="flex justify-center items-center gap-x-2 text-sm text-gray p-2">
-                <span className="text-gray">
-                    <LuCopyright size={16}/>
-                </span>
+                <LuCopyright
+                    size={16}
+                    className="text-current"
+                />
                 1402-1403
             </p>
         </div>
@@ -290,25 +336,37 @@ const SocialMedias = () => {
 
             <li className="p-2">
                 <Link href="/" className='text-gray'>
-                    <BsTelegram size={20}/>
+                    <BsTelegram
+                        size={20}
+                        className="text-current"
+                    />
                 </Link>
             </li>
 
             <li className="p-2">
                 <Link href="/" className='text-gray'>
-                    <BsWhatsapp size={20}/>
+                    <BsWhatsapp
+                        size={20}
+                        className="text-current"
+                    />
                 </Link>
             </li>
 
             <li className="p-2">
                 <Link href="/" className='text-gray'>
-                    <BsInstagram size={20}/>
+                    <BsInstagram
+                        size={20}
+                        className="text-current"
+                    />
                 </Link>
             </li>
 
             <li className="p-2">
                 <Link href="/" className='text-gray'>
-                    <BsTwitter size={20}/>
+                    <BsTwitter
+                        size={20}
+                        className="text-current"
+                    />
                 </Link>
             </li>
 

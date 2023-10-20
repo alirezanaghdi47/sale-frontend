@@ -1,11 +1,13 @@
 // libraries
 import NextTopLoader from "nextjs-toploader";
+import {Toaster} from "react-hot-toast";
 
 // helpers
 import {vazirmatn} from "@/helpers/fonts";
 
 // styles
 import '@/styles/globals.scss';
+import "@/styles/libraries/react-hot-toast.scss";
 
 const RootLayout = (props) => {
 
@@ -23,9 +25,19 @@ const RootLayout = (props) => {
             easing="ease"
             speed={200}
             showSpinner={false}
-            shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+            shadow="none"
             template='<div class="bar" role="bar"><div class="peg"></div></div>'
             zIndex={1600}
+        />
+
+        <Toaster
+            position="bottom-left"
+            reverseOrder={false}
+            gutter={8}
+            toastOptions={{
+                className: "react-hot-toast",
+                duration: 3000,
+            }}
         />
 
         {props.children}

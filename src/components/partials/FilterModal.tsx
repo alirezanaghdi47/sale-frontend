@@ -1,72 +1,60 @@
 'use client';
 
 // libraries
-import Dialog from "rc-dialog";
+import Modal from "react-modal";
 import {LuCheck, LuX} from "react-icons/lu";
 
-const FilterModal = ({isOpenModal , onCloseModal}) => {
+const FilterModal = ({isOpenModal, onCloseModal}) => {
 
     return (
-        <Dialog
-            visible={isOpenModal}
-            onClose={onCloseModal}
-            mask={false}
+        <Modal
+            isOpen={isOpenModal}
+            onRequestClose={onCloseModal}
+            ariaHideApp={false}
+            className="flex flex-col justify-start items-center gap-y-4 w-full h-full md:max-w-md md:h-max bg-light md:rounded-lg p-4"
+            overlayClassName="fixed top-0 left-0 z-30 flex justify-start items-start md:justify-center md:items-center w-full h-full bg-gray/75 md:p-4"
         >
 
-            <div
-                className="fixed top-0 left-0 z-30 flex justify-start items-start md:justify-center md:items-center w-full h-full bg-gray/75 md:p-4"
-                onClick={onCloseModal}
-            >
+            <div className="flex justify-between items-center w-full gap-x-4">
 
-                <div
-                    className="flex flex-col justify-start items-center gap-y-4 w-full h-full md:max-w-md md:h-max bg-light md:rounded-lg p-4"
-                    onClick={(e) => e.stopPropagation()}
+                <h3 className="text-dark font-bold">
+                    فیلتر
+                </h3>
+
+                <button
+                    className='text-red p-2'
+                    onClick={onCloseModal}
                 >
-
-                    <div className="flex justify-between items-center w-full gap-x-4">
-
-                        <h3 className="text-dark font-bold">
-                            فیلتر
-                        </h3>
-
-                        <button
-                            className='text-red p-2'
-                            onClick={onCloseModal}
-                        >
-                            <LuX size={20}/>
-                        </button>
-
-                    </div>
-
-                    <div className="flex justify-end items-center gap-x-2 w-full mt-auto">
-
-                        <button
-                            className='flex justify-center items-center gap-x-2 text-gray text-sm font-bold px-4 py-2'
-                            onClick={onCloseModal}
-                        >
-                            <span className="text-gray">
-                                <LuX size={20}/>
-                            </span>
-                            انصراف
-                        </button>
-
-                        <button
-                            className='flex justify-center items-center gap-x-2 bg-blue text-light text-sm font-bold rounded-lg px-4 py-2'
-                            onClick={onCloseModal}
-                        >
-                           <span className="text-gray">
-                                <LuCheck size={20}/>
-                            </span>
-                            ثبت
-                        </button>
-
-                    </div>
-
-                </div>
+                    <LuX size={20}/>
+                </button>
 
             </div>
 
-        </Dialog>
+            <div className="flex justify-end items-center gap-x-2 w-full mt-auto">
+
+                <button
+                    className='flex justify-center items-center gap-x-2 text-gray text-sm font-bold px-4 py-2'
+                    onClick={onCloseModal}
+                >
+                            <span className="text-gray">
+                                <LuX size={20}/>
+                            </span>
+                    انصراف
+                </button>
+
+                <button
+                    className='flex justify-center items-center gap-x-2 bg-blue text-light text-sm font-bold rounded-lg px-4 py-2'
+                    onClick={onCloseModal}
+                >
+                           <span className="text-gray">
+                                <LuCheck size={20}/>
+                            </span>
+                    ثبت
+                </button>
+
+            </div>
+
+        </Modal>
     )
 }
 

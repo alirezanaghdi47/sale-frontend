@@ -1,16 +1,19 @@
 "use client";
 
 // libraries
+import {createColumnHelper} from "@tanstack/table-core";
 import {useFormik} from "formik";
 import {LuCheck} from "react-icons/lu";
 
 // components
+import Table from "@/components/modules/Table";
 import AvatarInput from "@/components/modules/AvatarInput";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import SelectInput from "@/components/modules/SelectInput";
 import DatePicker from "@/components/modules/DatePicker";
 import Button from "@/components/modules/Button";
+import {sessionsTableData} from "@/utils/constants";
 
 const Form = () => {
 
@@ -139,6 +142,66 @@ const Form = () => {
 
 const Sessions = () => {
 
+    const columnHelper = createColumnHelper();
+    const tableColumns = [
+        columnHelper.accessor(row => row.number, {
+            id: '#',
+            header: () => (
+                <span className="text-sm font-bold text-light line-clamp-1">
+                    #
+                </span>
+            ),
+            cell: info => (
+                <span className="text-sm text-gray line-clamp-1">
+                    {info.getValue()}
+                </span>
+            ),
+            width: 50,
+        }),
+        columnHelper.accessor(row => row.ip, {
+            id: 'ip',
+            header: () => (
+                <span className="text-sm font-bold text-light line-clamp-1">
+                    آی پی
+                </span>
+            ),
+            cell: info => (
+                <span className="text-sm text-gray line-clamp-1">
+                    {info.getValue()}
+                </span>
+            ),
+            width: 200,
+        }),
+        columnHelper.accessor(row => row.country, {
+            id: 'country',
+            header: () => (
+                <span className="text-sm font-bold text-light line-clamp-1">
+                    کشور
+                </span>
+            ),
+            cell: info => (
+                <span className="text-sm text-gray line-clamp-1">
+                    {info.getValue()}
+                </span>
+            ),
+            width: 100,
+        }),
+        columnHelper.accessor(row => row.createDate, {
+            id: 'createDate',
+            header: () => (
+                <span className="text-sm font-bold text-light line-clamp-1">
+                    زمان ورود
+                </span>
+            ),
+            cell: info => (
+                <span className="text-sm text-gray line-clamp-1">
+                    {info.getValue()}
+                </span>
+            ),
+            width: 150,
+        }),
+    ];
+
     return (
         <section className='flex flex-col justify-center items-start gap-y-2 w-full'>
 
@@ -146,9 +209,12 @@ const Sessions = () => {
                 تاریخچه ورود
             </h1>
 
-            <div className='flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4'>
+            <div className='flex flex-col justify-start items-start gap-y-4 w-full bg-light rounded-lg p-4'>
 
-                sessions
+                <Table
+                    data={sessionsTableData}
+                    columns={tableColumns}
+                />
 
             </div>
 

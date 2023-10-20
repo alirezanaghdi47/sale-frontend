@@ -116,6 +116,9 @@ const List = () => {
                                     edit: true,
                                     delete: true
                                 }}
+                                disabled={{
+                                    message: "فروخته شد"
+                                }}
                             />
                         </li>
                     )
@@ -138,7 +141,11 @@ export const MyAdvertises = () => {
 
             <List/>
 
-            <Pagination/>
+            <Pagination
+                currentPage={1}
+                pageCount={100}
+                pageSize={10}
+            />
 
         </div>
     )
