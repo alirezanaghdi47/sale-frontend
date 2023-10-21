@@ -13,7 +13,11 @@
     }
 
     &-content{
-      @apply mt-2 #{!important};
+      @apply mt-4 #{!important};
+    }
+
+    &-panel{
+      @apply flex flex-col justify-center items-center gap-y-4 w-full #{!important};
     }
   }
 }

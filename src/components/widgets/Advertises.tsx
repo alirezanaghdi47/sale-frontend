@@ -1,11 +1,13 @@
 "use client";
 
 // libraries
-import {LuArrowDownWideNarrow, LuCheck, LuFilter, LuX} from "react-icons/lu";
+import {useState} from "react";
+import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
 
 // components
-import {Accordion , AccordionItem} from "@/components/modules/Accordion";
+import {Accordion, AccordionItem} from "@/components/modules/Accordion";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
+import RangeInput from "@/components/modules/RangeInput";
 import Button from "@/components/modules/Button";
 import SortModal from "@/components/partials/SortModal";
 import FilterModal from "@/components/partials/FilterModal";
@@ -15,6 +17,8 @@ import Pagination from "@/components/modules/Pagination";
 import {useModal} from "@/hooks/useModal";
 
 const Filters = () => {
+
+    const [values, setValues] = useState([20, 40]);
 
     return (
         <div className='hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
@@ -43,7 +47,21 @@ const Filters = () => {
                     header="قیمت"
                     initialEntered
                 >
-                    range input
+
+                    <RangeInput
+                        min={0}
+                        max={10_000_000}
+                        step={1000}
+                        rtl
+                        values={values}
+                        onChange={setValues}
+                    />
+
+                    <div className="flex justify-between items-center gap-x-4 w-full">
+                        <span className="text-xs text-gray"> {values[0]} تومان</span>
+                        <span className="text-xs text-gray"> {values[1]} تومان</span>
+                    </div>
+
                 </AccordionItem>
 
                 <AccordionItem
@@ -188,7 +206,7 @@ const List = () => {
             <ul className="grid grid-cols-12 gap-4 w-full">
 
                 {
-                    Array(5).fill("").map((advertiseItem , index) =>
+                    Array(5).fill("").map((advertiseItem, index) =>
                         <li
                             className="col-span-12 lg:col-span-6"
                             key={index}

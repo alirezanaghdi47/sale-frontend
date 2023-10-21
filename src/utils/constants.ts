@@ -14,7 +14,6 @@ export const sessionsTableData = [
     {id: "10",number: 10, ip: "250.34.200.120", country: "ایران", createDate: "12:12 | 1411/11/11"},
 ];
 
-
 export const cityList = [
     {id: "1", title: "تهران", value: "tehran"},
     {id: "2", title: "مشهد", value: "mashhad"},
@@ -37,4 +36,9 @@ export const categoryList = [
     {id: "6", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
     {id: "7", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
     {id: "8", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
+];
+
+export const genderList = [
+    {id: "1" , label: "مرد" , value: "man"},
+    {id: "2" , label: "زن" , value: "female"},
 ];

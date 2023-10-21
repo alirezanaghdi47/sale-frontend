@@ -13,7 +13,7 @@ import {
     LuCopyright,
     LuMapPin,
     LuPieChart,
-    LuBookmark
+    LuBookmark, LuLogOut
 } from "react-icons/lu";
 import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
@@ -255,6 +255,10 @@ const HeaderLinks = () => {
                 <DropdownMenuItem href="/account/profile">
                     <LuUser size={20}/>
                     پروفایل
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                    <LuLogOut size={20}/>
+                    خروج
                 </DropdownMenuItem>
             </DropdownMenu>
 

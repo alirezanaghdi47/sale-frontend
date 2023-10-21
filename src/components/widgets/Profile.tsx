@@ -13,7 +13,9 @@ import NumberInput from "@/components/modules/NumberInput";
 import SelectInput from "@/components/modules/SelectInput";
 import DatePicker from "@/components/modules/DatePicker";
 import Button from "@/components/modules/Button";
-import {sessionsTableData} from "@/utils/constants";
+
+// utils
+import {sessionsTableData , genderList} from "@/utils/constants";
 
 const Form = () => {
 
@@ -24,6 +26,7 @@ const Form = () => {
             family: "",
             code: "",
             phoneNumber: "",
+            gender: "",
             birthDay: "",
         },
         // validationSchema: ,
@@ -110,7 +113,15 @@ const Form = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
 
-                        <SelectInput/>
+                        <SelectInput
+                            title="جنسیت"
+                            name="gender"
+                            options={genderList}
+                            value={formik.values.gender}
+                            onChange={formik.handleChange}
+                            error={formik.errors.gender}
+                            touched={formik.touched.gender}
+                        />
 
                     </li>
 

@@ -1,0 +1,14 @@
+.react-range{
+
+  &__container{
+    @apply flex w-full h-full #{!important};
+  }
+
+  &__track{
+    @apply flex items-start w-full h-2 rounded-lg #{!important};
+  }
+
+  &__thumb{
+    @apply w-4 h-4 bg-light border-2 border-solid border-blue rounded-full shadow-3xl #{!important};
+  }
+}

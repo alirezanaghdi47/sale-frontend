@@ -1,4 +1,5 @@
 // libraries
+import Select from "react-select/base";
 
 const SelectInput = () => {
 
