@@ -1,8 +1,8 @@
 "use client";
 
 // libraries
-import {useState} from "react";
 import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
+import {useFormik} from "formik";
 
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
@@ -12,13 +12,25 @@ import Button from "@/components/modules/Button";
 import SortModal from "@/components/partials/SortModal";
 import FilterModal from "@/components/partials/FilterModal";
 import Pagination from "@/components/modules/Pagination";
+import SwitchBox from "@/components/modules/SwitchBox";
+import CheckBox from "@/components/modules/CheckBox";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
 
 const Filters = () => {
 
-    const [values, setValues] = useState([20, 40]);
+    const formik = useFormik({
+        initialValues:{
+            prices: [1_000,1_000_000],
+            hasImage: false,
+            categories: []
+        },
+        // validationSchema: ,
+        onSubmit: async (data) => {
+            console.log(data)
+        }
+    })
 
     return (
         <div className='hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
@@ -40,7 +52,21 @@ const Filters = () => {
                     header="دسته بندی ها"
                     initialEntered
                 >
-                    checkbox list
+
+                    <CheckBox
+                        title="موبایل"
+                        name="categories"
+                        value={formik.values.categories}
+                        onChange={(value) => formik.setFieldValue("categories" , value)}
+                    />
+
+                    <CheckBox
+                        title="لپتاپ"
+                        name="categories"
+                        value={formik.values.categories}
+                        onChange={(value) => formik.setFieldValue("categories" , value)}
+                    />
+
                 </AccordionItem>
 
                 <AccordionItem
@@ -53,13 +79,13 @@ const Filters = () => {
                         max={10_000_000}
                         step={1000}
                         rtl
-                        values={values}
-                        onChange={setValues}
+                        values={formik.values.prices}
+                        onChange={(values) => formik.setFieldValue("prices" , values)}
                     />
 
                     <div className="flex justify-between items-center gap-x-4 w-full">
-                        <span className="text-xs text-gray"> {values[0]} تومان</span>
-                        <span className="text-xs text-gray"> {values[1]} تومان</span>
+                        <span className="text-xs text-gray"> {formik.values.prices[0]} تومان</span>
+                        <span className="text-xs text-gray"> {formik.values.prices[1]} تومان</span>
                     </div>
 
                 </AccordionItem>
@@ -68,7 +94,14 @@ const Filters = () => {
                     header="وضعیت"
                     initialEntered
                 >
-                    switchbox list
+
+                    <SwitchBox
+                        title="عکس دار"
+                        name="hasImage"
+                        value={formik.values.hasImage}
+                        onChange={(value) => formik.setFieldValue("hasImage" , value)}
+                    />
+
                 </AccordionItem>
 
             </Accordion>

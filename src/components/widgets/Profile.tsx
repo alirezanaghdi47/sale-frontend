@@ -90,6 +90,10 @@ const Form = () => {
                         <NumberInput
                             title="کد ملی"
                             name="code"
+                            options={{
+                                delimiter: '-',
+                                blocks: [3, 6, 1],
+                            }}
                             value={formik.values.code}
                             onChange={formik.handleChange}
                             error={formik.errors.code}
@@ -103,6 +107,10 @@ const Form = () => {
                         <NumberInput
                             title="شماره موبایل"
                             name="phoneNumber"
+                            options={{
+                                delimiter: ' ',
+                                blocks: [4, 3, 4],
+                            }}
                             value={formik.values.phoneNumber}
                             onChange={formik.handleChange}
                             error={formik.errors.phoneNumber}

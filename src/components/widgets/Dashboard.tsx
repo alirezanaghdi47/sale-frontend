@@ -1,8 +1,10 @@
 "use client";
 
 // libraries
+// import dynamic from "next/dynamic";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation} from 'swiper/modules';
+// const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 // components
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
@@ -19,19 +21,42 @@ const ActivityCharts = () => {
 
             <ul className='grid grid-cols-12 justify-start items-center gap-4 w-full'>
 
-                <li className="col-span-12 sm:col-span-5 lg:col-span-4 flex flex-col juitems-start items-start gap-y-2">
+                <li className="col-span-12 flex flex-col juitems-start items-start gap-y-2">
 
                     <h1 className="text-dark font-bold ">
                         میزان درآمد به مخارج
                     </h1>
 
                     <div className="flex justify-center items-center w-full bg-light rounded-lg p-4">
-                        donout chart
+
+                        donut chart
+
+                        {/*<Chart*/}
+                        {/*    type="donut"*/}
+                        {/*    options={{*/}
+                        {/*        chart: {*/}
+                        {/*            type: 'donut',*/}
+                        {/*        },*/}
+                        {/*        responsive: [{*/}
+                        {/*            breakpoint: 320,*/}
+                        {/*            options: {*/}
+                        {/*                chart: {*/}
+                        {/*                    width: 200*/}
+                        {/*                },*/}
+                        {/*                legend: {*/}
+                        {/*                    position: 'bottom'*/}
+                        {/*                }*/}
+                        {/*            }*/}
+                        {/*        }]*/}
+                        {/*    }}*/}
+                        {/*    series={[44, 55, 41, 17, 15]}*/}
+                        {/*/>*/}
+
                     </div>
 
                 </li>
 
-                <li className="col-span-12 sm:col-span-7 lg:col-span-8 flex flex-col juitems-start items-start gap-y-2">
+                <li className="col-span-12 flex flex-col juitems-start items-start gap-y-2">
 
                     <h1 className="text-dark font-bold ">
                         تاریخچه عملکردی

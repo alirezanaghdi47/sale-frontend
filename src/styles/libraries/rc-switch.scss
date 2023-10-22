@@ -1,0 +1,15 @@
+.rc-switch{
+  @apply w-[40px] h-[20px] bg-secondary border border-solid border-secondary shadow-none focus:outline-none #{!important};
+
+  &:after{
+    @apply w-[16px] h-[16px] transform-none #{!important};
+  }
+
+  &-checked{
+    @apply bg-blue border-blue #{!important};
+
+    &:after{
+      @apply left-[20px] #{!important};
+    }
+  }
+}
