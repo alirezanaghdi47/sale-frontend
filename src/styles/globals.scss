@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply select-none #{!important};
+::-webkit-scrollbar {
+  @apply w-2 #{!important};
 }
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary rounded-lg #{!important};
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-gray/75 rounded-lg #{!important};
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray #{!important};
+}
+
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }

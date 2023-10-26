@@ -1,26 +1,24 @@
 "use client";
 
 // libraries
-import {createColumnHelper} from "@tanstack/table-core";
 import {useFormik} from "formik";
 import {LuCheck} from "react-icons/lu";
 
 // components
-import Table from "@/components/modules/Table";
 import AvatarInput from "@/components/modules/AvatarInput";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
-import SelectInput from "@/components/modules/SelectInput";
+import SelectBox from "@/components/modules/SelectBox";
 import DatePicker from "@/components/modules/DatePicker";
 import Button from "@/components/modules/Button";
 
 // utils
-import {sessionsTableData , genderList} from "@/utils/constants";
+import {genderList} from "@/utils/constants";
 
 const Form = () => {
 
     const formik = useFormik({
-        initialValues:{
+        initialValues: {
             avatar: null,
             name: "",
             family: "",
@@ -30,9 +28,9 @@ const Form = () => {
             birthDay: "",
         },
         // validationSchema: ,
-       onSubmit: async (data) => {
-           console.log(data)
-       }
+        onSubmit: async (data) => {
+            console.log(data)
+        }
     });
 
     return (
@@ -121,21 +119,28 @@ const Form = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
 
-                        <SelectInput
+                        <SelectBox
                             title="جنسیت"
                             name="gender"
+                            placeholder=""
+                            isSearchable={false}
                             options={genderList}
                             value={formik.values.gender}
-                            onChange={formik.handleChange}
-                            error={formik.errors.gender}
-                            touched={formik.touched.gender}
+                            onChange={(value) => formik.setFieldValue("gender", value)}
+                            // error={formik.errors.gender}
+                            // touched={formik.touched.gender}
                         />
 
                     </li>
 
                     <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
 
-                        <DatePicker/>
+                        <DatePicker
+                            title="تاریخ تولد"
+                            name="birthDay"
+                            value={formik.values.birthDay}
+                            onChange={(value) => formik.setFieldValue("birthDay" , value)}
+                        />
 
                     </li>
 
@@ -159,96 +164,12 @@ const Form = () => {
     )
 }
 
-const Sessions = () => {
-
-    const columnHelper = createColumnHelper();
-    const tableColumns = [
-        columnHelper.accessor(row => row.number, {
-            id: '#',
-            header: () => (
-                <span className="text-sm font-bold text-light line-clamp-1">
-                    #
-                </span>
-            ),
-            cell: info => (
-                <span className="text-sm text-gray line-clamp-1">
-                    {info.getValue()}
-                </span>
-            ),
-            width: 50,
-        }),
-        columnHelper.accessor(row => row.ip, {
-            id: 'ip',
-            header: () => (
-                <span className="text-sm font-bold text-light line-clamp-1">
-                    آی پی
-                </span>
-            ),
-            cell: info => (
-                <span className="text-sm text-gray line-clamp-1">
-                    {info.getValue()}
-                </span>
-            ),
-            width: 200,
-        }),
-        columnHelper.accessor(row => row.country, {
-            id: 'country',
-            header: () => (
-                <span className="text-sm font-bold text-light line-clamp-1">
-                    کشور
-                </span>
-            ),
-            cell: info => (
-                <span className="text-sm text-gray line-clamp-1">
-                    {info.getValue()}
-                </span>
-            ),
-            width: 100,
-        }),
-        columnHelper.accessor(row => row.createDate, {
-            id: 'createDate',
-            header: () => (
-                <span className="text-sm font-bold text-light line-clamp-1">
-                    زمان ورود
-                </span>
-            ),
-            cell: info => (
-                <span className="text-sm text-gray line-clamp-1">
-                    {info.getValue()}
-                </span>
-            ),
-            width: 150,
-        }),
-    ];
-
-    return (
-        <section className='flex flex-col justify-center items-start gap-y-2 w-full'>
-
-            <h1 className="text-dark font-bold text-base">
-                تاریخچه ورود
-            </h1>
-
-            <div className='flex flex-col justify-start items-start gap-y-4 w-full bg-light rounded-lg p-4'>
-
-                <Table
-                    data={sessionsTableData}
-                    columns={tableColumns}
-                />
-
-            </div>
-
-        </section>
-    )
-}
-
 export const Profile = () => {
 
-    return(
+    return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
 
             <Form/>
-
-            <Sessions/>
 
         </div>
     )

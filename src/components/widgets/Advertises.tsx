@@ -7,16 +7,16 @@ import {useFormik} from "formik";
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-import RangeInput from "@/components/modules/RangeInput";
+import RangeSlider from "@/components/modules/RangeSlider";
 import Button from "@/components/modules/Button";
 import SortModal from "@/components/partials/SortModal";
 import FilterModal from "@/components/partials/FilterModal";
 import Pagination from "@/components/modules/Pagination";
-import SwitchBox from "@/components/modules/SwitchBox";
 import CheckBox from "@/components/modules/CheckBox";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
+import Breadcrumb from "@/components/modules/Breadcrumb";
 
 const Filters = () => {
 
@@ -30,7 +30,7 @@ const Filters = () => {
         onSubmit: async (data) => {
             console.log(data)
         }
-    })
+    });
 
     return (
         <div className='hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
@@ -56,15 +56,15 @@ const Filters = () => {
                     <CheckBox
                         title="موبایل"
                         name="categories"
-                        value={formik.values.categories}
-                        onChange={(value) => formik.setFieldValue("categories" , value)}
+                        value="mobile"
+                        onChange={formik.handleChange}
                     />
 
                     <CheckBox
                         title="لپتاپ"
                         name="categories"
-                        value={formik.values.categories}
-                        onChange={(value) => formik.setFieldValue("categories" , value)}
+                        value="laptop"
+                        onChange={formik.handleChange}
                     />
 
                 </AccordionItem>
@@ -74,7 +74,7 @@ const Filters = () => {
                     initialEntered
                 >
 
-                    <RangeInput
+                    <RangeSlider
                         min={0}
                         max={10_000_000}
                         step={1000}
@@ -84,8 +84,8 @@ const Filters = () => {
                     />
 
                     <div className="flex justify-between items-center gap-x-4 w-full">
-                        <span className="text-xs text-gray"> {formik.values.prices[0]} تومان</span>
-                        <span className="text-xs text-gray"> {formik.values.prices[1]} تومان</span>
+                        <span className="text-xs text-gray"> {formik.values.prices[0]?.toLocaleString()} تومان</span>
+                        <span className="text-xs text-gray"> {formik.values.prices[1]?.toLocaleString()} تومان</span>
                     </div>
 
                 </AccordionItem>
@@ -95,11 +95,11 @@ const Filters = () => {
                     initialEntered
                 >
 
-                    <SwitchBox
+                    <CheckBox
                         title="عکس دار"
                         name="hasImage"
-                        value={formik.values.hasImage}
-                        onChange={(value) => formik.setFieldValue("hasImage" , value)}
+                        value="yes"
+                        onChange={formik.handleChange}
                     />
 
                 </AccordionItem>
@@ -282,12 +282,19 @@ export const Content = () => {
 export const Advertises = () => {
 
     return (
-        <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
+        <>
+            <Breadcrumb linkList={[
+                {id: 1 , title: "خانه" , href: "/"},
+                {id: 2 , title: "آگهی ها"},
+            ]}/>
 
-            <Filters/>
+            <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
-            <Content/>
+                <Filters/>
 
-        </div>
+                <Content/>
+
+            </div>
+        </>
     )
 }

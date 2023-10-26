@@ -1,23 +1,46 @@
 'use client';
 
 // libraries
+import {useEffect} from "react";
 import Image from "next/image";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from "swiper/modules";
-import {LuBookmark, LuClock, LuDollarSign, LuLayers, LuMapPin, LuPhone, LuShare2} from "react-icons/lu";
+import mapboxgl from "mapbox-gl";
+import {
+    LuBookmark,
+    LuClock,
+    LuDollarSign,
+    LuLayers,
+    LuMapPin,
+    LuPhone,
+    LuShare2,
+} from "react-icons/lu";
 
 // components
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
+import Breadcrumb from "@/components/modules/Breadcrumb";
+
+// hooks
+import {useModal} from "@/hooks/useModal";
 
 // styles
 import 'swiper/css';
 import 'swiper/css/navigation';
+import "mapbox-gl/dist/mapbox-gl.css";
 import "@/styles/libraries/swiper.scss";
+import "@/styles/libraries/mapbox-gl.scss";
 
 // utils
 import {copyToClipboard} from "@/utils/functions";
+import GalleryModal from "@/components/partials/GalleryModal";
 
 const Gallery = () => {
+
+    const {
+        isOpenModal: isOpenGalleryModal,
+        _handleShowModal: _handleShowGalleryModal,
+        _handleHideModal: _handleHideGalleryModal
+    } = useModal();
 
     return (
         <section className="flex justify-center items-center w-full">
@@ -32,7 +55,10 @@ const Gallery = () => {
 
                 {
                     Array(8).fill("").map((item, index) =>
-                        <SwiperSlide key={index}>
+                        <SwiperSlide
+                            key={index}
+                            onClick={_handleShowGalleryModal}
+                        >
 
                             <Image
                                 src="/assets/images/card-image.jpg"
@@ -48,15 +74,54 @@ const Gallery = () => {
 
             </Swiper>
 
+            <GalleryModal
+                isOpenModal={isOpenGalleryModal}
+                onCloseModal={_handleHideGalleryModal}
+            />
+
         </section>
     )
 }
 
 const Map = () => {
 
+    useEffect(() => {
+
+        if (typeof window === "undefined") return;
+
+        // otherwise, create a map instance
+        const mapbox = new mapboxgl.Map({
+            container: "map",
+            accessToken: process.env.NEXT_PUBLIC_MAPBOX_TOKEN,
+            style: "mapbox://styles/mapbox/streets-v11",
+            center: [12.554729, 55.70651],
+            zoom: 15,
+            customAttribution: 'نام سایت'
+        });
+
+        // add zoom control
+        mapbox.addControl(new mapboxgl.NavigationControl({
+            showCompass: false
+        }));
+
+        // add custom marker
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.style.backgroundImage = `url(https://placekitten.com/g/${24}/${24}/)`;
+        el.style.width = `24px`;
+        el.style.height = `24px`;
+        el.style.backgroundSize = '100%';
+        el.style.borderRadius = '50%';
+
+        new mapboxgl.Marker(el).setLngLat([12.554729, 55.70651]).addTo(mapbox);
+
+        return () => mapbox.remove();
+
+    }, []);
+
     return (
-        <div className="flex justify-center items-center w-full bg-light rounded-lg p-4">
-            leaflet map
+        <div className="relative w-full h-[240px] bg-light rounded-lg overflow-hidden">
+            <div id="map" style={{width: "100%", height: 240}}/>
         </div>
     )
 }
@@ -315,12 +380,22 @@ const Content = () => {
 export const Advertise = () => {
 
     return (
-        <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
+        <>
 
-            <Visual/>
+            <Breadcrumb linkList={[
+                {id: 1, title: "خانه", href: "/"},
+                {id: 2, title: "آگهی ها", href: "/advertises"},
+                {id: 3, title: "بنز 2006"},
+            ]}/>
 
-            <Content/>
+            <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
-        </div>
+                <Visual/>
+
+                <Content/>
+
+            </div>
+
+        </>
     )
 }

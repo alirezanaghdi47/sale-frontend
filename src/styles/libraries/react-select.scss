@@ -1,0 +1,84 @@
+.react-select {
+
+  &--is-rtl.react-select__control {
+    @apply flex-row-reverse #{!important};
+  }
+
+  &__control {
+    @apply flex-row min-h-[40px] bg-secondary border border-solid border-secondary rounded-lg shadow-none #{!important};
+
+    &--is-focused {
+      @apply border-secondary #{!important};
+    }
+
+    &--menu-is-open {
+      @apply border-secondary #{!important};
+    }
+  }
+
+  &-container {
+    @apply w-full #{!important};
+  }
+
+  &__input-container {
+    @apply text-xs text-dark #{!important};
+  }
+
+  &__input {
+    @apply text-xs text-dark #{!important};
+  }
+
+  &__value-container {
+    @apply justify-start items-start p-1 #{!important};
+  }
+
+  &__single-value{
+    @apply text-gray font-bold #{!important};
+  }
+
+  &__indicators {
+    @apply flex justify-start items-center gap-x-2 p-1 #{!important};
+  }
+
+  &__indicator {
+    @apply text-dark p-0 #{!important};
+  }
+
+  &__multi-value {
+    @apply bg-secondary/25 rounded-lg #{!important};
+
+    &__remove {
+      @apply text-red rounded-lg hover:bg-transparent #{!important};
+    }
+
+    &__label {
+      @apply text-xs px-2 py-1 #{!important};
+    }
+  }
+
+  &__menu {
+    @apply rounded-lg shadow-3xl #{!important};
+  }
+
+  &__menu-list {
+    @apply p-2 #{!important};
+  }
+
+  &__option {
+    @apply text-sm text-dark rounded-lg p-1 cursor-pointer #{!important};
+
+    &--is-focused {
+      @apply bg-inherit text-inherit #{!important};
+    }
+
+    &--is-selected {
+      @apply bg-blue text-light #{!important};
+    }
+  }
+
+  &__menu-notice {
+    &--no-options {
+      @apply text-sm text-gray #{!important};
+    }
+  }
+}

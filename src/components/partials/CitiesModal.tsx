@@ -7,6 +7,7 @@ import {LuCheck, LuSearch, LuX} from "react-icons/lu";
 
 // components
 import CheckBox from "@/components/modules/CheckBox";
+import TextInput from "@/components/modules/TextInput";
 
 // utils
 import {cityList} from "@/utils/constants";
@@ -69,20 +70,12 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
 
             </div>
 
-            <label
-                htmlFor="search-input"
-                className="flex justify-center items-center gap-x-2 w-full bg-secondary rounded-lg px-4 py-2"
-            >
-                       <span className="text-gray">
-                            <LuSearch size={20}/>
-                        </span>
-                <input
-                    id="search-input"
-                    type="text"
-                    placeholder="جستجو ..."
-                    className="w-full bg-transparent text-gray font-bold focus:outline-none"
-                />
-            </label>
+            <TextInput
+                name="search"
+                placeholder="جستجو"
+                color="secondary"
+                startIcon={<LuSearch size={20}/>}
+            />
 
             <CityList/>
 
@@ -92,9 +85,10 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                     className='flex justify-center items-center gap-x-2 text-gray text-sm font-bold px-4 py-2'
                     onClick={onCloseModal}
                 >
-                            <span className="text-gray">
-                                <LuX size={20}/>
-                            </span>
+                    <LuX
+                        size={20}
+                        className="text-current"
+                    />
                     انصراف
                 </button>
 
@@ -102,9 +96,10 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                     className='flex justify-center items-center gap-x-2 bg-blue text-light text-sm font-bold rounded-lg px-4 py-2'
                     onClick={onCloseModal}
                 >
-                            <span className="text-light">
-                                <LuCheck size={20}/>
-                            </span>
+                    <LuCheck
+                        size={20}
+                        className="text-current"
+                    />
                     ثبت
                 </button>
 

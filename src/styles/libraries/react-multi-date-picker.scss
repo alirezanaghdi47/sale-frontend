@@ -1,0 +1,87 @@
+.rmdp {
+
+  &-container {
+    @apply w-full #{!important};
+  }
+
+  &-input {
+    @apply w-full min-h-[40px] bg-light text-xs text-dark border border-solid border-secondary rounded-lg p-1 focus:shadow-none #{!important};
+  }
+
+  &-calendar {
+    @apply p-2 #{!important};
+  }
+
+  &-wrapper {
+    @apply rounded-lg shadow-3xl #{!important};
+  }
+
+  &-header {
+    @apply px-0 py-1 m-0 #{!important};
+
+    &-values {
+      span {
+        @apply text-sm font-bold text-dark #{!important};
+      }
+    }
+  }
+
+  &-ep-arrow {
+    @apply after:shadow-3xl #{!important};
+  }
+
+  &-day-picker {
+    @apply p-2 #{!important};
+  }
+
+  &-month-picker {
+    @apply p-2 #{!important};
+  }
+
+  &--year-picker {
+    @apply p-2 #{!important};
+  }
+
+  &-week-day {
+    @apply text-sm text-gray font-bold #{!important};
+  }
+
+  &-today {
+    span {
+      @apply bg-inherit text-inherit hover:bg-blue/75 hover:text-light #{!important};
+    }
+  }
+
+  &-day {
+    span {
+      @apply text-sm hover:bg-inherit hover:text-inherit  #{!important};
+    }
+
+    &-hidden {
+      span {
+        @apply text-inherit bg-inherit hover:bg-inherit  #{!important};
+      }
+    }
+
+    &.rmdp-selected {
+      span {
+        @apply bg-blue text-light shadow-none #{!important};
+      }
+    }
+  }
+
+  &-range {
+    @apply bg-blue text-light shadow-none #{!important};
+
+    &-hover {
+      @apply hover:bg-blue #{!important};
+    }
+  }
+
+  &-disabled {
+    span {
+      @apply bg-transparent text-secondary hover:bg-transparent hover:text-secondary #{!important};
+    }
+  }
+
+}

@@ -35,7 +35,7 @@ const PasswordInput = ({title, name, value, onChange, placeholder, startIcon, er
                     type={toggleShowPassword ? "text" : "password"}
                     name={name}
                     placeholder={placeholder}
-                    className="w-full bg-transparent text-gray text-sm font-bold focus:outline-none"
+                    className="w-full bg-transparent text-gray font-bold border-none p-0 focus:outline-none focus:border-none focus:ring-0 focus:ring-offset-0"
                     value={value}
                     onChange={onChange}
                 />

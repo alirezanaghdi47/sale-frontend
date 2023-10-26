@@ -82,6 +82,21 @@ export const SignIn = () => {
 
             </div>
 
+            <div className='flex justify-center items-center gap-x-2 w-full'>
+
+                <p className="text-gray font-bold text-xs">
+                    رمز عبور خود را فراموش کرده اید
+                </p>
+
+                <Link
+                    href="/auth/forget-password"
+                    className='text-blue font-bold text-xs'
+                >
+                    کلیک کنید
+                </Link>
+
+            </div>
+
         </div>
     )
 }

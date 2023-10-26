@@ -4,7 +4,7 @@ import {getTrackBackground, Range} from "react-range";
 // styles
 import "@/styles/libraries/react-range.scss";
 
-const RangeInput = ({min, max, step, rtl, values, onChange}) => {
+const RangeSlider = ({min, max, step, rtl, values, onChange}) => {
 
     return (
         <>
@@ -50,4 +50,4 @@ const RangeInput = ({min, max, step, rtl, values, onChange}) => {
     )
 }
 
-export default RangeInput;
+export default RangeSlider;

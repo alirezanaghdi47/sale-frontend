@@ -2,9 +2,27 @@
 
 // libraries
 import Modal from "react-modal";
+import {useFormik} from "formik";
 import {LuCheck, LuX} from "react-icons/lu";
 
+// components
+import {Accordion, AccordionItem} from "@/components/modules/Accordion";
+import CheckBox from "@/components/modules/CheckBox";
+import RangeSlider from "@/components/modules/RangeSlider";
+
 const FilterModal = ({isOpenModal, onCloseModal}) => {
+
+    const formik = useFormik({
+        initialValues:{
+            prices: [1_000,1_000_000],
+            hasImage: false,
+            categories: []
+        },
+        // validationSchema: ,
+        onSubmit: async (data) => {
+            console.log(data)
+        }
+    });
 
     return (
         <Modal
@@ -30,15 +48,76 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
             </div>
 
+            <Accordion>
+
+                <AccordionItem
+                    header="دسته بندی ها"
+                    initialEntered
+                >
+
+                    <CheckBox
+                        title="موبایل"
+                        name="categories"
+                        value={formik.values.categories}
+                        onChange={(value) => formik.setFieldValue("categories" , value)}
+                    />
+
+                    <CheckBox
+                        title="لپتاپ"
+                        name="categories"
+                        value={formik.values.categories}
+                        onChange={(value) => formik.setFieldValue("categories" , value)}
+                    />
+
+                </AccordionItem>
+
+                <AccordionItem
+                    header="قیمت"
+                    initialEntered
+                >
+
+                    <RangeSlider
+                        min={0}
+                        max={10_000_000}
+                        step={1000}
+                        rtl
+                        values={formik.values.prices}
+                        onChange={(values) => formik.setFieldValue("prices" , values)}
+                    />
+
+                    <div className="flex justify-between items-center gap-x-4 w-full">
+                        <span className="text-xs text-gray"> {formik.values.prices[0]?.toLocaleString()} تومان</span>
+                        <span className="text-xs text-gray"> {formik.values.prices[1]?.toLocaleString()} تومان</span>
+                    </div>
+
+                </AccordionItem>
+
+                <AccordionItem
+                    header="وضعیت"
+                    initialEntered
+                >
+
+                    <CheckBox
+                        title="عکس دار"
+                        name="hasImage"
+                        value={formik.values.hasImage}
+                        onChange={(value) => formik.setFieldValue("hasImage" , value)}
+                    />
+
+                </AccordionItem>
+
+            </Accordion>
+
             <div className="flex justify-end items-center gap-x-2 w-full mt-auto">
 
                 <button
                     className='flex justify-center items-center gap-x-2 text-gray text-sm font-bold px-4 py-2'
                     onClick={onCloseModal}
                 >
-                            <span className="text-gray">
-                                <LuX size={20}/>
-                            </span>
+                    <LuX
+                        size={20}
+                        className='text-current'
+                    />
                     انصراف
                 </button>
 
@@ -46,9 +125,10 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                     className='flex justify-center items-center gap-x-2 bg-blue text-light text-sm font-bold rounded-lg px-4 py-2'
                     onClick={onCloseModal}
                 >
-                           <span className="text-gray">
-                                <LuCheck size={20}/>
-                            </span>
+                    <LuCheck
+                        size={20}
+                        className='text-current'
+                    />
                     ثبت
                 </button>
 

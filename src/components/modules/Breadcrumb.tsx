@@ -14,17 +14,29 @@ const Breadcrumb = ({linkList}) => {
                         className="flex justify-center items-center gap-x-2"
                     >
 
-                        <Link
-                            href={linkItem.href}
-                            className="text-sm text-gray font-bold"
-                        >
-                            {linkItem.title}
-                        </Link>
+                        {
+                            linkItem.href ? (
+                                <Link
+                                    href={linkItem.href}
+                                    className="text-sm text-gray font-bold"
+                                >
+                                    {linkItem.title}
+                                </Link>
+                            ) : (
+                                <span className="text-sm text-gray font-bold">
+                                    {linkItem.title}
+                                </span>
+                            )
+                        }
 
-                        <LuChevronLeft
-                            size={20}
-                            className="text-gray"
-                        />
+                        {
+                            linkItem.href && (
+                                <LuChevronLeft
+                                    size={20}
+                                    className="text-gray"
+                                />
+                            )
+                        }
 
                     </li>
                 )
