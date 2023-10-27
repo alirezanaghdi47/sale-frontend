@@ -18,7 +18,7 @@ import {
 
 // components
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-import Breadcrumb from "@/components/modules/Breadcrumb";
+import GalleryModal from "@/components/partials/GalleryModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
@@ -32,7 +32,6 @@ import "@/styles/libraries/mapbox-gl.scss";
 
 // utils
 import {copyToClipboard} from "@/utils/functions";
-import GalleryModal from "@/components/partials/GalleryModal";
 
 const Gallery = () => {
 
@@ -380,22 +379,12 @@ const Content = () => {
 export const Advertise = () => {
 
     return (
-        <>
+        <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
-            <Breadcrumb linkList={[
-                {id: 1, title: "خانه", href: "/"},
-                {id: 2, title: "آگهی ها", href: "/advertises"},
-                {id: 3, title: "بنز 2006"},
-            ]}/>
+            <Visual/>
 
-            <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
+            <Content/>
 
-                <Visual/>
-
-                <Content/>
-
-            </div>
-
-        </>
+        </div>
     )
 }

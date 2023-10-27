@@ -1,5 +1,4 @@
 // libraries
-import NextTopLoader from "nextjs-toploader";
 import {Toaster} from "react-hot-toast";
 
 // helpers
@@ -15,20 +14,6 @@ const RootLayout = (props) => {
         <html lang="fa" dir='rtl'>
 
         <body className={`${vazirmatn.className} flex justify-center items-center w-full h-full min-h-screen bg-secondary`}>
-
-        <NextTopLoader
-            color="#2563eb"
-            initialPosition={0.08}
-            crawlSpeed={200}
-            height={4}
-            crawl={false}
-            easing="ease"
-            speed={200}
-            showSpinner={false}
-            shadow="none"
-            template='<div class="bar" role="bar"><div class="peg"></div></div>'
-            zIndex={1600}
-        />
 
         <Toaster
             position="bottom-left"

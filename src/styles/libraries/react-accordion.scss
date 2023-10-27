@@ -1,22 +1,22 @@
-.szh-accordion{
+.szh-accordion {
   @apply flex flex-col justify-center items-center gap-y-4 w-full #{!important};
 
-  &__item{
-    @apply w-full bg-light rounded-lg p-4 #{!important};
+  &__item {
+    @apply w-full bg-light border-2 border-solid border-secondary rounded-lg p-0 #{!important};
 
-    &-btn{
-      @apply flex justify-start items-center w-full #{!important};
+    &-btn {
+      @apply flex justify-start items-center w-full p-4 #{!important};
     }
 
-    &-heading{
+    &-heading {
       @apply text-dark font-bold text-sm #{!important};
     }
 
-    &-content{
-      @apply mt-4 #{!important};
+    &-content {
+      @apply p-4 pt-0 mt-0 #{!important};
     }
 
-    &-panel{
+    &-panel {
       @apply flex flex-col justify-center items-center gap-y-4 w-full #{!important};
     }
   }

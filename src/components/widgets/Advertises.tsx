@@ -1,8 +1,8 @@
 "use client";
 
 // libraries
-import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
 import {useFormik} from "formik";
+import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
 
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
@@ -16,13 +16,12 @@ import CheckBox from "@/components/modules/CheckBox";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
-import Breadcrumb from "@/components/modules/Breadcrumb";
 
 const Filters = () => {
 
     const formik = useFormik({
-        initialValues:{
-            prices: [1_000,1_000_000],
+        initialValues: {
+            prices: [1_000, 1_000_000],
             hasImage: false,
             categories: []
         },
@@ -37,11 +36,15 @@ const Filters = () => {
 
             <div className="flex justify-between items-center gap-x-4 w-full">
 
-                <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark">
-                    <span>
-                        <LuFilter size={20}/>
-                    </span>
+                <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
+
+                    <LuFilter
+                        size={20}
+                        className="text-dark"
+                    />
+
                     فیلتر ها
+
                 </h3>
 
             </div>
@@ -80,7 +83,7 @@ const Filters = () => {
                         step={1000}
                         rtl
                         values={formik.values.prices}
-                        onChange={(values) => formik.setFieldValue("prices" , values)}
+                        onChange={(values) => formik.setFieldValue("prices", values)}
                     />
 
                     <div className="flex justify-between items-center gap-x-4 w-full">
@@ -111,9 +114,10 @@ const Filters = () => {
                 <Button
                     variant="contained"
                     color="blue"
+                    size="md"
                     startIcon={<LuCheck size={20}/>}
                 >
-                    فیلتر
+                    ثبت
                 </Button>
 
             </div>
@@ -146,6 +150,7 @@ const Actionbar = () => {
                     <Button
                         variant="contained"
                         color="light"
+                        size="md"
                         startIcon={<LuFilter size={20}/>}
                         onClick={_handleShowFilterModal}
                     >
@@ -155,6 +160,7 @@ const Actionbar = () => {
                     <Button
                         variant="contained"
                         color="light"
+                        size="md"
                         startIcon={<LuArrowDownWideNarrow size={20}/>}
                         onClick={_handleShowSortModal}
                     >
@@ -163,9 +169,9 @@ const Actionbar = () => {
 
                 </div>
 
-                <span className="text-lg text-gray">
+                <span className="text-base text-gray">
                     12
-                    <span className='text-sm mr-1'>
+                    <span className='text-xs mr-1'>
                         مورد
                     </span>
                 </span>
@@ -195,14 +201,19 @@ const Sortbar = () => {
 
                 <div className="flex justify-start items-center">
 
-                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark ml-2">
-                        <span>
-                            <LuArrowDownWideNarrow size={20}/>
-                        </span>
+                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
+
+                       <LuArrowDownWideNarrow
+                           size={20}
+                           className="text-dark"
+                       />
+
                         مرتب سازی
+
                     </span>
 
                     <Button
+                        size="sm"
                         variant="text"
                         color="gray"
                     >
@@ -210,6 +221,7 @@ const Sortbar = () => {
                     </Button>
 
                     <Button
+                        size="sm"
                         variant="text"
                         color="gray"
                     >
@@ -218,9 +230,9 @@ const Sortbar = () => {
 
                 </div>
 
-                <span className="text-lg text-gray">
+                <span className="text-base text-gray">
                     12
-                    <span className='text-sm mr-1'>
+                    <span className='text-xs mr-1'>
                         مورد
                     </span>
                 </span>
@@ -282,19 +294,12 @@ export const Content = () => {
 export const Advertises = () => {
 
     return (
-        <>
-            <Breadcrumb linkList={[
-                {id: 1 , title: "خانه" , href: "/"},
-                {id: 2 , title: "آگهی ها"},
-            ]}/>
+        <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
-            <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
+            <Filters/>
 
-                <Filters/>
+            <Content/>
 
-                <Content/>
-
-            </div>
-        </>
+        </div>
     )
 }

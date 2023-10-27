@@ -13,7 +13,8 @@ const styles = {
         }
     },
     size:{
-        md: "text-sm font-bold",
+        sm: "text-xs font-bold px-2 py-1",
+        md: "text-sm font-bold px-4 py-2",
         full: "w-full"
     }
 }
@@ -22,7 +23,7 @@ const Button = ({children, size = "md" ,color, variant, startIcon, endIcon, onCl
 
     return href ? (
         <Link
-            className={`flex justify-center items-center gap-x-2 ${styles.variant[variant][color]} ${styles.size[size]} rounded-lg whitespace-nowrap px-4 py-2`}
+            className={`flex justify-center items-center gap-x-2 ${styles.variant[variant][color]} ${styles.size[size]} rounded-lg whitespace-nowrap`}
             href={href}
             onClick={onClick}
         >

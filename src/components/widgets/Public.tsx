@@ -18,7 +18,7 @@ import {
 import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
 // components
-import {DropdownMenu , DropdownMenuItem} from "@/components/modules/DropdownMenu";
+import {DropdownMenu, DropdownMenuItem} from "@/components/modules/DropdownMenu";
 import TextInput from "@/components/modules/TextInput";
 import Button from "@/components/modules/Button";
 import CitiesModal from "@/components/partials/CitiesModal";
@@ -223,8 +223,10 @@ const HeaderLinks = () => {
 
             <DropdownMenu
                 menuButton={
-                    <button
-                        className="flex justify-center items-center gap-x-2 text-gray text-sm font-bold whitespace-nowrap px-4 py-2"
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="secondary"
                     >
                         <Image
                             src="/assets/images/avatar.jpg"
@@ -234,32 +236,76 @@ const HeaderLinks = () => {
                             className="rounded-full object-cover object-center"
                         />
                         علیرضا نقدی
-                    </button>
+                    </Button>
                 }
                 arrow
                 align="start"
                 direction="bottom"
             >
-                <DropdownMenuItem href="/account/dashboard">
-                    <LuPieChart size={20}/>
-                    داشبورد
-                </DropdownMenuItem>
-                <DropdownMenuItem href="/account/my-advertises">
-                    <LuScrollText size={20}/>
-                    آگهی های من
-                </DropdownMenuItem>
-                <DropdownMenuItem href="/account/favorites">
-                    <LuBookmark size={20}/>
-                    علاقه مندی ها
-                </DropdownMenuItem>
-                <DropdownMenuItem href="/account/profile">
-                    <LuUser size={20}/>
-                    پروفایل
-                </DropdownMenuItem>
+
                 <DropdownMenuItem>
-                    <LuLogOut size={20}/>
-                    خروج
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="secondary"
+                        href="/account/dashboard"
+                        startIcon={<LuPieChart size={20}/>}
+                    >
+                        داشبورد
+                    </Button>
                 </DropdownMenuItem>
+
+                <DropdownMenuItem>
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="secondary"
+                        href="/account/my-advertises"
+                        startIcon={<LuScrollText size={20}/>}
+                    >
+                        آگهی های من
+                    </Button>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem>
+
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="secondary"
+                        href="/account/favorites"
+                        startIcon={<LuBookmark size={20}/>}
+                    >
+                        علاقه مندی ها
+                    </Button>
+
+                </DropdownMenuItem>
+
+                <DropdownMenuItem>
+
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="secondary"
+                        href="/account/profile"
+                        startIcon={<LuUser size={20}/>}
+                    >
+                        پروفایل
+                    </Button>
+
+                </DropdownMenuItem>
+
+                <DropdownMenuItem>
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="red"
+                        startIcon={<LuLogOut size={20}/>}
+                    >
+                        خروج
+                    </Button>
+                </DropdownMenuItem>
+
             </DropdownMenu>
 
             <Link

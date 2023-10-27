@@ -29,14 +29,22 @@ export const AccordionItem = ({children , header , isInitialOpen}) => {
             initialEntered={isInitialOpen}
             header={({ state: { isEnter } }) => (
                 <div className="flex justify-between items-center gap-x-4 w-full">
-                    <span>
+
+                    <span className='text-gray text-sm font-bold'>
                         {header}
                     </span>
-                    <LuChevronDown size={20}/>
+
+                    <LuChevronDown
+                        size={20}
+                        className="text-gray"
+                    />
+
                 </div>
             )}
         >
+
             {children}
+
         </ReactAccordionItem>
     )
 }

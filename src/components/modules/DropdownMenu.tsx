@@ -1,5 +1,5 @@
 // libraries
-import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu';
+import { Menu, MenuItem } from '@szhsin/react-menu';
 
 // styles
 import '@szhsin/react-menu/dist/index.css';
@@ -23,13 +23,10 @@ export const DropdownMenu = ({children , menuButton , arrow , align , direction}
     )
 }
 
-export const DropdownMenuItem = ({children , onClick , href}) =>{
+export const DropdownMenuItem = ({children}) =>{
 
     return (
-        <MenuItem
-            onClick={onClick}
-            href={href}
-        >
+        <MenuItem>
             {children}
         </MenuItem>
     )
