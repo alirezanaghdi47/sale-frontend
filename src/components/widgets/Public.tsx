@@ -18,7 +18,7 @@ import {
 import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
 // components
-import {DropdownMenu, DropdownMenuItem} from "@/components/modules/DropdownMenu";
+import {Menu, MenuItem} from "@/components/modules/Menu";
 import TextInput from "@/components/modules/TextInput";
 import Button from "@/components/modules/Button";
 import CitiesModal from "@/components/partials/CitiesModal";
@@ -106,19 +106,6 @@ const BottomLinks = () => {
 
             <li className="col-span-3 flex justify-center items-center">
                 <Link
-                    href="/"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
-                >
-                    <LuHome
-                        size={20}
-                        className="text-current"
-                    />
-                    خانه
-                </Link>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <Link
                     href="/advertises"
                     className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/advertises" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
                 >
@@ -140,6 +127,19 @@ const BottomLinks = () => {
                         className="text-current"
                     />
                     افزودن آگهی
+                </Link>
+            </li>
+
+            <li className="col-span-3 flex justify-center items-center">
+                <Link
+                    href="/account/favorites"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/favorites" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuBookmark
+                        size={20}
+                        className="text-current"
+                    />
+                    علاقه مندی ها
                 </Link>
             </li>
 
@@ -221,12 +221,12 @@ const HeaderLinks = () => {
     return (
         <div className="flex justify-start items-center gap-x-4">
 
-            <DropdownMenu
+            <Menu
                 menuButton={
                     <Button
                         variant="text"
                         size="md"
-                        color="secondary"
+                        color="gray"
                     >
                         <Image
                             src="/assets/images/avatar.jpg"
@@ -243,59 +243,59 @@ const HeaderLinks = () => {
                 direction="bottom"
             >
 
-                <DropdownMenuItem>
+                <MenuItem>
                     <Button
                         variant="text"
                         size="md"
-                        color="secondary"
+                        color="gray"
                         href="/account/dashboard"
                         startIcon={<LuPieChart size={20}/>}
                     >
                         داشبورد
                     </Button>
-                </DropdownMenuItem>
+                </MenuItem>
 
-                <DropdownMenuItem>
+                <MenuItem>
                     <Button
                         variant="text"
                         size="md"
-                        color="secondary"
+                        color="gray"
                         href="/account/my-advertises"
                         startIcon={<LuScrollText size={20}/>}
                     >
                         آگهی های من
                     </Button>
-                </DropdownMenuItem>
+                </MenuItem>
 
-                <DropdownMenuItem>
+                <MenuItem>
 
                     <Button
                         variant="text"
                         size="md"
-                        color="secondary"
+                        color="gray"
                         href="/account/favorites"
                         startIcon={<LuBookmark size={20}/>}
                     >
                         علاقه مندی ها
                     </Button>
 
-                </DropdownMenuItem>
+                </MenuItem>
 
-                <DropdownMenuItem>
+                <MenuItem>
 
                     <Button
                         variant="text"
                         size="md"
-                        color="secondary"
+                        color="gray"
                         href="/account/profile"
                         startIcon={<LuUser size={20}/>}
                     >
                         پروفایل
                     </Button>
 
-                </DropdownMenuItem>
+                </MenuItem>
 
-                <DropdownMenuItem>
+                <MenuItem>
                     <Button
                         variant="text"
                         size="md"
@@ -304,9 +304,9 @@ const HeaderLinks = () => {
                     >
                         خروج
                     </Button>
-                </DropdownMenuItem>
+                </MenuItem>
 
-            </DropdownMenu>
+            </Menu>
 
             <Link
                 href="/account/my-advertises/add"

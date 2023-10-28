@@ -23,7 +23,7 @@ import AdvertiseCard from "@/components/partials/AdvertiseCard";
 // styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import "@/styles/libraries/swiper.scss";
+import "@/styles/customize/swiper.scss";
 
 ChartJS.register(
     ArcElement,

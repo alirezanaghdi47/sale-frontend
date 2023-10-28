@@ -5,7 +5,7 @@
   }
 
   &-input {
-    @apply w-full min-h-[40px] bg-light text-xs text-dark border border-solid border-secondary rounded-lg p-1 focus:shadow-none #{!important};
+    @apply w-full min-h-[40px] bg-light text-xs text-dark rounded-lg p-1 focus:shadow-none #{!important};
   }
 
   &-calendar {

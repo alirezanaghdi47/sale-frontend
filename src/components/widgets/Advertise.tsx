@@ -27,8 +27,8 @@ import {useModal} from "@/hooks/useModal";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import "mapbox-gl/dist/mapbox-gl.css";
-import "@/styles/libraries/swiper.scss";
-import "@/styles/libraries/mapbox-gl.scss";
+import "@/styles/customize/swiper.scss";
+import "@/styles/customize/mapbox-gl.scss";
 
 // utils
 import {copyToClipboard} from "@/utils/functions";

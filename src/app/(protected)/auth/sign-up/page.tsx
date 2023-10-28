@@ -1,4 +1,4 @@
-// libraries
+// components
 import {SignUp} from "@/components/widgets/SignUp";
 
 const SignUpPage = () => {

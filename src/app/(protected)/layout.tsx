@@ -1,4 +1,4 @@
-// libraries
+// components
 import {CopyRight, Logo} from "@/components/widgets/Protected";
 
 const AuthLayout = (props) => {

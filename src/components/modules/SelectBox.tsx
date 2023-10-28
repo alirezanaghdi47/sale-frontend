@@ -1,11 +1,11 @@
 // libraries
-import Select, {components} from "react-select";
+import ReactSelect, {components} from "react-select";
 import {LuChevronDown, LuX} from "react-icons/lu";
 
 // styles
-import "@/styles/libraries/react-select.scss";
+import "@/styles/customize/react-select.scss";
 
-const DropdownIndicator = (props: any) => {
+const ReactSelectDropdownIndicator = (props: any) => {
 
     return components.DropdownIndicator && (
         <components.DropdownIndicator {...props}>
@@ -17,7 +17,7 @@ const DropdownIndicator = (props: any) => {
     )
 }
 
-const ClearIndicator = (props: any) => {
+const ReactSelectClearIndicator = (props: any) => {
 
     return components.ClearIndicator && (
         <components.ClearIndicator {...props}>
@@ -29,7 +29,7 @@ const ClearIndicator = (props: any) => {
     )
 }
 
-const NoOptionsMessage = (props) => {
+const ReactSelectNoOptionsMessage = (props) => {
 
     return (
         <components.NoOptionsMessage {...props} >
@@ -38,42 +38,29 @@ const NoOptionsMessage = (props) => {
     );
 };
 
-
-const SelectBox = ({name , title , placeholder , value , options , onChange , isMulti , isClearable , isSearchable}) => {
+const SelectBox = ({name, placeholder, value, options, onChange, isMulti, isClearable, isSearchable}) => {
 
     return (
-        <div className="flex flex-col justify-start items-start gap-y-2 w-full">
-
-            {
-                title && (
-                    <span className="font-bold text-gray text-sm">
-                        {title}
-                    </span>
-                )
-            }
-
-            <Select
-                name={name}
-                options={options}
-                closeMenuOnSelect={true}
-                isSearchable={isSearchable}
-                isClearable={isClearable}
-                isMulti={isMulti}
-                isRtl
-                placeholder={placeholder}
-                value={value}
-                onChange={(newValue) => onChange(newValue)}
-                components={{
-                    IndicatorSeparator: () => null,
-                    DropdownIndicator,
-                    ClearIndicator,
-                    NoOptionsMessage
-                }}
-                className="react-select-container"
-                classNamePrefix="react-select"
-            />
-
-        </div>
+        <ReactSelect
+            name={name}
+            options={options}
+            closeMenuOnSelect={true}
+            isSearchable={isSearchable}
+            isClearable={isClearable}
+            isMulti={isMulti}
+            isRtl
+            placeholder={placeholder ?? ""}
+            value={value}
+            onChange={(newValue) => onChange(newValue)}
+            components={{
+                IndicatorSeparator: () => null,
+                DropdownIndicator: ReactSelectDropdownIndicator,
+                ClearIndicator: ReactSelectClearIndicator,
+                NoOptionsMessage: ReactSelectNoOptionsMessage
+            }}
+            className="react-select-container"
+            classNamePrefix="react-select"
+        />
     )
 }
 

@@ -12,7 +12,7 @@ import {LuX} from "react-icons/lu";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import "@/styles/libraries/swiper.scss";
+import "@/styles/customize/swiper.scss";
 
 const GalleryModal = ({isOpenModal, onCloseModal}) => {
 

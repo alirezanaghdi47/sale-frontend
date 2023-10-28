@@ -8,7 +8,7 @@ import {LuCheck, LuX} from "react-icons/lu";
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
 import CheckBox from "@/components/modules/CheckBox";
-import RangeSlider from "@/components/modules/RangeSlider";
+import RangeInput from "@/components/modules/RangeInput";
 
 const FilterModal = ({isOpenModal, onCloseModal}) => {
 
@@ -29,7 +29,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
             isOpen={isOpenModal}
             onRequestClose={onCloseModal}
             ariaHideApp={false}
-            className="flex flex-col justify-start items-center gap-y-4 w-full h-full md:max-w-md md:h-max bg-light md:rounded-lg p-4"
+            className="flex flex-col justify-start items-center gap-y-4 w-full h-full md:max-w-md md:h-max bg-secondary md:rounded-lg p-4"
             overlayClassName="fixed top-0 left-0 z-30 flex justify-start items-start md:justify-center md:items-center w-full h-full bg-gray/75 md:p-4"
         >
 
@@ -76,7 +76,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                     initialEntered
                 >
 
-                    <RangeSlider
+                    <RangeInput
                         min={0}
                         max={10_000_000}
                         step={1000}

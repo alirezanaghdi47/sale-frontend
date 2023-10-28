@@ -1,4 +1,4 @@
-// libraries
+// components
 import {SignIn} from "@/components/widgets/SignIn";
 
 const SignInPage = () => {

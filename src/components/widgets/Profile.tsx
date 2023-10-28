@@ -40,123 +40,128 @@ const Form = () => {
                 اطلاعات کاربری
             </h1>
 
-            <div className='flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4'>
+            <ul className='grid grid-cols-12 justify-start items-center gap-4 w-full'>
 
-                <ul className='grid grid-cols-12 justify-start items-center gap-4 w-full'>
+                <li className="col-span-12 flex flex-col justify-start items-start gap-y-4">
 
-                    <li className="col-span-12 flex justify-start items-center">
+                    <span className="text-gray text-sm font-bold">
+                        نام خانوادگی
+                    </span>
 
-                        <AvatarInput
-                            title="آواتار"
-                            name="avatar"
-                            value={formik.values.avatar}
-                            // onChange={}
-                            error={formik.errors.avatar}
-                            touched={formik.touched.avatar}
-                        />
+                    <AvatarInput
+                        title="آواتار"
+                        name="avatar"
+                        value={formik.values.avatar}
+                        // onChange={}
+                    />
 
-                    </li>
+                </li>
 
-                    <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
+                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                        <TextInput
-                            title="نام"
-                            name="name"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            error={formik.errors.name}
-                            touched={formik.touched.name}
-                        />
+                     <span className="text-gray text-sm font-bold">
+                        نام خانوادگی
+                    </span>
 
-                    </li>
+                    <TextInput
+                        name="name"
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                    />
 
-                    <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
+                </li>
 
-                        <TextInput
-                            title="نام خانوادگی"
-                            name="family"
-                            value={formik.values.family}
-                            onChange={formik.handleChange}
-                            error={formik.errors.family}
-                            touched={formik.touched.family}
-                        />
+                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                    </li>
+                     <span className="text-gray text-sm font-bold">
+                        نام خانوادگی
+                    </span>
 
-                    <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
+                    <TextInput
+                        name="family"
+                        value={formik.values.family}
+                        onChange={formik.handleChange}
+                    />
 
-                        <NumberInput
-                            title="کد ملی"
-                            name="code"
-                            options={{
-                                delimiter: '-',
-                                blocks: [3, 6, 1],
-                            }}
-                            value={formik.values.code}
-                            onChange={formik.handleChange}
-                            error={formik.errors.code}
-                            touched={formik.touched.code}
-                        />
+                </li>
 
-                    </li>
+                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                    <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
+                     <span className="text-gray text-sm font-bold">
+                        کد ملی
+                    </span>
 
-                        <NumberInput
-                            title="شماره موبایل"
-                            name="phoneNumber"
-                            options={{
-                                delimiter: ' ',
-                                blocks: [4, 3, 4],
-                            }}
-                            value={formik.values.phoneNumber}
-                            onChange={formik.handleChange}
-                            error={formik.errors.phoneNumber}
-                            touched={formik.touched.phoneNumber}
-                        />
+                    <NumberInput
+                        name="code"
+                        options={{
+                            delimiter: '-',
+                            blocks: [3, 6, 1],
+                        }}
+                        value={formik.values.code}
+                        onChange={formik.handleChange}
+                    />
 
-                    </li>
+                </li>
 
-                    <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
+                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                        <SelectBox
-                            title="جنسیت"
-                            name="gender"
-                            placeholder=""
-                            isSearchable={false}
-                            options={genderList}
-                            value={formik.values.gender}
-                            onChange={(value) => formik.setFieldValue("gender", value)}
-                            // error={formik.errors.gender}
-                            // touched={formik.touched.gender}
-                        />
+                     <span className="text-gray text-sm font-bold">
+                        شماره موبایل
+                    </span>
 
-                    </li>
+                    <NumberInput
+                        name="phoneNumber"
+                        options={{
+                            delimiter: ' ',
+                            blocks: [4, 3, 4],
+                        }}
+                        value={formik.values.phoneNumber}
+                        onChange={formik.handleChange}
+                    />
 
-                    <li className="col-span-12 sm:col-span-6 flex justify-start items-center">
+                </li>
 
-                        <DatePicker
-                            title="تاریخ تولد"
-                            name="birthDay"
-                            value={formik.values.birthDay}
-                            onChange={(value) => formik.setFieldValue("birthDay" , value)}
-                        />
+                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                    </li>
+                     <span className="text-gray text-sm font-bold">
+                        جنسیت
+                    </span>
 
-                </ul>
+                    <SelectBox
+                        name="gender"
+                        isSearchable={false}
+                        options={genderList}
+                        value={formik.values.gender}
+                        onChange={(value) => formik.setFieldValue("gender", value)}
+                    />
 
-                <div className="flex justify-end items-center gap-x-4 w-full">
+                </li>
 
-                    <Button
-                        variant="contained"
-                        color="blue"
-                        startIcon={<LuCheck size={20}/>}
-                    >
-                        ثبت
-                    </Button>
+                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                </div>
+                    <span className="text-gray text-sm font-bold">
+                        تاریخ تولد
+                    </span>
+
+                    <DatePicker
+                        name="birthDay"
+                        value={formik.values.birthDay}
+                        onChange={(value) => formik.setFieldValue("birthDay" , value)}
+                    />
+
+                </li>
+
+            </ul>
+
+            <div className="flex justify-end items-center gap-x-4 w-full mt-4">
+
+                <Button
+                    variant="contained"
+                    color="blue"
+                    startIcon={<LuCheck size={20}/>}
+                >
+                    ثبت
+                </Button>
 
             </div>
 

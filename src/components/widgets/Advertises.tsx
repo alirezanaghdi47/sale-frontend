@@ -7,7 +7,7 @@ import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-import RangeSlider from "@/components/modules/RangeSlider";
+import RangeInput from "@/components/modules/RangeInput";
 import Button from "@/components/modules/Button";
 import SortModal from "@/components/partials/SortModal";
 import FilterModal from "@/components/partials/FilterModal";
@@ -77,7 +77,7 @@ const Filters = () => {
                     initialEntered
                 >
 
-                    <RangeSlider
+                    <RangeInput
                         min={0}
                         max={10_000_000}
                         step={1000}

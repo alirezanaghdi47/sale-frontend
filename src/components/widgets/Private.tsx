@@ -4,10 +4,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import {usePathname} from "next/navigation";
-import {LuBookmark, LuChevronLeft, LuLogOut, LuPieChart, LuScrollText, LuUser} from "react-icons/lu";
+import {LuBookmark, LuHome, LuLogOut, LuPieChart, LuScrollText, LuUser} from "react-icons/lu";
 
 // components
 import Button from "@/components/modules/Button";
+import {Menu , MenuItem} from "@/components/modules/Menu";
 
 // utils
 import {getTitleFromPathname} from "@/utils/functions";
@@ -41,14 +42,52 @@ const AppbarActions = () => {
                 {getTitleFromPathname(pathname)}
             </h1>
 
-            <Button
-                variant="text"
-                color="gray"
-                href="/"
-                endIcon={<LuChevronLeft size={20}/>}
+            <Menu
+                menuButton={
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="gray"
+                    >
+                        <Image
+                            src="/assets/images/avatar.jpg"
+                            alt="logo"
+                            width={24}
+                            height={24}
+                            className="rounded-full object-cover object-center"
+                        />
+                        علیرضا نقدی
+                    </Button>
+                }
+                arrow
+                align="start"
+                direction="bottom"
             >
-                بازگشت به خانه
-            </Button>
+
+                <MenuItem>
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="gray"
+                        href="/account/profile"
+                        startIcon={<LuUser size={20}/>}
+                    >
+                        پروفایل
+                    </Button>
+                </MenuItem>
+
+                <MenuItem>
+                    <Button
+                        variant="text"
+                        size="md"
+                        color="red"
+                        startIcon={<LuLogOut size={20}/>}
+                    >
+                        خروج
+                    </Button>
+                </MenuItem>
+
+            </Menu>
 
         </div>
     )
@@ -60,6 +99,19 @@ const BottomLinks = () => {
 
     return (
         <ul className="grid grid-cols-12 gap-2 w-full">
+
+            <li className="col-span-3 flex justify-center items-center">
+                <Link
+                    href="/"
+                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                >
+                    <LuHome
+                        size={20}
+                        className="text-current"
+                    />
+                    خانه
+                </Link>
+            </li>
 
             <li className="col-span-3 flex justify-center items-center">
                 <Link
@@ -97,19 +149,6 @@ const BottomLinks = () => {
                         className="text-current"
                     />
                     علاقه مندی ها
-                </Link>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <Link
-                    href="/account/profile"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/profile" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
-                >
-                    <LuUser
-                        size={20}
-                        className="text-current"
-                    />
-                    پروفایل
                 </Link>
             </li>
 
@@ -179,9 +218,12 @@ const SidebarActions = () => {
                     href="/account/profile"
                     className={`flex justify-start items-center gap-x-2 ${pathname === "/account/profile" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
                 >
-                    <LuUser
-                        size={20}
-                        className="text-current"
+                    <Image
+                        src="/assets/images/avatar.jpg"
+                        alt="logo"
+                        width={32}
+                        height={32}
+                        className="border-4 border-solid border-blue rounded-full object-cover object-center"
                     />
                     علیرضا نقدی
                 </Link>

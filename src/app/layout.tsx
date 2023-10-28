@@ -6,7 +6,7 @@ import {vazirmatn} from "@/helpers/fonts";
 
 // styles
 import '@/styles/globals.scss';
-import "@/styles/libraries/react-hot-toast.scss";
+import "@/styles/customize/react-hot-toast.scss";
 
 const RootLayout = (props) => {
 

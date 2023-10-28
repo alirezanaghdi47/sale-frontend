@@ -1,0 +1,27 @@
+.rc-checkbox {
+  @apply flex justify-center items-center w-[20px] h-[20px] #{!important};
+
+  &-input {
+    @apply w-full h-full #{!important};
+  }
+
+  &-inner {
+    @apply w-[20px] h-[20px] bg-light border-none #{!important};
+    &::after {
+      @apply opacity-0 top-[3px] left-[7px] w-[6px] h-[12px] #{!important};
+    }
+  }
+
+  &-checked > &-inner {
+    @apply bg-blue #{!important};
+    &::after{
+      @apply opacity-100 #{!important};
+    }
+  }
+
+  &:hover > &-inner,
+  &-input:focus + &-inner {
+    @apply border-none #{!important};
+  }
+
+}

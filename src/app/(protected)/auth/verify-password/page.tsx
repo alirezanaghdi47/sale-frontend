@@ -1,4 +1,4 @@
-// libraries
+// components
 import {VerifyPassword} from "@/components/widgets/VerifyPassword";
 
 const ForgetPasswordPage = () => {

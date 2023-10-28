@@ -1,22 +1,20 @@
-"use client";
-
 // libraries
-import Button from "@/components/modules/Button";
+import ReactPagination from 'rc-pagination';
+import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
+
+// styles
+import "@/styles/customize/rc-pagination.scss";
 
 const Pagination = ({pageCount, pageSize, currentPage}) => {
 
     return (
-        <div className="flex justify-center items-center w-full">
-
-            <Button
-                variant="contained"
-                size="md"
-                color="blue"
-            >
-                موارد دیگر
-            </Button>
-
-        </div>
+        <ReactPagination
+            total={pageCount}
+            current={currentPage}
+            pageSize={pageSize}
+            prevIcon={<LuChevronLeft size={20}/>}
+            nextIcon={<LuChevronRight size={20}/>}
+        />
     )
 }
 

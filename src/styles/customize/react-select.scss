@@ -5,7 +5,7 @@
   }
 
   &__control {
-    @apply flex-row min-h-[40px] bg-secondary border border-solid border-secondary rounded-lg shadow-none #{!important};
+    @apply flex-row min-h-[40px] bg-light border-none rounded-lg shadow-none #{!important};
 
     &--is-focused {
       @apply border-secondary #{!important};
@@ -29,7 +29,7 @@
   }
 
   &__value-container {
-    @apply justify-start items-start p-1 #{!important};
+    @apply justify-start items-start p-2 #{!important};
   }
 
   &__single-value{
@@ -37,7 +37,7 @@
   }
 
   &__indicators {
-    @apply flex justify-start items-center gap-x-2 p-1 #{!important};
+    @apply flex justify-start items-center gap-x-2 p-2 #{!important};
   }
 
   &__indicator {

@@ -1,17 +1,20 @@
-"use client";
+// libraries
+import Checkbox from "rc-checkbox";
 
-const CheckBox = ({title , name, value , onChange , error, touched}) => {
+// styles
+import "rc-checkbox/assets/index.css";
+import "@/styles/customize/rc-checkbox.scss";
+
+const CheckBox = ({title, name, value, onChange}) => {
 
     return (
         <label
-            className="flex justify-start items-center gap-x-2 w-full"
+            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
             htmlFor={`checkbox-${value}`}
         >
 
-            <input
-                type="checkbox"
-                id={`check-box-${value}`}
-                className="w-[20px] h-[20px] bg-secondary text-blue border border-solid border-secondary rounded-lg cursor-pointer focus:border-transparent focus:ring-0 focus:ring-offset-0"
+            <Checkbox
+                id={`checkbox-${value}`}
                 name={name}
                 value={value}
                 onChange={onChange}

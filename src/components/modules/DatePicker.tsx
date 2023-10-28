@@ -1,17 +1,17 @@
 // libraries
-import DatePicker from "react-multi-date-picker";
+import ReactDatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import {LuChevronLeft, LuChevronRight , LuX} from "react-icons/lu";
+import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
 
 // styles
-import "@/styles/libraries/react-multi-date-picker.scss";
+import "@/styles/customize/react-multi-date-picker.scss";
 
-const DatePickerInput = ({onFocus, name, placeholder, value}) => {
+const ReactDatePickerInput = ({onFocus, name, placeholder, value}) => {
 
     return (
         <label
-            className={`flex justify-center items-center gap-x-2 w-full bg-secondary rounded-lg px-4 py-2`}
+            className={`flex justify-center items-center gap-x-2 w-full bg-light border border-solid border-secondary rounded-lg px-4 py-2`}
         >
 
             <input
@@ -29,47 +29,45 @@ const DatePickerInput = ({onFocus, name, placeholder, value}) => {
     )
 }
 
-const DatePicker2 = ({name, title, placeholder, value, onChange, onClear}) => {
+const ReactDatePickerHeader = ({direction , handleClick}) => {
 
     return (
-        <div className="flex flex-col justify-start items-start gap-y-2 w-full">
-
-            {
-                title && (
-                    <span className="font-bold text-gray text-sm">
-                        {title}
-                    </span>
-                )
-            }
-
-            <DatePicker
-                value={value}
-                currentDate={null}
-                onChange={(date) => onChange(date)}
-                calendar={persian}
-                locale={persian_fa}
-                maxDate={new Date()}
-                format="YYYY/MM/DD"
-                dateSeparator=" - "
-                arrow={false}
-                headerOrder={["RIGHT_BUTTON", "MONTH_YEAR", "LEFT_BUTTON"]}
-                render={
-                    <DatePickerInput
-                        name={name}
-                        value={value}
-                        placeholder={placeholder}
-                    />
-                }
-                renderButton={(direction, handleClick) => (
-                    <button onClick={handleClick}>
-                        {direction === "right" ? <LuChevronRight size={20}/> : <LuChevronLeft size={20}/>}
-                    </button>
-                )}
-                calendarPosition="bottom-center"
-            />
-
-        </div>
+        <button onClick={handleClick}>
+            {direction === "right" ? <LuChevronRight size={20}/> : <LuChevronLeft size={20}/>}
+        </button>
     )
 }
 
-export default DatePicker2;
+const DatePicker = ({name, placeholder, value, onChange}) => {
+
+    return (
+        <ReactDatePicker
+            value={value}
+            currentDate={null}
+            onChange={(date) => onChange(date)}
+            calendar={persian}
+            locale={persian_fa}
+            maxDate={new Date()}
+            format="YYYY/MM/DD"
+            dateSeparator=" - "
+            arrow={false}
+            headerOrder={["RIGHT_BUTTON", "MONTH_YEAR", "LEFT_BUTTON"]}
+            render={
+                <ReactDatePickerInput
+                    name={name}
+                    value={value}
+                    placeholder={placeholder}
+                />
+            }
+            renderButton={(direction, handleClick) =>
+                <ReactDatePickerHeader
+                    direction={direction}
+                    handleClick={handleClick}
+                />
+            }
+            calendarPosition="bottom-center"
+        />
+    )
+}
+
+export default DatePicker;

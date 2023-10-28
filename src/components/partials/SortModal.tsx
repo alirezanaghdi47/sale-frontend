@@ -25,7 +25,7 @@ const SortModal = ({isOpenModal, onCloseModal}) => {
             isOpen={isOpenModal}
             onRequestClose={onCloseModal}
             ariaHideApp={false}
-            className="flex flex-col justify-start items-center gap-y-4 w-full h-max md:max-w-md bg-light rounded-tl-lg rounded-tr-lg md:rounded-lg p-4"
+            className="flex flex-col justify-start items-center gap-y-4 w-full h-max md:max-w-md bg-secondary rounded-tl-lg rounded-tr-lg md:rounded-lg p-4"
             overlayClassName="fixed top-0 left-0 z-30 flex justify-end items-end md:justify-center md:items-center w-full h-full bg-gray/75 md:p-4"
         >
 

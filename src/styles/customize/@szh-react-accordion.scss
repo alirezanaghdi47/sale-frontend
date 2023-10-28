@@ -2,7 +2,7 @@
   @apply flex flex-col justify-center items-center gap-y-4 w-full #{!important};
 
   &__item {
-    @apply w-full bg-light border-2 border-solid border-secondary rounded-lg p-0 #{!important};
+    @apply w-full bg-light rounded-lg p-0 #{!important};
 
     &-btn {
       @apply flex justify-start items-center w-full p-4 #{!important};

@@ -1,4 +1,4 @@
-// libraries
+// components
 import {ForgetPassword} from "@/components/widgets/ForgetPassword";
 
 const ForgetPasswordPage = () => {
