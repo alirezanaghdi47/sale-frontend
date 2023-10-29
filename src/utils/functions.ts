@@ -1,6 +1,3 @@
-// helpers
-import notification from "@/helpers/notification";
-
 export const getTitleFromPathname = (pathname) => {
     switch (pathname) {
         case "/account/dashboard":
@@ -15,7 +12,9 @@ export const getTitleFromPathname = (pathname) => {
 }
 
 export const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text)
-        .then(res => notification("کپی شد" , "success"))
-        .catch(err => notification("کپی نشد" , "error"));
+    return new Promise((resolve, reject) => {
+        return navigator.clipboard.writeText(text)
+            .then(res => resolve("متن کپی شد"))
+            .catch(err => reject("متن کپی نشد"));
+    })
 }

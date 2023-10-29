@@ -58,7 +58,12 @@ const AppbarActions = () => {
                     name="search"
                     placeholder="جستجو"
                     color="secondary"
-                    startIcon={<LuSearch size={20}/>}
+                    startIcon={
+                        <LuSearch
+                            size={20}
+                            className="text-gray"
+                        />
+                    }
                 />
 
                 <Button
@@ -202,7 +207,12 @@ const HeaderActions = () => {
                     name="search"
                     placeholder="جستجو"
                     color="secondary"
-                    startIcon={<LuSearch size={20}/>}
+                    startIcon={
+                        <LuSearch
+                            size={20}
+                            className="text-gray"
+                        />
+                    }
                 />
 
             </div>

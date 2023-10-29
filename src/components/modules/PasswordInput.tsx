@@ -9,7 +9,7 @@ const PasswordInput = ({name, value, onChange, placeholder, startIcon}) => {
     return (
         <label
             htmlFor={`input-${name}`}
-            className="flex justify-center items-center gap-x-2 w-full bg-light rounded-lg px-4 py-2"
+            className="flex justify-center items-center gap-x-2 w-full bg-secondary rounded-lg px-4 py-2"
         >
 
             {startIcon && startIcon}

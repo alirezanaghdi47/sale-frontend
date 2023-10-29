@@ -1,12 +1,11 @@
-// libraries
-import {Toaster} from "react-hot-toast";
+// components
+import Notification from "@/components/modules/Notification";
 
 // helpers
 import {vazirmatn} from "@/helpers/fonts";
 
 // styles
 import '@/styles/globals.scss';
-import "@/styles/customize/react-hot-toast.scss";
 
 const RootLayout = (props) => {
 
@@ -15,15 +14,7 @@ const RootLayout = (props) => {
 
         <body className={`${vazirmatn.className} flex justify-center items-center w-full h-full min-h-screen bg-secondary`}>
 
-        <Toaster
-            position="bottom-left"
-            reverseOrder={false}
-            gutter={8}
-            toastOptions={{
-                className: "react-hot-toast",
-                duration: 3000,
-            }}
-        />
+        <Notification/>
 
         {props.children}
 

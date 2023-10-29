@@ -1,18 +1,25 @@
 "use client";
 
 // libraries
-import {LuArrowDownWideNarrow} from "react-icons/lu";
+import {LuArrowDownWideNarrow, LuFilter} from "react-icons/lu";
 
 // components
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import Button from "@/components/modules/Button";
 import Pagination from "@/components/modules/Pagination";
 import SortModal from "@/components/partials/SortModal";
+import FilterModal from "@/components/partials/FilterModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
 
 const Actionbar = () => {
+
+    const {
+        isOpenModal: isOpenFilterModal,
+        _handleHideModal: _handleHideFilterModal,
+        _handleShowModal: _handleShowFilterModal
+    } = useModal();
 
     const {
         isOpenModal: isOpenSortModal,
@@ -25,23 +32,43 @@ const Actionbar = () => {
 
             <div className="flex justify-between items-center gap-x-4 w-full">
 
-                <Button
-                    variant="contained"
-                    color="light"
-                    startIcon={<LuArrowDownWideNarrow size={20}/>}
-                    onClick={_handleShowSortModal}
-                >
-                    مرتب سازی
-                </Button>
+                <div className="flex justify-start items-center gap-x-4">
 
-                <span className="text-lg text-gray">
+                    <Button
+                        variant="contained"
+                        color="light"
+                        size="md"
+                        startIcon={<LuFilter size={20}/>}
+                        onClick={_handleShowFilterModal}
+                    >
+                        فیلتر
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        color="light"
+                        size="md"
+                        startIcon={<LuArrowDownWideNarrow size={20}/>}
+                        onClick={_handleShowSortModal}
+                    >
+                        مرتب سازی
+                    </Button>
+
+                </div>
+
+                <span className="text-base text-gray">
                     12
-                    <span className='text-sm mr-1'>
+                    <span className='text-xs mr-1'>
                         مورد
                     </span>
                 </span>
 
             </div>
+
+            <FilterModal
+                isOpenModal={isOpenFilterModal}
+                onCloseModal={_handleHideFilterModal}
+            />
 
             <SortModal
                 isOpenModal={isOpenSortModal}
@@ -61,14 +88,19 @@ const Sortbar = () => {
 
                 <div className="flex justify-start items-center">
 
-                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark ml-2">
-                        <span>
-                            <LuArrowDownWideNarrow size={20}/>
-                        </span>
+                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
+
+                       <LuArrowDownWideNarrow
+                           size={20}
+                           className="text-dark"
+                       />
+
                         مرتب سازی
+
                     </span>
 
                     <Button
+                        size="sm"
                         variant="text"
                         color="gray"
                     >
@@ -76,6 +108,7 @@ const Sortbar = () => {
                     </Button>
 
                     <Button
+                        size="sm"
                         variant="text"
                         color="gray"
                     >
@@ -84,9 +117,9 @@ const Sortbar = () => {
 
                 </div>
 
-                <span className="text-lg text-gray">
+                <span className="text-base text-gray">
                     12
-                    <span className='text-sm mr-1'>
+                    <span className='text-xs mr-1'>
                         مورد
                     </span>
                 </span>

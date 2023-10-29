@@ -21,7 +21,7 @@ const Filters = () => {
 
     const formik = useFormik({
         initialValues: {
-            prices: [1_000, 1_000_000],
+            prices: [2_500_000, 7_500_000],
             hasImage: false,
             categories: []
         },
@@ -49,65 +49,68 @@ const Filters = () => {
 
             </div>
 
-            <Accordion>
+            <div className="flex flex-col justify-end items-center gap-y-4 w-full bg-light rounded-lg p-4">
 
-                <AccordionItem
-                    header="دسته بندی ها"
-                    initialEntered
-                >
+                <Accordion>
 
-                    <CheckBox
-                        title="موبایل"
-                        name="categories"
-                        value="mobile"
-                        onChange={formik.handleChange}
-                    />
+                    <AccordionItem
+                        header="دسته بندی ها"
+                        initialEntered
+                    >
 
-                    <CheckBox
-                        title="لپتاپ"
-                        name="categories"
-                        value="laptop"
-                        onChange={formik.handleChange}
-                    />
+                        <CheckBox
+                            title="موبایل"
+                            name="categories"
+                            value="mobile"
+                            onChange={formik.handleChange}
+                        />
 
-                </AccordionItem>
+                        <CheckBox
+                            title="لپتاپ"
+                            name="categories"
+                            value="laptop"
+                            onChange={formik.handleChange}
+                        />
 
-                <AccordionItem
-                    header="قیمت"
-                    initialEntered
-                >
+                    </AccordionItem>
 
-                    <RangeInput
-                        min={0}
-                        max={10_000_000}
-                        step={1000}
-                        rtl
-                        values={formik.values.prices}
-                        onChange={(values) => formik.setFieldValue("prices", values)}
-                    />
+                    <AccordionItem
+                        header="قیمت"
+                        initialEntered
+                    >
 
-                    <div className="flex justify-between items-center gap-x-4 w-full">
-                        <span className="text-xs text-gray"> {formik.values.prices[0]?.toLocaleString()} تومان</span>
-                        <span className="text-xs text-gray"> {formik.values.prices[1]?.toLocaleString()} تومان</span>
-                    </div>
+                        <RangeInput
+                            min={0}
+                            max={10_000_000}
+                            step={1000}
+                            values={formik.values.prices}
+                            onChange={(values) => formik.setFieldValue("prices", values)}
+                        />
 
-                </AccordionItem>
+                        <div className="flex justify-between items-center gap-x-4 w-full">
+                            <span className="text-xs text-gray"> {formik.values.prices[0]?.toLocaleString()} تومان</span>
+                            <span className="text-xs text-gray"> {formik.values.prices[1]?.toLocaleString()} تومان</span>
+                        </div>
 
-                <AccordionItem
-                    header="وضعیت"
-                    initialEntered
-                >
+                    </AccordionItem>
 
-                    <CheckBox
-                        title="عکس دار"
-                        name="hasImage"
-                        value="yes"
-                        onChange={formik.handleChange}
-                    />
+                    <AccordionItem
+                        header="وضعیت"
+                        initialEntered
+                    >
 
-                </AccordionItem>
+                        <CheckBox
+                            title="عکس دار"
+                            name="hasImage"
+                            value="yes"
+                            onChange={formik.handleChange}
+                        />
 
-            </Accordion>
+                    </AccordionItem>
+
+                </Accordion>
+
+            </div>
 
             <div className="flex justify-end items-center gap-x-4 w-full">
 

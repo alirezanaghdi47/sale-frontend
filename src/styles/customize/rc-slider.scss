@@ -1,0 +1,18 @@
+.rc-slider{
+
+  &-rail{
+    @apply w-full h-[4px] bg-secondary rounded-lg #{!important};
+  }
+
+  &-track{
+    @apply bg-blue h-[4px] #{!important};
+  }
+
+  &-handle{
+    @apply w-[14px] h-[14px] opacity-100 bg-blue border-none #{!important};
+
+    &-dragging{
+      @apply shadow-none #{!important};
+    }
+  }
+}

@@ -14,7 +14,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
     const formik = useFormik({
         initialValues:{
-            prices: [1_000,1_000_000],
+            prices: [2_500_000, 7_500_000],
             hasImage: false,
             categories: []
         },
@@ -29,7 +29,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
             isOpen={isOpenModal}
             onRequestClose={onCloseModal}
             ariaHideApp={false}
-            className="flex flex-col justify-start items-center gap-y-4 w-full h-full md:max-w-md md:h-max bg-secondary md:rounded-lg p-4"
+            className="flex flex-col justify-start items-center gap-y-4 w-full h-full md:max-w-md md:h-max bg-light md:rounded-lg p-4"
             overlayClassName="fixed top-0 left-0 z-30 flex justify-start items-start md:justify-center md:items-center w-full h-full bg-gray/75 md:p-4"
         >
 
@@ -58,14 +58,14 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                     <CheckBox
                         title="موبایل"
                         name="categories"
-                        value={formik.values.categories}
+                        value="mobile"
                         onChange={(value) => formik.setFieldValue("categories" , value)}
                     />
 
                     <CheckBox
                         title="لپتاپ"
                         name="categories"
-                        value={formik.values.categories}
+                        value="laptop"
                         onChange={(value) => formik.setFieldValue("categories" , value)}
                     />
 
@@ -80,7 +80,6 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                         min={0}
                         max={10_000_000}
                         step={1000}
-                        rtl
                         values={formik.values.prices}
                         onChange={(values) => formik.setFieldValue("prices" , values)}
                     />
@@ -100,7 +99,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                     <CheckBox
                         title="عکس دار"
                         name="hasImage"
-                        value={formik.values.hasImage}
+                        value="hasImage"
                         onChange={(value) => formik.setFieldValue("hasImage" , value)}
                     />
 

@@ -5,7 +5,7 @@
   }
 
   &__control {
-    @apply flex-row min-h-[40px] bg-light border-none rounded-lg shadow-none #{!important};
+    @apply flex-row min-h-[40px] bg-secondary border-none rounded-lg shadow-none #{!important};
 
     &--is-focused {
       @apply border-secondary #{!important};

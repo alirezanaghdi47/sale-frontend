@@ -6,6 +6,7 @@ import Image from "next/image";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from "swiper/modules";
 import mapboxgl from "mapbox-gl";
+import toast from "react-hot-toast";
 import {
     LuBookmark,
     LuClock,
@@ -212,7 +213,7 @@ const Summary = () => {
 
                     <button
                         className="text-gray p-2"
-                        onClick={() => copyToClipboard("link")}
+                        onClick={() => copyToClipboard("link").then(res => toast.success(res)).catch(err => toast.error(err))}
                     >
                         <LuShare2 size={20}/>
                     </button>

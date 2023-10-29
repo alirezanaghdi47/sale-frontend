@@ -11,7 +11,7 @@ const ReactDatePickerInput = ({onFocus, name, placeholder, value}) => {
 
     return (
         <label
-            className={`flex justify-center items-center gap-x-2 w-full bg-light border border-solid border-secondary rounded-lg px-4 py-2`}
+            className={`flex justify-center items-center gap-x-2 w-full bg-secondary rounded-lg px-4 py-2`}
         >
 
             <input

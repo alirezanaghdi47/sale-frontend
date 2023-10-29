@@ -221,9 +221,9 @@ const SidebarActions = () => {
                     <Image
                         src="/assets/images/avatar.jpg"
                         alt="logo"
-                        width={32}
-                        height={32}
-                        className="border-4 border-solid border-blue rounded-full object-cover object-center"
+                        width={20}
+                        height={20}
+                        className="rounded-full object-cover object-center"
                     />
                     علیرضا نقدی
                 </Link>

@@ -8,14 +8,14 @@
   &-inner {
     @apply w-[20px] h-[20px] bg-secondary border-none #{!important};
     &::after {
-      @apply opacity-0 top-[3px] left-[7px] w-[6px] h-[12px] #{!important};
+      @apply opacity-0 top-[4px] left-[4px] w-[10px] h-[10px] bg-light rounded-full border-none #{!important};
     }
   }
 
   &-checked > &-inner {
     @apply bg-blue #{!important};
     &::after {
-      @apply opacity-100 #{!important};
+      @apply opacity-100 border-none #{!important};
     }
   }
 

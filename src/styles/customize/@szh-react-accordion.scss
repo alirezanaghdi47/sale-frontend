@@ -2,10 +2,10 @@
   @apply flex flex-col justify-center items-center gap-y-4 w-full #{!important};
 
   &__item {
-    @apply w-full bg-light rounded-lg p-0 #{!important};
+    @apply w-full rounded-lg p-0 #{!important};
 
     &-btn {
-      @apply flex justify-start items-center w-full p-4 #{!important};
+      @apply flex justify-start items-center w-full rounded-lg p-0 #{!important};
     }
 
     &-heading {
@@ -13,7 +13,7 @@
     }
 
     &-content {
-      @apply p-4 pt-0 mt-0 #{!important};
+      @apply mt-4 #{!important};
     }
 
     &-panel {

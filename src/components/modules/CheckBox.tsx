@@ -1,5 +1,5 @@
 // libraries
-import Checkbox from "rc-checkbox";
+import ReactCheckBox from "rc-checkbox";
 
 // styles
 import "rc-checkbox/assets/index.css";
@@ -13,7 +13,7 @@ const CheckBox = ({title, name, value, onChange}) => {
             htmlFor={`checkbox-${value}`}
         >
 
-            <Checkbox
+            <ReactCheckBox
                 id={`checkbox-${value}`}
                 name={name}
                 value={value}

@@ -24,7 +24,7 @@ const AvatarInput = ({name, value, preview, onChange}) => {
     return (
         <label
             {...getRootProps()}
-            className="relative flex justify-center items-center w-[120px] h-[120px] bg-light rounded-lg p-4 overflow-hidden cursor-pointer"
+            className="relative flex justify-center items-center w-[120px] h-[120px] bg-secondary rounded-lg p-4 overflow-hidden cursor-pointer"
         >
 
             <input

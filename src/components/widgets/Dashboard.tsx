@@ -64,7 +64,7 @@ const ActivityCharts = () => {
                                         position:'bottom',
                                         labels: {
                                             font: {
-                                                size: 16,
+                                                size: 14,
                                                 family: "Vazirmatn-FD",
                                                 weight: "bold"
                                             },
@@ -116,7 +116,7 @@ const ActivityCharts = () => {
                                         position:'bottom',
                                         labels: {
                                             font: {
-                                                size: 16,
+                                                size: 14,
                                                 family: "Vazirmatn-FD",
                                                 weight: "bold"
                                             },
@@ -185,7 +185,7 @@ const InProgressAdvertises = () => {
                 آگهی های فعال
             </h1>
 
-            <div className="flex justify-start items-center w-full">
+            <div className="flex justify-start items-center w-full rounded-lg">
 
                 <Swiper
                     modules={[Navigation]}

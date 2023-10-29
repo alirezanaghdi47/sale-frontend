@@ -40,128 +40,132 @@ const Form = () => {
                 اطلاعات کاربری
             </h1>
 
-            <ul className='grid grid-cols-12 justify-start items-center gap-4 w-full'>
+            <div className="flex flex-col justify-center items-start gap-y-8 w-full bg-light rounded-lg p-4">
 
-                <li className="col-span-12 flex flex-col justify-start items-start gap-y-4">
+                <ul className='grid grid-cols-12 justify-start items-center gap-4 w-full'>
+
+                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-4">
 
                     <span className="text-gray text-sm font-bold">
-                        نام خانوادگی
+                        آواتار
                     </span>
 
-                    <AvatarInput
-                        title="آواتار"
-                        name="avatar"
-                        value={formik.values.avatar}
-                        // onChange={}
-                    />
+                        <AvatarInput
+                            title="آواتار"
+                            name="avatar"
+                            value={formik.values.avatar}
+                            // onChange={}
+                        />
 
-                </li>
+                    </li>
 
-                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
+                    <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
                      <span className="text-gray text-sm font-bold">
                         نام خانوادگی
                     </span>
 
-                    <TextInput
-                        name="name"
-                        value={formik.values.name}
-                        onChange={formik.handleChange}
-                    />
+                        <TextInput
+                            name="name"
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                        />
 
-                </li>
+                    </li>
 
-                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
+                    <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
                      <span className="text-gray text-sm font-bold">
                         نام خانوادگی
                     </span>
 
-                    <TextInput
-                        name="family"
-                        value={formik.values.family}
-                        onChange={formik.handleChange}
-                    />
+                        <TextInput
+                            name="family"
+                            value={formik.values.family}
+                            onChange={formik.handleChange}
+                        />
 
-                </li>
+                    </li>
 
-                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
+                    <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
                      <span className="text-gray text-sm font-bold">
                         کد ملی
                     </span>
 
-                    <NumberInput
-                        name="code"
-                        options={{
-                            delimiter: '-',
-                            blocks: [3, 6, 1],
-                        }}
-                        value={formik.values.code}
-                        onChange={formik.handleChange}
-                    />
+                        <NumberInput
+                            name="code"
+                            options={{
+                                delimiter: '-',
+                                blocks: [3, 6, 1],
+                            }}
+                            value={formik.values.code}
+                            onChange={formik.handleChange}
+                        />
 
-                </li>
+                    </li>
 
-                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
+                    <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
                      <span className="text-gray text-sm font-bold">
                         شماره موبایل
                     </span>
 
-                    <NumberInput
-                        name="phoneNumber"
-                        options={{
-                            delimiter: ' ',
-                            blocks: [4, 3, 4],
-                        }}
-                        value={formik.values.phoneNumber}
-                        onChange={formik.handleChange}
-                    />
+                        <NumberInput
+                            name="phoneNumber"
+                            options={{
+                                delimiter: ' ',
+                                blocks: [4, 3, 4],
+                            }}
+                            value={formik.values.phoneNumber}
+                            onChange={formik.handleChange}
+                        />
 
-                </li>
+                    </li>
 
-                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
+                    <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
                      <span className="text-gray text-sm font-bold">
                         جنسیت
                     </span>
 
-                    <SelectBox
-                        name="gender"
-                        isSearchable={false}
-                        options={genderList}
-                        value={formik.values.gender}
-                        onChange={(value) => formik.setFieldValue("gender", value)}
-                    />
+                        <SelectBox
+                            name="gender"
+                            isSearchable={false}
+                            options={genderList}
+                            value={formik.values.gender}
+                            onChange={(value) => formik.setFieldValue("gender", value)}
+                        />
 
-                </li>
+                    </li>
 
-                <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
+                    <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
                     <span className="text-gray text-sm font-bold">
                         تاریخ تولد
                     </span>
 
-                    <DatePicker
-                        name="birthDay"
-                        value={formik.values.birthDay}
-                        onChange={(value) => formik.setFieldValue("birthDay" , value)}
-                    />
+                        <DatePicker
+                            name="birthDay"
+                            value={formik.values.birthDay}
+                            onChange={(value) => formik.setFieldValue("birthDay", value)}
+                        />
 
-                </li>
+                    </li>
 
-            </ul>
+                </ul>
 
-            <div className="flex justify-end items-center gap-x-4 w-full mt-4">
+                <div className="flex justify-end items-center gap-x-4 w-full">
 
-                <Button
-                    variant="contained"
-                    color="blue"
-                    startIcon={<LuCheck size={20}/>}
-                >
-                    ثبت
-                </Button>
+                    <Button
+                        variant="contained"
+                        color="blue"
+                        startIcon={<LuCheck size={20}/>}
+                    >
+                        ثبت
+                    </Button>
+
+                </div>
 
             </div>
 

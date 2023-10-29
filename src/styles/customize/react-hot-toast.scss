@@ -1,5 +1,9 @@
-.react-hot-toast{
-  div[role="status"]{
-    @apply text-sm font-bold text-dark #{!important};
+.react-hot-toast {
+  &--success{
+    @apply bg-green text-sm font-bold text-light #{!important};
+  }
+
+  &--error{
+    @apply bg-red text-sm font-bold text-light #{!important};
   }
 }
