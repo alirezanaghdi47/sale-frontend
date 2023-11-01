@@ -4,13 +4,20 @@ import {CopyRight, Logo} from "@/components/widgets/Protected";
 const AuthLayout = (props) => {
 
     return (
-        <div className="relative flex flex-col justify-center items-center gap-y-4 w-full max-w-[480px] min-h-screen h-full p-4">
+        <div
+            className="flex justify-center items-center w-full min-h-screen h-full bg-cover bg-center bg-no-repeat p-4"
+            style={{backgroundImage: 'url(/assets/images/blob.svg)'}}
+        >
 
-            <Logo/>
+            <div className="flex flex-col justify-center items-center gap-y-4 w-full max-w-[480px]">
 
-            {props.children}
+                <Logo/>
 
-            <CopyRight/>
+                {props.children}
+
+                <CopyRight/>
+
+            </div>
 
         </div>
     )

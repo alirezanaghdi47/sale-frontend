@@ -2,10 +2,11 @@
 
 // libraries
 import {useFormik} from "formik";
-import {LuCheck} from "react-icons/lu";
+import {LuCheck, LuChevronLeft} from "react-icons/lu";
 
 // components
 import {Button, LinkButton} from "@/components/modules/Button";
+import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
 import PasswordInput from "@/components/modules/PasswordInput";
 
@@ -136,9 +137,21 @@ export const SignIn = () => {
     return (
         <div className="flex flex-col justify-center items-center gap-y-4 w-full">
 
-            <h3 className="text-dark font-bold text-xl">
-                ورود
-            </h3>
+            <div className="flex justify-between items-center gap-x-2 w-full">
+
+                <h3 className="text-gray font-bold text-xl">
+                    ورود
+                </h3>
+
+                <LinkIconButton
+                    variant="text"
+                    color="gray"
+                    href="/"
+                >
+                    <LuChevronLeft size={20}/>
+                </LinkIconButton>
+
+            </div>
 
             <Form/>
 

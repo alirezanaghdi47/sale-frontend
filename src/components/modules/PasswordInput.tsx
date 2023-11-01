@@ -10,7 +10,7 @@ const PasswordInput = ({name, value, onChange, placeholder, startIcon}) => {
     return (
         <label
             htmlFor={`input-${name}`}
-            className="flex justify-center items-center gap-x-2 w-full bg-secondary rounded-lg px-4 py-2"
+            className="flex justify-center items-center gap-x-2 w-full h-[40px] bg-secondary rounded-lg px-4 py-2"
         >
 
             {
@@ -26,7 +26,7 @@ const PasswordInput = ({name, value, onChange, placeholder, startIcon}) => {
                 type={toggleShowPassword ? "text" : "password"}
                 name={name}
                 placeholder={placeholder}
-                className="w-full bg-transparent text-gray font-bold placeholder-gray focus:outline-none"
+                className="w-full h-full bg-transparent text-gray font-bold placeholder-gray focus:outline-none"
                 value={value}
                 onChange={onChange}
             />

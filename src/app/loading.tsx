@@ -13,7 +13,7 @@ const Loading = () => {
                 color="#2563eb"
             />
 
-            <h1 className="text-dark font-bold">
+            <h1 className="text-gray font-bold">
                 لطفا کمی صبر کنید
             </h1>
 

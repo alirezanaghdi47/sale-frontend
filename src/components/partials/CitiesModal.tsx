@@ -1,7 +1,6 @@
 'use client';
 
 // libraries
-import {useMediaQuery} from "@react-hooks-library/core";
 import {useFormik} from "formik";
 import {LuCheck, LuSearch, LuX} from "react-icons/lu";
 
@@ -68,18 +67,15 @@ const CityList = () => {
 
 const CitiesModal = ({isOpenModal, onCloseModal}) => {
 
-    const isTablet = useMediaQuery("(min-width: 768px)");
-
     return (
         <Modal
             isOpenModal={isOpenModal}
             onCloseModal={onCloseModal}
-            width={isTablet ? "md" : "full"}
-            position={isTablet ? "center" : "bottom"}
+            position="center"
         >
 
             <ModalHeader
-                title="شهر محل سکونت"
+                title="استان محل سکونت"
                 onCloseModal={onCloseModal}
             />
 

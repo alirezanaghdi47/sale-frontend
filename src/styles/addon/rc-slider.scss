@@ -9,7 +9,7 @@
   }
 
   &-handle{
-    @apply w-[14px] h-[14px] opacity-100 bg-blue border-none #{!important};
+    @apply w-[16px] h-[16px] opacity-100 bg-blue border-none #{!important};
 
     &-dragging{
       @apply shadow-none #{!important};

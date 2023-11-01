@@ -1,7 +1,7 @@
 const RadioBox = ({name, value , checked , onChange}) => {
 
     return (
-        <span className={`flex justify-center items-center w-[24px] h-[24px] ${checked ? "bg-blue" : "bg-secondary"} rounded-full`}>
+        <span className={`flex justify-center items-center w-[20px] h-[20px] ${checked ? "bg-blue" : "bg-secondary"} rounded-full`}>
 
             <input
                 id={`radiobox-${value}`}
@@ -15,7 +15,7 @@ const RadioBox = ({name, value , checked , onChange}) => {
 
             {
                 checked && (
-                    <span className="w-[16px] h-[16px] bg-light rounded-full"/>
+                    <span className="w-[12px] h-[12px] bg-light rounded-full"/>
                 )
             }
 

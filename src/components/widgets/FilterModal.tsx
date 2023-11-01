@@ -97,12 +97,14 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                         <div className="flex justify-between items-center gap-x-4 w-full">
 
                             <span className="text-xs text-gray">
-                                {formik.values.prices[0]?.toLocaleString()}
+                                {formik.values.prices[1]?.toLocaleString()}
+                                &nbsp;
                                 تومان
                             </span>
 
                             <span className="text-xs text-gray">
-                                {formik.values.prices[1]?.toLocaleString()}
+                                {formik.values.prices[0]?.toLocaleString()}
+                                &nbsp;
                                 تومان
                             </span>
 

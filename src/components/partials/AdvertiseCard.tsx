@@ -1,16 +1,24 @@
 // libraries
 import Link from "next/link";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import {LuPencil, LuShare2, LuTrash2} from "react-icons/lu";
 
-const AdvertiseCard = ({advertise , toolbar , disabled}) => {
+// components
+import {IconButton} from "@/components/modules/IconButton";
+
+// utils
+import {copyToClipboard} from "@/utils/functions";
+
+const AdvertiseCard = ({advertise, toolbar, disabled}) => {
 
     return (
         <article className="relative flex justify-start items-center gap-x-4 bg-light rounded-lg p-4">
 
             {
                 disabled && (
-                    <div className="absolute top-0 left-0 z-10 flex justify-center items-center w-full h-full bg-light/90 rounded-lg">
+                    <div
+                        className="absolute top-0 left-0 z-10 flex justify-center items-center w-full h-full bg-light/90 rounded-lg">
                         <span className="bg-secondary text-gray font-bold rounded-lg px-4 py-2">
                             {disabled?.message}
                         </span>
@@ -67,25 +75,35 @@ const AdvertiseCard = ({advertise , toolbar , disabled}) => {
 
                         {
                             toolbar.edit && (
-                                <button className="text-gray p-2">
+                                <IconButton
+                                    variant="text"
+                                    color="gray"
+                                >
                                     <LuPencil size={20}/>
-                                </button>
+                                </IconButton>
                             )
                         }
 
                         {
                             toolbar.share && (
-                                <button className="text-gray p-2">
+                                <IconButton
+                                    variant="text"
+                                    color="gray"
+                                    onClick={() => copyToClipboard("link").then(res => toast.success(res)).catch(err => toast.error(err))}
+                                >
                                     <LuShare2 size={20}/>
-                                </button>
+                                </IconButton>
                             )
                         }
 
                         {
                             toolbar.delete && (
-                                <button className="text-red p-2">
+                                <IconButton
+                                    variant="text"
+                                    color="red"
+                                >
                                     <LuTrash2 size={20}/>
-                                </button>
+                                </IconButton>
                             )
                         }
 

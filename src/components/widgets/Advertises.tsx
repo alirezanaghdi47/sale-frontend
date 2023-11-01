@@ -1,6 +1,7 @@
 "use client";
 
 // libraries
+import {useMediaQuery} from "@react-hooks-library/core";
 import {useFormik} from "formik";
 import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
 
@@ -31,8 +32,6 @@ const Filters = () => {
             console.log(data)
         }
     });
-
-    console.log(formik.values.hasImage)
 
     return (
         <div className='sticky top-[86px] hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
@@ -101,8 +100,19 @@ const Filters = () => {
                         />
 
                         <div className="flex justify-between items-center gap-x-4 w-full">
-                            <span className="text-xs text-gray"> {formik.values.prices[0]?.toLocaleString()} تومان</span>
-                            <span className="text-xs text-gray"> {formik.values.prices[1]?.toLocaleString()} تومان</span>
+
+                            <span className="text-xs text-gray">
+                                {formik.values.prices[1]?.toLocaleString()}
+                                &nbsp;
+                                تومان
+                            </span>
+
+                            <span className="text-xs text-gray">
+                                {formik.values.prices[0]?.toLocaleString()}
+                                &nbsp;
+                                تومان
+                            </span>
+
                         </div>
 
                     </AccordionItem>
@@ -151,6 +161,8 @@ const Filters = () => {
 
 const Actionbar = () => {
 
+    const isTablet = useMediaQuery("(min-width: 768px)");
+
     const {
         isOpenModal: isOpenFilterModal,
         _handleHideModal: _handleHideFilterModal,
@@ -164,7 +176,7 @@ const Actionbar = () => {
     } = useModal();
 
     return (
-        <section className='col-span-12 flex md:hidden flex-col justify-center items-start gap-y-4 w-full'>
+        <section className='flex md:hidden flex-col justify-center items-start gap-y-4 w-full'>
 
             <div className="flex justify-between items-center gap-x-4 w-full">
 
@@ -200,12 +212,12 @@ const Actionbar = () => {
             </div>
 
             <FilterModal
-                isOpenModal={isOpenFilterModal}
+                isOpenModal={isOpenFilterModal && !isTablet}
                 onCloseModal={_handleHideFilterModal}
             />
 
             <SortModal
-                isOpenModal={isOpenSortModal}
+                isOpenModal={isOpenSortModal && !isTablet}
                 onCloseModal={_handleHideSortModal}
             />
 
@@ -223,10 +235,7 @@ const Sortbar = () => {
                 <div className="flex justify-start items-center">
 
                     <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-                       <LuArrowDownWideNarrow
-                           size={20}
-                           className="text-dark"
-                       />
+                       <LuArrowDownWideNarrow size={20}/>
                         مرتب سازی
                     </span>
 

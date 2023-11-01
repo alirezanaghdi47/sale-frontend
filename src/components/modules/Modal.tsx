@@ -63,7 +63,6 @@ export const ModalHeader = ({title, onCloseModal}) => {
                 variant="contained"
                 color="red"
                 size="sm"
-                shape="rounded"
                 onClick={onCloseModal}
             >
                 <LuX size={20}/>

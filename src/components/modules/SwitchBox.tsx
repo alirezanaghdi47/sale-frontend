@@ -2,7 +2,7 @@
 const SwitchBox = ({name, value, checked, onChange}) => {
 
     return (
-        <span className={`flex items-center w-[48px] h-[24px] ${checked ? "bg-blue" : "bg-secondary"} rounded-full`}>
+        <span className={`flex items-center w-[40px] h-[20px] ${checked ? "bg-blue" : "bg-secondary"} rounded-full`}>
 
             <input
                 id={`switchbox-${name}`}
@@ -14,7 +14,7 @@ const SwitchBox = ({name, value, checked, onChange}) => {
                 className="hidden"
             />
 
-            <span className={`w-[16px] h-[16px] rounded-full transform ${checked ? "bg-light -translate-x-7" : "bg-gray -translate-x-1"}`}>
+            <span className={`w-[12px] h-[12px] rounded-full transform ${checked ? "bg-light -translate-x-[24px]" : "bg-gray -translate-x-[4px]"}`}>
 
             </span>
 

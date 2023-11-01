@@ -14,7 +14,7 @@ export const getTitleFromPathname = (pathname) => {
 export const copyToClipboard = (text) => {
     return new Promise((resolve, reject) => {
         return navigator.clipboard.writeText(text)
-            .then(res => resolve("متن کپی شد"))
-            .catch(err => reject("متن کپی نشد"));
+            .then(res => resolve("کپی شد"))
+            .catch(err => reject("کپی نشد"));
     })
 }

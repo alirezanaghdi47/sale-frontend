@@ -1,6 +1,7 @@
 "use client";
 
 // libraries
+import {useMediaQuery} from "@react-hooks-library/core";
 import {LuArrowDownWideNarrow, LuFilter} from "react-icons/lu";
 
 // components
@@ -8,18 +9,13 @@ import {Button} from "@/components/modules/Button";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import Pagination from "@/components/modules/Pagination";
 import SortModal from "@/components/partials/SortModal";
-import FilterModal from "@/components/widgets/FilterModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
 
 const Actionbar = () => {
 
-    const {
-        isOpenModal: isOpenFilterModal,
-        _handleHideModal: _handleHideFilterModal,
-        _handleShowModal: _handleShowFilterModal
-    } = useModal();
+    const isTablet = useMediaQuery("(min-width: 768px)");
 
     const {
         isOpenModal: isOpenSortModal,
@@ -28,21 +24,11 @@ const Actionbar = () => {
     } = useModal();
 
     return (
-        <section className='col-span-12 flex md:hidden flex-col justify-center items-start gap-y-4 w-full'>
+        <section className='flex md:hidden flex-col justify-center items-start gap-y-4 w-full'>
 
             <div className="flex justify-between items-center gap-x-4 w-full">
 
                 <div className="flex justify-start items-center gap-x-4">
-
-                    <Button
-                        variant="contained"
-                        color="light"
-                        size="md"
-                        startIcon={<LuFilter size={20}/>}
-                        onClick={_handleShowFilterModal}
-                    >
-                        فیلتر
-                    </Button>
 
                     <Button
                         variant="contained"
@@ -65,13 +51,8 @@ const Actionbar = () => {
 
             </div>
 
-            <FilterModal
-                isOpenModal={isOpenFilterModal}
-                onCloseModal={_handleHideFilterModal}
-            />
-
             <SortModal
-                isOpenModal={isOpenSortModal}
+                isOpenModal={isOpenSortModal && !isTablet}
                 onCloseModal={_handleHideSortModal}
             />
 
@@ -89,14 +70,8 @@ const Sortbar = () => {
                 <div className="flex justify-start items-center">
 
                     <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-
-                       <LuArrowDownWideNarrow
-                           size={20}
-                           className="text-dark"
-                       />
-
+                       <LuArrowDownWideNarrow size={20}/>
                         مرتب سازی
-
                     </span>
 
                     <Button

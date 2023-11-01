@@ -20,7 +20,7 @@ const NotFound = () => {
                 className="max-w-[200px] max-h-[200px] object-center object-cover"
             />
 
-            <h1 className="text-dark text-lg font-bold mt-2">
+            <h1 className="text-gray text-lg font-bold mt-2">
                 صفحه مورد نظر یافت نشد
             </h1>
 

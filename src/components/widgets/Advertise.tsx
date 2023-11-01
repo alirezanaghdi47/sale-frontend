@@ -8,10 +8,10 @@ import {Navigation} from "swiper/modules";
 import toast from "react-hot-toast";
 import {
     LuBookmark,
+    LuCalendar,
     LuClock,
     LuDollarSign,
     LuLayers,
-    LuMapPin,
     LuPhone,
     LuShare2,
 } from "react-icons/lu";
@@ -87,7 +87,44 @@ const Location = () => {
 
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
-            <Map/>
+
+            <h3 className="text-dark font-bold">
+                موقعیت فروشنده
+            </h3>
+
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
+                <Map/>
+            </div>
+
+        </section>
+    )
+}
+
+const ContactUs = () => {
+    return (
+        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
+
+            <h3 className="text-dark font-bold">
+                ارتباط با فروشنده
+            </h3>
+
+            <div className="flex justify-between items-center gap-x-4 w-full bg-light rounded-lg p-4">
+
+                <span className="flex justify-center items-center gap-x-2 text-gray text-sm line-clamp-1">
+                    <LuClock size={20}/>
+                    هر روز 10 الی 20
+                </span>
+
+                <Button
+                    variant="contained"
+                    color="blue"
+                    startIcon={<LuPhone size={20}/>}
+                >
+                    تماس بگیرید
+                </Button>
+
+            </div>
+
         </section>
     )
 }
@@ -95,68 +132,64 @@ const Location = () => {
 const Summary = () => {
 
     return (
+        <section className="flex justify-between items-center gap-x-2 w-full">
+
+            <h1 className="text-base text-dark font-bold line-clamp-1">
+                بنز کلاس C C230، مدل ۲۰۰۶
+            </h1>
+
+            <div className="flex justify-end items-center gap-x-4">
+
+                <IconButton
+                    variant="text"
+                    color='gray'
+                >
+                    <LuBookmark size={20}/>
+                </IconButton>
+
+                <IconButton
+                    variant="text"
+                    color='gray'
+                    onClick={() => copyToClipboard("link").then(res => toast.success(res)).catch(err => toast.error(err))}
+                >
+                    <LuShare2 size={20}/>
+                </IconButton>
+
+            </div>
+
+        </section>
+    )
+}
+
+const Features = () => {
+
+    return (
         <section className="flex flex-col justify-start items-start gap-y-2 w-full h-full">
+
+            <h3 className="text-dark font-bold">
+                ویژگی های محصول
+            </h3>
 
             <div className="flex flex-col justify-center items-start gap-y-4 w-full h-full bg-light rounded-lg p-4">
 
-                <h1 className="text-lg text-dark font-bold line-clamp-1">
-                    بنز کلاس C C230، مدل ۲۰۰۶
-                </h1>
+                <ul className="grid grid-cols-3 gap-4 w-full">
 
-                <ul className="flex flex-col justify-center items-start gap-y-4 w-full">
-
-                    <li className="flex justify-start items-center gap-x-2 text-gray text-sm line-clamp-1">
-                        <LuLayers size={20}/>
+                    <li className="col-span-1 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                        <LuLayers size={24}/>
                         ماشین
                     </li>
 
-                    <li className="flex justify-start items-center gap-x-2 text-gray text-sm line-clamp-1">
-                        <LuMapPin size={20}/>
-                        تهران ، افسریه
-                    </li>
-
-                    <li className="flex justify-start items-center gap-x-2 text-gray text-sm line-clamp-1">
-                        <LuClock size={20}/>
+                    <li className="col-span-1 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                        <LuCalendar size={24}/>
                         6 روز پیش
                     </li>
 
-                    <li className="flex justify-start items-center gap-x-2 text-gray text-sm line-clamp-1">
-                        <LuDollarSign size={20}/>
+                    <li className="col-span-1 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                        <LuDollarSign size={24}/>
                         6 میلیارد تومان
                     </li>
 
                 </ul>
-
-                <div className="flex justify-between items-center gap-x-4 w-full mt-auto">
-
-                    <Button
-                        variant="contained"
-                        color="blue"
-                        startIcon={<LuPhone size={20}/>}
-                    >
-                        09195610753
-                    </Button>
-
-                    <div className="flex justify-end items-center gap-x-4">
-
-                        <IconButton
-                            variant="text"
-                            color='gray'
-                        >
-                            <LuBookmark size={20}/>
-                        </IconButton>
-
-                        <IconButton
-                            variant="text"
-                            color='gray'
-                            onClick={() => copyToClipboard("link").then(res => toast.success(res)).catch(err => toast.error(err))}
-                        >
-                            <LuShare2 size={20}/>
-                        </IconButton>
-
-                    </div>
-
-                </div>
 
             </div>
 
@@ -168,6 +201,10 @@ const Description = () => {
 
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
+
+            <h3 className="text-dark font-bold">
+                بررسی محصول
+            </h3>
 
             <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
                 <p className="text-sm text-dark leading-8">
@@ -218,7 +255,59 @@ const Specification = () => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
+            <h3 className="text-dark font-bold">
+                مشخصات محصول
+            </h3>
+
             <ul className="flex flex-col justify-start items-start gap-y-4 w-full bg-light rounded-lg p-4">
+
+                <li className="flex justify-between items-center gap-x-4 w-full">
+
+                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت موتور</span>
+
+                    <span className="text-gray text-sm line-clamp-1">سالم</span>
+
+                </li>
+
+                <li className="flex justify-between items-center gap-x-4 w-full">
+
+                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت شاسی‌ها</span>
+
+                    <span className="text-gray text-sm line-clamp-1">پلمپ</span>
+
+                </li>
+
+                <li className="flex justify-between items-center gap-x-4 w-full">
+
+                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت بدنه</span>
+
+                    <span className="text-gray text-sm line-clamp-1">سالم و بی‌خط و خش</span>
+
+                </li>
+
+                <li className="flex justify-between items-center gap-x-4 w-full">
+
+                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت موتور</span>
+
+                    <span className="text-gray text-sm line-clamp-1">سالم</span>
+
+                </li>
+
+                <li className="flex justify-between items-center gap-x-4 w-full">
+
+                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت شاسی‌ها</span>
+
+                    <span className="text-gray text-sm line-clamp-1">پلمپ</span>
+
+                </li>
+
+                <li className="flex justify-between items-center gap-x-4 w-full">
+
+                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت بدنه</span>
+
+                    <span className="text-gray text-sm line-clamp-1">سالم و بی‌خط و خش</span>
+
+                </li>
 
                 <li className="flex justify-between items-center gap-x-4 w-full">
 
@@ -270,9 +359,14 @@ const Visual = () => {
     const isTablet = useMediaQuery("(min-width: 768px)");
 
     return (
-        <div className="md:sticky md:top-[86px] flex flex-col justify-start items-center gap-y-4 w-full md:w-[320px] lg:w-[480px]">
+        <div
+            className="md:sticky md:top-[86px] flex flex-col justify-start items-center gap-y-4 w-full md:w-[360px] lg:w-[480px]">
+
+            <Summary/>
 
             <Gallery/>
+
+            <ContactUs/>
 
             {isTablet && <Location/>}
 
@@ -287,9 +381,9 @@ const Content = () => {
     return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
 
-            <Summary/>
-
             <Description/>
+
+            <Features/>
 
             <Specification/>
 
