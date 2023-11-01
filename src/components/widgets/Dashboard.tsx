@@ -1,8 +1,6 @@
 "use client";
 
 // libraries
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {Navigation} from 'swiper/modules';
 import {
     Chart as ChartJS,
     ArcElement,
@@ -18,12 +16,12 @@ import {
 import {Doughnut, Line} from 'react-chartjs-2';
 
 // components
-import AdvertiseCard from "@/components/partials/AdvertiseCard";
+import AdvertiseSlider from "@/components/partials/AdvertiseSlider";
 
 // styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import "@/styles/customize/swiper.scss";
+import "@/styles/addon/swiper.scss";
 
 ChartJS.register(
     ArcElement,
@@ -47,7 +45,7 @@ const ActivityCharts = () => {
                 <li className="col-span-12 lg:col-span-5 flex flex-col juitems-start items-start gap-y-2 h-full">
 
                     <h1 className="text-dark font-bold ">
-                        میزان درآمد به مخارج
+                        میزان فعالیت
                     </h1>
 
                     <div className="flex justify-center items-center w-full h-[300px] bg-light rounded-lg p-4">
@@ -185,43 +183,7 @@ const InProgressAdvertises = () => {
                 آگهی های فعال
             </h1>
 
-            <div className="flex justify-start items-center w-full rounded-lg">
-
-                <Swiper
-                    modules={[Navigation]}
-                    spaceBetween={16}
-                    navigation
-                    breakpoints={{
-                        320: {
-                            slidesPerView: 1
-                        },
-                        576: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 1
-                        },
-                        992: {
-                            slidesPerView: 2
-                        },
-                    }}
-                    className="w-full"
-                >
-
-                    {
-                        Array(8).fill("").map((item, index) =>
-                            <SwiperSlide key={index}>
-                                <AdvertiseCard
-                                    advertise={item}
-                                    toolbar={false}
-                                />
-                            </SwiperSlide>
-                        )
-                    }
-
-                </Swiper>
-
-            </div>
+            <AdvertiseSlider/>
 
         </section>
     )

@@ -1,6 +1,7 @@
 // libraries
 import {useToggle} from "@react-hooks-library/core";
 import {LuEye, LuEyeOff} from "react-icons/lu";
+import {IconButton} from "@/components/modules/IconButton";
 
 const PasswordInput = ({name, value, onChange, placeholder, startIcon}) => {
 
@@ -12,7 +13,13 @@ const PasswordInput = ({name, value, onChange, placeholder, startIcon}) => {
             className="flex justify-center items-center gap-x-2 w-full bg-secondary rounded-lg px-4 py-2"
         >
 
-            {startIcon && startIcon}
+            {
+                startIcon && (
+                    <span className="text-gray">
+                        {startIcon}
+                    </span>
+                )
+            }
 
             <input
                 id={`input-${name}`}
@@ -24,12 +31,14 @@ const PasswordInput = ({name, value, onChange, placeholder, startIcon}) => {
                 onChange={onChange}
             />
 
-            <button
-                className="text-gray"
+            <IconButton
+                variant="text"
+                size="sm"
+                color="gray"
                 onClick={_handleToggleShowPassword}
             >
                 {toggleShowPassword ? <LuEyeOff size={20}/> : <LuEye size={20}/>}
-            </button>
+            </IconButton>
 
         </label>
     )

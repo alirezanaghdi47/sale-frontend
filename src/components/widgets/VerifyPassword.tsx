@@ -5,10 +5,10 @@ import {useFormik} from "formik";
 import {LuCheck} from "react-icons/lu";
 
 // components
-import Button from "@/components/modules/Button";
+import {Button} from "@/components/modules/Button";
 import PasswordInput from "@/components/modules/PasswordInput";
 
-export const VerifyPassword = () => {
+const Form = () => {
 
     const formik = useFormik({
         initialValues:{
@@ -22,48 +22,83 @@ export const VerifyPassword = () => {
     });
 
     return (
-        <div className="relative flex flex-col justify-center items-center gap-y-4 w-full">
-
-            <h3 className="text-dark font-bold text-xl">
-                فراموشی رمز
-            </h3>
+        <div className='flex flex-col justify-center items-center gap-y-4 w-full'>
 
             <div className="flex flex-col justify-center items-center gap-y-4 w-full">
 
-                <PasswordInput
-                    title="رمز عبور جدید"
-                    name="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    error={formik.errors.password}
-                    touched={formik.touched.password}
-                />
+                <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                <PasswordInput
-                    title="تکرار رمز عبور جدید"
-                    name="passwordRepeat"
-                    value={formik.values.passwordRepeat}
-                    onChange={formik.handleChange}
-                    error={formik.errors.passwordRepeat}
-                    touched={formik.touched.passwordRepeat}
-                />
+                    <span className="text-gray text-sm font-bold">
+                        رمز عبور جدید
+                    </span>
+
+                    <PasswordInput
+                        name="password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                    />
+
+                    {
+                        formik.errors.password && formik.touched.password && (
+                            <p className='text-red text-xs'>
+                                {formik.errors.password}
+                            </p>
+                        )
+                    }
+
+                </div>
+
+                <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
+
+                    <span className="text-gray text-sm font-bold">
+                        تکرار رمز عبور جدید
+                    </span>
+
+                    <PasswordInput
+                        name="passwordRepeat"
+                        value={formik.values.passwordRepeat}
+                        onChange={formik.handleChange}
+                    />
+
+                    {
+                        formik.errors.passwordRepeat && formik.touched.passwordRepeat && (
+                            <p className='text-red text-xs'>
+                                {formik.errors.passwordRepeat}
+                            </p>
+                        )
+                    }
+
+                </div>
 
             </div>
 
-            <div className="flex justify-end items-center gap-x-2 w-full mt-4">
+            <div className="flex justify-end items-center gap-x-2 w-full">
 
                 <Button
                     variant="contained"
                     color="blue"
                     size="full"
                 >
-                    <span className="text-light">
-                        <LuCheck size={20}/>
-                    </span>
+                    <LuCheck size={20}/>
                     ثبت
                 </Button>
 
             </div>
+
+        </div>
+    )
+}
+
+export const VerifyPassword = () => {
+
+    return (
+        <div className="flex flex-col justify-center items-center gap-y-4 w-full">
+
+            <h3 className="text-dark font-bold text-lg">
+                فراموشی رمز
+            </h3>
+
+            <Form/>
 
         </div>
     )

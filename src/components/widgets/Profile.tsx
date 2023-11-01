@@ -5,12 +5,12 @@ import {useFormik} from "formik";
 import {LuCheck} from "react-icons/lu";
 
 // components
+import {Button} from "@/components/modules/Button";
 import AvatarInput from "@/components/modules/AvatarInput";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import SelectBox from "@/components/modules/SelectBox";
 import DatePicker from "@/components/modules/DatePicker";
-import Button from "@/components/modules/Button";
 
 // utils
 import {genderList} from "@/utils/constants";
@@ -46,9 +46,9 @@ const Form = () => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-4">
 
-                    <span className="text-gray text-sm font-bold">
-                        آواتار
-                    </span>
+                        <span className="text-gray text-sm font-bold">
+                            آواتار
+                        </span>
 
                         <AvatarInput
                             title="آواتار"
@@ -61,9 +61,9 @@ const Form = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                     <span className="text-gray text-sm font-bold">
-                        نام خانوادگی
-                    </span>
+                         <span className="text-gray text-sm font-bold">
+                            نام خانوادگی
+                        </span>
 
                         <TextInput
                             name="name"
@@ -75,9 +75,9 @@ const Form = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                     <span className="text-gray text-sm font-bold">
-                        نام خانوادگی
-                    </span>
+                         <span className="text-gray text-sm font-bold">
+                            نام خانوادگی
+                        </span>
 
                         <TextInput
                             name="family"
@@ -89,9 +89,9 @@ const Form = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                     <span className="text-gray text-sm font-bold">
-                        کد ملی
-                    </span>
+                         <span className="text-gray text-sm font-bold">
+                            کد ملی
+                        </span>
 
                         <NumberInput
                             name="code"
@@ -107,9 +107,9 @@ const Form = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                     <span className="text-gray text-sm font-bold">
-                        شماره موبایل
-                    </span>
+                         <span className="text-gray text-sm font-bold">
+                            شماره موبایل
+                        </span>
 
                         <NumberInput
                             name="phoneNumber"
@@ -125,9 +125,9 @@ const Form = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                     <span className="text-gray text-sm font-bold">
-                        جنسیت
-                    </span>
+                         <span className="text-gray text-sm font-bold">
+                            جنسیت
+                        </span>
 
                         <SelectBox
                             name="gender"
@@ -141,9 +141,9 @@ const Form = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-4">
 
-                    <span className="text-gray text-sm font-bold">
-                        تاریخ تولد
-                    </span>
+                        <span className="text-gray text-sm font-bold">
+                            تاریخ تولد
+                        </span>
 
                         <DatePicker
                             name="birthDay"

@@ -6,13 +6,14 @@ import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
 
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
+import {Button} from "@/components/modules/Button";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import RangeInput from "@/components/modules/RangeInput";
-import Button from "@/components/modules/Button";
 import SortModal from "@/components/partials/SortModal";
-import FilterModal from "@/components/partials/FilterModal";
+import FilterModal from "@/components/widgets/FilterModal";
 import Pagination from "@/components/modules/Pagination";
 import CheckBox from "@/components/modules/CheckBox";
+import SwitchBox from "@/components/modules/SwitchBox";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
@@ -31,20 +32,16 @@ const Filters = () => {
         }
     });
 
+    console.log(formik.values.hasImage)
+
     return (
-        <div className='hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
+        <div className='sticky top-[86px] hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
 
             <div className="flex justify-between items-center gap-x-4 w-full">
 
                 <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
-
-                    <LuFilter
-                        size={20}
-                        className="text-dark"
-                    />
-
+                    <LuFilter size={20}/>
                     فیلتر ها
-
                 </h3>
 
             </div>
@@ -53,31 +50,47 @@ const Filters = () => {
 
                 <Accordion>
 
-                    <AccordionItem
-                        header="دسته بندی ها"
-                        initialEntered
-                    >
+                    <AccordionItem header="دسته بندی ها">
 
-                        <CheckBox
-                            title="موبایل"
-                            name="categories"
-                            value="mobile"
-                            onChange={formik.handleChange}
-                        />
+                        <label
+                            htmlFor="checkbox-mobile"
+                            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
+                        >
 
-                        <CheckBox
-                            title="لپتاپ"
-                            name="categories"
-                            value="laptop"
-                            onChange={formik.handleChange}
-                        />
+                            <CheckBox
+                                name="categories"
+                                value="mobile"
+                                checked={formik.values.categories.includes("mobile")}
+                                onChange={formik.handleChange}
+                            />
+
+                            <span className="text-xs font-bold text-dark">
+                                موبایل
+                            </span>
+
+                        </label>
+
+                        <label
+                            htmlFor="checkbox-laptop"
+                            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
+                        >
+
+                            <CheckBox
+                                name="categories"
+                                value="laptop"
+                                checked={formik.values.categories.includes("laptop")}
+                                onChange={formik.handleChange}
+                            />
+
+                            <span className="text-xs font-bold text-dark">
+                                لپتاپ
+                            </span>
+
+                        </label>
 
                     </AccordionItem>
 
-                    <AccordionItem
-                        header="قیمت"
-                        initialEntered
-                    >
+                    <AccordionItem header="قیمت">
 
                         <RangeInput
                             min={0}
@@ -94,17 +107,25 @@ const Filters = () => {
 
                     </AccordionItem>
 
-                    <AccordionItem
-                        header="وضعیت"
-                        initialEntered
-                    >
+                    <AccordionItem header="وضعیت">
 
-                        <CheckBox
-                            title="عکس دار"
-                            name="hasImage"
-                            value="yes"
-                            onChange={formik.handleChange}
-                        />
+                        <label
+                            htmlFor="switchbox-hasImage"
+                            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
+                        >
+
+                            <SwitchBox
+                                name="hasImage"
+                                value={true}
+                                checked={formik.values.hasImage}
+                                onChange={formik.handleChange}
+                            />
+
+                            <span className="text-xs font-bold text-dark">
+                                عکس دار
+                            </span>
+
+                        </label>
 
                     </AccordionItem>
 
@@ -117,7 +138,6 @@ const Filters = () => {
                 <Button
                     variant="contained"
                     color="blue"
-                    size="md"
                     startIcon={<LuCheck size={20}/>}
                 >
                     ثبت
@@ -153,7 +173,6 @@ const Actionbar = () => {
                     <Button
                         variant="contained"
                         color="light"
-                        size="md"
                         startIcon={<LuFilter size={20}/>}
                         onClick={_handleShowFilterModal}
                     >
@@ -163,7 +182,6 @@ const Actionbar = () => {
                     <Button
                         variant="contained"
                         color="light"
-                        size="md"
                         startIcon={<LuArrowDownWideNarrow size={20}/>}
                         onClick={_handleShowSortModal}
                     >
@@ -205,14 +223,11 @@ const Sortbar = () => {
                 <div className="flex justify-start items-center">
 
                     <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-
                        <LuArrowDownWideNarrow
                            size={20}
                            className="text-dark"
                        />
-
                         مرتب سازی
-
                     </span>
 
                     <Button
@@ -254,7 +269,7 @@ const List = () => {
             <ul className="grid grid-cols-12 gap-4 w-full">
 
                 {
-                    Array(5).fill("").map((advertiseItem, index) =>
+                    Array(12).fill("").map((advertiseItem, index) =>
                         <li
                             className="col-span-12 lg:col-span-6"
                             key={index}

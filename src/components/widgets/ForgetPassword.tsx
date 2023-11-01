@@ -5,13 +5,13 @@ import {useFormik} from "formik";
 import {LuCheck} from "react-icons/lu";
 
 // components
-import Button from "@/components/modules/Button";
+import {Button} from "@/components/modules/Button";
 import TextInput from "@/components/modules/TextInput";
 
-export const ForgetPassword = () => {
+const Form = () => {
 
     const formik = useFormik({
-        initialValues:{
+        initialValues: {
             email: "",
         },
         // validationSchema: ,
@@ -21,22 +21,31 @@ export const ForgetPassword = () => {
     });
 
     return (
-        <div className="relative flex flex-col justify-center items-center gap-y-4 w-full">
-
-            <h3 className="text-dark font-bold text-xl">
-                فراموشی رمز
-            </h3>
+        <div className='flex flex-col justify-center items-center gap-y-4 w-full'>
 
             <div className="flex flex-col justify-center items-center gap-y-4 w-full">
 
-                <TextInput
-                    title="ایمیل"
-                    name="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    error={formik.errors.email}
-                    touched={formik.touched.email}
-                />
+                <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
+
+                    <span className="text-gray text-sm font-bold">
+                        ایمیل
+                    </span>
+
+                    <TextInput
+                        name="email"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                    />
+
+                    {
+                        formik.errors.email && formik.touched.email && (
+                            <p className='text-red text-xs'>
+                                {formik.errors.email}
+                            </p>
+                        )
+                    }
+
+                </div>
 
             </div>
 
@@ -47,13 +56,20 @@ export const ForgetPassword = () => {
                     color="blue"
                     size="full"
                 >
-                    <span className="text-light">
-                        <LuCheck size={20}/>
-                    </span>
+                    <LuCheck size={20}/>
                     اعتبارسنجی
                 </Button>
 
             </div>
+
+        </div>
+    )
+}
+
+const Links = () => {
+
+    return (
+        <div className='flex flex-col justify-center items-center gap-y-4 w-full'>
 
             <div className='flex justify-center items-center gap-x-2 w-full mt-2'>
 
@@ -61,13 +77,32 @@ export const ForgetPassword = () => {
                     اگر ایمیل دریافت نکردید
                 </p>
 
-                <button
-                    className='text-blue font-bold text-xs'
+                <Button
+                    variant="text"
+                    color="blue"
+                    size="sm"
                 >
                     کلیک کنید
-                </button>
+                </Button>
 
             </div>
+
+        </div>
+    )
+}
+
+export const ForgetPassword = () => {
+
+    return (
+        <div className="flex flex-col justify-center items-center gap-y-4 w-full">
+
+            <h3 className="text-dark font-bold text-lg">
+                فراموشی رمز
+            </h3>
+
+            <Form/>
+
+            <Links/>
 
         </div>
     )

@@ -3,7 +3,7 @@ import ReactSelect, {components} from "react-select";
 import {LuChevronDown, LuX} from "react-icons/lu";
 
 // styles
-import "@/styles/customize/react-select.scss";
+import "@/styles/addon/react-select.scss";
 
 const ReactSelectDropdownIndicator = (props: any) => {
 

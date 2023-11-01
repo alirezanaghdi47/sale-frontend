@@ -1,19 +1,18 @@
 'use client';
 
 // libraries
-import Link from "next/link";
 import {useFormik} from "formik";
 import {LuCheck} from "react-icons/lu";
 
 // components
-import Button from "@/components/modules/Button";
+import {Button, LinkButton} from "@/components/modules/Button";
 import TextInput from "@/components/modules/TextInput";
 import PasswordInput from "@/components/modules/PasswordInput";
 
-export const SignIn = () => {
+const Form = () => {
 
     const formik = useFormik({
-        initialValues:{
+        initialValues: {
             email: "",
             password: "",
         },
@@ -24,31 +23,66 @@ export const SignIn = () => {
     });
 
     return (
-        <div className="relative flex flex-col justify-center items-center gap-y-4 w-full">
-
-            <h3 className="text-dark font-bold text-xl">
-                ورود
-            </h3>
+        <div className='flex flex-col justify-center items-center gap-y-4 w-full'>
 
             <div className="flex flex-col justify-center items-center gap-y-4 w-full">
 
-                <TextInput
-                    title="ایمیل"
-                    name="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    error={formik.errors.email}
-                    touched={formik.touched.email}
-                />
+                <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                <PasswordInput
-                    title="رمز عبور"
-                    name="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    error={formik.errors.password}
-                    touched={formik.touched.password}
-                />
+                    <span className="text-gray text-sm font-bold">
+                        ایمیل
+                    </span>
+
+                    <TextInput
+                        name="email"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                    />
+
+                    {
+                        formik.errors.email && formik.touched.email && (
+                            <p className='text-red text-xs'>
+                                {formik.errors.email}
+                            </p>
+                        )
+                    }
+
+                </div>
+
+                <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
+
+                    <div className="flex justify-between items-center w-full">
+
+                        <span className="text-gray text-sm font-bold">
+                            رمز عبور
+                        </span>
+
+                        <LinkButton
+                            variant="text"
+                            size="sm"
+                            color="blue"
+                            href="/auth/forget-password"
+                        >
+                            فراموشی رمز
+                        </LinkButton>
+
+                    </div>
+
+                    <PasswordInput
+                        name="password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                    />
+
+                    {
+                        formik.errors.password && formik.touched.password && (
+                            <p className='text-red text-xs'>
+                                {formik.errors.password}
+                            </p>
+                        )
+                    }
+
+                </div>
 
             </div>
 
@@ -67,35 +101,48 @@ export const SignIn = () => {
 
             </div>
 
+        </div>
+    )
+}
+
+const Links = () => {
+
+    return (
+        <div className='flex flex-col justify-center items-center gap-y-4 w-full'>
+
             <div className='flex justify-center items-center gap-x-2 w-full mt-2'>
 
                 <p className="text-gray font-bold text-xs">
                     اگر حساب کاربری ندارید
                 </p>
 
-                <Link
+                <LinkButton
+                    variant="text"
+                    size="sm"
+                    color="blue"
                     href="/auth/sign-up"
-                    className='text-blue font-bold text-xs'
                 >
                     عضو شوید
-                </Link>
+                </LinkButton>
 
             </div>
 
-            <div className='flex justify-center items-center gap-x-2 w-full'>
+        </div>
+    )
+}
 
-                <p className="text-gray font-bold text-xs">
-                    رمز عبور خود را فراموش کرده اید
-                </p>
+export const SignIn = () => {
 
-                <Link
-                    href="/auth/forget-password"
-                    className='text-blue font-bold text-xs'
-                >
-                    کلیک کنید
-                </Link>
+    return (
+        <div className="flex flex-col justify-center items-center gap-y-4 w-full">
 
-            </div>
+            <h3 className="text-dark font-bold text-xl">
+                ورود
+            </h3>
+
+            <Form/>
+
+            <Links/>
 
         </div>
     )

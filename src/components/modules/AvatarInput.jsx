@@ -42,10 +42,9 @@ const AvatarInput = ({name, value, preview, onChange}) => {
                         className="w-[calc(120px_-_16px)] h-[calc(120px_-_16px)] object-center object-cover rounded-lg"
                     />
                 ) : (
-                    <LuCamera
-                        size={32}
-                        className="text-gray"
-                    />
+                    <span className="text-gray">
+                        <LuCamera size={32}/>
+                    </span>
                 )
             }
 

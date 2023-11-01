@@ -6,7 +6,7 @@ import {Toaster} from "react-hot-toast";
 import {LuCheck, LuX} from "react-icons/lu";
 
 // styles
-import "@/styles/customize/react-hot-toast.scss";
+import "@/styles/addon/react-hot-toast.scss";
 
 const Notification = () => {
 

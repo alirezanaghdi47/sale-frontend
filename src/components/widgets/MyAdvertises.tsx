@@ -4,11 +4,11 @@
 import {LuArrowDownWideNarrow, LuFilter} from "react-icons/lu";
 
 // components
+import {Button} from "@/components/modules/Button";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-import Button from "@/components/modules/Button";
 import Pagination from "@/components/modules/Pagination";
 import SortModal from "@/components/partials/SortModal";
-import FilterModal from "@/components/partials/FilterModal";
+import FilterModal from "@/components/widgets/FilterModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
@@ -37,7 +37,6 @@ const Actionbar = () => {
                     <Button
                         variant="contained"
                         color="light"
-                        size="md"
                         startIcon={<LuFilter size={20}/>}
                         onClick={_handleShowFilterModal}
                     >
@@ -47,7 +46,6 @@ const Actionbar = () => {
                     <Button
                         variant="contained"
                         color="light"
-                        size="md"
                         startIcon={<LuArrowDownWideNarrow size={20}/>}
                         onClick={_handleShowSortModal}
                     >
@@ -89,14 +87,8 @@ const Sortbar = () => {
                 <div className="flex justify-start items-center">
 
                     <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-
-                       <LuArrowDownWideNarrow
-                           size={20}
-                           className="text-dark"
-                       />
-
+                       <LuArrowDownWideNarrow size={20}/>
                         مرتب سازی
-
                     </span>
 
                     <Button

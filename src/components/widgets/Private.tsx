@@ -1,14 +1,13 @@
 'use client';
 
 // libraries
-import Link from "next/link";
 import Image from "next/image";
 import {usePathname} from "next/navigation";
 import {LuBookmark, LuHome, LuLogOut, LuPieChart, LuScrollText, LuUser} from "react-icons/lu";
 
 // components
-import Button from "@/components/modules/Button";
-import {Menu , MenuItem} from "@/components/modules/Menu";
+import {Button, LinkButton} from "@/components/modules/Button";
+import {Menu, MenuItem} from "@/components/modules/Menu";
 
 // utils
 import {getTitleFromPathname} from "@/utils/functions";
@@ -16,18 +15,14 @@ import {getTitleFromPathname} from "@/utils/functions";
 const Logo = () => {
 
     return (
-        <Link
+        <LinkButton
+            variant="text"
+            color='dark'
+            size="lg"
             href="/"
-            className="flex justify-start items-center w-max"
         >
-            <Image
-                src="/assets/images/logo.png"
-                alt="logo"
-                width={80}
-                height={20}
-                className="min-w-[80px]"
-            />
-        </Link>
+            فروشگاه
+        </LinkButton>
     )
 }
 
@@ -64,27 +59,22 @@ const AppbarActions = () => {
                 direction="bottom"
             >
 
-                <MenuItem>
-                    <Button
-                        variant="text"
-                        size="md"
-                        color="gray"
-                        href="/account/profile"
-                        startIcon={<LuUser size={20}/>}
-                    >
-                        پروفایل
-                    </Button>
+                <MenuItem
+                    variant="text"
+                    color="gray"
+                    href="/account/profile"
+                    active={pathname === "/account/profile"}
+                    icon={<LuUser size={20}/>}
+                >
+                    پروفایل
                 </MenuItem>
 
-                <MenuItem>
-                    <Button
-                        variant="text"
-                        size="md"
-                        color="red"
-                        startIcon={<LuLogOut size={20}/>}
-                    >
-                        خروج
-                    </Button>
+                <MenuItem
+                    variant="text"
+                    color="red"
+                    startIcon={<LuLogOut size={20}/>}
+                >
+                    خروج
                 </MenuItem>
 
             </Menu>
@@ -101,55 +91,55 @@ const BottomLinks = () => {
         <ul className="grid grid-cols-12 gap-2 w-full">
 
             <li className="col-span-3 flex justify-center items-center">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/"}
+                    vertical
+                    startIcon={<LuHome size={20}/>}
                 >
-                    <LuHome
-                        size={20}
-                        className="text-current"
-                    />
                     خانه
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/dashboard"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/dashboard" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/dashboard"}
+                    vertical
+                    startIcon={<LuPieChart size={20}/>}
                 >
-                    <LuPieChart
-                        size={20}
-                        className="text-current"
-                    />
                     داشبورد
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/my-advertises"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/my-advertises" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/my-advertises"}
+                    vertical
+                    startIcon={<LuScrollText size={20}/>}
                 >
-                    <LuScrollText
-                        size={20}
-                        className="text-current"
-                    />
                     آگهی های من
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/favorites"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/favorites" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/favorites"}
+                    vertical
+                    startIcon={<LuBookmark size={20}/>}
                 >
-                    <LuBookmark
-                        size={20}
-                        className="text-current"
-                    />
                     علاقه مندی ها
-                </Link>
+                </LinkButton>
             </li>
 
         </ul>
@@ -164,42 +154,39 @@ const SidebarLinks = () => {
         <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
 
             <li className="flex justify-start items-center w-full">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/dashboard"
-                    className={`flex justify-start items-center gap-x-2 ${pathname === "/account/dashboard" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/dashboard"}
+                    startIcon={<LuPieChart size={20}/>}
                 >
-                    <LuPieChart
-                        size={20}
-                        className="text-current"
-                    />
                     داشبورد
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="flex justify-start items-center w-full">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/my-advertises"
-                    className={`flex justify-start items-center gap-x-2 ${pathname === "/account/my-advertises" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/my-advertises"}
+                    startIcon={<LuScrollText size={20}/>}
                 >
-                    <LuScrollText
-                        size={20}
-                        className="text-current"
-                    />
                     آگهی های من
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="flex justify-start items-center w-full">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/favorites"
-                    className={`flex justify-start items-center gap-x-2 ${pathname === "/account/favorites" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/favorites"}
+                    startIcon={<LuBookmark size={20}/>}
                 >
-                    <LuBookmark
-                        size={20}
-                        className="text-current"
-                    />
                     علاقه مندی ها
-                </Link>
+                </LinkButton>
             </li>
 
         </ul>
@@ -214,9 +201,11 @@ const SidebarActions = () => {
         <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
 
             <li className="flex justify-start items-center w-full">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/profile"
-                    className={`flex justify-start items-center gap-x-2 ${pathname === "/account/profile" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/profile"}
                 >
                     <Image
                         src="/assets/images/avatar.jpg"
@@ -226,19 +215,17 @@ const SidebarActions = () => {
                         className="rounded-full object-cover object-center"
                     />
                     علیرضا نقدی
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="flex justify-start items-center w-full">
-                <button
-                    className="flex justify-start items-center gap-x-2 text-red text-sm font-bold whitespace-nowrap p-2"
+                <Button
+                    variant="text"
+                    color="red"
+                    startIcon={<LuLogOut size={20}/>}
                 >
-                    <LuLogOut
-                        size={20}
-                        className="text-current"
-                    />
                     خروج
-                </button>
+                </Button>
             </li>
 
         </ul>

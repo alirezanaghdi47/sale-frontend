@@ -2,10 +2,8 @@
 
 // libraries
 import Image from "next/image";
-import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {
-    LuHome,
     LuPlus,
     LuScrollText,
     LuUser,
@@ -13,14 +11,16 @@ import {
     LuCopyright,
     LuMapPin,
     LuPieChart,
-    LuBookmark, LuLogOut
+    LuBookmark,
+    LuLogOut
 } from "react-icons/lu";
 import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
 // components
 import {Menu, MenuItem} from "@/components/modules/Menu";
+import {Button , LinkButton} from "@/components/modules/Button";
+import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
-import Button from "@/components/modules/Button";
 import CitiesModal from "@/components/partials/CitiesModal";
 
 // hooks
@@ -29,15 +29,14 @@ import {useModal} from "@/hooks/useModal";
 const Logo = () => {
 
     return (
-        <Link href="/">
-            <Image
-                src="/assets/images/logo.png"
-                alt="logo"
-                width={80}
-                height={20}
-                className="min-w-[80px]"
-            />
-        </Link>
+        <LinkButton
+            variant="text"
+            color='dark'
+            size="lg"
+            href="/"
+        >
+            فروشگاه
+        </LinkButton>
     )
 }
 
@@ -57,13 +56,7 @@ const AppbarActions = () => {
                 <TextInput
                     name="search"
                     placeholder="جستجو"
-                    color="secondary"
-                    startIcon={
-                        <LuSearch
-                            size={20}
-                            className="text-gray"
-                        />
-                    }
+                    startIcon={<LuSearch size={20}/>}
                 />
 
                 <Button
@@ -110,55 +103,55 @@ const BottomLinks = () => {
         <ul className="grid grid-cols-12 gap-2 w-full">
 
             <li className="col-span-3 flex justify-center items-center">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/advertises"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/advertises" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/advertises"}
+                    vertical
+                    startIcon={<LuScrollText size={20}/>}
                 >
-                    <LuScrollText
-                        size={20}
-                        className="text-current"
-                    />
                     آگهی ها
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/my-advertises/add"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/my-advertises/add" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/my-advertises/add"}
+                    vertical
+                    startIcon={<LuPlus size={20}/>}
                 >
-                    <LuPlus
-                        size={20}
-                        className="text-current"
-                    />
                     افزودن آگهی
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/favorites"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/favorites" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/favorites"}
+                    vertical
+                    startIcon={<LuBookmark size={20}/>}
                 >
-                    <LuBookmark
-                        size={20}
-                        className="text-current"
-                    />
                     علاقه مندی ها
-                </Link>
+                </LinkButton>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                <Link
+                <LinkButton
+                    variant="text"
+                    color="gray"
                     href="/account/profile"
-                    className={`flex flex-col justify-center items-center gap-y-2 ${pathname === "/account/profile" ? "text-blue" : "text-gray"} text-sm font-bold whitespace-nowrap p-2`}
+                    active={pathname === "/account/profile"}
+                    vertical
+                    startIcon={<LuUser size={20}/>}
                 >
-                    <LuUser
-                        size={20}
-                        className="text-current"
-                    />
                     پروفایل
-                </Link>
+                </LinkButton>
             </li>
 
         </ul>
@@ -206,13 +199,7 @@ const HeaderActions = () => {
                 <TextInput
                     name="search"
                     placeholder="جستجو"
-                    color="secondary"
-                    startIcon={
-                        <LuSearch
-                            size={20}
-                            className="text-gray"
-                        />
-                    }
+                    startIcon={<LuSearch size={20}/>}
                 />
 
             </div>
@@ -235,7 +222,6 @@ const HeaderLinks = () => {
                 menuButton={
                     <Button
                         variant="text"
-                        size="md"
                         color="gray"
                     >
                         <Image
@@ -253,81 +239,65 @@ const HeaderLinks = () => {
                 direction="bottom"
             >
 
-                <MenuItem>
-                    <Button
-                        variant="text"
-                        size="md"
-                        color="gray"
-                        href="/account/dashboard"
-                        startIcon={<LuPieChart size={20}/>}
-                    >
-                        داشبورد
-                    </Button>
+                <MenuItem
+                    variant="text"
+                    color="gray"
+                    href="/account/dashboard"
+                    icon={<LuPieChart size={20}/>}
+                >
+                    داشبورد
                 </MenuItem>
 
-                <MenuItem>
-                    <Button
-                        variant="text"
-                        size="md"
-                        color="gray"
-                        href="/account/my-advertises"
-                        startIcon={<LuScrollText size={20}/>}
-                    >
-                        آگهی های من
-                    </Button>
+                <MenuItem
+                    variant="text"
+                    color="gray"
+                    href="/account/my-advertises"
+                    icon={<LuScrollText size={20}/>}
+                >
+                    آگهی های من
                 </MenuItem>
 
-                <MenuItem>
-
-                    <Button
-                        variant="text"
-                        size="md"
-                        color="gray"
-                        href="/account/favorites"
-                        startIcon={<LuBookmark size={20}/>}
-                    >
-                        علاقه مندی ها
-                    </Button>
-
+                <MenuItem
+                    variant="text"
+                    color="gray"
+                    href="/account/favorites"
+                    icon={<LuBookmark size={20}/>}
+                >
+                    علاقه مندی ها
                 </MenuItem>
 
-                <MenuItem>
-
-                    <Button
-                        variant="text"
-                        size="md"
-                        color="gray"
-                        href="/account/profile"
-                        startIcon={<LuUser size={20}/>}
-                    >
-                        پروفایل
-                    </Button>
-
+                <MenuItem
+                    variant="text"
+                    color="gray"
+                    href="/account/profile"
+                    icon={<LuUser size={20}/>}
+                >
+                    پروفایل
                 </MenuItem>
 
-                <MenuItem>
-                    <Button
-                        variant="text"
-                        size="md"
-                        color="red"
-                        startIcon={<LuLogOut size={20}/>}
-                    >
-                        خروج
-                    </Button>
+                <MenuItem
+                    variant="text"
+                    color="red"
+                    icon={<LuLogOut size={20}/>}
+                >
+                    خروج
                 </MenuItem>
 
             </Menu>
 
-            <Link
+            <LinkButton
+                variant="contained"
+                color="blue"
                 href="/account/my-advertises/add"
-                className="flex justify-center items-center gap-x-2 bg-blue text-light text-sm font-bold whitespace-nowrap rounded-lg px-4 py-2"
+                startIcon={
+                    <LuPlus
+                        size={20}
+                        className="text-current"
+                    />
+                }
             >
-                <LuPlus
-                    size={20}
-                    className="text-current"
-                />
                 افزودن آگهی
-            </Link>
+            </LinkButton>
 
         </div>
     )
@@ -358,16 +328,24 @@ const FooterLinks = () => {
     return (
         <ul className="order-1 flex justify-start items-center gap-x-2">
 
-            <li className="px-4 py-2">
-                <Link href="/about-us" className='text-gray font-bold text-sm'>
+            <li>
+                <LinkButton
+                    variant="text"
+                    color="gray"
+                    href="/about-us"
+                >
                     درباره ما
-                </Link>
+                </LinkButton>
             </li>
 
-            <li className="px-4 py-2">
-                <Link href="/support" className='text-gray font-bold text-sm'>
+            <li>
+                <LinkButton
+                    variant="text"
+                    color="gray"
+                    href="/support"
+                >
                     پشتیبانی
-                </Link>
+                </LinkButton>
             </li>
 
         </ul>
@@ -394,40 +372,44 @@ const SocialMedias = () => {
     return (
         <ul className="order-2 md:order-3 flex justify-center items-end gap-x-2">
 
-            <li className="p-2">
-                <Link href="/" className='text-gray'>
-                    <BsTelegram
-                        size={20}
-                        className="text-current"
-                    />
-                </Link>
+            <li>
+                <LinkIconButton
+                    variant="text"
+                    color="gray"
+                    href="/"
+                >
+                    <BsTelegram size={20}/>
+                </LinkIconButton>
             </li>
 
-            <li className="p-2">
-                <Link href="/" className='text-gray'>
-                    <BsWhatsapp
-                        size={20}
-                        className="text-current"
-                    />
-                </Link>
+            <li>
+                <LinkIconButton
+                    variant="text"
+                    color="gray"
+                    href="/"
+                >
+                    <BsWhatsapp size={20}/>
+                </LinkIconButton>
             </li>
 
-            <li className="p-2">
-                <Link href="/" className='text-gray'>
-                    <BsInstagram
-                        size={20}
-                        className="text-current"
-                    />
-                </Link>
+            <li>
+                <LinkIconButton
+                    variant="text"
+                    color="gray"
+                    href="/"
+                >
+                    <BsInstagram size={20}/>
+                </LinkIconButton>
             </li>
 
-            <li className="p-2">
-                <Link href="/" className='text-gray'>
-                    <BsTwitter
-                        size={20}
-                        className="text-current"
-                    />
-                </Link>
+            <li>
+                <LinkIconButton
+                    variant="text"
+                    color="gray"
+                    href="/"
+                >
+                    <BsTwitter size={20}/>
+                </LinkIconButton>
             </li>
 
         </ul>

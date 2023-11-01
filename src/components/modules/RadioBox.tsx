@@ -1,50 +1,25 @@
-// libraries
-import ReactRadioBox from "rc-checkbox";
-
-// styles
-import "@/styles/customize/rc-radiobox.scss";
-
-const RadioBox = ({title , name, value , checked , onChange}) => {
-
-    console.log(value , "->" , checked)
+const RadioBox = ({name, value , checked , onChange}) => {
 
     return (
-        <label
-            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
-            htmlFor={`radio-box-${value}`}
-        >
+        <span className={`flex justify-center items-center w-[24px] h-[24px] ${checked ? "bg-blue" : "bg-secondary"} rounded-full`}>
 
-            <ReactRadioBox
-                id={`radio-box-${value}`}
+            <input
+                id={`radiobox-${value}`}
+                type="radio"
                 name={name}
                 value={value}
-                // onChange={(e)=> {
-                //     if (checked) return e.preventDefault();
-                //     onChange(value);
-                // }}
+                checked={checked}
+                onChange={onChange}
+                className="hidden"
             />
 
-            {/*<span className={`rc-radiobox ${checked ? "rc-radiobox-checked" : ""}`}>*/}
+            {
+                checked && (
+                    <span className="w-[16px] h-[16px] bg-light rounded-full"/>
+                )
+            }
 
-            {/*    <input*/}
-            {/*        type="radio"*/}
-            {/*        id={`radio-box-${value}`}*/}
-            {/*        className="rc-radiobox-input"*/}
-            {/*        name={name}*/}
-            {/*        value={value}*/}
-            {/*        checked={checked}*/}
-            {/*        onChange={(e) => onChange(e.target.value)}*/}
-            {/*    />*/}
-
-            {/*    <span className="rc-radiobox-inner"/>*/}
-
-            {/*</span>*/}
-
-            <span className="text-gray text-sm font-bold">
-                {title}
-            </span>
-
-        </label>
+        </span>
     )
 }
 

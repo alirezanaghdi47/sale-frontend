@@ -1,12 +1,33 @@
 // libraries
 import {useEffect} from "react";
 import ReactModal from "react-modal";
-import {LuCheck, LuX} from "react-icons/lu";
+import {LuX} from "react-icons/lu";
+
+// components
+import {IconButton} from "@/components/modules/IconButton";
 
 // styles
-import "@/styles/customize/react-modal.scss";
+import "@/styles/addon/react-modal.scss";
 
-export const Modal = ({children , isOpenModal, onCloseModal}) => {
+const styles = {
+    width: {
+        sm: "w-full md:w-[320px]",
+        md: "w-full md:w-[480px]",
+        lg: "w-full md:w-[640px]",
+        full: "w-full"
+    },
+    height: {
+        content: "h-max",
+        full: "h-full"
+    },
+    position: {
+        center: "justify-center items-center p-4",
+        bottom: "justify-center items-end",
+        any: "justify-center items-center",
+    }
+}
+
+export const Modal = ({children, isOpenModal, onCloseModal, width = "md", height = "content" , position = "any"}) => {
 
     useEffect(() => {
 
@@ -21,15 +42,15 @@ export const Modal = ({children , isOpenModal, onCloseModal}) => {
             isOpen={isOpenModal}
             onRequestClose={onCloseModal}
             ariaHideApp={false}
-            className="flex flex-col justify-start items-center gap-y-4 w-full h-max md:max-w-md bg-light rounded-tl-lg rounded-tr-lg md:rounded-lg p-4"
-            overlayClassName="fixed top-0 left-0 z-30 flex justify-end items-end md:justify-center md:items-center w-full h-full bg-gray/75 md:p-4"
+            className={`flex flex-col justify-start items-center gap-y-4 ${styles.width[width]} ${styles.height[height]} ${position === "any" && "rounded-none"}  ${position === "center" && "rounded-lg"} ${position === "bottom" && "rounded-tl-lg rounded-tr-lg"} bg-light p-4`}
+            overlayClassName={`fixed top-0 left-0 z-30 flex ${styles.position[position]} w-full h-full bg-gray/75`}
         >
             {children}
         </ReactModal>
     )
 }
 
-export const ModalHeader = ({title , onCloseModal}) => {
+export const ModalHeader = ({title, onCloseModal}) => {
 
     return (
         <div className="flex justify-between items-center w-full gap-x-4">
@@ -38,47 +59,37 @@ export const ModalHeader = ({title , onCloseModal}) => {
                 {title}
             </h3>
 
-            <button
-                className='text-red p-2'
+            <IconButton
+                variant="contained"
+                color="red"
+                size="sm"
+                shape="rounded"
                 onClick={onCloseModal}
             >
                 <LuX size={20}/>
-            </button>
+            </IconButton>
 
         </div>
     )
 }
 
-export const ModalBody = ({children}) => {
-    return children;
+export const ModalBody = ({children , center}) => {
+
+    return (
+        <div className={`flex flex-col justify-start items-center gap-y-4 w-full h-max ${center && "my-auto"}`}>
+            {children}
+        </div>
+    )
 }
 
-export const ModalFooter = () => {
+export const ModalFooter = ({cancelButton, submitButton}) => {
 
     return (
         <div className="flex justify-end items-center gap-x-2 w-full mt-auto">
 
-            <button
-                className='flex justify-center items-center gap-x-2 text-gray text-sm font-bold px-4 py-2'
-                // onClick={onCloseModal}
-            >
-                <LuX
-                    size={20}
-                    className='text-current'
-                />
-                انصراف
-            </button>
+            {cancelButton}
 
-            <button
-                className='flex justify-center items-center gap-x-2 bg-blue text-light text-sm font-bold rounded-lg px-4 py-2'
-                // onClick={onCloseModal}
-            >
-                <LuCheck
-                    size={20}
-                    className='text-current'
-                />
-                ثبت
-            </button>
+            {submitButton}
 
         </div>
     )

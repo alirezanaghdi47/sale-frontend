@@ -6,7 +6,13 @@ const TextInput = ({name, value, onChange, placeholder, startIcon, endIcon}) => 
             className="flex justify-center items-center gap-x-2 w-full bg-secondary rounded-lg px-4 py-2"
         >
 
-            {startIcon && startIcon}
+            {
+                startIcon && (
+                    <span className="text-gray">
+                        {startIcon}
+                    </span>
+                )
+            }
 
             <input
                 id={`input-${name}`}
@@ -18,7 +24,13 @@ const TextInput = ({name, value, onChange, placeholder, startIcon, endIcon}) => 
                 onChange={onChange}
             />
 
-            {endIcon && endIcon}
+            {
+                endIcon && (
+                    <span className="text-gray">
+                        {endIcon}
+                    </span>
+                )
+            }
 
         </label>
 

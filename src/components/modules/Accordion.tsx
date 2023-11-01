@@ -3,7 +3,7 @@ import {Accordion as ReactAccordion, AccordionItem as ReactAccordionItem} from '
 import {LuChevronDown} from "react-icons/lu";
 
 // styles
-import "@/styles/customize/@szh-react-accordion.scss";
+import "@/styles/addon/@szh-react-accordion.scss";
 
 const ReactAccordionHeader = ({header}) => {
 
@@ -36,13 +36,10 @@ export const Accordion = ({children}) => {
     )
 }
 
-export const AccordionItem = ({children, header, isInitialOpen}) => {
+export const AccordionItem = ({children, header}) => {
 
     return (
-        <ReactAccordionItem
-            initialEntered={isInitialOpen}
-            header={<ReactAccordionHeader header={header}/>}
-        >
+        <ReactAccordionItem header={<ReactAccordionHeader header={header}/>}>
             {children}
         </ReactAccordionItem>
     )

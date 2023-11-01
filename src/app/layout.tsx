@@ -6,6 +6,7 @@ import {vazirmatn} from "@/helpers/fonts";
 
 // styles
 import '@/styles/globals.scss';
+import '@/styles/addon/simple-bars.scss';
 
 const RootLayout = (props) => {
 

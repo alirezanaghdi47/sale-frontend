@@ -5,7 +5,7 @@ import Image from "next/image";
 import {LuChevronRight} from "react-icons/lu";
 
 // components
-import Button from "@/components/modules/Button";
+import {LinkButton} from "@/components/modules/Button";
 
 const NotFound = () => {
 
@@ -24,7 +24,7 @@ const NotFound = () => {
                 صفحه مورد نظر یافت نشد
             </h1>
 
-            <Button
+            <LinkButton
                 variant="contained"
                 color="blue"
                 href="/"
@@ -33,7 +33,7 @@ const NotFound = () => {
                     <LuChevronRight size={20}/>
                 </span>
                 بازگشت به خانه
-            </Button>
+            </LinkButton>
 
         </div>
     )

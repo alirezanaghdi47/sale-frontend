@@ -1,12 +1,15 @@
 // libraries
-import { Menu as ReactMenu, MenuItem as ReactMenuItem } from '@szhsin/react-menu';
+import {Menu as ReactMenu, MenuItem as ReactMenuItem} from '@szhsin/react-menu';
+
+// components
+import {Button, LinkButton} from "@/components/modules/Button";
 
 // styles
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
-import "@/styles/customize/@szh-react-menu.scss";
+import "@/styles/addon/@szh-react-menu.scss";
 
-export const Menu = ({children , menuButton , arrow , align , direction}) => {
+export const Menu = ({children, menuButton, arrow, align, direction}) => {
 
     return (
         <ReactMenu
@@ -27,11 +30,37 @@ export const Menu = ({children , menuButton , arrow , align , direction}) => {
     )
 }
 
-export const MenuItem = ({children}) => {
+export const MenuItem = ({children, color, size = "md", variant, onClick, href, active , icon}) => {
 
-    return (
+    return href ? (
         <ReactMenuItem>
-            {children}
+
+            <LinkButton
+                href={href}
+                variant={variant}
+                color={color}
+                size={size}
+                active={active}
+                startIcon={icon}
+            >
+                {children}
+            </LinkButton>
+
+        </ReactMenuItem>
+    ) : (
+        <ReactMenuItem>
+
+            <Button
+                variant={variant}
+                color={color}
+                size={size}
+                active={active}
+                startIcon={icon}
+                onClick={onClick}
+            >
+                {children}
+            </Button>
+
         </ReactMenuItem>
     )
 }

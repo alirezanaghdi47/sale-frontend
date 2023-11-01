@@ -5,7 +5,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
 
 // styles
-import "@/styles/customize/react-multi-date-picker.scss";
+import "@/styles/addon/react-multi-date-picker.scss";
 
 const ReactDatePickerInput = ({onFocus, name, placeholder, value}) => {
 

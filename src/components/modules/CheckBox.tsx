@@ -1,30 +1,30 @@
 // libraries
-import ReactCheckBox from "rc-checkbox";
+import {LuCheck} from "react-icons/lu";
 
-// styles
-import "rc-checkbox/assets/index.css";
-import "@/styles/customize/rc-checkbox.scss";
-
-const CheckBox = ({title, name, value, onChange}) => {
+const CheckBox = ({name, value, checked, onChange}) => {
 
     return (
-        <label
-            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
-            htmlFor={`checkbox-${value}`}
-        >
+        <span className={`flex justify-center items-center w-[24px] h-[24px] ${checked ? "bg-blue" : "bg-secondary"} rounded-lg`}>
 
-            <ReactCheckBox
+            <input
                 id={`checkbox-${value}`}
+                type="checkbox"
                 name={name}
                 value={value}
+                checked={checked}
                 onChange={onChange}
+                className="hidden"
             />
 
-            <span className="text-gray text-sm font-bold">
-                {title}
-            </span>
+            {
+                checked && (
+                    <span className="text-light">
+                        <LuCheck size={20}/>
+                    </span>
+                )
+            }
 
-        </label>
+        </span>
     )
 }
 

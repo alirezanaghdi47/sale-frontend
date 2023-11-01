@@ -1,20 +1,20 @@
 // libraries
-import Link from "next/link";
-import Image from "next/image";
 import {LuCopyright} from "react-icons/lu";
+
+// components
+import {LinkButton} from "@/components/modules/Button";
 
 export const Logo = () => {
 
     return (
-        <Link href="/">
-            <Image
-                src="/assets/images/logo.png"
-                alt="logo"
-                width={80}
-                height={20}
-                className="min-w-[80px]"
-            />
-        </Link>
+        <LinkButton
+            variant="text"
+            color='dark'
+            size="lg"
+            href="/"
+        >
+            فروشگاه
+        </LinkButton>
     )
 }
 

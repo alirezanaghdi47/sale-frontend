@@ -4,11 +4,11 @@
 import {LuArrowDownWideNarrow, LuFilter} from "react-icons/lu";
 
 // components
+import {Button} from "@/components/modules/Button";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-import Button from "@/components/modules/Button";
 import Pagination from "@/components/modules/Pagination";
 import SortModal from "@/components/partials/SortModal";
-import FilterModal from "@/components/partials/FilterModal";
+import FilterModal from "@/components/widgets/FilterModal";
 
 // hooks
 import {useModal} from "@/hooks/useModal";
