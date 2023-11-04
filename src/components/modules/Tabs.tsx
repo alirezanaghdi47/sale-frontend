@@ -5,35 +5,27 @@ import {useRef} from "react";
 import {CSSTransition} from 'react-transition-group';
 
 // components
-import {Button, LinkButton} from "@/components/modules/Button";
+import {Button} from "@/components/modules/Button";
 
 export const TabItem = ({tabItem, activeTab, setActiveTab}) => {
 
     return (
-        <li className="w-full">
-            {
-                tabItem?.href ? (
-                    <LinkButton
-                        variant={activeTab === tabItem?.value ? "contained" : "text"}
-                        color={activeTab === tabItem?.value ? "blue" : "gray"}
-                        size="full"
-                        startIcon={tabItem?.icon}
-                        href={tabItem?.value}
-                    >
-                        {tabItem?.title}
-                    </LinkButton>
-                ) : (
-                    <Button
-                        variant={activeTab === tabItem?.value ? "contained" : "text"}
-                        color={activeTab === tabItem?.value ? "blue" : "gray"}
-                        size="full"
-                        startIcon={tabItem?.icon}
-                        onClick={() => setActiveTab(tabItem?.value)}
-                    >
-                        {tabItem?.title}
-                    </Button>
-                )
-            }
+        <li
+            className="w-full"
+            id={`tab-${tabItem.value}`}
+        >
+            <Button
+                variant={activeTab === tabItem?.value ? "contained" : "text"}
+                color={activeTab === tabItem?.value ? "blue" : "gray"}
+                size="full"
+                startIcon={tabItem?.icon}
+                onClick={() => {
+                    setActiveTab(tabItem?.value);
+                    document.getElementById(`tabs`).scrollLeft = (document.getElementById(`tab-${tabItem.value}`)?.offsetLeft - document.getElementById(`tab-${tabItem.value}`)?.offsetWidth);
+                }}
+            >
+                {tabItem?.title}
+            </Button>
         </li>
     )
 }
@@ -43,7 +35,8 @@ export const TabList = ({children}) => {
 
     return (
         <ul
-            className="flex flex-row justify-start items-center gap-x-2 w-full overflow-x-scroll remove-scrollbar"
+            id="tabs"
+            className="flex flex-row justify-start items-center gap-x-2 w-full overflow-x-scroll remove-scrollbar scroll-smooth"
         >
             {children}
         </ul>
