@@ -1,6 +1,10 @@
 // components
 import {Advertises} from "@/components/widgets/Advertises";
 
+export const metadata = {
+    title: 'آگهی ها',
+}
+
 const AdvertisesPage = () => {
 
     return (

@@ -7,7 +7,7 @@ import {Button, LinkButton} from "@/components/modules/Button";
 // styles
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
-import "@/styles/addon/@szh-react-menu.scss";
+import "@/styles/customize/@szh-react-menu.scss";
 
 export const Menu = ({children, menuButton, arrow, align, direction}) => {
 
@@ -30,7 +30,7 @@ export const Menu = ({children, menuButton, arrow, align, direction}) => {
     )
 }
 
-export const MenuItem = ({children, color, size = "md", variant, onClick, href, active , icon}) => {
+export const MenuItem = ({children, color, size = "md", variant, onClick, href, active, icon}) => {
 
     return href ? (
         <ReactMenuItem>

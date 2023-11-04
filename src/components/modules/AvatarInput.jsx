@@ -22,9 +22,9 @@ const AvatarInput = ({name, value, preview, onChange}) => {
     }, [file]);
 
     return (
-        <label
+        <div
             {...getRootProps()}
-            className="relative flex justify-center items-center w-[120px] h-[120px] bg-secondary rounded-lg p-4 overflow-hidden cursor-pointer"
+            className="relative flex justify-center items-center w-[120px] h-[120px] bg-secondary rounded-full p-2 cursor-pointer"
         >
 
             <input
@@ -37,9 +37,9 @@ const AvatarInput = ({name, value, preview, onChange}) => {
                     <Image
                         src={file?.preview ? file?.preview : preview}
                         alt="avatar"
-                        width={100}
-                        height={100}
-                        className="w-[calc(120px_-_16px)] h-[calc(120px_-_16px)] object-center object-cover rounded-lg"
+                        width={120}
+                        height={120}
+                        className="w-full h-full object-center object-cover rounded-full overflow-hidden"
                     />
                 ) : (
                     <span className="text-gray">
@@ -48,7 +48,7 @@ const AvatarInput = ({name, value, preview, onChange}) => {
                 )
             }
 
-        </label>
+        </div>
     )
 }
 

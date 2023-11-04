@@ -14,4 +14,11 @@ const AdvertisePage = () => {
     )
 }
 
+export async function generateMetadata({ params }) {
+
+    return {
+        title: params.advertiseId,
+    }
+}
+
 export default AdvertisePage;

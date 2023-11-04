@@ -1,0 +1,23 @@
+//=============================================================//
+//========================= animation =========================//
+//=============================================================//
+
+.fade-in{
+
+  &-enter{
+    @apply opacity-0 scale-90;
+  }
+
+  &-enter-active{
+    @apply opacity-100 scale-100 transform transition-all duration-300 ease-out-expo;
+  }
+
+  &-exit{
+    @apply opacity-100 scale-100;
+  }
+
+  &-exit-active{
+    @apply opacity-0 scale-90 transform transition-all duration-300 ease-out-expo;
+  }
+
+}

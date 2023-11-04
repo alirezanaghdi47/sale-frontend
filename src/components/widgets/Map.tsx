@@ -1,52 +1,59 @@
+'use client';
+
 // libraries
-import {useEffect} from "react";
-import mapboxgl from "mapbox-gl";
+import {useEffect, useRef} from "react";
+import L from "leaflet";
 
 // assets
 import marker from "../../../public/assets/images/marker.svg";
 
 // styles
-import "mapbox-gl/dist/mapbox-gl.css";
-import "@/styles/addon/mapbox-gl.scss";
+import "leaflet/dist/leaflet.css";
 
 const Map = () => {
 
+    const map = useRef();
+
     useEffect(() => {
 
-        if (typeof window === "undefined") return;
+        const layers = {
+            "osm": L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }),
+        };
 
-        // otherwise, create a map instance
-        const mapbox = new mapboxgl.Map({
-            container: "map",
-            accessToken: process.env.NEXT_PUBLIC_MAPBOX_TOKEN,
-            style: "mapbox://styles/mapbox/streets-v11",
-            center: [12.554729, 55.70651],
-            zoom: 15,
+        // config leaflet
+        map.current = L.map('map', {
+            zoomControl: false,
+            drawControl: false,
+        }).setView(new L.LatLng(35.696, 51.362), 17);
+
+        // set initial layer
+        map.current.addLayer(layers.osm);
+
+        // add zoom button
+        L.control.zoom({
+            position: "topright"
+        }).addTo(map.current);
+
+        // customize icon
+        const customMarker = L.icon({
+            shadowUrl: null,
+            iconSize: new L.Point(36, 36),
+            iconUrl: marker.src
         });
 
-        // add zoom control
-        mapbox.addControl(new mapboxgl.NavigationControl({
-            showCompass: false
-        }));
+        // attach marker
+        L.marker([35.696, 51.362], {
+            icon: customMarker
+        }).addTo(map.current);
 
-        // add custom marker
-        const el = document.createElement('div');
-        el.className = 'marker';
-        el.style.backgroundImage = `url(${marker.src})`;
-        el.style.width = `40px`;
-        el.style.height = `40px`;
-        el.style.backgroundSize = '100%';
-
-        new mapboxgl.Marker(el).setLngLat([12.554729, 55.70651]).addTo(mapbox);
-
-        return () => mapbox.remove();
+        return () => map.current.remove();
 
     }, []);
 
     return (
-        <div className="relative w-full h-[240px] bg-light rounded-lg overflow-hidden">
-            <div id="map" style={{width: "100%", height: 240}}/>
-        </div>
+        <div id="map" className='z-10 w-full h-[240px]'/>
     )
 }
 

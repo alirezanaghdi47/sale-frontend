@@ -1,27 +1,24 @@
 'use client';
 
 // libraries
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from "swiper/modules";
-import toast from "react-hot-toast";
 import {
     LuBookmark,
     LuCalendar,
-    LuClock,
     LuDollarSign,
     LuLayers,
-    LuPhone,
     LuShare2,
 } from "react-icons/lu";
 
 // components
-import {Button} from "@/components/modules/Button";
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseSlider from "@/components/partials/AdvertiseSlider";
-import GalleryModal from "@/components/widgets/GalleryModal";
-import Map from "@/components/widgets/Map";
+const GalleryModal = dynamic(() => import("@/components/widgets/GalleryModal") , {ssr: false});
+const Map = dynamic(() => import("@/components/widgets/Map") , {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
@@ -29,7 +26,7 @@ import {useModal} from "@/hooks/useModal";
 // styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import "@/styles/addon/swiper.scss";
+import "@/styles/customize/swiper.scss";
 
 // utils
 import {copyToClipboard} from "@/utils/functions";
@@ -101,6 +98,7 @@ const Location = () => {
 }
 
 const ContactUs = () => {
+
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
@@ -110,18 +108,17 @@ const ContactUs = () => {
 
             <div className="flex justify-between items-center gap-x-4 w-full bg-light rounded-lg p-4">
 
-                <span className="flex justify-center items-center gap-x-2 text-gray text-sm line-clamp-1">
-                    <LuClock size={20}/>
-                    هر روز 10 الی 20
-                </span>
-
-                <Button
-                    variant="contained"
-                    color="blue"
-                    startIcon={<LuPhone size={20}/>}
-                >
-                    تماس بگیرید
-                </Button>
+                <p className="text-xs text-gray">
+                    هر روز از ساعت
+                    <span className="text-dark font-bold text-sm mx-2">
+                        10 الی 20
+                    </span>
+                    با شماره
+                    <span className="text-dark font-bold text-sm mx-2">
+                        09195610753
+                    </span>
+                    پاسخگوی شما هستم
+                </p>
 
             </div>
 
@@ -130,6 +127,15 @@ const ContactUs = () => {
 }
 
 const Summary = () => {
+
+    const _handleShareAdvertise = async () => {
+
+        const {notification} = await import("@/components/modules/Notification");
+
+        return copyToClipboard("link")
+            .then(res => notification(res , "success"))
+            .catch(err => notification(err , "error"));
+    }
 
     return (
         <section className="flex justify-between items-center gap-x-2 w-full">
@@ -150,7 +156,7 @@ const Summary = () => {
                 <IconButton
                     variant="text"
                     color='gray'
-                    onClick={() => copyToClipboard("link").then(res => toast.success(res)).catch(err => toast.error(err))}
+                    onClick={_handleShareAdvertise}
                 >
                     <LuShare2 size={20}/>
                 </IconButton>
@@ -366,7 +372,7 @@ const Visual = () => {
 
             <Gallery/>
 
-            <ContactUs/>
+            {isTablet && <ContactUs/>}
 
             {isTablet && <Location/>}
 
@@ -386,6 +392,8 @@ const Content = () => {
             <Features/>
 
             <Specification/>
+
+            {!isTablet && <ContactUs/>}
 
             {!isTablet && <Location/>}
 

@@ -3,16 +3,28 @@ import {Accordion as ReactAccordion, AccordionItem as ReactAccordionItem} from '
 import {LuChevronDown} from "react-icons/lu";
 
 // styles
-import "@/styles/addon/@szh-react-accordion.scss";
+import "@/styles/customize/@szh-react-accordion.scss";
 
-const ReactAccordionHeader = ({header}) => {
+const ReactAccordionHeader = ({header, icon}) => {
 
     return (
-        <div className="flex justify-between items-center gap-x-4 w-full">
+        <div className="flex justify-between items-center gap-x-4 w-full bg-secondary rounded-lg px-4 py-2">
 
-            <span className='text-gray text-sm font-bold'>
-                {header}
-            </span>
+            <div className="flex justify-start items-center gap-x-2">
+
+                {
+                    icon && (
+                        <span className="text-gray">
+                            {icon}
+                        </span>
+                    )
+                }
+
+                <span className='text-gray text-sm font-bold'>
+                    {header}
+                </span>
+
+            </div>
 
             <LuChevronDown
                 size={20}
@@ -30,16 +42,25 @@ export const Accordion = ({children}) => {
             allowMultiple
             mountOnEnter
             unmountOnExit
+            transition
+            transitionTimeout={300}
         >
             {children}
         </ReactAccordion>
     )
 }
 
-export const AccordionItem = ({children, header}) => {
+export const AccordionItem = ({children, header, icon , initialEntered}) => {
 
     return (
-        <ReactAccordionItem header={<ReactAccordionHeader header={header}/>}>
+        <ReactAccordionItem
+            initialEntered={initialEntered}
+            header={
+                <ReactAccordionHeader
+                    icon={icon}
+                    header={header}/>
+            }
+        >
             {children}
         </ReactAccordionItem>
     )

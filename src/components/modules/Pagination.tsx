@@ -3,7 +3,7 @@ import ReactPagination from 'rc-pagination';
 import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
 
 // styles
-import "@/styles/addon/rc-pagination.scss";
+import "@/styles/customize/rc-pagination.scss";
 
 const Pagination = ({pageCount, pageSize, currentPage}) => {
 

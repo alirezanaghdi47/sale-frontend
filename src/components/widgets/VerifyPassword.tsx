@@ -9,6 +9,30 @@ import {Button} from "@/components/modules/Button";
 import {LinkIconButton} from "@/components/modules/IconButton";
 import PasswordInput from "@/components/modules/PasswordInput";
 
+// utils
+import {VerifyPasswordSchema} from "@/utils/validations";
+
+const Heading = () => {
+
+    return (
+        <div className="flex justify-between items-center gap-x-2 w-full">
+
+            <h3 className="text-gray font-bold text-xl">
+                تغییر رمز
+            </h3>
+
+            <LinkIconButton
+                variant="text"
+                color="gray"
+                href="/auth/forget-password"
+            >
+                <LuChevronLeft size={20}/>
+            </LinkIconButton>
+
+        </div>
+    )
+}
+
 const Form = () => {
 
     const formik = useFormik({
@@ -16,7 +40,7 @@ const Form = () => {
             password: "",
             passwordRepeat: "",
         },
-        // validationSchema: ,
+        validationSchema: VerifyPasswordSchema,
         onSubmit: async (data) => {
             console.log(data)
         }
@@ -79,8 +103,9 @@ const Form = () => {
                     variant="contained"
                     color="blue"
                     size="full"
+                    startIcon={<LuCheck size={20}/>}
+                    onClick={() => formik.handleSubmit()}
                 >
-                    <LuCheck size={20}/>
                     ثبت
                 </Button>
 
@@ -95,21 +120,7 @@ export const VerifyPassword = () => {
     return (
         <div className="flex flex-col justify-center items-center gap-y-4 w-full">
 
-            <div className="flex justify-between items-center gap-x-2 w-full">
-
-                <h3 className="text-gray font-bold text-xl">
-                    تغییر رمز
-                </h3>
-
-                <LinkIconButton
-                    variant="text"
-                    color="gray"
-                    href="/auth/forget-password"
-                >
-                    <LuChevronLeft size={20}/>
-                </LinkIconButton>
-
-            </div>
+            <Heading/>
 
             <Form/>
 

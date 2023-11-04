@@ -1,13 +1,16 @@
 "use client";
 
 // libraries
+import {useRouter} from "next/navigation";
 import Image from "next/image";
 import {LuChevronRight} from "react-icons/lu";
 
 // components
-import {LinkButton} from "@/components/modules/Button";
+import {Button} from "@/components/modules/Button";
 
 const NotFound = () => {
+
+    const router = useRouter();
 
     return (
         <div className="flex flex-col justify-center items-center gap-y-4 w-full p-4">
@@ -24,16 +27,14 @@ const NotFound = () => {
                 صفحه مورد نظر یافت نشد
             </h1>
 
-            <LinkButton
+            <Button
                 variant="contained"
                 color="blue"
-                href="/"
+                startIcon={<LuChevronRight size={20}/>}
+                onClick={() => router.back()}
             >
-                <span className="text-light">
-                    <LuChevronRight size={20}/>
-                </span>
                 بازگشت به خانه
-            </LinkButton>
+            </Button>
 
         </div>
     )

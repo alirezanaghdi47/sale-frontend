@@ -17,6 +17,7 @@ const styles = {
     size:{
         sm: "p-1",
         md: "p-2",
+        lg: "p-3",
     },
     shape:{
         rounded:"rounded-lg",
@@ -24,11 +25,11 @@ const styles = {
     }
 }
 
-export const IconButton = ({children , size = "md" ,color, variant , active , onClick , shape = "rounded"}) => {
+export const IconButton = ({children , size = "md" ,color, variant , onClick , shape = "rounded"}) => {
 
     return (
         <button
-            className={`flex justify-center items-center ${active ? "text-blue" : styles.variant[variant][color]} ${styles.size[size]} ${styles.shape[shape]}`}
+            className={`flex justify-center items-center ${styles.variant[variant][color]} ${styles.size[size]} ${styles.shape[shape]}`}
             onClick={onClick}
         >
             {children}
@@ -37,11 +38,11 @@ export const IconButton = ({children , size = "md" ,color, variant , active , on
 }
 
 
-export const LinkIconButton = ({children ,size = "md" ,color, variant, href , active , shape = "rounded"}) => {
+export const LinkIconButton = ({children ,size = "md" ,color, variant, href , shape = "rounded"}) => {
 
     return (
         <Link
-            className={`flex justify-center items-center ${active ? "text-blue" : styles.variant[variant][color]} ${styles.size[size]} ${styles.shape[shape]}`}
+            className={`flex justify-center items-center ${styles.variant[variant][color]} ${styles.size[size]} ${styles.shape[shape]}`}
             href={href}
         >
             {children}

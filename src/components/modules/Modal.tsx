@@ -7,7 +7,7 @@ import {LuX} from "react-icons/lu";
 import {IconButton} from "@/components/modules/IconButton";
 
 // styles
-import "@/styles/addon/react-modal.scss";
+import "@/styles/customize/react-modal.scss";
 
 const styles = {
     width: {
@@ -27,7 +27,7 @@ const styles = {
     }
 }
 
-export const Modal = ({children, isOpenModal, onCloseModal, width = "md", height = "content" , position = "any"}) => {
+export const Modal = ({children, isOpenModal, onCloseModal, width = "md", height = "content", position = "any"}) => {
 
     useEffect(() => {
 
@@ -42,8 +42,9 @@ export const Modal = ({children, isOpenModal, onCloseModal, width = "md", height
             isOpen={isOpenModal}
             onRequestClose={onCloseModal}
             ariaHideApp={false}
+            closeTimeoutMS={300}
             className={`flex flex-col justify-start items-center gap-y-4 ${styles.width[width]} ${styles.height[height]} ${position === "any" && "rounded-none"}  ${position === "center" && "rounded-lg"} ${position === "bottom" && "rounded-tl-lg rounded-tr-lg"} bg-light p-4`}
-            overlayClassName={`fixed top-0 left-0 z-30 flex ${styles.position[position]} w-full h-full bg-gray/75`}
+            overlayClassName={`fixed top-0 left-0 z-30 flex ${styles.position[position]} ${position === "center" && "p-4"} w-full h-full bg-gray/75`}
         >
             {children}
         </ReactModal>
@@ -72,10 +73,10 @@ export const ModalHeader = ({title, onCloseModal}) => {
     )
 }
 
-export const ModalBody = ({children , center}) => {
+export const ModalBody = ({children, center , className}) => {
 
     return (
-        <div className={`flex flex-col justify-start items-center gap-y-4 w-full h-max ${center && "my-auto"}`}>
+        <div className={`flex flex-col justify-start items-center gap-y-4 w-full h-max ${center && "my-auto"} ${className ?? ""}`}>
             {children}
         </div>
     )

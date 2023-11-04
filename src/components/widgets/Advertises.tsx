@@ -1,20 +1,21 @@
 "use client";
 
 // libraries
+import dynamic from "next/dynamic";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {useFormik} from "formik";
-import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
+import {LuArrowDownWideNarrow, LuCheck, LuFilter, LuX} from "react-icons/lu";
 
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
 import {Button} from "@/components/modules/Button";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import RangeInput from "@/components/modules/RangeInput";
-import SortModal from "@/components/partials/SortModal";
-import FilterModal from "@/components/widgets/FilterModal";
 import Pagination from "@/components/modules/Pagination";
 import CheckBox from "@/components/modules/CheckBox";
 import SwitchBox from "@/components/modules/SwitchBox";
+const SortModal = dynamic(() => import("@/components/partials/SortModal") , {ssr: false});
+const FilterModal = dynamic(() => import("@/components/widgets/FilterModal") , {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
@@ -144,6 +145,14 @@ const Filters = () => {
             </div>
 
             <div className="flex justify-end items-center gap-x-4 w-full">
+
+                {/*<Button*/}
+                {/*    variant="text"*/}
+                {/*    color="red"*/}
+                {/*    startIcon={<LuX size={20}/>}*/}
+                {/*>*/}
+                {/*    حذف همه*/}
+                {/*</Button>*/}
 
                 <Button
                     variant="contained"

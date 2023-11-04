@@ -1,12 +1,15 @@
+// libraries
+import dynamic from "next/dynamic";
+
 // components
-import Notification from "@/components/modules/Notification";
+const Notification = dynamic(() => import("@/components/modules/Notification") , {ssr: false});
 
 // helpers
 import {vazirmatn} from "@/helpers/fonts";
 
 // styles
 import '@/styles/globals.scss';
-import '@/styles/addon/simple-bars.scss';
+import '@/styles/customize/simple-bars.scss';
 
 const RootLayout = (props) => {
 

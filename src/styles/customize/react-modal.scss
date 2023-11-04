@@ -1,0 +1,11 @@
+.ReactModal__Overlay {
+  @apply opacity-0 transform transition-opacity duration-300 ease-out-expo #{!important};
+}
+
+.ReactModal__Overlay--after-open{
+  @apply opacity-100 #{!important};
+}
+
+.ReactModal__Overlay--before-close{
+  @apply opacity-0 #{!important};
+}

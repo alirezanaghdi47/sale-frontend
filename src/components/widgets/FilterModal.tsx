@@ -44,7 +44,10 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                 <Accordion>
 
-                    <AccordionItem header="دسته بندی ها">
+                    <AccordionItem
+                        initialEntered
+                        header="دسته بندی ها"
+                    >
 
                         <label
                             htmlFor="checkbox-mobile"
@@ -84,7 +87,10 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                     </AccordionItem>
 
-                    <AccordionItem header="قیمت">
+                    <AccordionItem
+                        initialEntered
+                        header="قیمت"
+                    >
 
                         <RangeInput
                             min={0}
@@ -112,7 +118,10 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                     </AccordionItem>
 
-                    <AccordionItem header="وضعیت">
+                    <AccordionItem
+                        initialEntered
+                        header="وضعیت"
+                    >
 
                         <label
                             htmlFor="switchbox-hasImage"
@@ -139,15 +148,15 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
             </ModalBody>
 
             <ModalFooter
-                cancelButton={
-                    <Button
-                        variant="text"
-                        color="gray"
-                        startIcon={<LuX size={20}/>}
-                    >
-                        انصراف
-                    </Button>
-                }
+                // cancelButton={
+                //     <Button
+                //         variant="text"
+                //         color="red"
+                //         startIcon={<LuX size={20}/>}
+                //     >
+                //         حذف همه
+                //     </Button>
+                // }
                 submitButton={
                     <Button
                         variant="contained"

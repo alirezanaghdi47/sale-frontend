@@ -10,10 +10,14 @@ const NumberInput = ({name , options, value, onChange, placeholder}) => {
         >
             <Cleave
                 id={`input-${name}`}
+                name={name}
                 placeholder={placeholder}
                 options={options}
                 value={value}
-                onChange={onChange}
+                onChange={(e) => {
+                    e.target.value = e.target.rawValue
+                    onChange(e)
+                }}
                 className="w-full h-full bg-transparent text-gray font-bold placeholder-gray focus:outline-none"
                 style={{direction: "ltr"}}
             />

@@ -1,10 +1,6 @@
 import {AddAdvertise} from "@/components/widgets/AddAdvertise";
 
-export const metadata = {
-    title: 'افزودن آگهی',
-}
-
-const AddAdvertisePage = () => {
+const EditAdvertisePage = () => {
 
     return (
         <main className="flex flex-col justify-start items-start gap-y-4 w-full md:max-w-[calc(100%_-_240px)] p-4">
@@ -15,4 +11,11 @@ const AddAdvertisePage = () => {
     );
 }
 
-export default AddAdvertisePage;
+export async function generateMetadata({ params }) {
+
+    return {
+        title: `${params.advertiseId}ویرایش آگهی `,
+    }
+}
+
+export default EditAdvertisePage;

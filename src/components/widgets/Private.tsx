@@ -1,28 +1,30 @@
 'use client';
 
 // libraries
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {LuBookmark, LuHome, LuLogOut, LuPieChart, LuScrollText, LuUser} from "react-icons/lu";
+import {LuBookmark, LuEye, LuLogOut, LuPieChart, LuPlus, LuScrollText, LuUser} from "react-icons/lu";
 
 // components
 import {Button, LinkButton} from "@/components/modules/Button";
-import {Menu, MenuItem} from "@/components/modules/Menu";
-
-// utils
-import {getTitleFromPathname} from "@/utils/functions";
+import {Collapse, CollapseItem} from "@/components/modules/Collapse";
+const Menu = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
+const MenuItem = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
 
 const Logo = () => {
 
     return (
-        <LinkButton
-            variant="text"
-            color='dark'
-            size="lg"
-            href="/"
-        >
-            فروشگاه
-        </LinkButton>
+        <Link href="/">
+            <Image
+                src="/assets/images/logo.svg"
+                alt='logo'
+                width={40}
+                height={40}
+                className="min-w-[40px] min-h-[40px]"
+            />
+        </Link>
     )
 }
 
@@ -33,9 +35,7 @@ const AppbarActions = () => {
     return (
         <div className="flex justify-between items-center gap-x-4 w-full">
 
-            <h1 className='font-bold text-dark'>
-                {getTitleFromPathname(pathname)}
-            </h1>
+            <Logo/>
 
             <Menu
                 menuButton={
@@ -93,22 +93,8 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
                     variant="text"
-                    color="gray"
-                    href="/"
-                    active={pathname === "/"}
-                    vertical
-                    startIcon={<LuHome size={20}/>}
-                >
-                    خانه
-                </LinkButton>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <LinkButton
-                    variant="text"
-                    color="gray"
+                    color={pathname === "/account/dashboard" ? "blue" : "gray"}
                     href="/account/dashboard"
-                    active={pathname === "/account/dashboard"}
                     vertical
                     startIcon={<LuPieChart size={20}/>}
                 >
@@ -119,9 +105,8 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/my-advertises" ? "blue" : "gray"}
                     href="/account/my-advertises"
-                    active={pathname === "/account/my-advertises"}
                     vertical
                     startIcon={<LuScrollText size={20}/>}
                 >
@@ -132,9 +117,20 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
+                    href="/account/my-advertises/add"
+                    vertical
+                    startIcon={<LuPlus size={20}/>}
+                >
+                    افزودن آگهی
+                </LinkButton>
+            </li>
+
+            <li className="col-span-3 flex justify-center items-center">
+                <LinkButton
+                    variant="text"
+                    color={pathname === "/account/favorites" ? "blue" : "gray"}
                     href="/account/favorites"
-                    active={pathname === "/account/favorites"}
                     vertical
                     startIcon={<LuBookmark size={20}/>}
                 >
@@ -156,9 +152,10 @@ const SidebarLinks = () => {
             <li className="flex justify-start items-center w-full">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/dashboard" ? "blue" : "gray"}
+                    size="full"
+                    justify="start"
                     href="/account/dashboard"
-                    active={pathname === "/account/dashboard"}
                     startIcon={<LuPieChart size={20}/>}
                 >
                     داشبورد
@@ -166,23 +163,55 @@ const SidebarLinks = () => {
             </li>
 
             <li className="flex justify-start items-center w-full">
-                <LinkButton
-                    variant="text"
-                    color="gray"
-                    href="/account/my-advertises"
-                    active={pathname === "/account/my-advertises"}
-                    startIcon={<LuScrollText size={20}/>}
-                >
-                    آگهی های من
-                </LinkButton>
+
+                <Collapse>
+
+                    <CollapseItem
+                        button={{
+                            children: "آگهی ها",
+                            variant: "text",
+                            color: "gray",
+                            size: "full",
+                            justify: "start",
+                            startIcon: <LuScrollText size={20}/>
+                        }}
+                    >
+
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/account/my-advertises" ? "blue" : "gray"}
+                            size="full"
+                            justify="start"
+                            href="/account/my-advertises"
+                            startIcon={<LuEye size={20}/>}
+                        >
+                            مشاهده آگهی ها
+                        </LinkButton>
+
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
+                            size="full"
+                            justify="start"
+                            href="/account/my-advertises/add"
+                            startIcon={<LuPlus size={20}/>}
+                        >
+                            افزودن آگهی
+                        </LinkButton>
+
+                    </CollapseItem>
+
+                </Collapse>
+
             </li>
 
             <li className="flex justify-start items-center w-full">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/favorites" ? "blue" : "gray"}
+                    size="full"
+                    justify="start"
                     href="/account/favorites"
-                    active={pathname === "/account/favorites"}
                     startIcon={<LuBookmark size={20}/>}
                 >
                     علاقه مندی ها
@@ -203,9 +232,10 @@ const SidebarActions = () => {
             <li className="flex justify-start items-center w-full">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/profile" ? "blue" : "gray"}
+                    size="full"
+                    justify="start"
                     href="/account/profile"
-                    active={pathname === "/account/profile"}
                 >
                     <Image
                         src="/assets/images/avatar.jpg"
@@ -222,6 +252,8 @@ const SidebarActions = () => {
                 <Button
                     variant="text"
                     color="red"
+                    size="full"
+                    justify="start"
                     startIcon={<LuLogOut size={20}/>}
                 >
                     خروج

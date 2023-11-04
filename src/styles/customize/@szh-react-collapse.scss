@@ -13,11 +13,11 @@
     }
 
     &-content {
-      @apply mt-4 #{!important};
+      @apply transition-height duration-300 ease-out-expo;
     }
 
     &-panel {
-      @apply flex flex-col justify-center items-center gap-y-4 w-full #{!important};
+      @apply flex flex-col justify-center items-center gap-y-2 w-full pt-2 #{!important};
     }
   }
 }

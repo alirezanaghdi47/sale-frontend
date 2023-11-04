@@ -4,7 +4,7 @@ import {LuCheck} from "react-icons/lu";
 const CheckBox = ({name, value, checked, onChange}) => {
 
     return (
-        <span className={`flex justify-center items-center w-[20px] h-[20px] ${checked ? "bg-blue" : "bg-secondary"} rounded-lg`}>
+        <span className={`flex justify-center items-center w-[20px] h-[20px] ${checked ? "bg-blue" : "bg-secondary"} rounded-lg transition-colors duration-300 ease-out-expo`}>
 
             <input
                 id={`checkbox-${value}`}
@@ -16,13 +16,9 @@ const CheckBox = ({name, value, checked, onChange}) => {
                 className="hidden"
             />
 
-            {
-                checked && (
-                    <span className="text-light">
-                        <LuCheck size={16}/>
-                    </span>
-                )
-            }
+            <span className={`text-light ${checked ? "scale-100" : "scale-0"} transition-transform duration-300 ease-out-expo`}>
+                <LuCheck size={16}/>
+            </span>
 
         </span>
     )

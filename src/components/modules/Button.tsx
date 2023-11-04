@@ -4,31 +4,40 @@ import Link from "next/link";
 const styles = {
     variant: {
         contained: {
-            blue:"bg-blue text-light",
-            light:"bg-light text-gray"
+            red: "bg-red text-light",
+            blue: "bg-blue text-light",
+            light: "bg-light text-gray"
         },
         text: {
             dark: "text-dark",
+            light: "text-light",
             gray: "text-gray",
             red: "text-red",
             blue: "text-blue",
-        }
+        },
     },
-    size:{
+    size: {
         sm: "text-xs font-bold px-2 py-1",
         md: "text-sm font-bold px-4 py-2",
         lg: "text-lg font-bold px-4 py-2",
         full: "w-full text-sm font-bold px-4 py-2"
+    },
+    justify: {
+        start: "justify-start",
+        center: "justify-center",
+        end: "justify-end",
     }
 }
 
-export const Button = ({children, size = "md" ,color, variant, startIcon, endIcon, onClick, vertical , disabled, loading , active}) => {
+export const Button = ({children , as = "button", size = "md", color, variant, startIcon, endIcon, justify = "center", onClick, vertical, disabled}) => {
+
+    const CustomTag = as;
 
     return (
-        <button
-            className={`flex ${vertical ? "flex-col gap-y-2" : "flex-row gap-x-2"} justify-center items-center ${active ? "text-blue" : styles.variant[variant][color]} ${styles.size[size]} rounded-lg whitespace-nowrap`}
+        <CustomTag
+            className={`flex ${vertical ? "flex-col gap-y-2" : "flex-row gap-x-2"} ${styles.justify[justify]} items-center ${styles.variant[variant][color]} ${styles.size[size]} rounded-lg whitespace-nowrap transition-colors duration-300 ease-out-expo`}
             onClick={onClick}
-            disabled={disabled || loading}
+            disabled={disabled}
         >
 
             {
@@ -49,15 +58,15 @@ export const Button = ({children, size = "md" ,color, variant, startIcon, endIco
                 )
             }
 
-        </button>
+        </CustomTag>
     )
 }
 
-export const LinkButton = ({children, size = "md" ,color, variant, startIcon, endIcon, href, vertical , active}) => {
+export const LinkButton = ({children, size = "md", color, variant, startIcon, endIcon, justify = "center", href, vertical}) => {
 
     return (
         <Link
-            className={`flex ${vertical ? "flex-col gap-y-2" : "flex-row gap-x-2"} justify-center items-center ${active ? "text-blue" : styles.variant[variant][color]} ${styles.size[size]} rounded-lg whitespace-nowrap`}
+            className={`flex ${vertical ? "flex-col gap-y-2" : "flex-row gap-x-2"} ${styles.justify[justify]} items-center ${styles.variant[variant][color]} ${styles.size[size]} rounded-lg whitespace-nowrap transition-colors duration-300 ease-out-expo`}
             href={href}
         >
 

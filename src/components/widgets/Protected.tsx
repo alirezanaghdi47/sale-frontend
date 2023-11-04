@@ -1,20 +1,22 @@
-// libraries
-import {LuCopyright} from "react-icons/lu";
+'use client';
 
-// components
-import {LinkButton} from "@/components/modules/Button";
+// libraries
+import Link from "next/link";
+import Image from "next/image";
+import {LuCopyright} from "react-icons/lu";
 
 export const Logo = () => {
 
     return (
-        <LinkButton
-            variant="text"
-            color='dark'
-            size="lg"
-            href="/"
-        >
-            فروشگاه
-        </LinkButton>
+        <Link href="/">
+            <Image
+                src="/assets/images/logo.svg"
+                alt='logo'
+                width={60}
+                height={60}
+                className="min-w-[60px] min-h-[60px]"
+            />
+        </Link>
     )
 }
 

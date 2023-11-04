@@ -1,6 +1,10 @@
 // components
 import {SignUp} from "@/components/widgets/SignUp";
 
+export const metadata = {
+    title: 'عضویت',
+}
+
 const SignUpPage = () => {
 
     return (

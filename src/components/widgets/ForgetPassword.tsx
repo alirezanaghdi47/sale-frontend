@@ -9,13 +9,37 @@ import {Button} from "@/components/modules/Button";
 import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
 
+// utils
+import {ForgetPasswordSchema} from "@/utils/validations";
+
+const Heading = () => {
+
+    return (
+        <div className="flex justify-between items-center gap-x-2 w-full">
+
+            <h3 className="text-gray font-bold text-xl">
+                فراموشی رمز
+            </h3>
+
+            <LinkIconButton
+                variant="text"
+                color="gray"
+                href="/auth/sign-in"
+            >
+                <LuChevronLeft size={20}/>
+            </LinkIconButton>
+
+        </div>
+    )
+}
+
 const Form = () => {
 
     const formik = useFormik({
         initialValues: {
             email: "",
         },
-        // validationSchema: ,
+        validationSchema: ForgetPasswordSchema,
         onSubmit: async (data) => {
             console.log(data)
         }
@@ -56,6 +80,7 @@ const Form = () => {
                     variant="contained"
                     color="blue"
                     size="full"
+                    onClick={() => formik.handleSubmit()}
                 >
                     <LuCheck size={20}/>
                     اعتبارسنجی
@@ -97,21 +122,7 @@ export const ForgetPassword = () => {
     return (
         <div className="flex flex-col justify-center items-center gap-y-4 w-full">
 
-            <div className="flex justify-between items-center gap-x-2 w-full">
-
-                <h3 className="text-gray font-bold text-xl">
-                    فراموشی رمز
-                </h3>
-
-                <LinkIconButton
-                    variant="text"
-                    color="gray"
-                    href="/auth/sign-in"
-                >
-                    <LuChevronLeft size={20}/>
-                </LinkIconButton>
-
-            </div>
+            <Heading/>
 
             <Form/>
 

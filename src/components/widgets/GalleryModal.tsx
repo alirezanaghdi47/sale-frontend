@@ -13,7 +13,7 @@ import {Modal, ModalHeader, ModalBody} from "@/components/modules/Modal";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import "@/styles/addon/swiper.scss";
+import "@/styles/customize/swiper.scss";
 
 const GalleryModal = ({isOpenModal, onCloseModal}) => {
 

@@ -10,6 +10,30 @@ import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
 import PasswordInput from "@/components/modules/PasswordInput";
 
+// utils
+import {SignUpSchema} from "@/utils/validations";
+
+const Heading = () => {
+
+    return (
+        <div className="flex justify-between items-center gap-x-2 w-full">
+
+            <h3 className="text-gray font-bold text-xl">
+                عضویت
+            </h3>
+
+            <LinkIconButton
+                variant="text"
+                color="gray"
+                href="/auth/sign-in"
+            >
+                <LuChevronLeft size={20}/>
+            </LinkIconButton>
+
+        </div>
+    )
+}
+
 const Form = () => {
 
     const formik = useFormik({
@@ -18,7 +42,7 @@ const Form = () => {
             password: "",
             passwordRepeat: "",
         },
-        // validationSchema: ,
+        validationSchema: SignUpSchema,
         onSubmit: async (data) => {
             console.log(data)
         }
@@ -97,6 +121,20 @@ const Form = () => {
 
             </div>
 
+            <div className="flex justify-end items-center gap-x-2 w-full mt-4">
+
+                <Button
+                    variant="contained"
+                    color="blue"
+                    size="full"
+                    startIcon={<LuCheck size={20}/>}
+                    onClick={() => formik.handleSubmit()}
+                >
+                    عضویت
+                </Button>
+
+            </div>
+
         </div>
     )
 }
@@ -106,20 +144,7 @@ const Links = () => {
     return (
         <div className='flex flex-col justify-center items-center gap-y-4 w-full'>
 
-            <div className="flex justify-end items-center gap-x-2 w-full mt-4">
-
-                <Button
-                    variant="contained"
-                    color="blue"
-                    size="full"
-                >
-                    <LuCheck size={20}/>
-                    عضویت
-                </Button>
-
-            </div>
-
-            <div className='flex justify-center items-center gap-x-2 w-full mt-2'>
+            <div className='flex justify-center items-center gap-x-2 w-full'>
 
                 <p className="text-gray font-bold text-xs">
                     اگر حساب کاربری دارید
@@ -145,21 +170,7 @@ export const SignUp = () => {
     return (
         <div className="flex flex-col justify-center items-center gap-y-4 w-full">
 
-            <div className="flex justify-between items-center gap-x-2 w-full">
-
-                <h3 className="text-gray font-bold text-xl">
-                    عضویت
-                </h3>
-
-                <LinkIconButton
-                    variant="text"
-                    color="gray"
-                    href="/auth/sign-in"
-                >
-                    <LuChevronLeft size={20}/>
-                </LinkIconButton>
-
-            </div>
+            <Heading/>
 
             <Form/>
 

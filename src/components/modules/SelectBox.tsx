@@ -3,7 +3,7 @@ import ReactSelect, {components} from "react-select";
 import {LuChevronDown, LuX} from "react-icons/lu";
 
 // styles
-import "@/styles/addon/react-select.scss";
+import "@/styles/customize/react-select.scss";
 
 const ReactSelectDropdownIndicator = (props: any) => {
 
@@ -42,6 +42,8 @@ const SelectBox = ({name, placeholder, value, options, onChange, isMulti, isClea
 
     return (
         <ReactSelect
+            id={`selectbox-${name}`}
+            instanceId={`selectbox-${name}`}
             name={name}
             options={options}
             closeMenuOnSelect={true}

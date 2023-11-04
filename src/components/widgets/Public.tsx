@@ -1,7 +1,9 @@
 'use client';
 
 // libraries
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {
     LuPlus,
@@ -17,11 +19,13 @@ import {
 import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
 // components
-import {Menu, MenuItem} from "@/components/modules/Menu";
-import {Button , LinkButton} from "@/components/modules/Button";
+import {Button, LinkButton} from "@/components/modules/Button";
 import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
-import CitiesModal from "@/components/partials/CitiesModal";
+
+const Menu = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
+const MenuItem = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
+const CitiesModal = dynamic(() => import("@/components/partials/CitiesModal"), {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
@@ -29,14 +33,15 @@ import {useModal} from "@/hooks/useModal";
 const Logo = () => {
 
     return (
-        <LinkButton
-            variant="text"
-            color='dark'
-            size="lg"
-            href="/"
-        >
-            فروشگاه
-        </LinkButton>
+        <Link href="/">
+            <Image
+                src="/assets/images/logo.svg"
+                alt='logo'
+                width={40}
+                height={40}
+                className="min-w-[40px] min-h-[40px]"
+            />
+        </Link>
     )
 }
 
@@ -87,6 +92,8 @@ export const Appbar = () => {
 
             <div className='flex justify-between items-center gap-x-4 w-full max-w-[1200px] h-full p-4'>
 
+                <Logo/>
+
                 <AppbarActions/>
 
             </div>
@@ -105,9 +112,8 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/advertises" ? "blue" : "gray"}
                     href="/advertises"
-                    active={pathname === "/advertises"}
                     vertical
                     startIcon={<LuScrollText size={20}/>}
                 >
@@ -118,9 +124,8 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
                     href="/account/my-advertises/add"
-                    active={pathname === "/account/my-advertises/add"}
                     vertical
                     startIcon={<LuPlus size={20}/>}
                 >
@@ -131,9 +136,8 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/favorites" ? "blue" : "gray"}
                     href="/account/favorites"
-                    active={pathname === "/account/favorites"}
                     vertical
                     startIcon={<LuBookmark size={20}/>}
                 >
@@ -144,9 +148,8 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/profile" ? "blue" : "gray"}
                     href="/account/profile"
-                    active={pathname === "/account/profile"}
                     vertical
                     startIcon={<LuUser size={20}/>}
                 >

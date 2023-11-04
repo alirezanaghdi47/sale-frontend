@@ -1,14 +1,15 @@
 "use client";
 
 // libraries
+import dynamic from "next/dynamic";
 import {useMediaQuery} from "@react-hooks-library/core";
-import {LuArrowDownWideNarrow, LuFilter} from "react-icons/lu";
+import {LuArrowDownWideNarrow} from "react-icons/lu";
 
 // components
 import {Button} from "@/components/modules/Button";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import Pagination from "@/components/modules/Pagination";
-import SortModal from "@/components/partials/SortModal";
+const SortModal = dynamic(() => import("@/components/partials/SortModal") , {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";

@@ -8,7 +8,7 @@ import AdvertiseCard from "@/components/partials/AdvertiseCard";
 // styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import "@/styles/addon/swiper.scss";
+import "@/styles/customize/swiper.scss";
 
 const AdvertiseSlider = () => {
 
@@ -23,13 +23,10 @@ const AdvertiseSlider = () => {
                     320: {
                         slidesPerView: 1
                     },
-                    576: {
-                        slidesPerView: 2
-                    },
                     768: {
                         slidesPerView: 2
                     },
-                    992: {
+                    1200: {
                         slidesPerView: 3
                     },
                 }}

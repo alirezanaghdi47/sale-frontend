@@ -57,7 +57,7 @@
   }
 
   &__menu {
-    @apply rounded-lg shadow-3xl #{!important};
+    @apply z-20 rounded-lg shadow-3xl #{!important};
   }
 
   &__menu-list {
