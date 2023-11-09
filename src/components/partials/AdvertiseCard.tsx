@@ -1,37 +1,14 @@
 "use client";
 
 // libraries
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import {LuPencil, LuShare2, LuTrash2} from "react-icons/lu";
+import {LuShare2, LuTrash2} from "react-icons/lu";
 
 // components
 import {IconButton} from "@/components/modules/IconButton";
-const DeleteAdvertiseDialog = dynamic(() => import("@/components/partials/DeleteAdvertiseDialog") , {ssr: false});
-
-// hooks
-import {useDialog} from "@/hooks/useDialog";
-
-// utils
-import {copyToClipboard} from "@/utils/functions";
 
 const AdvertiseCard = ({advertise, toolbar, disabled}) => {
-
-    const {
-        isOpenDialog: isOpenDeleteDialog,
-        _handleShowDialog: _handleShowDeleteDialog,
-        _handleHideDialog: _handleHideDeleteDialog
-    } = useDialog();
-
-    const _handleShareAdvertise = async () => {
-
-        const {notification} = await import("@/components/modules/Notification");
-
-        return copyToClipboard("link")
-            .then(res => notification(res , "success"))
-            .catch(err => notification(err , "error"));
-    }
 
     return (
         <>
@@ -96,22 +73,11 @@ const AdvertiseCard = ({advertise, toolbar, disabled}) => {
                         <div className="flex flex-col justify-start items-start gap-y-2 mr-auto mb-auto">
 
                             {
-                                toolbar.edit && (
-                                    <IconButton
-                                        variant="text"
-                                        color="gray"
-                                    >
-                                        <LuPencil size={20}/>
-                                    </IconButton>
-                                )
-                            }
-
-                            {
                                 toolbar.share && (
                                     <IconButton
                                         variant="text"
                                         color="gray"
-                                        onClick={_handleShareAdvertise}
+                                        onClick={toolbar.share.onClick}
                                     >
                                         <LuShare2 size={20}/>
                                     </IconButton>
@@ -120,23 +86,13 @@ const AdvertiseCard = ({advertise, toolbar, disabled}) => {
 
                             {
                                 toolbar.delete && (
-                                    <>
-
-                                        <IconButton
-                                            variant="text"
-                                            color="red"
-                                            onClick={_handleShowDeleteDialog}
-                                        >
-                                            <LuTrash2 size={20}/>
-                                        </IconButton>
-
-                                        <DeleteAdvertiseDialog
-                                            id={1}
-                                            isOpenDialog={isOpenDeleteDialog}
-                                            onCloseDialog={_handleHideDeleteDialog}
-                                        />
-
-                                    </>
+                                    <IconButton
+                                        variant="text"
+                                        color="red"
+                                        onClick={toolbar.delete.onClick}
+                                    >
+                                        <LuTrash2 size={20}/>
+                                    </IconButton>
                                 )
                             }
 

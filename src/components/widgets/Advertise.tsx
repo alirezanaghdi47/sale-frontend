@@ -1,11 +1,12 @@
 'use client';
 
 // libraries
+import {useState} from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Navigation} from "swiper/modules";
+import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
 import {
     LuBookmark,
     LuCalendar,
@@ -17,15 +18,12 @@ import {
 // components
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseSlider from "@/components/partials/AdvertiseSlider";
-const GalleryModal = dynamic(() => import("@/components/widgets/GalleryModal") , {ssr: false});
 const Map = dynamic(() => import("@/components/widgets/Map") , {ssr: false});
-
-// hooks
-import {useModal} from "@/hooks/useModal";
 
 // styles
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
 import "@/styles/customize/swiper.scss";
 
 // utils
@@ -33,28 +31,22 @@ import {copyToClipboard} from "@/utils/functions";
 
 const Gallery = () => {
 
-    const {
-        isOpenModal: isOpenGalleryModal,
-        _handleShowModal: _handleShowGalleryModal,
-        _handleHideModal: _handleHideGalleryModal
-    } = useModal();
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     return (
-        <section className="flex justify-center items-center w-full">
+        <section className="flex flex-col justify-center items-center w-full gap-y-4">
 
             <Swiper
-                modules={[Navigation]}
-                spaceBetween={16}
-                slidesPerView={1}
+                spaceBetween={10}
                 navigation={true}
+                thumbs={{swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null}}
+                modules={[FreeMode, Navigation, Thumbs]}
                 className="w-full"
             >
-
                 {
                     Array(8).fill("").map((item, index) =>
                         <SwiperSlide
                             key={index}
-                            onClick={_handleShowGalleryModal}
                         >
 
                             <Image
@@ -62,19 +54,41 @@ const Gallery = () => {
                                 alt="advertise"
                                 width={240}
                                 height={240}
-                                className="w-full min-w-[240px] h-full min-h-[240px] max-h-[360px] object-cover object-center rounded-lg"
+                                className="w-full min-w-[240px] h-full min-h-[240px] object-cover object-center rounded-lg"
                             />
 
                         </SwiperSlide>
                     )
                 }
-
             </Swiper>
 
-            <GalleryModal
-                isOpenModal={isOpenGalleryModal}
-                onCloseModal={_handleHideGalleryModal}
-            />
+            <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={16}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="w-full"
+            >
+                {
+                    Array(8).fill("").map((item, index) =>
+                        <SwiperSlide
+                            key={index}
+                        >
+
+                            <Image
+                                src="/assets/images/card-image.jpg"
+                                alt="advertise"
+                                width={40}
+                                height={40}
+                                className="w-full min-w-[40px] max-w-[120px] h-full min-h-[40px] max-h-[120px] object-cover object-center rounded-lg"
+                            />
+
+                        </SwiperSlide>
+                    )
+                }
+            </Swiper>
 
         </section>
     )
@@ -109,15 +123,11 @@ const ContactUs = () => {
             <div className="flex justify-between items-center gap-x-4 w-full bg-light rounded-lg p-4">
 
                 <p className="text-xs text-gray">
-                    هر روز از ساعت
-                    <span className="text-dark font-bold text-sm mx-2">
-                        10 الی 20
-                    </span>
-                    با شماره
+                    شما میتوانید با شماره همراه
                     <span className="text-dark font-bold text-sm mx-2">
                         09195610753
                     </span>
-                    پاسخگوی شما هستم
+                    با فروشنده در ارتباط باشید
                 </p>
 
             </div>

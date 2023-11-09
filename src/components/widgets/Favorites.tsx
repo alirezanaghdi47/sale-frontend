@@ -10,9 +10,14 @@ import {Button} from "@/components/modules/Button";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import Pagination from "@/components/modules/Pagination";
 const SortModal = dynamic(() => import("@/components/partials/SortModal") , {ssr: false});
+const DeleteAdvertiseDialog = dynamic(() => import("@/components/partials/DeleteAdvertiseDialog") , {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
+import {useDialog} from "@/hooks/useDialog";
+
+// utils
+import {copyToClipboard} from "@/utils/functions";
 
 const Actionbar = () => {
 
@@ -108,6 +113,21 @@ const Sortbar = () => {
 
 const List = () => {
 
+    const {
+        isOpenDialog: isOpenDeleteDialog,
+        _handleShowDialog: _handleShowDeleteDialog,
+        _handleHideDialog: _handleHideDeleteDialog
+    } = useDialog();
+
+    const _handleShareAdvertise = async () => {
+
+        const {notification} = await import("@/components/modules/Notification");
+
+        return copyToClipboard("link")
+            .then(res => notification(res , "success"))
+            .catch(err => notification(err , "error"));
+    }
+
     return (
         <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
@@ -122,8 +142,12 @@ const List = () => {
                             <AdvertiseCard
                                 advertise={advertiseItem}
                                 toolbar={{
-                                    share: true,
-                                    delete: true
+                                    share: {
+                                        onClick: _handleShareAdvertise
+                                    },
+                                    delete: {
+                                        onClick: _handleShowDeleteDialog
+                                    }
                                 }}
                             />
                         </li>
@@ -131,6 +155,11 @@ const List = () => {
                 }
 
             </ul>
+
+            <DeleteAdvertiseDialog
+                isOpenDialog={isOpenDeleteDialog}
+                onCloseDialog={_handleHideDeleteDialog}
+            />
 
         </section>
     )

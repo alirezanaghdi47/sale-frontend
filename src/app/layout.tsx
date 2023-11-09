@@ -1,4 +1,5 @@
 // libraries
+import {Metadata, Viewport} from "next";
 import dynamic from "next/dynamic";
 
 // components
@@ -10,6 +11,21 @@ import {vazirmatn} from "@/helpers/fonts";
 // styles
 import '@/styles/globals.scss';
 import '@/styles/customize/simple-bars.scss';
+
+export const metadata: Metadata = {
+    title: "Sale",
+    description: "a sale shop for selling or buying anything",
+    metadataBase: process.env.BASE_URL,
+    manifest: "/manifest.json",
+    icons: {
+        icon: "/icon-192x192.png",
+        apple: "/icon-192x192.png",
+    }
+}
+
+export const viewport: Viewport = {
+    themeColor: "#2563eb",
+}
 
 const RootLayout = (props) => {
 

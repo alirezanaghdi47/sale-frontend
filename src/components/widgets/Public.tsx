@@ -237,7 +237,6 @@ const HeaderLinks = () => {
                         علیرضا نقدی
                     </Button>
                 }
-                arrow
                 align="start"
                 direction="bottom"
             >

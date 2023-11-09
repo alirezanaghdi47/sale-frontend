@@ -14,11 +14,11 @@ const StepperItem = ({stepItem, step}) => {
     return (
         <li className="grid-cols-1 flex flex-col justify-center items-center gap-y-2">
 
-            <span className={`flex justify-center items-center w-[40px] h-[40px] ${stepItem?.value === step ? 'bg-blue text-light' : 'bg-light text-dark'} text-base font-bold rounded-full  transition-colors duration-300 ease-out-expo`}>
+            <span className={`flex justify-center items-center w-[40px] h-[40px] ${stepItem?.number === step ? 'bg-blue text-light' : 'bg-light text-dark'} text-base font-bold rounded-full  transition-colors duration-300 ease-out-expo`}>
                 {stepItem?.number}
             </span>
 
-            <span className={`text-sm font-bold ${stepItem?.value === step ? 'text-blue' : 'text-gray'}`}>
+            <span className={`text-sm font-bold ${stepItem?.number === step ? 'text-blue' : 'text-gray'}`}>
                 {stepItem?.title}
             </span>
 

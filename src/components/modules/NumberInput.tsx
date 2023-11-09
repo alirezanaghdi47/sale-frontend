@@ -15,8 +15,8 @@ const NumberInput = ({name , options, value, onChange, placeholder}) => {
                 options={options}
                 value={value}
                 onChange={(e) => {
-                    e.target.value = e.target.rawValue
-                    onChange(e)
+                    e.target.value = e.target.rawValue;
+                    onChange(e);
                 }}
                 className="w-full h-full bg-transparent text-gray font-bold placeholder-gray focus:outline-none"
                 style={{direction: "ltr"}}

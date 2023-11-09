@@ -1,5 +1,5 @@
 // libraries
-import {LuCalendar, LuInfo, LuLock, LuPen, LuPhone} from "react-icons/lu";
+import {LuCalendar, LuInfo, LuLock, LuMonitor, LuPen, LuPhone} from "react-icons/lu";
 
 export const cityList = [
     {id: "1", title: "تهران", value: "tehran"},
@@ -15,14 +15,27 @@ export const cityList = [
 ];
 
 export const categoryList = [
-    {id: "1", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
-    {id: "2", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
-    {id: "3", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
-    {id: "4", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
-    {id: "5", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
-    {id: "6", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
-    {id: "7", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
-    {id: "8", title: "موبایل", href: "/mobile", icon: LuPhone({size: 20})},
+    {id: "1", label: "موبایل", value: "mobile", icon: LuPhone({size: 20})},
+    {id: "2", label: "لپتاپ", value: "laptop", icon: LuMonitor({size: 20})},
+];
+
+export const mobileCategorySpecificationList = [
+    {id: "1", title: "برند" , value: "brand"},
+    {id: "2", title: "ابعاد صفحه نمایش" , value: "screen"},
+    {id: "3", title: "سیستم عامل" , value: "os"},
+    {id: "4", title: "تعداد دوربین" , value: "camera"},
+    {id: "5", title: "ظرفیت باتری" , value: "battery"},
+];
+
+export const laptopCategorySpecificationList = [
+    {id: "1", title: "برند" , value: "brand"},
+    {id: "2", title: "ابعاد صفحه نمایش" , value: "screen"},
+    {id: "3", title: "سیستم عامل" , value: "os"},
+    {id: "4", title: "سی پی یو" , value: "cpu"},
+    {id: "5", title: "رم" , value: "ram"},
+    {id: "6", title: "گرافیک" , value: "gpu"},
+    {id: "7", title: "ظرفیت باتری" , value: "battery"},
+    {id: "8", title: "وزن دستگاه" , value: "weight"},
 ];
 
 export const sessionList = [
@@ -106,34 +119,8 @@ export const profileTabList = [
 ];
 
 export const addEditAdvertiseStepList = [
-    {id: 1, title: "بخش اول", value: "one"},
-    {id: 2, title: "بخش دوم", value: "two"},
-    {id: 3, title: "بخش سوم", value: "three"},
-];
-
-export const timeList = [
-    {id: "1", label: "1", value: "1"},
-    {id: "2", label: "2", value: "2"},
-    {id: "3", label: "3", value: "3"},
-    {id: "4", label: "4", value: "4"},
-    {id: "5", label: "5", value: "5"},
-    {id: "6", label: "6", value: "6"},
-    {id: "7", label: "7", value: "7"},
-    {id: "8", label: "8", value: "8"},
-    {id: "9", label: "9", value: "9"},
-    {id: "10", label: "10", value: "10"},
-    {id: "11", label: "11", value: "11"},
-    {id: "12", label: "12", value: "12"},
-    {id: "13", label: "13", value: "13"},
-    {id: "14", label: "14", value: "14"},
-    {id: "15", label: "15", value: "15"},
-    {id: "16", label: "16", value: "16"},
-    {id: "17", label: "17", value: "17"},
-    {id: "18", label: "18", value: "18"},
-    {id: "19", label: "19", value: "19"},
-    {id: "20", label: "20", value: "20"},
-    {id: "21", label: "21", value: "21"},
-    {id: "22", label: "22", value: "22"},
-    {id: "23", label: "23", value: "23"},
-    {id: "24", label: "24", value: "24"},
+    {id: 1, title: "تصاویر"},
+    {id: 2, title: "اطلاعات"},
+    {id: 3, title: "امکانات"},
+    {id: 4, title: "موقعیت"},
 ];

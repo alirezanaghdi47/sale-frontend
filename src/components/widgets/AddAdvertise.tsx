@@ -1,10 +1,11 @@
 "use client";
 
 // libraries
-import {useEffect, useRef, useState} from "react";
+import {useRef} from "react";
+import dynamic from "next/dynamic";
 import {useRouter} from "next/navigation";
 import {useFormik} from "formik";
-import {LuCheck, LuChevronLeft, LuChevronRight, LuX} from "react-icons/lu";
+import {LuCheck, LuChevronLeft, LuChevronRight} from "react-icons/lu";
 import {CSSTransition} from 'react-transition-group';
 
 // components
@@ -16,97 +17,34 @@ import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import FileInput from "@/components/modules/FileInput";
 
+const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
+
+// hooks
+import {useSegment} from "@/hooks/useSegment";
+
 // utils
-import {addEditAdvertiseStepList, monthList, timeList} from "@/utils/constants";
+import {addEditAdvertiseStepList, categoryList} from "@/utils/constants";
+import {generateSpecificationFormByCategory, getSpecificationByCategory} from "@/utils/functions";
+import {addAdvertiseDetailSchema, addAdvertiseGallerySchema, addAdvertiseLocationSchema} from "@/utils/validations";
 
-
-import L from "leaflet";
-
-// assets
-import markerIcon from "../../../public/assets/images/marker.svg";
-
-// styles
-import "leaflet/dist/leaflet.css";
-
-const Map = () => {
-
-    const map = useRef();
-
-    useEffect(() => {
-
-        let marker = null;
-
-        const layers = {
-            "osm": L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }),
-        };
-
-        // config leaflet
-        map.current = L.map('map', {
-            zoomControl: false,
-            drawControl: false,
-        }).setView(new L.LatLng(35.696, 51.362), 17);
-
-        // set initial layer
-        map.current.addLayer(layers.osm);
-
-        // add zoom button
-        L.control.zoom({
-            position: "topright"
-        }).addTo(map.current);
-
-        // customize icon
-        const customMarker = L.icon({
-            shadowUrl: null,
-            iconSize: new L.Point(36, 36),
-            iconUrl: markerIcon.src
-        });
-
-        // add pointer
-        map.current.on("click", (e) => {
-            console.log(e.latlng);
-
-            if (marker) map.current.removeLayer(marker);
-
-            marker = new L.marker(e.latlng, {
-                icon: customMarker
-            }).addTo(map.current);
-
-        });
-
-        return () => map.current.remove();
-
-    }, []);
-
-    return (
-        <div id="map" className='z-10 w-full h-full'/>
-    )
-}
-
-
-const Detail = ({step, setStep}) => {
-
-    const router = useRouter();
+const Gallery = ({data , setData, onNext}) => {
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            images: [],
-            title: "",
-            category: "",
-            description: "",
+            images: data?.images || [],
         },
-        // validationSchema: ,
-        onSubmit: async (data) => {
-            console.log(data);
-            setStep("two");
+        validationSchema: addAdvertiseGallerySchema,
+        onSubmit: async (res) => {
+            onNext();
+            setData({...data , ...res});
         }
     });
 
     return (
-        <section className={`${step === "one" ? "flex" : "hidden"} flex-col justify-center items-start gap-y-2 w-full`}>
+        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <div className="flex flex-col justify-center items-start gap-y-8 w-full bg-light rounded-lg p-4">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
 
                 <ul className='grid grid-cols-12 justify-start items-start gap-4 w-full'>
 
@@ -118,7 +56,7 @@ const Detail = ({step, setStep}) => {
 
                         <FileInput
                             name="images"
-                            count={2}
+                            maxFiles={2}
                             value={formik.values.images}
                             onChange={(value) => formik.setFieldValue("images", value)}
                         />
@@ -127,6 +65,103 @@ const Detail = ({step, setStep}) => {
                             formik.errors.images && formik.touched.images && (
                                 <p className='text-red text-xs'>
                                     {formik.errors.images}
+                                </p>
+                            )
+                        }
+
+                    </li>
+
+                </ul>
+
+                <div className="flex justify-end items-center gap-x-2 w-full">
+
+                    <Button
+                        variant="contained"
+                        color="blue"
+                        endIcon={<LuChevronLeft size={20}/>}
+                        onClick={formik.handleSubmit}
+                    >
+                        بعدی
+                    </Button>
+
+                </div>
+
+            </div>
+
+        </section>
+    )
+}
+
+const Detail = ({data , setData, onPrev, onNext}) => {
+
+    const formik = useFormik({
+        initialValues: {
+            title: data?.title || "",
+            category: data?.category || "",
+            price: data?.price || "",
+            description: data?.description || "",
+        },
+        validationSchema: addAdvertiseDetailSchema,
+        onSubmit: async (res) => {
+            onNext();
+            setData({...data , ...res});
+        }
+    });
+
+    return (
+        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
+
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
+
+                <ul className='grid grid-cols-12 justify-start items-start gap-4 w-full'>
+
+                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
+
+                         <span className="text-gray text-sm font-bold">
+                            دسته بندی
+                        </span>
+
+                        <SelectBox
+                            name="category"
+                            isSearchable
+                            options={categoryList}
+                            value={categoryList.find(categoryItem => categoryItem.value === formik.values.category)}
+                            onChange={(value) => {
+                                formik.setFieldValue("category", value?.value);
+                                // setCategory(value?.value);
+                            }}
+                        />
+
+                        {
+                            formik.errors.category && formik.touched.category && (
+                                <p className='text-red text-xs'>
+                                    {formik.errors.category}
+                                </p>
+                            )
+                        }
+
+                    </li>
+
+                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
+
+                         <span className="text-gray text-sm font-bold">
+                            قیمت ( تومان )
+                        </span>
+
+                        <NumberInput
+                            name="price"
+                            options={{
+                                numeral: true,
+                                numeralIntegerScale: 12
+                            }}
+                            value={formik.values.price}
+                            onChange={formik.handleChange}
+                        />
+
+                        {
+                            formik.errors.price && formik.touched.price && (
+                                <p className='text-red text-xs'>
+                                    {formik.errors.price}
                                 </p>
                             )
                         }
@@ -149,30 +184,6 @@ const Detail = ({step, setStep}) => {
                             formik.errors.title && formik.touched.title && (
                                 <p className='text-red text-xs'>
                                     {formik.errors.title}
-                                </p>
-                            )
-                        }
-
-                    </li>
-
-                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
-
-                         <span className="text-gray text-sm font-bold">
-                            دسته بندی
-                        </span>
-
-                        <SelectBox
-                            name="category"
-                            isSearchable
-                            options={monthList}
-                            value={formik.values.category}
-                            onChange={(value) => formik.setFieldValue("category", value)}
-                        />
-
-                        {
-                            formik.errors.category && formik.touched.category && (
-                                <p className='text-red text-xs'>
-                                    {formik.errors.category}
                                 </p>
                             )
                         }
@@ -209,20 +220,17 @@ const Detail = ({step, setStep}) => {
                     <Button
                         variant="text"
                         color="gray"
-                        startIcon={<LuX size={20}/>}
-                        onClick={() => {
-                            setStep("one");
-                            router.push("/account/my-advertises");
-                        }}
+                        startIcon={<LuChevronRight size={20}/>}
+                        onClick={onPrev}
                     >
-                        انصراف
+                        قبلی
                     </Button>
 
                     <Button
                         variant="contained"
                         color="blue"
                         endIcon={<LuChevronLeft size={20}/>}
-                        onClick={() => formik.handleSubmit()}
+                        onClick={formik.handleSubmit}
                     >
                         بعدی
                     </Button>
@@ -235,23 +243,21 @@ const Detail = ({step, setStep}) => {
     )
 }
 
-const Specification = ({step, setStep}) => {
+const Specification = ({data , setData, onPrev, onNext}) => {
 
     const formik = useFormik({
-        initialValues: {
-            specifications: []
-        },
-        // validationSchema: ,
-        onSubmit: async (data) => {
-            console.log(data);
-            setStep("two");
+        enableReinitialize: true,
+        initialValues: generateSpecificationFormByCategory(data?.category ,data),
+        onSubmit: async (res) => {
+            onNext();
+            setData({...data , ...res});
         }
     });
 
     return (
-        <section className={`${step === "two" ? "flex" : "hidden"} flex-col justify-center items-start gap-y-2 w-full`}>
+        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <div className="flex flex-col justify-center items-start gap-y-8 w-full bg-light rounded-lg p-4">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
 
                 <span className="text-gray text-sm font-bold">
                     ویژگی های محصول
@@ -259,55 +265,36 @@ const Specification = ({step, setStep}) => {
 
                 <ul className='flex flex-col justify-start items-start gap-y-4 w-full'>
 
-                    <li className='grid grid-cols-12 justify-start items-start gap-4 w-full'>
+                    {
+                        getSpecificationByCategory(data?.category).map(specItem =>
+                            <li
+                                key={specItem?.id}
+                                className='grid grid-cols-12 justify-start items-start gap-4 w-full'
+                            >
 
-                        <div
-                            className="col-span-5 md:col-span-4 flex flex-col justify-center items-start gap-y-2 w-full">
+                                <div
+                                    className="col-span-5 md:col-span-4 lg:col-span-3 flex justify-start items-center w-full h-full">
 
-                           <span className="text-gray text-sm font-bold">
-                                عنوان
-                            </span>
+                                    <span className='text-gray font-bold text-sm line-clamp-1'>
+                                        {specItem?.title} :
+                                    </span>
 
-                            <TextInput
-                                name="title"
-                                // value={formik.values.title}
-                                // onChange={formik.handleChange}
-                            />
+                                </div>
 
-                            {/*{*/}
-                            {/*    formik.errors.title && formik.touched.title && (*/}
-                            {/*        <p className='text-red text-xs'>*/}
-                            {/*            {formik.errors.title}*/}
-                            {/*        </p>*/}
-                            {/*    )*/}
-                            {/*}*/}
+                                <div
+                                    className="col-span-7 md:col-span-8 lg:col-span-9 flex justify-start items-center w-full">
 
-                        </div>
+                                    <TextInput
+                                        name={specItem?.value}
+                                        value={formik.values[specItem?.value]}
+                                        onChange={formik.handleChange}
+                                    />
 
-                        <div
-                            className="col-span-7 md:col-span-8 flex flex-col justify-center items-start gap-y-2 w-full">
+                                </div>
 
-                           <span className="text-gray text-sm font-bold">
-                                توضیحات
-                            </span>
-
-                            <TextInput
-                                name="title"
-                                // value={formik.values.title}
-                                // onChange={formik.handleChange}
-                            />
-
-                            {/*{*/}
-                            {/*    formik.errors.title && formik.touched.title && (*/}
-                            {/*        <p className='text-red text-xs'>*/}
-                            {/*            {formik.errors.title}*/}
-                            {/*        </p>*/}
-                            {/*    )*/}
-                            {/*}*/}
-
-                        </div>
-
-                    </li>
+                            </li>
+                        )
+                    }
 
                 </ul>
 
@@ -317,7 +304,7 @@ const Specification = ({step, setStep}) => {
                         variant="text"
                         color="gray"
                         startIcon={<LuChevronRight size={20}/>}
-                        onClick={() => setStep("one")}
+                        onClick={onPrev}
                     >
                         قبلی
                     </Button>
@@ -326,7 +313,7 @@ const Specification = ({step, setStep}) => {
                         variant="contained"
                         color="blue"
                         endIcon={<LuChevronLeft size={20}/>}
-                        onClick={() => setStep("three")}
+                        onClick={formik.handleSubmit}
                     >
                         بعدی
                     </Button>
@@ -339,90 +326,29 @@ const Specification = ({step, setStep}) => {
     )
 }
 
-const Vendor = ({step, setStep}) => {
-
-    const router = useRouter();
+const Vendor = ({data, onPrev, onSubmit}) => {
 
     const formik = useFormik({
         initialValues: {
-            price: "",
-            fromTime: "",
-            toTime: "",
-            location: null
+            location: {
+                latitude: data?.latitude || null,
+                longitude: data?.longitude || null,
+            }
         },
-        // validationSchema: ,
-        onSubmit: async (data) => {
-            console.log(data);
-            setStep("one");
-            router.push("/account/my-advertises");
+        validationSchema: addAdvertiseLocationSchema,
+        onSubmit: async (res) => {
+            const {notification} = await import("@/components/modules/Notification");
+            notification("آگهی با موفقیت اضافه شد" , "success");
+            onSubmit();
         }
     });
 
     return (
-        <section
-            className={`${step === "three" ? "flex" : "hidden"} flex-col justify-center items-start gap-y-2 w-full`}>
+        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <div className="flex flex-col justify-center items-start gap-y-8 w-full bg-light rounded-lg p-4">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
 
                 <ul className='grid grid-cols-12 justify-start items-start gap-4 w-full'>
-
-                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
-
-                         <span className="text-gray text-sm font-bold">
-                            قیمت
-                        </span>
-
-                        <NumberInput
-                            name="price"
-                            value={formik.values.price}
-                            onChange={formik.handleChange}
-                        />
-
-                        {
-                            formik.errors.price && formik.touched.price && (
-                                <p className='text-red text-xs'>
-                                    {formik.errors.price}
-                                </p>
-                            )
-                        }
-
-                    </li>
-
-                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
-
-                         <span className="text-gray text-sm font-bold">
-                            زمان پاسخگویی ( شروع ، پایان )
-                        </span>
-
-                        <div className="flex justify-start items-center gap-x-2 w-full">
-
-                            <SelectBox
-                                name="fromTime"
-                                options={timeList}
-                                value={formik.values.fromTime}
-                                onChange={(value) => formik.setFieldValue("fromTime", value)}
-                            />
-
-                            <SelectBox
-                                name="toTime"
-                                options={timeList}
-                                value={formik.values.toTime}
-                                onChange={(value) => formik.setFieldValue("toTime", value)}
-                            />
-
-                        </div>
-
-                        {
-                            (formik.errors.fromTime && formik.touched.fromTime) ||
-                            (formik.errors.toTime && formik.touched.toTime) &&
-                            (
-                                <p className='text-red text-xs'>
-                                    {formik.errors.fromTime || formik.errors.toTime}
-                                </p>
-                            )
-                        }
-
-                    </li>
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
@@ -431,8 +357,24 @@ const Vendor = ({step, setStep}) => {
                         </span>
 
                         <div className='w-full h-[320px] bg-secondary rounded-lg p-4'>
-                            {step === "three" && <Map/>}
+                            <Map2 setLocation={(value) => formik.setFieldValue("location" , value)}/>
                         </div>
+
+                        {
+                            formik.touched.location && formik.errors.location?.latitude && (
+                                <p className='text-red text-xs'>
+                                    {formik.errors.location.latitude}
+                                </p>
+                            )
+                        }
+
+                        {
+                            formik.touched.location && formik.errors.location?.longitude && (
+                                <p className='text-red text-xs'>
+                                    {formik.errors.location.longitude}
+                                </p>
+                            )
+                        }
 
                     </li>
 
@@ -444,7 +386,7 @@ const Vendor = ({step, setStep}) => {
                         variant="text"
                         color="gray"
                         startIcon={<LuChevronRight size={20}/>}
-                        onClick={() => setStep("two")}
+                        onClick={onPrev}
                     >
                         قبلی
                     </Button>
@@ -453,7 +395,7 @@ const Vendor = ({step, setStep}) => {
                         variant="contained"
                         color="blue"
                         startIcon={<LuCheck size={20}/>}
-                        onClick={() => formik.handleSubmit()}
+                        onClick={formik.handleSubmit}
                     >
                         ثبت
                     </Button>
@@ -500,40 +442,55 @@ const Section = ({children, activeSection}) => {
 
 export const AddAdvertise = () => {
 
-    const [step, setStep] = useState("one");
+    const router = useRouter();
+    const {segment, _handlePrevSegment, _handleNextSegment, _handleSegment} = useSegment();
 
     return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
 
             <Stepper
                 stepList={addEditAdvertiseStepList}
-                step={step}
-                setStep={(value) => setStep(value)}
+                step={segment?.active + 1}
             />
 
-            <Section activeSection={step === "one"}>
+            <Section activeSection={segment.active === 0}>
+
+                <Gallery
+                    data={segment?.data}
+                    setData={(data) => _handleSegment(data)}
+                    onNext={_handleNextSegment}
+                />
+
+            </Section>
+
+            <Section activeSection={segment.active === 1}>
 
                 <Detail
-                    step={step}
-                    setStep={(value) => setStep(value)}
+                    data={segment?.data}
+                    setData={(data) => _handleSegment(data)}
+                    onPrev={_handlePrevSegment}
+                    onNext={_handleNextSegment}
                 />
 
             </Section>
 
-            <Section activeSection={step === "two"}>
+            <Section activeSection={segment.active === 2}>
 
                 <Specification
-                    step={step}
-                    setStep={(value) => setStep(value)}
+                    data={segment?.data}
+                    setData={(data) => _handleSegment(data)}
+                    onPrev={_handlePrevSegment}
+                    onNext={_handleNextSegment}
                 />
 
             </Section>
 
-            <Section activeSection={step === "three"}>
+            <Section activeSection={segment.active === 3}>
 
                 <Vendor
-                    step={step}
-                    setStep={(value) => setStep(value)}
+                    data={segment?.data}
+                    onPrev={_handlePrevSegment}
+                    onSubmit={() => router.push("/account/my-advertises")}
                 />
 
             </Section>

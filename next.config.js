@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
+    reactStrictMode: false,
     env:{
-        NEXT_PUBLIC_MAPBOX_TOKEN: "pk.eyJ1IjoiYWxpcmV6YW5hZ2hkaTQ3IiwiYSI6ImNrbXQ5OXB0ZTBwZm4ycXMwbDM4cnZpZ2kifQ.QQqvipZndjdONiyH0e5hfA"
+        BASE_URL: 'https://sale.alirezanaghdi.ir',
     },
     typescript:{
         ignoreBuildErrors: true
+    },
+    eslint:{
+        ignoreDuringBuilds: true,
     }
-}
-
-module.exports = nextConfig;
+};

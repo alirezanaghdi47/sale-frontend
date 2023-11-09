@@ -61,6 +61,7 @@ const ActivityCharts = () => {
                                         data: [20, 50, 35, 20, 10, 5, 11],
                                         borderColor: 'rgba(16, 185, 129, 1)',
                                         backgroundColor: 'rgba(16, 185, 129, 0.5)',
+                                        borderWidth: 1,
                                     },
                                     {
                                         fill: false,
@@ -68,6 +69,7 @@ const ActivityCharts = () => {
                                         data: [100, 20, 45, 0, 5, 5, 20],
                                         borderColor: 'rgba(239, 68, 68, 1)',
                                         backgroundColor: 'rgba(239, 68, 68, 0.5)',
+                                        borderWidth: 1,
                                     },
                                 ],
                             }}

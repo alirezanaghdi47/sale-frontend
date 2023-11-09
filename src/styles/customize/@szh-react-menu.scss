@@ -1,6 +1,10 @@
 .szh-menu {
   @apply flex flex-col justify-start items-start gap-y-0 bg-light rounded-lg shadow-3xl px-0 py-2 #{!important};
 
+  &__arrow{
+    @apply bg-light border-none #{!important};
+  }
+
   &__item {
     @apply flex justify-start items-center p-0 #{!important};
 

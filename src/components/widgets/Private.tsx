@@ -54,16 +54,14 @@ const AppbarActions = () => {
                         علیرضا نقدی
                     </Button>
                 }
-                arrow
                 align="start"
                 direction="bottom"
             >
 
                 <MenuItem
                     variant="text"
-                    color="gray"
+                    color={pathname === "/account/profile" ? "blue" : "gray"}
                     href="/account/profile"
-                    active={pathname === "/account/profile"}
                     icon={<LuUser size={20}/>}
                 >
                     پروفایل
@@ -72,7 +70,7 @@ const AppbarActions = () => {
                 <MenuItem
                     variant="text"
                     color="red"
-                    startIcon={<LuLogOut size={20}/>}
+                    icon={<LuLogOut size={20}/>}
                 >
                     خروج
                 </MenuItem>

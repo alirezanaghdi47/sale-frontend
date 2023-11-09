@@ -7,14 +7,12 @@ import {useFormik} from "formik";
 import {
     LuBadgeCheck,
     LuCheck,
-    LuLogOut,
     LuMonitor,
     LuTablet
 } from "react-icons/lu";
 
 // components
 import {Button} from "@/components/modules/Button";
-import {IconButton} from "@/components/modules/IconButton";
 import { Tabs , TabPanel , TabList , TabItem} from "@/components/modules/Tabs";
 import AvatarInput from "@/components/modules/AvatarInput";
 import TextInput from "@/components/modules/TextInput";
@@ -31,18 +29,7 @@ const Information = () => {
     return (
         <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
-            <div className="relative flex flex-col md:flex-row justify-center items-center gap-4 w-full bg-light rounded-lg p-4">
-
-                <div className="flex md:hidden absolute top-4 left-4">
-
-                    <IconButton
-                        variant="contained"
-                        color="red"
-                    >
-                        <LuLogOut size={20}/>
-                    </IconButton>
-
-                </div>
+            <div className="flex flex-col md:flex-row justify-center items-center gap-4 w-full bg-light rounded-lg p-4">
 
                 <div className="flex justify-center md:justify-start items-center min-w-[100px]">
 
@@ -408,7 +395,7 @@ const SessionItem = ({sessionItem}) => {
     return (
         <li className="flex justify-start items-center gap-x-4 w-full border-b border-solid border-secondary last-of-type:border-none pb-4 last-of-type:pb-0">
 
-            <span className="text-gray">
+            <span className="flex justify-center items-center w-[48px] h-[48px] bg-secondary text-gray rounded-lg">
                 {sessionItem?.device === "mobile" ? <LuTablet size={24}/> : <LuMonitor size={24}/>}
             </span>
 

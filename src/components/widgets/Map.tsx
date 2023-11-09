@@ -9,6 +9,7 @@ import marker from "../../../public/assets/images/marker.svg";
 
 // styles
 import "leaflet/dist/leaflet.css";
+import "@/styles/customize/leaflet.scss";
 
 const Map = () => {
 

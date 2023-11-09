@@ -28,7 +28,8 @@ const config: Config = {
         },
         extend: {
             boxShadow: {
-                "3xl": "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px"
+                "3xl": "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px",
+                "4xl": "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px"
             },
             transitionProperty:{
                 "height": "height"
