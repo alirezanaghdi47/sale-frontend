@@ -1,12 +1,13 @@
 {
-  "theme_color": "#2563eb",
-  "background_color": "#f8fafc",
-  "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
   "name": "Sale",
   "short_name": "Sale Shop",
   "description": "a sale shop for selling or buying anything",
+  "theme_color": "#2563eb",
+  "background_color": "#f8fafc",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "/icon-192x192.png",

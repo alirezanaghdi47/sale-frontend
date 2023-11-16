@@ -4,16 +4,17 @@
 import dynamic from "next/dynamic";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {useFormik} from "formik";
-import {LuArrowDownWideNarrow, LuCheck, LuFilter, LuX} from "react-icons/lu";
+import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
 
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
 import {Button} from "@/components/modules/Button";
-import AdvertiseCard from "@/components/partials/AdvertiseCard";
+import Grid from "@/components/modules/Grid";
 import RangeInput from "@/components/modules/RangeInput";
 import Pagination from "@/components/modules/Pagination";
 import CheckBox from "@/components/modules/CheckBox";
 import SwitchBox from "@/components/modules/SwitchBox";
+import AdvertiseCard from "@/components/partials/AdvertiseCard";
 const SortModal = dynamic(() => import("@/components/partials/SortModal") , {ssr: false});
 const FilterModal = dynamic(() => import("@/components/widgets/FilterModal") , {ssr: false});
 
@@ -279,28 +280,34 @@ const Sortbar = () => {
     )
 }
 
-const List = () => {
+const AdvertiseList = () => {
+
+    const isTablet = useMediaQuery("(min-width: 768px)");
 
     return (
         <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
-            <ul className="grid grid-cols-12 gap-4 w-full">
+            <Grid
+                data={Array(100).fill("")}
+                totalCount={100}
+                itemContent={(index, advertiseItem) => (
+                    <AdvertiseCard
+                        key={index}
+                        advertise={advertiseItem}
+                    />
+                )}
+                listClassName="grid grid-cols-12 gap-2 w-full h-full"
+                itemClassName="col-span-12 sm:col-span-6 md:col-span-12 lg:col-span-6 h-max"
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "start",
+                    alignItems: "center",
+                    width: "100%",
+                    height: isTablet ? "calc(100dvh - 188px)" : "calc(100dvh - 272px)",
+                }}
+            />
 
-                {
-                    Array(12).fill("").map((advertiseItem, index) =>
-                        <li
-                            className="col-span-12 lg:col-span-6"
-                            key={index}
-                        >
-                            <AdvertiseCard
-                                advertise={advertiseItem}
-                                toolbar={false}
-                            />
-                        </li>
-                    )
-                }
-
-            </ul>
 
         </section>
     )
@@ -315,7 +322,7 @@ export const Content = () => {
 
             <Sortbar/>
 
-            <List/>
+            <AdvertiseList/>
 
             <Pagination
                 currentPage={1}

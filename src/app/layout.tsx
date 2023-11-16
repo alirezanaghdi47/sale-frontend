@@ -10,7 +10,6 @@ import {vazirmatn} from "@/helpers/fonts";
 
 // styles
 import '@/styles/globals.scss';
-import '@/styles/customize/simple-bars.scss';
 
 export const metadata: Metadata = {
     title: "Sale",

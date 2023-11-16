@@ -10,11 +10,11 @@ export const Logo = () => {
     return (
         <Link href="/">
             <Image
-                src="/assets/images/logo.svg"
+                src="/assets/images/logo.png"
                 alt='logo'
-                width={60}
-                height={60}
-                className="min-w-[60px] min-h-[60px]"
+                width={32}
+                height={32}
+                className="min-w-[32px] min-h-[32px] rounded-full"
             />
         </Link>
     )

@@ -35,11 +35,11 @@ const Logo = () => {
     return (
         <Link href="/">
             <Image
-                src="/assets/images/logo.svg"
+                src="/assets/images/logo.png"
                 alt='logo'
-                width={40}
-                height={40}
-                className="min-w-[40px] min-h-[40px]"
+                width={32}
+                height={32}
+                className="min-w-[32px] min-h-[32px] rounded-full"
             />
         </Link>
     )
@@ -327,27 +327,35 @@ export const Header = () => {
 
 const FooterLinks = () => {
 
+    const _handleRedirect = async () => {
+
+        const {notification} = await import("@/components/modules/Notification");
+
+        return notification("بزودی" , "info");
+
+    }
+
     return (
         <ul className="order-1 flex justify-start items-center gap-x-2">
 
             <li>
-                <LinkButton
+                <Button
                     variant="text"
                     color="gray"
-                    href="/about-us"
+                    onClick={_handleRedirect}
                 >
                     درباره ما
-                </LinkButton>
+                </Button>
             </li>
 
             <li>
-                <LinkButton
+                <Button
                     variant="text"
                     color="gray"
-                    href="/support"
+                    onClick={_handleRedirect}
                 >
                     پشتیبانی
-                </LinkButton>
+                </Button>
             </li>
 
         </ul>

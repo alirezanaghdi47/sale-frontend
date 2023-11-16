@@ -18,11 +18,11 @@ const Logo = () => {
     return (
         <Link href="/">
             <Image
-                src="/assets/images/logo.svg"
+                src="/assets/images/logo.png"
                 alt='logo'
-                width={40}
-                height={40}
-                className="min-w-[40px] min-h-[40px]"
+                width={32}
+                height={32}
+                className="min-w-[32px] min-h-[32px] rounded-full"
             />
         </Link>
     )
@@ -46,7 +46,7 @@ const AppbarActions = () => {
                     >
                         <Image
                             src="/assets/images/avatar.jpg"
-                            alt="logo"
+                            alt="avatar"
                             width={24}
                             height={24}
                             className="rounded-full object-cover object-center"

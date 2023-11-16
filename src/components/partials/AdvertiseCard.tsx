@@ -3,7 +3,7 @@
 // libraries
 import Link from "next/link";
 import Image from "next/image";
-import {LuShare2, LuTrash2} from "react-icons/lu";
+import {LuPen, LuShare2, LuTrash2} from "react-icons/lu";
 
 // components
 import {IconButton} from "@/components/modules/IconButton";
@@ -80,6 +80,18 @@ const AdvertiseCard = ({advertise, toolbar, disabled}) => {
                                         onClick={toolbar.share.onClick}
                                     >
                                         <LuShare2 size={20}/>
+                                    </IconButton>
+                                )
+                            }
+
+                            {
+                                toolbar.edit && (
+                                    <IconButton
+                                        variant="text"
+                                        color="yellow"
+                                        onClick={toolbar.edit.onClick}
+                                    >
+                                        <LuPen size={20}/>
                                     </IconButton>
                                 )
                             }

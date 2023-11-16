@@ -12,6 +12,7 @@ const styles = {
             gray: "text-gray",
             red: "text-red",
             blue: "text-blue",
+            yellow: "text-yellow",
         }
     },
     size:{

@@ -6,4 +6,8 @@
   &--error{
     @apply bg-red text-sm font-bold text-light #{!important};
   }
+
+  &--info{
+    @apply bg-blue text-sm font-bold text-light #{!important};
+  }
 }

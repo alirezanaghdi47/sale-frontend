@@ -7,8 +7,9 @@ import {LuArrowDownWideNarrow} from "react-icons/lu";
 
 // components
 import {Button} from "@/components/modules/Button";
-import AdvertiseCard from "@/components/partials/AdvertiseCard";
+import Grid from "@/components/modules/Grid";
 import Pagination from "@/components/modules/Pagination";
+import AdvertiseCard from "@/components/partials/AdvertiseCard";
 const SortModal = dynamic(() => import("@/components/partials/SortModal") , {ssr: false});
 const DeleteAdvertiseDialog = dynamic(() => import("@/components/partials/DeleteAdvertiseDialog") , {ssr: false});
 
@@ -111,7 +112,9 @@ const Sortbar = () => {
     )
 }
 
-const List = () => {
+const AdvertiseList = () => {
+
+    const isTablet = useMediaQuery("(min-width: 768px)");
 
     const {
         isOpenDialog: isOpenDeleteDialog,
@@ -131,30 +134,34 @@ const List = () => {
     return (
         <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
-            <ul className="grid grid-cols-12 gap-4 w-full">
-
-                {
-                    Array(5).fill("").map((advertiseItem , index) =>
-                        <li
-                            className="col-span-12 lg:col-span-6"
-                            key={index}
-                        >
-                            <AdvertiseCard
-                                advertise={advertiseItem}
-                                toolbar={{
-                                    share: {
-                                        onClick: _handleShareAdvertise
-                                    },
-                                    delete: {
-                                        onClick: _handleShowDeleteDialog
-                                    }
-                                }}
-                            />
-                        </li>
-                    )
-                }
-
-            </ul>
+            <Grid
+                data={Array(100).fill("")}
+                totalCount={100}
+                itemContent={(index, advertiseItem) => (
+                    <AdvertiseCard
+                        key={index}
+                        advertise={advertiseItem}
+                        toolbar={{
+                            share: {
+                                onClick: _handleShareAdvertise
+                            },
+                            delete: {
+                                onClick: _handleShowDeleteDialog
+                            }
+                        }}
+                    />
+                )}
+                listClassName="grid grid-cols-12 gap-2 w-full h-full"
+                itemClassName="col-span-12 sm:col-span-6 md:col-span-12 lg:col-span-6 h-max"
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "start",
+                    alignItems: "center",
+                    width: "100%",
+                    height: isTablet ? "calc(100dvh - 120px)" : "calc(100dvh - 272px)",
+                }}
+            />
 
             <DeleteAdvertiseDialog
                 isOpenDialog={isOpenDeleteDialog}
@@ -174,7 +181,7 @@ export const Favorites = () => {
 
             <Sortbar/>
 
-            <List/>
+            <AdvertiseList/>
 
             <Pagination
                 currentPage={1}

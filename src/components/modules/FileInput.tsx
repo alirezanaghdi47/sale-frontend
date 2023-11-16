@@ -7,7 +7,7 @@ import {LuImage, LuTrash2} from "react-icons/lu";
 // components
 import {IconButton} from "@/components/modules/IconButton";
 
-const FileInput = ({name, value, onChange, maxFiles = 1}) => {
+const FileInput = ({name, value, onChange, maxFiles = 1 , acceptTypes}) => {
 
     const [files, setFiles] = useState(value);
 
@@ -20,7 +20,8 @@ const FileInput = ({name, value, onChange, maxFiles = 1}) => {
                 }))
             ]);
         },
-        maxFiles: maxFiles
+        maxFiles: maxFiles,
+        accept: acceptTypes
     });
 
     const _handleDeleteFile = (file) => {

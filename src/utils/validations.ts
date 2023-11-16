@@ -3,11 +3,11 @@ import * as Yup from "yup";
 
 export const addAdvertiseGallerySchema = Yup.object().shape({
     images: Yup.mixed()
-        .test("minLength", "حداقل تعداد عکس های ارسالی 1 است", (value) => {
+        .test("minLength", "حداقل تعداد عکس های ارسالی 1 عدد است", (value) => {
             if (value?.length === 0) return false;
             return true;
         })
-        .test("maxLength", "حداکثر تعداد عکس های ارسالی 5 است", (value) => {
+        .test("maxLength", "حداکثر تعداد عکس های ارسالی 5 عدد است", (value) => {
             if (value?.length > 5) return false;
             return true;
         })

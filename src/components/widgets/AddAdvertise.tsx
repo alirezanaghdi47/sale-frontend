@@ -57,6 +57,11 @@ const Gallery = ({data , setData, onNext}) => {
                         <FileInput
                             name="images"
                             maxFiles={2}
+                            acceptTypes={{
+                                "image/png": [],
+                                "image/jpeg": [],
+                                "image/jpg": [],
+                            }}
                             value={formik.values.images}
                             onChange={(value) => formik.setFieldValue("images", value)}
                         />
