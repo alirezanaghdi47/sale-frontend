@@ -19,6 +19,14 @@ export const categoryList = [
     {id: "2", label: "لپتاپ", value: "laptop", icon: LuMonitor({size: 20})},
 ];
 
+export const qualityList = [
+    {id: "1", label: "نو", value: "new"},
+    {id: "2", label: "در حد نو", value: "like-new"},
+    {id: "3", label: "سالم", value: "healthy"},
+    {id: "4", label: "کارکرده", value: "worked"},
+    {id: "5", label: "خراب", value: "broken"},
+];
+
 export const mobileCategorySpecificationList = [
     {id: "1", title: "برند" , value: "brand"},
     {id: "2", title: "ابعاد صفحه نمایش" , value: "screen"},

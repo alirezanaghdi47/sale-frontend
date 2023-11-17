@@ -17,7 +17,7 @@ import {
 
 // components
 import {IconButton} from "@/components/modules/IconButton";
-import AdvertiseSlider from "@/components/partials/AdvertiseSlider";
+import AdvertiseCard from "@/components/partials/AdvertiseCard";
 const Map = dynamic(() => import("@/components/widgets/Map") , {ssr: false});
 
 // styles
@@ -364,7 +364,40 @@ export const RelativeAdvertises = () => {
                 آگهی های مشابه
             </h3>
 
-            <AdvertiseSlider/>
+            <div className="flex justify-center items-center w-full">
+
+                <Swiper
+                    modules={[Navigation]}
+                    spaceBetween={16}
+                    navigation={true}
+                    breakpoints={{
+                        320: {
+                            slidesPerView: 1
+                        },
+                        768: {
+                            slidesPerView: 2
+                        },
+                        1200: {
+                            slidesPerView: 3
+                        },
+                    }}
+                    className="w-full"
+                >
+
+                    {
+                        Array(8).fill("").map((item, index) =>
+                            <SwiperSlide key={index}>
+                                <AdvertiseCard
+                                    advertise={item}
+                                    toolbar={false}
+                                />
+                            </SwiperSlide>
+                        )
+                    }
+
+                </Swiper>
+
+            </div>
 
         </section>
     )

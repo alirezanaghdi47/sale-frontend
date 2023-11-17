@@ -6,7 +6,7 @@ import {LuChevronDown} from "react-icons/lu";
 import {Button} from "@/components/modules/Button";
 
 // styles
-import "@/styles/customize/@szh-react-collapse.scss";
+import "@/styles/customize/@szh-react-accordion.scss";
 
 const ReactCollapseHeader = ({button}) => {
 
@@ -54,6 +54,7 @@ export const CollapseItem = ({children, button , initialEntered}) => {
         <ReactAccordionItem
             initialEntered={initialEntered}
             header={<ReactCollapseHeader button={button}/>}
+            panelProps={{datatype:"collapse"}}
         >
             {children}
         </ReactAccordionItem>

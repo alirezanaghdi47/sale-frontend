@@ -23,7 +23,7 @@ const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
 import {useSegment} from "@/hooks/useSegment";
 
 // utils
-import {addEditAdvertiseStepList, categoryList} from "@/utils/constants";
+import {addEditAdvertiseStepList, categoryList, qualityList} from "@/utils/constants";
 import {generateSpecificationFormByCategory, getSpecificationByCategory} from "@/utils/functions";
 import {addAdvertiseDetailSchema, addAdvertiseGallerySchema, addAdvertiseLocationSchema} from "@/utils/validations";
 
@@ -103,6 +103,7 @@ const Detail = ({data , setData, onPrev, onNext}) => {
         initialValues: {
             title: data?.title || "",
             category: data?.category || "",
+            quality: data?.quality || "",
             price: data?.price || "",
             description: data?.description || "",
         },
@@ -131,16 +132,37 @@ const Detail = ({data , setData, onPrev, onNext}) => {
                             isSearchable
                             options={categoryList}
                             value={categoryList.find(categoryItem => categoryItem.value === formik.values.category)}
-                            onChange={(value) => {
-                                formik.setFieldValue("category", value?.value);
-                                // setCategory(value?.value);
-                            }}
+                            onChange={(value) => formik.setFieldValue("category", value?.value)}
                         />
 
                         {
                             formik.errors.category && formik.touched.category && (
                                 <p className='text-red text-xs'>
                                     {formik.errors.category}
+                                </p>
+                            )
+                        }
+
+                    </li>
+
+                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
+
+                         <span className="text-gray text-sm font-bold">
+                            وضعیت محصول
+                        </span>
+
+                        <SelectBox
+                            name="quality"
+                            isSearchable
+                            options={qualityList}
+                            value={qualityList.find(qualityItem => qualityItem.value === formik.values.quality)}
+                            onChange={(value) => formik.setFieldValue("quality", value?.value)}
+                        />
+
+                        {
+                            formik.errors.quality && formik.touched.quality && (
+                                <p className='text-red text-xs'>
+                                    {formik.errors.quality}
                                 </p>
                             )
                         }

@@ -58,8 +58,10 @@ export const AccordionItem = ({children, header, icon , initialEntered}) => {
             header={
                 <ReactAccordionHeader
                     icon={icon}
-                    header={header}/>
+                    header={header}
+                />
             }
+            panelProps={{datatype:"accordion"}}
         >
             {children}
         </ReactAccordionItem>

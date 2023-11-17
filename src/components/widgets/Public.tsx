@@ -129,7 +129,7 @@ const BottomLinks = () => {
                     vertical
                     startIcon={<LuPlus size={20}/>}
                 >
-                    افزودن آگهی
+                    آگهی جدید
                 </LinkButton>
             </li>
 
@@ -298,7 +298,7 @@ const HeaderLinks = () => {
                     />
                 }
             >
-                افزودن آگهی
+                آگهی جدید
             </LinkButton>
 
         </div>

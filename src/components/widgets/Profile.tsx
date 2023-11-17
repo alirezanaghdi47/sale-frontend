@@ -439,6 +439,7 @@ const SessionList = () => {
 
     return (
         <ul className='flex flex-col justify-start items-center gap-y-4 w-full'>
+
             {
                 sessionList.map(sessionItem =>
                     <SessionItem
@@ -447,6 +448,7 @@ const SessionList = () => {
                     />
                 )
             }
+
         </ul>
     )
 }

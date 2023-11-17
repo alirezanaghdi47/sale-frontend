@@ -9,9 +9,7 @@ import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
 import {Button} from "@/components/modules/Button";
-import Grid from "@/components/modules/Grid";
 import RangeInput from "@/components/modules/RangeInput";
-import Pagination from "@/components/modules/Pagination";
 import CheckBox from "@/components/modules/CheckBox";
 import SwitchBox from "@/components/modules/SwitchBox";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
@@ -21,7 +19,114 @@ const FilterModal = dynamic(() => import("@/components/widgets/FilterModal") , {
 // hooks
 import {useModal} from "@/hooks/useModal";
 
-const Filters = () => {
+const Actionbar = () => {
+
+    const isTablet = useMediaQuery("(min-width: 768px)");
+
+    const {
+        isOpenModal: isOpenFilterModal,
+        _handleHideModal: _handleHideFilterModal,
+        _handleShowModal: _handleShowFilterModal
+    } = useModal();
+
+    const {
+        isOpenModal: isOpenSortModal,
+        _handleHideModal: _handleHideSortModal,
+        _handleShowModal: _handleShowSortModal
+    } = useModal();
+
+    return (
+        <section className='flex md:hidden flex-col justify-center items-start gap-y-4 w-full'>
+
+            <div className="flex justify-between items-center gap-x-4 w-full">
+
+                <div className="flex justify-start items-center gap-x-4">
+
+                    <Button
+                        variant="contained"
+                        color="light"
+                        startIcon={<LuFilter size={20}/>}
+                        onClick={_handleShowFilterModal}
+                    >
+                        فیلتر
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        color="light"
+                        startIcon={<LuArrowDownWideNarrow size={20}/>}
+                        onClick={_handleShowSortModal}
+                    >
+                        مرتب سازی
+                    </Button>
+
+                </div>
+
+                <span className="text-base text-gray">
+                    12
+                    <span className='text-xs mr-1'>
+                        مورد
+                    </span>
+                </span>
+
+            </div>
+
+            <FilterModal
+                isOpenModal={isOpenFilterModal && !isTablet}
+                onCloseModal={_handleHideFilterModal}
+            />
+
+            <SortModal
+                isOpenModal={isOpenSortModal && !isTablet}
+                onCloseModal={_handleHideSortModal}
+            />
+
+        </section>
+    )
+}
+
+const Sortbar = () => {
+
+    return (
+        <div className="flex flex-col justify-start items-start gap-y-2 w-full">
+
+            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
+                <LuArrowDownWideNarrow size={20}/>
+                مرتب سازی
+            </h3>
+
+            <div className="flex justify-start items-center gap-x-2 w-full bg-light rounded-lg p-4">
+
+                <Button
+                    size="sm"
+                    variant="contained"
+                    color="blue"
+                >
+                    پربازدید ترین
+                </Button>
+
+                <Button
+                    size="sm"
+                    variant="text"
+                    color="gray"
+                >
+                    جدید ترین
+                </Button>
+
+                <Button
+                    size="sm"
+                    variant="text"
+                    color="gray"
+                >
+                    گران ترین
+                </Button>
+
+            </div>
+        </div>
+    )
+}
+
+const Filterbar = () => {
 
     const formik = useFormik({
         initialValues: {
@@ -36,16 +141,12 @@ const Filters = () => {
     });
 
     return (
-        <div className='sticky top-[86px] hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
+        <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-            <div className="flex justify-between items-center gap-x-4 w-full">
-
-                <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
-                    <LuFilter size={20}/>
-                    فیلتر ها
-                </h3>
-
-            </div>
+            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
+                <LuFilter size={20}/>
+                فیلتر ها
+            </h3>
 
             <div className="flex flex-col justify-end items-center gap-y-4 w-full bg-light rounded-lg p-4">
 
@@ -145,169 +246,45 @@ const Filters = () => {
 
             </div>
 
-            <div className="flex justify-end items-center gap-x-4 w-full">
+        </div>
+    )
+}
 
-                {/*<Button*/}
-                {/*    variant="text"*/}
-                {/*    color="red"*/}
-                {/*    startIcon={<LuX size={20}/>}*/}
-                {/*>*/}
-                {/*    حذف همه*/}
-                {/*</Button>*/}
+const Actions = () => {
 
-                <Button
-                    variant="contained"
-                    color="blue"
-                    startIcon={<LuCheck size={20}/>}
-                >
-                    ثبت
-                </Button>
+    return (
+        <div className='sticky top-[86px] hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
 
-            </div>
+            <Sortbar/>
+
+            <Filterbar/>
 
         </div>
     )
 }
 
-const Actionbar = () => {
-
-    const isTablet = useMediaQuery("(min-width: 768px)");
-
-    const {
-        isOpenModal: isOpenFilterModal,
-        _handleHideModal: _handleHideFilterModal,
-        _handleShowModal: _handleShowFilterModal
-    } = useModal();
-
-    const {
-        isOpenModal: isOpenSortModal,
-        _handleHideModal: _handleHideSortModal,
-        _handleShowModal: _handleShowSortModal
-    } = useModal();
-
-    return (
-        <section className='flex md:hidden flex-col justify-center items-start gap-y-4 w-full'>
-
-            <div className="flex justify-between items-center gap-x-4 w-full">
-
-                <div className="flex justify-start items-center gap-x-4">
-
-                    <Button
-                        variant="contained"
-                        color="light"
-                        startIcon={<LuFilter size={20}/>}
-                        onClick={_handleShowFilterModal}
-                    >
-                        فیلتر
-                    </Button>
-
-                    <Button
-                        variant="contained"
-                        color="light"
-                        startIcon={<LuArrowDownWideNarrow size={20}/>}
-                        onClick={_handleShowSortModal}
-                    >
-                        مرتب سازی
-                    </Button>
-
-                </div>
-
-                <span className="text-base text-gray">
-                    12
-                    <span className='text-xs mr-1'>
-                        مورد
-                    </span>
-                </span>
-
-            </div>
-
-            <FilterModal
-                isOpenModal={isOpenFilterModal && !isTablet}
-                onCloseModal={_handleHideFilterModal}
-            />
-
-            <SortModal
-                isOpenModal={isOpenSortModal && !isTablet}
-                onCloseModal={_handleHideSortModal}
-            />
-
-        </section>
-    )
-}
-
-const Sortbar = () => {
-
-    return (
-        <section className='hidden md:flex flex-col justify-center items-start gap-y-4 w-full'>
-
-            <div className="flex justify-between items-center gap-x-4 w-full">
-
-                <div className="flex justify-start items-center">
-
-                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-                       <LuArrowDownWideNarrow size={20}/>
-                        مرتب سازی
-                    </span>
-
-                    <Button
-                        size="sm"
-                        variant="text"
-                        color="gray"
-                    >
-                        جدید ترین
-                    </Button>
-
-                    <Button
-                        size="sm"
-                        variant="text"
-                        color="gray"
-                    >
-                        گران ترین
-                    </Button>
-
-                </div>
-
-                <span className="text-base text-gray">
-                    12
-                    <span className='text-xs mr-1'>
-                        مورد
-                    </span>
-                </span>
-
-            </div>
-
-        </section>
-    )
-}
-
 const AdvertiseList = () => {
-
-    const isTablet = useMediaQuery("(min-width: 768px)");
 
     return (
         <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
-            <Grid
-                data={Array(100).fill("")}
-                totalCount={100}
-                itemContent={(index, advertiseItem) => (
-                    <AdvertiseCard
-                        key={index}
-                        advertise={advertiseItem}
-                    />
-                )}
-                listClassName="grid grid-cols-12 gap-2 w-full h-full"
-                itemClassName="col-span-12 sm:col-span-6 md:col-span-12 lg:col-span-6 h-max"
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    width: "100%",
-                    height: isTablet ? "calc(100dvh - 188px)" : "calc(100dvh - 272px)",
-                }}
-            />
+            <ul className="grid grid-cols-12 gap-4 w-full">
 
+                {
+                    Array(12).fill("").map((advertiseItem, index) =>
+                        <li
+                            className="col-span-12 lg:col-span-6"
+                            key={index}
+                        >
+                            <AdvertiseCard
+                                advertise={advertiseItem}
+                                toolbar={false}
+                            />
+                        </li>
+                    )
+                }
+
+            </ul>
 
         </section>
     )
@@ -320,15 +297,7 @@ export const Content = () => {
 
             <Actionbar/>
 
-            <Sortbar/>
-
             <AdvertiseList/>
-
-            <Pagination
-                currentPage={1}
-                pageCount={100}
-                pageSize={10}
-            />
 
         </div>
     )
@@ -339,7 +308,7 @@ export const Advertises = () => {
     return (
         <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
-            <Filters/>
+            <Actions/>
 
             <Content/>
 

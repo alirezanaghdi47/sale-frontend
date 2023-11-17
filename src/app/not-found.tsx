@@ -20,7 +20,7 @@ const NotFound = () => {
                 alt="not-found"
                 width={200}
                 height={200}
-                className="max-w-[200px] max-h-[200px] object-center object-cover"
+                className="max-w-[200px] max-h-[200px] object-center object-contain"
             />
 
             <h1 className="text-gray text-lg font-bold mt-2">

@@ -76,7 +76,7 @@ export const ModalHeader = ({title, onCloseModal}) => {
 export const ModalBody = ({children, center , className}) => {
 
     return (
-        <div className={`flex flex-col justify-start items-center gap-y-4 w-full h-max ${center && "my-auto"} ${className ?? ""}`}>
+        <div className={`flex flex-col justify-start items-center gap-y-4 w-full h-max overflow-y-scroll remove-scrollbar ${center && "my-auto"} ${className ?? ""}`}>
             {children}
         </div>
     )
