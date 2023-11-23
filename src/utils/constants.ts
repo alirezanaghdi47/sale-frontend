@@ -127,8 +127,7 @@ export const profileTabList = [
 ];
 
 export const addEditAdvertiseStepList = [
-    {id: 1, title: "تصاویر"},
-    {id: 2, title: "اطلاعات"},
-    {id: 3, title: "امکانات"},
-    {id: 4, title: "موقعیت"},
+    {id: 1, title: "گالری"},
+    {id: 2, title: "جزییات"},
+    {id: 3, title: "فروشنده"},
 ];

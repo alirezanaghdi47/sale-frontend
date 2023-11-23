@@ -4,7 +4,6 @@
 import {useState} from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import {useMediaQuery} from "@react-hooks-library/core";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
 import {
@@ -266,95 +265,6 @@ const Description = () => {
     )
 }
 
-const Specification = () => {
-
-    return (
-        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
-
-            <h3 className="text-dark font-bold">
-                مشخصات محصول
-            </h3>
-
-            <ul className="flex flex-col justify-start items-start gap-y-4 w-full bg-light rounded-lg p-4">
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت موتور</span>
-
-                    <span className="text-gray text-sm line-clamp-1">سالم</span>
-
-                </li>
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت شاسی‌ها</span>
-
-                    <span className="text-gray text-sm line-clamp-1">پلمپ</span>
-
-                </li>
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت بدنه</span>
-
-                    <span className="text-gray text-sm line-clamp-1">سالم و بی‌خط و خش</span>
-
-                </li>
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت موتور</span>
-
-                    <span className="text-gray text-sm line-clamp-1">سالم</span>
-
-                </li>
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت شاسی‌ها</span>
-
-                    <span className="text-gray text-sm line-clamp-1">پلمپ</span>
-
-                </li>
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت بدنه</span>
-
-                    <span className="text-gray text-sm line-clamp-1">سالم و بی‌خط و خش</span>
-
-                </li>
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت موتور</span>
-
-                    <span className="text-gray text-sm line-clamp-1">سالم</span>
-
-                </li>
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت شاسی‌ها</span>
-
-                    <span className="text-gray text-sm line-clamp-1">پلمپ</span>
-
-                </li>
-
-                <li className="flex justify-between items-center gap-x-4 w-full">
-
-                    <span className="text-dark font-bold text-sm line-clamp-1">وضعیت بدنه</span>
-
-                    <span className="text-gray text-sm line-clamp-1">سالم و بی‌خط و خش</span>
-
-                </li>
-
-            </ul>
-
-        </section>
-    )
-}
-
 export const RelativeAdvertises = () => {
 
     return (
@@ -405,8 +315,6 @@ export const RelativeAdvertises = () => {
 
 const Visual = () => {
 
-    const isTablet = useMediaQuery("(min-width: 768px)");
-
     return (
         <div
             className="md:sticky md:top-[86px] flex flex-col justify-start items-center gap-y-4 w-full md:w-[360px] lg:w-[480px]">
@@ -415,17 +323,11 @@ const Visual = () => {
 
             <Gallery/>
 
-            {isTablet && <ContactUs/>}
-
-            {isTablet && <Location/>}
-
         </div>
     )
 }
 
 const Content = () => {
-
-    const isTablet = useMediaQuery("(min-width: 768px)");
 
     return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
@@ -434,11 +336,9 @@ const Content = () => {
 
             <Features/>
 
-            <Specification/>
+            <ContactUs/>
 
-            {!isTablet && <ContactUs/>}
-
-            {!isTablet && <Location/>}
+            <Location/>
 
         </div>
     )

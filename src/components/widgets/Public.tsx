@@ -244,15 +244,6 @@ const HeaderLinks = () => {
                 <MenuItem
                     variant="text"
                     color="gray"
-                    href="/account/dashboard"
-                    icon={<LuPieChart size={20}/>}
-                >
-                    داشبورد
-                </MenuItem>
-
-                <MenuItem
-                    variant="text"
-                    color="gray"
                     href="/account/my-advertises"
                     icon={<LuScrollText size={20}/>}
                 >

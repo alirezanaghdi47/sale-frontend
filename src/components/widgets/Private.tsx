@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {LuBookmark, LuEye, LuLogOut, LuPieChart, LuPlus, LuScrollText, LuUser} from "react-icons/lu";
+import {LuBookmark, LuEye, LuList, LuLogOut, LuPieChart, LuPlus, LuScrollText, LuUser} from "react-icons/lu";
 
 // components
 import {Button, LinkButton} from "@/components/modules/Button";
@@ -91,12 +91,12 @@ const BottomLinks = () => {
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
                     variant="text"
-                    color={pathname === "/account/dashboard" ? "blue" : "gray"}
-                    href="/account/dashboard"
+                    color={pathname === "/advertises" ? "blue" : "gray"}
+                    href="/advertises"
                     vertical
-                    startIcon={<LuPieChart size={20}/>}
+                    startIcon={<LuScrollText size={20}/>}
                 >
-                    داشبورد
+                    آگهی ها
                 </LinkButton>
             </li>
 
@@ -106,7 +106,7 @@ const BottomLinks = () => {
                     color={pathname === "/account/my-advertises" ? "blue" : "gray"}
                     href="/account/my-advertises"
                     vertical
-                    startIcon={<LuScrollText size={20}/>}
+                    startIcon={<LuList size={20}/>}
                 >
                     آگهی های من
                 </LinkButton>
@@ -181,9 +181,9 @@ const SidebarLinks = () => {
                             size="full"
                             justify="start"
                             href="/account/my-advertises"
-                            startIcon={<LuEye size={20}/>}
+                            startIcon={<LuList size={20}/>}
                         >
-                            مشاهده آگهی ها
+                            آگهی های من
                         </LinkButton>
 
                         <LinkButton
@@ -194,7 +194,7 @@ const SidebarLinks = () => {
                             href="/account/my-advertises/add"
                             startIcon={<LuPlus size={20}/>}
                         >
-                            افزودن آگهی
+                            آگهی جدید
                         </LinkButton>
 
                     </CollapseItem>

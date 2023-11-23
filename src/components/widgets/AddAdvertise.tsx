@@ -503,17 +503,6 @@ export const AddAdvertise = () => {
 
             <Section activeSection={segment.active === 2}>
 
-                <Specification
-                    data={segment?.data}
-                    setData={(data) => _handleSegment(data)}
-                    onPrev={_handlePrevSegment}
-                    onNext={_handleNextSegment}
-                />
-
-            </Section>
-
-            <Section activeSection={segment.active === 3}>
-
                 <Vendor
                     data={segment?.data}
                     onPrev={_handlePrevSegment}
