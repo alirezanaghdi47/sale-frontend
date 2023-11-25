@@ -1,6 +1,8 @@
 'use client';
 
 // libraries
+import {useRouter} from "next/navigation";
+import {useMutation} from "@tanstack/react-query";
 import {useFormik} from "formik";
 import {LuCheck, LuChevronLeft} from "react-icons/lu";
 
@@ -9,6 +11,12 @@ import {Button, LinkButton} from "@/components/modules/Button";
 import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
 import PasswordInput from "@/components/modules/PasswordInput";
+
+// hooks
+import {useAuth} from "@/hooks/useAuth";
+
+// services
+import {loginService} from "@/services/authService";
 
 // utils
 import {SignInSchema} from "@/utils/validations";
@@ -36,14 +44,32 @@ const Heading = () => {
 
 const Form = () => {
 
+    const router = useRouter();
+    const {_handleLogin} = useAuth();
+
+    const {mutate, isPending} = useMutation({
+        mutationFn: (data) => loginService(data),
+        onSuccess: async (data) => {
+            const {notification} = await import("@/components/modules/Notification");
+
+            if (data.status === "success") {
+                notification(data.message, "success");
+                _handleLogin(data.token);
+                router.push("/advertises");
+            } else {
+                notification(data.message, "error");
+            }
+        }
+    });
+
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
         },
         validationSchema: SignInSchema,
-        onSubmit: async (data) => {
-            console.log(data)
+        onSubmit: async (result) => {
+            mutate(result);
         }
     });
 
@@ -117,7 +143,13 @@ const Form = () => {
                     variant="contained"
                     color="blue"
                     size="full"
-                    startIcon={<LuCheck size={20}/>}
+                    startIcon={
+                        <LuCheck
+                            size={20}
+                            className="text-current"
+                        />
+                    }
+                    disabled={isPending}
                     onClick={() => formik.handleSubmit()}
                 >
                     ورود

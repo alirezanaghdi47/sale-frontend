@@ -5,7 +5,7 @@ import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
 // styles
 import "@/styles/customize/rc-pagination.scss";
 
-const Pagination = ({pageCount, pageSize, currentPage}) => {
+const Pagination = ({pageCount, pageSize, currentPage , onChange}) => {
 
     return (
         <ReactPagination
@@ -13,7 +13,7 @@ const Pagination = ({pageCount, pageSize, currentPage}) => {
             current={currentPage}
             pageSize={pageSize}
             showLessItems={true}
-            onChange={(page, pageSize) => console.log(page , pageSize)}
+            onChange={(page, pageSize) => onChange(page)}
             prevIcon={<LuChevronLeft size={20}/>}
             nextIcon={<LuChevronRight size={20}/>}
         />

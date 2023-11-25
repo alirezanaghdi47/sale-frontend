@@ -12,9 +12,9 @@ import {
     LuSearch,
     LuCopyright,
     LuMapPin,
-    LuPieChart,
     LuBookmark,
-    LuLogOut
+    LuLogOut,
+    LuLogIn
 } from "react-icons/lu";
 import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
@@ -29,6 +29,7 @@ const CitiesModal = dynamic(() => import("@/components/partials/CitiesModal"), {
 
 // hooks
 import {useModal} from "@/hooks/useModal";
+import {useAuth} from "@/hooks/useAuth";
 
 const Logo = () => {
 
@@ -105,6 +106,7 @@ export const Appbar = () => {
 const BottomLinks = () => {
 
     const pathname = usePathname();
+    const {isAuth, user, _handleLogout} = useAuth();
 
     return (
         <ul className="grid grid-cols-12 gap-2 w-full">
@@ -115,7 +117,12 @@ const BottomLinks = () => {
                     color={pathname === "/advertises" ? "blue" : "gray"}
                     href="/advertises"
                     vertical
-                    startIcon={<LuScrollText size={20}/>}
+                    startIcon={
+                        <LuScrollText
+                            size={20}
+                            className="text-current"
+                        />
+                    }
                 >
                     آگهی ها
                 </LinkButton>
@@ -127,7 +134,12 @@ const BottomLinks = () => {
                     color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
                     href="/account/my-advertises/add"
                     vertical
-                    startIcon={<LuPlus size={20}/>}
+                    startIcon={
+                        <LuPlus
+                            size={20}
+                            className="text-current"
+                        />
+                    }
                 >
                     آگهی جدید
                 </LinkButton>
@@ -139,22 +151,61 @@ const BottomLinks = () => {
                     color={pathname === "/account/favorites" ? "blue" : "gray"}
                     href="/account/favorites"
                     vertical
-                    startIcon={<LuBookmark size={20}/>}
+                    startIcon={
+                        <LuBookmark
+                            size={20}
+                            className="text-current"
+                        />
+                    }
                 >
                     علاقه مندی ها
                 </LinkButton>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/account/profile" ? "blue" : "gray"}
-                    href="/account/profile"
-                    vertical
-                    startIcon={<LuUser size={20}/>}
-                >
-                    پروفایل
-                </LinkButton>
+                {
+                    isAuth ? (
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/account/profile" ? "blue" : "gray"}
+                            href="/account/profile"
+                            vertical
+                            startIcon={
+                                user?.avatar ? (
+                                    <Image
+                                        src={user?.avatar}
+                                        alt="avatar"
+                                        width={24}
+                                        height={24}
+                                        className="rounded-full object-cover object-center"
+                                    />
+                                ) : (
+                                    <LuUser
+                                        size={20}
+                                        className="text-current"
+                                    />
+                                )
+                            }
+                        >
+                            {user?.name && user?.family ? `${user?.name} ${user?.family}` : "کاربر سایت"}
+                        </LinkButton>
+                    ) : (
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/auth/sign-in" ? "blue" : "gray"}
+                            href="/auth/sign-in"
+                            vertical
+                            startIcon={
+                                <LuUser
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                        >
+                            ورود
+                        </LinkButton>
+                    )
+                }
             </li>
 
         </ul>
@@ -218,65 +269,115 @@ const HeaderActions = () => {
 
 const HeaderLinks = () => {
 
+    const {isAuth, user, _handleLogout} = useAuth();
+
     return (
         <div className="flex justify-start items-center gap-x-4">
 
-            <Menu
-                menuButton={
-                    <Button
+            {
+                isAuth ? (
+                    <Menu
+                        menuButton={
+                            <Button
+                                variant="text"
+                                color="gray"
+                                startIcon={
+                                    user?.avatar ? (
+                                        <Image
+                                            src={user?.avatar}
+                                            alt="avatar"
+                                            width={24}
+                                            height={24}
+                                            className="rounded-full object-cover object-center"
+                                        />
+                                    ) : (
+                                        <LuUser
+                                            size={20}
+                                            className="text-current"
+                                        />
+                                    )
+                                }
+                            >
+                                {user?.name && user?.family ? `${user?.name} ${user?.family}` : "کاربر سایت"}
+                            </Button>
+                        }
+                        align="start"
+                        direction="bottom"
+                    >
+
+                        <MenuItem
+                            variant="text"
+                            color="gray"
+                            href="/account/my-advertises"
+                            icon={
+                                <LuScrollText
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                        >
+                            آگهی های من
+                        </MenuItem>
+
+                        <MenuItem
+                            variant="text"
+                            color="gray"
+                            href="/account/favorites"
+                            icon={
+                                <LuBookmark
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                        >
+                            علاقه مندی ها
+                        </MenuItem>
+
+                        <MenuItem
+                            variant="text"
+                            color="gray"
+                            href="/account/profile"
+                            icon={
+                                <LuUser
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                        >
+                            پروفایل
+                        </MenuItem>
+
+                        <MenuItem
+                            variant="text"
+                            color="red"
+                            icon={
+                                <LuLogOut
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                            onClick={_handleLogout}
+                        >
+                            خروج
+                        </MenuItem>
+
+                    </Menu>
+                ) : (
+                    <LinkButton
                         variant="text"
                         color="gray"
+                        href="/auth/sign-in"
+                        startIcon={
+                            <LuLogIn
+                                size={20}
+                                className="text-current"
+                            />
+                        }
                     >
-                        <Image
-                            src="/assets/images/avatar.jpg"
-                            alt="logo"
-                            width={24}
-                            height={24}
-                            className="rounded-full object-cover object-center"
-                        />
-                        علیرضا نقدی
-                    </Button>
-                }
-                align="start"
-                direction="bottom"
-            >
-
-                <MenuItem
-                    variant="text"
-                    color="gray"
-                    href="/account/my-advertises"
-                    icon={<LuScrollText size={20}/>}
-                >
-                    آگهی های من
-                </MenuItem>
-
-                <MenuItem
-                    variant="text"
-                    color="gray"
-                    href="/account/favorites"
-                    icon={<LuBookmark size={20}/>}
-                >
-                    علاقه مندی ها
-                </MenuItem>
-
-                <MenuItem
-                    variant="text"
-                    color="gray"
-                    href="/account/profile"
-                    icon={<LuUser size={20}/>}
-                >
-                    پروفایل
-                </MenuItem>
-
-                <MenuItem
-                    variant="text"
-                    color="red"
-                    icon={<LuLogOut size={20}/>}
-                >
-                    خروج
-                </MenuItem>
-
-            </Menu>
+                        ورود
+                    </LinkButton>
+                )
+            }
 
             <LinkButton
                 variant="contained"
@@ -322,7 +423,7 @@ const FooterLinks = () => {
 
         const {notification} = await import("@/components/modules/Notification");
 
-        return notification("بزودی" , "info");
+        return notification("بزودی", "info");
 
     }
 
@@ -379,7 +480,10 @@ const SocialMedias = () => {
                     color="gray"
                     href="/"
                 >
-                    <BsTelegram size={20}/>
+                    <BsTelegram
+                        size={20}
+                        className="text-current"
+                    />
                 </LinkIconButton>
             </li>
 
@@ -389,7 +493,10 @@ const SocialMedias = () => {
                     color="gray"
                     href="/"
                 >
-                    <BsWhatsapp size={20}/>
+                    <BsWhatsapp
+                        size={20}
+                        className="text-current"
+                    />
                 </LinkIconButton>
             </li>
 
@@ -399,7 +506,10 @@ const SocialMedias = () => {
                     color="gray"
                     href="/"
                 >
-                    <BsInstagram size={20}/>
+                    <BsInstagram
+                        size={20}
+                        className="text-current"
+                    />
                 </LinkIconButton>
             </li>
 
@@ -409,7 +519,10 @@ const SocialMedias = () => {
                     color="gray"
                     href="/"
                 >
-                    <BsTwitter size={20}/>
+                    <BsTwitter
+                        size={20}
+                        className="text-current"
+                    />
                 </LinkIconButton>
             </li>
 

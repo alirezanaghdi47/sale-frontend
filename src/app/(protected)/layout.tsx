@@ -1,6 +1,21 @@
+// libraries
+import {Metadata, Viewport} from "next";
+
 // components
 import {CopyRight, Logo} from "@/components/widgets/Protected";
 
+export const metadata: Metadata = {
+    metadataBase: process.env.BASE_URL,
+    manifest: "/manifest.json",
+    icons: {
+        icon: "/icon-192x192.png",
+        apple: "/icon-192x192.png",
+    }
+}
+
+export const viewport: Viewport = {
+    themeColor: "#2563eb",
+}
 const AuthLayout = (props) => {
 
     return (

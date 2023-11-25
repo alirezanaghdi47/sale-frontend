@@ -38,24 +38,6 @@ const SortModal = ({isOpenModal, onCloseModal}) => {
             <ModalBody>
 
                 <label
-                    htmlFor="radiobox-popular"
-                    className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
-                >
-
-                    <RadioBox
-                        name="sort"
-                        value="popular"
-                        checked={formik.values.sort.includes("popular")}
-                        onChange={formik.handleChange}
-                    />
-
-                    <span className="text-xs font-bold text-dark">
-                        پربازدید ترین
-                    </span>
-
-                </label>
-
-                <label
                     htmlFor="radiobox-newest"
                     className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
                 >

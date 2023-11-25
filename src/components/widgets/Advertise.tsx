@@ -2,22 +2,31 @@
 
 // libraries
 import {useState} from "react";
+import {useParams} from "next/navigation";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
+import {formatDistance} from "date-fns";
+import {faIR} from "date-fns/locale";
 import {
     LuBookmark,
     LuCalendar,
     LuDollarSign,
-    LuLayers,
+    LuLayers, LuMapPin,
     LuShare2,
 } from "react-icons/lu";
 
 // components
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-const Map = dynamic(() => import("@/components/widgets/Map") , {ssr: false});
+
+const Map = dynamic(() => import("@/components/widgets/Map"), {ssr: false});
+
+// services
+import {addFavoriteService} from "@/services/favoriteService";
+import {getAdvertiseService} from "@/services/advertiseService";
 
 // styles
 import 'swiper/css';
@@ -27,8 +36,10 @@ import "@/styles/customize/swiper.scss";
 
 // utils
 import {copyToClipboard} from "@/utils/functions";
+import {categoryList, cityList} from "@/utils/constants";
+import {useMediaQuery} from "@react-hooks-library/core";
 
-const Gallery = () => {
+const Gallery = ({data}) => {
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -40,50 +51,21 @@ const Gallery = () => {
                 navigation={true}
                 thumbs={{swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null}}
                 modules={[FreeMode, Navigation, Thumbs]}
+                slidesPerView={1}
                 className="w-full"
             >
                 {
-                    Array(8).fill("").map((item, index) =>
+                    data?.gallery?.map(galleryItem =>
                         <SwiperSlide
-                            key={index}
+                            key={galleryItem}
                         >
-
                             <Image
-                                src="/assets/images/card-image.jpg"
+                                src={galleryItem}
                                 alt="advertise"
                                 width={240}
                                 height={240}
                                 className="w-full min-w-[240px] h-full min-h-[240px] object-cover object-center rounded-lg"
                             />
-
-                        </SwiperSlide>
-                    )
-                }
-            </Swiper>
-
-            <Swiper
-                onSwiper={setThumbsSwiper}
-                spaceBetween={16}
-                slidesPerView={4}
-                freeMode={true}
-                watchSlidesProgress={true}
-                modules={[FreeMode, Navigation, Thumbs]}
-                className="w-full"
-            >
-                {
-                    Array(8).fill("").map((item, index) =>
-                        <SwiperSlide
-                            key={index}
-                        >
-
-                            <Image
-                                src="/assets/images/card-image.jpg"
-                                alt="advertise"
-                                width={40}
-                                height={40}
-                                className="w-full min-w-[40px] max-w-[120px] h-full min-h-[40px] max-h-[120px] object-cover object-center rounded-lg"
-                            />
-
                         </SwiperSlide>
                     )
                 }
@@ -93,7 +75,7 @@ const Gallery = () => {
     )
 }
 
-const Location = () => {
+const Location = ({data}) => {
 
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
@@ -103,14 +85,14 @@ const Location = () => {
             </h3>
 
             <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
-                <Map/>
+                <Map location={[data?.latitude, data?.longitude]}/>
             </div>
 
         </section>
     )
 }
 
-const ContactUs = () => {
+const ContactUs = ({data}) => {
 
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
@@ -124,7 +106,7 @@ const ContactUs = () => {
                 <p className="text-xs text-gray">
                     شما میتوانید با شماره همراه
                     <span className="text-dark font-bold text-sm mx-2">
-                        09195610753
+                        {data?.userId?.phoneNumber}
                     </span>
                     با فروشنده در ارتباط باشید
                 </p>
@@ -135,22 +117,40 @@ const ContactUs = () => {
     )
 }
 
-const Summary = () => {
+const Summary = ({data}) => {
 
-    const _handleShareAdvertise = async () => {
+    const queryClient = useQueryClient();
 
+    const {mutate} = useMutation({
+        mutationFn: (data) => addFavoriteService(data),
+        onSuccess: async (data) => {
+            const {notification} = await import("@/components/modules/Notification");
+
+            if (data.status === "success") {
+                queryClient.invalidateQueries({queryKey: ["advertise"]});
+                notification(data.message, "success");
+            } else {
+                notification(data.message, "error");
+            }
+        }
+    });
+
+    const _handleAddToFavoriteAdvertise = (advertiseId) => {
+        mutate(advertiseId);
+    }
+
+    const _handleShareAdvertise = async (link) => {
         const {notification} = await import("@/components/modules/Notification");
-
-        return copyToClipboard("link")
-            .then(res => notification(res , "success"))
-            .catch(err => notification(err , "error"));
+        return copyToClipboard(link)
+            .then(res => notification(res, "success"))
+            .catch(err => notification(err, "error"));
     }
 
     return (
         <section className="flex justify-between items-center gap-x-2 w-full">
 
             <h1 className="text-base text-dark font-bold line-clamp-1">
-                بنز کلاس C C230، مدل ۲۰۰۶
+                {data?.title}
             </h1>
 
             <div className="flex justify-end items-center gap-x-4">
@@ -158,6 +158,7 @@ const Summary = () => {
                 <IconButton
                     variant="text"
                     color='gray'
+                    onClick={() => _handleAddToFavoriteAdvertise(data?._id)}
                 >
                     <LuBookmark size={20}/>
                 </IconButton>
@@ -165,7 +166,7 @@ const Summary = () => {
                 <IconButton
                     variant="text"
                     color='gray'
-                    onClick={_handleShareAdvertise}
+                    onClick={() => _handleShareAdvertise(`${process.env.BASE_URL}/advertises/${data?._id}`)}
                 >
                     <LuShare2 size={20}/>
                 </IconButton>
@@ -176,32 +177,39 @@ const Summary = () => {
     )
 }
 
-const Features = () => {
+const Features = ({data}) => {
 
     return (
         <section className="flex flex-col justify-start items-start gap-y-2 w-full h-full">
 
             <h3 className="text-dark font-bold">
-                ویژگی های محصول
+                مشخصات محصول
             </h3>
 
             <div className="flex flex-col justify-center items-start gap-y-4 w-full h-full bg-light rounded-lg p-4">
 
-                <ul className="grid grid-cols-3 gap-4 w-full">
+                <ul className="grid grid-cols-12 gap-4 w-full">
 
-                    <li className="col-span-1 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                    <li className="col-span-12 sm:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                        <LuMapPin size={24}/>
+                        {cityList.find(cityItem => cityItem.value === data?.city)?.label}
+                    </li>
+
+                    <li className="col-span-12 sm:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuLayers size={24}/>
-                        ماشین
+                        {categoryList.find(categoryItem => categoryItem.value === data?.category)?.label}
                     </li>
 
-                    <li className="col-span-1 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                    <li className="col-span-12 sm:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuCalendar size={24}/>
-                        6 روز پیش
+                        {formatDistance(new Date(data?.createdAt), new Date(), {addSuffix: true, locale: faIR})}
                     </li>
 
-                    <li className="col-span-1 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                    <li className="col-span-12 sm:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuDollarSign size={24}/>
-                        6 میلیارد تومان
+                        {data?.price.toLocaleString()}
+                        &nbsp;
+                        تومان
                     </li>
 
                 </ul>
@@ -212,7 +220,7 @@ const Features = () => {
     )
 }
 
-const Description = () => {
+const Description = ({data}) => {
 
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
@@ -222,90 +230,10 @@ const Description = () => {
             </h3>
 
             <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
+
                 <p className="text-sm text-dark leading-8">
-                    دوستان معاوضه ندارم با هیچی فقط نقد
-                    فول بیرنگ
-                    شیش سیلندر
-                    بکر و بکر. صفر تا صد ماشین فابریک بدون کوچکترین دست خوردگی حتی سوئیچ ماشین هنوز فابریک خودشه
-                    سند شخصی وارداتی
-                    بدون مشابه تو کشور لنگش تو ایران مطمعنن با این شرایط انگشت شماره. در بهترین وضعیت نگهداری
-                    قیمت مقطوع تخفیف نداره دوستان
-                    بازدید ساری پارکینگ منزل بنده
-                    با احترام هم پیامک هم تماس پاسخگو هستم
-                    لطفا با شماره در ارتباط باشید
-                    سپاس عزیزان
-
-                    دوستان معاوضه ندارم با هیچی فقط نقد
-                    فول بیرنگ
-                    شیش سیلندر
-                    بکر و بکر. صفر تا صد ماشین فابریک بدون کوچکترین دست خوردگی حتی سوئیچ ماشین هنوز فابریک خودشه
-                    سند شخصی وارداتی
-                    بدون مشابه تو کشور لنگش تو ایران مطمعنن با این شرایط انگشت شماره. در بهترین وضعیت نگهداری
-                    قیمت مقطوع تخفیف نداره دوستان
-                    بازدید ساری پارکینگ منزل بنده
-                    با احترام هم پیامک هم تماس پاسخگو هستم
-                    لطفا با شماره در ارتباط باشید
-                    سپاس عزیزان
-
-                    دوستان معاوضه ندارم با هیچی فقط نقد
-                    فول بیرنگ
-                    شیش سیلندر
-                    بکر و بکر. صفر تا صد ماشین فابریک بدون کوچکترین دست خوردگی حتی سوئیچ ماشین هنوز فابریک خودشه
-                    سند شخصی وارداتی
-                    بدون مشابه تو کشور لنگش تو ایران مطمعنن با این شرایط انگشت شماره. در بهترین وضعیت نگهداری
-                    قیمت مقطوع تخفیف نداره دوستان
-                    بازدید ساری پارکینگ منزل بنده
-                    با احترام هم پیامک هم تماس پاسخگو هستم
-                    لطفا با شماره در ارتباط باشید
-                    سپاس عزیزان
+                    {data?.description}
                 </p>
-            </div>
-
-        </section>
-    )
-}
-
-export const RelativeAdvertises = () => {
-
-    return (
-        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
-
-            <h3 className="text-dark font-bold">
-                آگهی های مشابه
-            </h3>
-
-            <div className="flex justify-center items-center w-full">
-
-                <Swiper
-                    modules={[Navigation]}
-                    spaceBetween={16}
-                    navigation={true}
-                    breakpoints={{
-                        320: {
-                            slidesPerView: 1
-                        },
-                        768: {
-                            slidesPerView: 2
-                        },
-                        1200: {
-                            slidesPerView: 3
-                        },
-                    }}
-                    className="w-full"
-                >
-
-                    {
-                        Array(8).fill("").map((item, index) =>
-                            <SwiperSlide key={index}>
-                                <AdvertiseCard
-                                    advertise={item}
-                                    toolbar={false}
-                                />
-                            </SwiperSlide>
-                        )
-                    }
-
-                </Swiper>
 
             </div>
 
@@ -313,32 +241,86 @@ export const RelativeAdvertises = () => {
     )
 }
 
-const Visual = () => {
+// export const RelativeAdvertises = () => {
+//
+//     return (
+//         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
+//
+//             <h3 className="text-dark font-bold">
+//                 آگهی های مشابه
+//             </h3>
+//
+//             <div className="flex justify-center items-center w-full">
+//
+//                 <Swiper
+//                     modules={[Navigation]}
+//                     spaceBetween={16}
+//                     navigation={true}
+//                     breakpoints={{
+//                         320: {
+//                             slidesPerView: 1
+//                         },
+//                         768: {
+//                             slidesPerView: 2
+//                         },
+//                         1200: {
+//                             slidesPerView: 3
+//                         },
+//                     }}
+//                     className="w-full"
+//                 >
+//
+//                     {
+//                         Array(8).fill("").map((item, index) =>
+//                             <SwiperSlide key={index}>
+//                                 <AdvertiseCard
+//                                     advertiseItem={item}
+//                                     toolbar={false}
+//                                 />
+//                             </SwiperSlide>
+//                         )
+//                     }
+//
+//                 </Swiper>
+//
+//             </div>
+//
+//         </section>
+//     )
+// }
+
+const Visual = ({data}) => {
+
+    const isTablet = useMediaQuery("(min-width: 768px)");
 
     return (
         <div
-            className="md:sticky md:top-[86px] flex flex-col justify-start items-center gap-y-4 w-full md:w-[360px] lg:w-[480px]">
+            className="md:sticky md:top-[86px] flex flex-col justify-start items-center gap-y-4 w-full md:w-[320px]">
 
-            <Summary/>
+            <Summary data={data}/>
 
-            <Gallery/>
+            <Gallery data={data}/>
+
+            {isTablet && <Location data={data}/>}
 
         </div>
     )
 }
 
-const Content = () => {
+const Content = ({data}) => {
+
+    const isTablet = useMediaQuery("(min-width: 768px)");
 
     return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
 
-            <Description/>
+            <Description data={data}/>
 
-            <Features/>
+            <Features data={data}/>
 
-            <ContactUs/>
+            <ContactUs data={data}/>
 
-            <Location/>
+            {!isTablet && <Location data={data}/>}
 
         </div>
     )
@@ -346,12 +328,24 @@ const Content = () => {
 
 export const Advertise = () => {
 
+    const params = useParams();
+
+    const {isPending, data} = useQuery({
+        queryKey: ['advertise', {advertiseId: params.advertiseId}],
+        queryFn: () => getAdvertiseService(params.advertiseId)
+    });
+
     return (
         <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
-            <Visual/>
-
-            <Content/>
+            {
+                !isPending && data && (
+                    <>
+                        <Visual data={data?.data}/>
+                        <Content data={data?.data}/>
+                    </>
+                )
+            }
 
         </div>
     )

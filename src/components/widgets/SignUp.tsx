@@ -1,6 +1,8 @@
 'use client';
 
 // libraries
+import {useRouter} from "next/navigation";
+import {useMutation} from "@tanstack/react-query";
 import {useFormik} from "formik";
 import {LuCheck, LuChevronLeft} from "react-icons/lu";
 
@@ -9,6 +11,9 @@ import {Button, LinkButton} from "@/components/modules/Button";
 import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
 import PasswordInput from "@/components/modules/PasswordInput";
+
+// services
+import {registerService} from "@/services/authService";
 
 // utils
 import {SignUpSchema} from "@/utils/validations";
@@ -36,15 +41,31 @@ const Heading = () => {
 
 const Form = () => {
 
+    const router = useRouter();
+
+    const {mutate, isPending} = useMutation({
+        mutationFn: (data) => registerService(data),
+        onSuccess: async (data) => {
+            const {notification} = await import("@/components/modules/Notification");
+
+            if (data.status === "success") {
+                notification(data.message, "success");
+                router.push("/auth/sign-in");
+            } else {
+                notification(data.error, "error");
+            }
+        }
+    });
+
     const formik = useFormik({
-        initialValues:{
+        initialValues: {
             email: "",
             password: "",
             passwordRepeat: "",
         },
         validationSchema: SignUpSchema,
-        onSubmit: async (data) => {
-            console.log(data)
+        onSubmit: async (result) => {
+            mutate(result);
         }
     });
 
@@ -127,7 +148,13 @@ const Form = () => {
                     variant="contained"
                     color="blue"
                     size="full"
-                    startIcon={<LuCheck size={20}/>}
+                    startIcon={
+                        <LuCheck
+                            size={20}
+                            className="text-current"
+                        />
+                    }
+                    disabled={isPending}
                     onClick={() => formik.handleSubmit()}
                 >
                     عضویت

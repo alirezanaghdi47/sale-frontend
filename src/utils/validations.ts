@@ -2,7 +2,7 @@
 import * as Yup from "yup";
 
 export const addAdvertiseGallerySchema = Yup.object().shape({
-    images: Yup.mixed()
+    gallery: Yup.mixed()
         .test("minLength", "حداقل تعداد عکس های ارسالی 1 عدد است", (value) => {
             if (value?.length === 0) return false;
             return true;
@@ -36,16 +36,16 @@ export const addAdvertiseGallerySchema = Yup.object().shape({
 
 export const addAdvertiseDetailSchema = Yup.object().shape({
     category: Yup.string().required("دسته بندی الزامی است"),
+    quality: Yup.string().required("کیفیت الزامی است"),
     price: Yup.number().required("قیمت الزامی است"),
     title: Yup.string().max(100, "عنوان حداکثر 100 کاراکتری است").required("عنوان الزامی است"),
     description: Yup.string().max(1000, "توضیحات حداکثر 1000 کاراکتری است").required("توضیحات الزامی است"),
 });
 
 export const addAdvertiseLocationSchema = Yup.object().shape({
-    location: Yup.object().shape({
-        latitude: Yup.number().required("طول جغرافیایی الزامی است"),
-        longitude: Yup.number().required("عرض جغرافیایی الزامی است"),
-    })
+    city: Yup.string().required("شهر الزامی است"),
+    latitude: Yup.number().required("طول جغرافیایی الزامی است"),
+    longitude: Yup.number().required("عرض جغرافیایی الزامی است"),
 });
 
 export const EditProfileInformationSchema = Yup.object().shape({
@@ -66,14 +66,11 @@ export const EditProfileInformationSchema = Yup.object().shape({
     family: Yup.string().max(40, "نام خانوادگی حداکثر 40 کاراکتری است").required("نام خانوادگی الزامی است"),
     email: Yup.string().email("فرمت ایمیل نادرست است").required("ایمیل الزامی است"),
     phoneNumber: Yup.string().matches(/^(\+98|0)?9\d{9}$/g, "شماره تلفن همراه نادرست است").required("شماره تلفن همراه الزامی است"),
-    birthDay: Yup.string(),
-    birthMonth: Yup.string(),
-    birthYear: Yup.string(),
 });
 
 export const EditProfileSecuritySchema = Yup.object().shape({
     currentPassword: Yup.string().matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, "رمز عبور فعلی باید حداقل 8 کاراکتر به همراه حروف بزرگ و کوچک و عدد و علائم باشد").required("رمز عبور فعلی الزامی است"),
-    newPassword: Yup.string().matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, "رمز عبور جدید باید حداقل 8 کاراکتر به همراه حروف بزرگ و کوچک و عدد و علائم باشد").notOneOf([Yup.ref('currentPassword'), null], "رمز عبور جدید با تکرار آن یکسان نیست").required("رمز عبور جدید الزامی است"),
+    newPassword: Yup.string().matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, "رمز عبور جدید باید حداقل 8 کاراکتر به همراه حروف بزرگ و کوچک و عدد و علائم باشد").notOneOf([Yup.ref('currentPassword'), null], "رمز عبور جدید و قدیم یکسان است").required("رمز عبور جدید الزامی است"),
     newPasswordRepeat: Yup.string().matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, "تکرار رمز عبور جدید باید حداقل 8 کاراکتر به همراه حروف بزرگ و کوچک و عدد و علائم باشد").oneOf([Yup.ref('newPassword'), null], "رمز عبور جدید با تکرار آن یکسان نیست").required("تکرار رمز عبور جدید الزامی است"),
 });
 

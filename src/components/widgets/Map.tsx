@@ -11,7 +11,7 @@ import marker from "../../../public/assets/images/marker.svg";
 import "leaflet/dist/leaflet.css";
 import "@/styles/customize/leaflet.scss";
 
-const Map = () => {
+const Map = ({location}) => {
 
     const map = useRef();
 
@@ -45,7 +45,7 @@ const Map = () => {
         });
 
         // attach marker
-        L.marker([35.696, 51.362], {
+        L.marker(location, {
             icon: customMarker
         }).addTo(map.current);
 

@@ -4,10 +4,10 @@
 import {LuCheck, LuTrash, LuX} from "react-icons/lu";
 
 // components
-import {Dialog , DialogBody , DialogFooter} from "@/components/modules/Dialog";
+import {Dialog, DialogBody, DialogFooter} from "@/components/modules/Dialog";
 import {Button} from "@/components/modules/Button";
 
-const DeleteAdvertiseDialog = ({id , isOpenDialog, onCloseDialog}) => {
+const DeleteAdvertiseDialog = ({isOpenDialog, onCloseDialog, onDelete}) => {
 
     return (
         <Dialog
@@ -18,7 +18,10 @@ const DeleteAdvertiseDialog = ({id , isOpenDialog, onCloseDialog}) => {
             <DialogBody>
 
                 <span className="text-red rounded-full p-2">
-                    <LuTrash size={32}/>
+                    <LuTrash
+                        size={32}
+                        className="text-current"
+                    />
                 </span>
 
                 <h3 className="text-lg font-bold text-gray">
@@ -32,7 +35,12 @@ const DeleteAdvertiseDialog = ({id , isOpenDialog, onCloseDialog}) => {
                     <Button
                         variant="text"
                         color="gray"
-                        startIcon={<LuX size={20}/>}
+                        startIcon={
+                            <LuX
+                                size={20}
+                                className="text-current"
+                            />
+                        }
                         onClick={onCloseDialog}
                     >
                         انصراف
@@ -42,8 +50,13 @@ const DeleteAdvertiseDialog = ({id , isOpenDialog, onCloseDialog}) => {
                     <Button
                         variant="contained"
                         color="red"
-                        startIcon={<LuCheck size={20}/>}
-                        onClick={onCloseDialog}
+                        startIcon={
+                            <LuCheck
+                                size={20}
+                                className="text-current"
+                            />
+                        }
+                        onClick={onDelete}
                     >
                         حذف
                     </Button>

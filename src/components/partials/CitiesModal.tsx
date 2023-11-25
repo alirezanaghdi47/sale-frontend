@@ -29,7 +29,7 @@ const CityItem = ({cityItem , formik}) => {
             />
 
             <span className="text-xs font-bold text-dark">
-                {cityItem.title}
+                {cityItem.label}
             </span>
 
         </label>

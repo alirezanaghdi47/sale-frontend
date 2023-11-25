@@ -4,6 +4,7 @@
 import {useRef} from "react";
 import dynamic from "next/dynamic";
 import {useRouter} from "next/navigation";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useFormik} from "formik";
 import {LuCheck, LuChevronLeft, LuChevronRight} from "react-icons/lu";
 import {CSSTransition} from 'react-transition-group';
@@ -22,22 +23,24 @@ const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
 // hooks
 import {useSegment} from "@/hooks/useSegment";
 
+// services
+import {addMyAdvertiseService} from "@/services/myAdvertiseService";
+
 // utils
-import {addEditAdvertiseStepList, categoryList, qualityList} from "@/utils/constants";
-import {generateSpecificationFormByCategory, getSpecificationByCategory} from "@/utils/functions";
+import {addEditAdvertiseStepList, categoryList, cityList, qualityList} from "@/utils/constants";
 import {addAdvertiseDetailSchema, addAdvertiseGallerySchema, addAdvertiseLocationSchema} from "@/utils/validations";
 
-const Gallery = ({data , setData, onNext}) => {
+const Gallery = ({data, setData, onNext}) => {
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            images: data?.images || [],
+            gallery: data?.gallery || [],
         },
         validationSchema: addAdvertiseGallerySchema,
-        onSubmit: async (res) => {
+        onSubmit: async (result) => {
             onNext();
-            setData({...data , ...res});
+            setData({...data, ...result});
         }
     });
 
@@ -55,21 +58,21 @@ const Gallery = ({data , setData, onNext}) => {
                         </span>
 
                         <FileInput
-                            name="images"
+                            name="gallery"
                             maxFiles={2}
                             acceptTypes={{
                                 "image/png": [],
                                 "image/jpeg": [],
                                 "image/jpg": [],
                             }}
-                            value={formik.values.images}
-                            onChange={(value) => formik.setFieldValue("images", value)}
+                            value={formik.values.gallery}
+                            onChange={(value) => formik.setFieldValue("gallery", value)}
                         />
 
                         {
-                            formik.errors.images && formik.touched.images && (
+                            formik.errors.gallery && formik.touched.gallery && (
                                 <p className='text-red text-xs'>
-                                    {formik.errors.images}
+                                    {formik.errors.gallery}
                                 </p>
                             )
                         }
@@ -83,7 +86,12 @@ const Gallery = ({data , setData, onNext}) => {
                     <Button
                         variant="contained"
                         color="blue"
-                        endIcon={<LuChevronLeft size={20}/>}
+                        endIcon={
+                            <LuChevronLeft
+                                size={20}
+                                className="text-current"
+                            />
+                        }
                         onClick={formik.handleSubmit}
                     >
                         بعدی
@@ -97,7 +105,7 @@ const Gallery = ({data , setData, onNext}) => {
     )
 }
 
-const Detail = ({data , setData, onPrev, onNext}) => {
+const Detail = ({data, setData, onPrev, onNext}) => {
 
     const formik = useFormik({
         initialValues: {
@@ -108,9 +116,9 @@ const Detail = ({data , setData, onPrev, onNext}) => {
             description: data?.description || "",
         },
         validationSchema: addAdvertiseDetailSchema,
-        onSubmit: async (res) => {
+        onSubmit: async (result) => {
             onNext();
-            setData({...data , ...res});
+            setData({...data, ...result});
         }
     });
 
@@ -247,7 +255,12 @@ const Detail = ({data , setData, onPrev, onNext}) => {
                     <Button
                         variant="text"
                         color="gray"
-                        startIcon={<LuChevronRight size={20}/>}
+                        startIcon={
+                            <LuChevronRight
+                                size={20}
+                                className="text-current"
+                            />
+                        }
                         onClick={onPrev}
                     >
                         قبلی
@@ -256,90 +269,12 @@ const Detail = ({data , setData, onPrev, onNext}) => {
                     <Button
                         variant="contained"
                         color="blue"
-                        endIcon={<LuChevronLeft size={20}/>}
-                        onClick={formik.handleSubmit}
-                    >
-                        بعدی
-                    </Button>
-
-                </div>
-
-            </div>
-
-        </section>
-    )
-}
-
-const Specification = ({data , setData, onPrev, onNext}) => {
-
-    const formik = useFormik({
-        enableReinitialize: true,
-        initialValues: generateSpecificationFormByCategory(data?.category ,data),
-        onSubmit: async (res) => {
-            onNext();
-            setData({...data , ...res});
-        }
-    });
-
-    return (
-        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
-
-            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
-
-                <span className="text-gray text-sm font-bold">
-                    ویژگی های محصول
-                </span>
-
-                <ul className='flex flex-col justify-start items-start gap-y-4 w-full'>
-
-                    {
-                        getSpecificationByCategory(data?.category).map(specItem =>
-                            <li
-                                key={specItem?.id}
-                                className='grid grid-cols-12 justify-start items-start gap-4 w-full'
-                            >
-
-                                <div
-                                    className="col-span-5 md:col-span-4 lg:col-span-3 flex justify-start items-center w-full h-full">
-
-                                    <span className='text-gray font-bold text-sm line-clamp-1'>
-                                        {specItem?.title} :
-                                    </span>
-
-                                </div>
-
-                                <div
-                                    className="col-span-7 md:col-span-8 lg:col-span-9 flex justify-start items-center w-full">
-
-                                    <TextInput
-                                        name={specItem?.value}
-                                        value={formik.values[specItem?.value]}
-                                        onChange={formik.handleChange}
-                                    />
-
-                                </div>
-
-                            </li>
-                        )
-                    }
-
-                </ul>
-
-                <div className="flex justify-end items-center gap-x-2 w-full">
-
-                    <Button
-                        variant="text"
-                        color="gray"
-                        startIcon={<LuChevronRight size={20}/>}
-                        onClick={onPrev}
-                    >
-                        قبلی
-                    </Button>
-
-                    <Button
-                        variant="contained"
-                        color="blue"
-                        endIcon={<LuChevronLeft size={20}/>}
+                        endIcon={
+                            <LuChevronLeft
+                                size={20}
+                                className="text-current"
+                            />
+                        }
                         onClick={formik.handleSubmit}
                     >
                         بعدی
@@ -355,18 +290,32 @@ const Specification = ({data , setData, onPrev, onNext}) => {
 
 const Vendor = ({data, onPrev, onSubmit}) => {
 
+    const queryClient = useQueryClient();
+
+    const {mutate, isPending} = useMutation({
+        mutationFn: (data) => addMyAdvertiseService(data),
+        onSuccess: async (data) => {
+            const {notification} = await import("@/components/modules/Notification");
+
+            if (data.status === "success") {
+                queryClient.invalidateQueries({queryKey: ["allMyAdvertise" , {page: 1,sort: "newest"}]});
+                onSubmit();
+                notification(data.message, "success");
+            } else {
+                notification(data.message, "error");
+            }
+        }
+    });
+
     const formik = useFormik({
         initialValues: {
-            location: {
-                latitude: data?.latitude || null,
-                longitude: data?.longitude || null,
-            }
+            city: data?.city || null,
+            latitude: data?.latitude || null,
+            longitude: data?.longitude || null,
         },
         validationSchema: addAdvertiseLocationSchema,
-        onSubmit: async (res) => {
-            const {notification} = await import("@/components/modules/Notification");
-            notification("آگهی با موفقیت اضافه شد" , "success");
-            onSubmit();
+        onSubmit: async (result) => {
+            mutate({...data , ...result});
         }
     });
 
@@ -379,26 +328,53 @@ const Vendor = ({data, onPrev, onSubmit}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
+                         <span className="text-gray text-sm font-bold">
+                            شهر
+                        </span>
+
+                        <SelectBox
+                            name="city"
+                            isSearchable
+                            options={cityList}
+                            value={cityList.find(cityItem => cityItem.value === formik.values.city)}
+                            onChange={(value) => formik.setFieldValue("city", value?.value)}
+                        />
+
+                        {
+                            formik.errors.city && formik.touched.city && (
+                                <p className='text-red text-xs'>
+                                    {formik.errors.city}
+                                </p>
+                            )
+                        }
+
+                    </li>
+
+                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
+
                         <span className="text-gray text-sm font-bold">
                             آدرس
                         </span>
 
                         <div className='w-full h-[320px] bg-secondary rounded-lg p-4'>
-                            <Map2 setLocation={(value) => formik.setFieldValue("location" , value)}/>
+                            <Map2 setLocation={(value) => {
+                                formik.setFieldValue("latitude", value.latitude);
+                                formik.setFieldValue("longitude", value.longitude);
+                            }}/>
                         </div>
 
                         {
-                            formik.touched.location && formik.errors.location?.latitude && (
+                            formik.touched?.latitude && formik.errors?.latitude && (
                                 <p className='text-red text-xs'>
-                                    {formik.errors.location.latitude}
+                                    {formik.errors.latitude}
                                 </p>
                             )
                         }
 
                         {
-                            formik.touched.location && formik.errors.location?.longitude && (
+                            formik.touched?.longitude && formik.errors?.longitude && (
                                 <p className='text-red text-xs'>
-                                    {formik.errors.location.longitude}
+                                    {formik.errors.longitude}
                                 </p>
                             )
                         }
@@ -412,7 +388,12 @@ const Vendor = ({data, onPrev, onSubmit}) => {
                     <Button
                         variant="text"
                         color="gray"
-                        startIcon={<LuChevronRight size={20}/>}
+                        startIcon={
+                            <LuChevronRight
+                                size={20}
+                                className="text-current"
+                            />
+                        }
                         onClick={onPrev}
                     >
                         قبلی
@@ -421,7 +402,12 @@ const Vendor = ({data, onPrev, onSubmit}) => {
                     <Button
                         variant="contained"
                         color="blue"
-                        startIcon={<LuCheck size={20}/>}
+                        startIcon={
+                            <LuCheck
+                                size={20}
+                                className="text-current"
+                            />
+                        }
                         onClick={formik.handleSubmit}
                     >
                         ثبت

@@ -1,5 +1,21 @@
+// libraries
+import {Metadata, Viewport} from "next";
+
 // components
 import {Sidebar, BottomNavigation, Appbar} from "@/components/widgets/Private";
+
+export const metadata: Metadata = {
+    metadataBase: process.env.BASE_URL,
+    manifest: "/manifest.json",
+    icons: {
+        icon: "/icon-192x192.png",
+        apple: "/icon-192x192.png",
+    }
+}
+
+export const viewport: Viewport = {
+    themeColor: "#2563eb",
+}
 
 const AccountLayout = (props) => {
 

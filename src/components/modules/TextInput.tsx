@@ -1,4 +1,4 @@
-const TextInput = ({name, value, onChange, placeholder, startIcon, endIcon , readOnly}) => {
+const TextInput = ({name, value, onChange, placeholder , disabled, startIcon, endIcon , readOnly}) => {
 
     return (
         <label
@@ -18,9 +18,9 @@ const TextInput = ({name, value, onChange, placeholder, startIcon, endIcon , rea
                 id={`input-${name}`}
                 name={name}
                 type="text"
-                readOnly={readOnly}
+                readOnly={readOnly || disabled}
                 placeholder={placeholder}
-                className="w-full h-full bg-transparent text-gray font-bold placeholder-gray focus:outline-none"
+                className={`w-full h-full bg-transparent ${disabled ? "text-gray/75 cursor-default" : "text-gray"} font-bold placeholder-gray focus:outline-none`}
                 value={value}
                 onChange={onChange}
             />

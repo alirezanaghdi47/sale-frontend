@@ -40,23 +40,11 @@ export const Button = ({children , as = "button", size = "md", color, variant, s
             disabled={disabled}
         >
 
-            {
-                startIcon && (
-                    <span className="text-current">
-                        {startIcon}
-                    </span>
-                )
-            }
+            {startIcon && startIcon}
 
             {children}
 
-            {
-                endIcon && (
-                    <span className="text-current">
-                        {endIcon}
-                    </span>
-                )
-            }
+            {endIcon && endIcon}
 
         </CustomTag>
     )
@@ -70,23 +58,11 @@ export const LinkButton = ({children, size = "md", color, variant, startIcon, en
             href={href}
         >
 
-            {
-                startIcon && (
-                    <span className="text-current">
-                        {startIcon}
-                    </span>
-                )
-            }
+            {startIcon && startIcon}
 
             {children}
 
-            {
-                endIcon && (
-                    <span className="text-current">
-                        {endIcon}
-                    </span>
-                )
-            }
+            {endIcon && endIcon}
 
         </Link>
     )

@@ -2,6 +2,8 @@
 
 // libraries
 import dynamic from "next/dynamic";
+import {useRouter, useSearchParams} from "next/navigation";
+import {useQuery} from "@tanstack/react-query";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {LuArrowDownWideNarrow} from "react-icons/lu";
 
@@ -10,14 +12,12 @@ import {Button} from "@/components/modules/Button";
 import Pagination from "@/components/modules/Pagination";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 const SortModal = dynamic(() => import("@/components/partials/SortModal") , {ssr: false});
-const DeleteAdvertiseDialog = dynamic(() => import("@/components/partials/DeleteAdvertiseDialog") , {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
-import {useDialog} from "@/hooks/useDialog";
 
-// utils
-import {copyToClipboard} from "@/utils/functions";
+// services
+import {getAllMyAdvertiseService} from "@/services/myAdvertiseService";
 
 const Actionbar = () => {
 
@@ -67,6 +67,9 @@ const Actionbar = () => {
 
 const Sortbar = () => {
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
     return (
         <section className='hidden md:flex flex-col justify-center items-start gap-y-4 w-full'>
 
@@ -81,16 +84,18 @@ const Sortbar = () => {
 
                     <Button
                         size="sm"
-                        variant="text"
-                        color="gray"
+                        variant={searchParams.get("sort") === "newest" ? "contained" : "text"}
+                        color={searchParams.get("sort") === "newest" ? "blue" : "gray"}
+                        onClick={() => router.push(`${process.env.BASE_URL}/account/my-advertises?page=${searchParams.get("page") || 1}&sort=newest`)}
                     >
                         جدید ترین
                     </Button>
 
                     <Button
                         size="sm"
-                        variant="text"
-                        color="gray"
+                        variant={searchParams.get("sort") === "expensive" ? "contained" : "text"}
+                        color={searchParams.get("sort") === "expensive" ? "blue" : "gray"}
+                        onClick={() => router.push(`${process.env.BASE_URL}/account/my-advertises?page=${searchParams.get("page") || 1}&sort=expensive`)}
                     >
                         گران ترین
                     </Button>
@@ -110,32 +115,7 @@ const Sortbar = () => {
     )
 }
 
-const AdvertiseList = () => {
-
-    const isTablet = useMediaQuery("(min-width: 768px)");
-
-    const {
-        isOpenDialog: isOpenDeleteDialog,
-        _handleShowDialog: _handleShowDeleteDialog,
-        _handleHideDialog: _handleHideDeleteDialog
-    } = useDialog();
-
-    const _handleEditAdvertise = async () => {
-
-        const {notification} = await import("@/components/modules/Notification");
-
-        return notification("بزودی" , "info");
-
-    }
-
-    const _handleShareAdvertise = async () => {
-
-        const {notification} = await import("@/components/modules/Notification");
-
-        return copyToClipboard("link")
-            .then(res => notification(res , "success"))
-            .catch(err => notification(err , "error"));
-    }
+const AdvertiseList = ({data , isPending}) => {
 
     return (
         <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
@@ -143,20 +123,17 @@ const AdvertiseList = () => {
             <ul className="grid grid-cols-12 gap-4 w-full">
 
                 {
-                    Array(10).fill("").map((advertiseItem , index) =>
+                   !isPending && data?.length > 0 && data.map(advertiseItem =>
                         <li
                             className="col-span-12 lg:col-span-6"
-                            key={index}
+                            key={advertiseItem?._id}
                         >
                             <AdvertiseCard
-                                advertise={advertiseItem}
+                                advertiseItem={advertiseItem}
                                 toolbar={{
-                                    delete: {
-                                        onClick: _handleShowDeleteDialog
-                                    }
-                                }}
-                                disabled={{
-                                    message: "فروخته شد"
+                                    delete: true,
+                                    share: true,
+                                    edit: true
                                 }}
                             />
                         </li>
@@ -165,16 +142,19 @@ const AdvertiseList = () => {
 
             </ul>
 
-            <DeleteAdvertiseDialog
-                isOpenDialog={isOpenDeleteDialog}
-                onCloseDialog={_handleHideDeleteDialog}
-            />
-
         </section>
     )
 }
 
 export const MyAdvertises = () => {
+
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const { isPending, data } = useQuery({
+        queryKey: ['allMyAdvertise' , {page: searchParams.get("page") , sort: searchParams.get("sort")}],
+        queryFn: () => getAllMyAdvertiseService({page: searchParams.get("page") , sort: searchParams.get("sort")})
+    });
 
     return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
@@ -183,12 +163,16 @@ export const MyAdvertises = () => {
 
             <Sortbar/>
 
-            <AdvertiseList/>
+            <AdvertiseList
+                data={data?.data}
+                isPending={isPending}
+            />
 
             <Pagination
-                currentPage={1}
+                currentPage={parseInt(searchParams.get("page")) || 1}
                 pageCount={100}
-                pageSize={10}
+                pageSize={12}
+                onChange={(page) => router.push(`${process.env.BASE_URL}/account/my-advertises?page=${page}&sort=${searchParams.get("sort") || "newest"}`)}
             />
 
         </div>

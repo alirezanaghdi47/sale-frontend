@@ -1,5 +1,5 @@
 // components
-import {Advertise , RelativeAdvertises} from "@/components/widgets/Advertise";
+import {Advertise} from "@/components/widgets/Advertise";
 
 const AdvertisePage = () => {
 
@@ -7,8 +7,6 @@ const AdvertisePage = () => {
         <main className="flex flex-col justify-start items-start gap-y-4 w-full p-4">
 
             <Advertise/>
-
-            <RelativeAdvertises/>
 
         </main>
     )
