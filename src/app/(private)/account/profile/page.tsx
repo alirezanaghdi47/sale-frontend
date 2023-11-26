@@ -8,7 +8,7 @@ export const metadata = {
 const ProfilePage = () => {
 
     return (
-        <main className="flex flex-col justify-start items-start gap-y-4 w-full md:max-w-[calc(100%_-_240px)] p-4">
+        <main className="flex flex-col justify-start items-start gap-y-4 w-full md:max-w-[calc(100%_-_240px)] h-full min-h-screen p-4">
 
             <Profile/>
 

@@ -149,7 +149,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                     <IconButton
                                         variant="text"
                                         color="yellow"
-                                        // onClick={}
+                                        onClick={() => _handleEditAdvertise(advertiseItem?._id)}
                                     >
                                         <LuPen size={20}/>
                                     </IconButton>

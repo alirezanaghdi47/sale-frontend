@@ -2,6 +2,7 @@
 
 // libraries
 import dynamic from "next/dynamic";
+import {useQuery} from "@tanstack/react-query";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {LuArrowDownWideNarrow} from "react-icons/lu";
 
@@ -9,17 +10,20 @@ import {LuArrowDownWideNarrow} from "react-icons/lu";
 import {Button} from "@/components/modules/Button";
 import Pagination from "@/components/modules/Pagination";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
+import {PaginationPlaceholder , AdvertiseListPlaceholder , SortBarPlaceholder} from "@/components/partials/Placeholders";
 const SortModal = dynamic(() => import("@/components/partials/SortModal") , {ssr: false});
-const DeleteAdvertiseDialog = dynamic(() => import("@/components/partials/DeleteAdvertiseDialog") , {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
-import {useDialog} from "@/hooks/useDialog";
+import {useFilter} from "@/hooks/useFilter";
+
+// services
+import {getAllFavoriteService} from "@/services/favoriteService";
 
 // utils
-import {copyToClipboard} from "@/utils/functions";
+import {sortList} from "@/utils/constants";
 
-const Actionbar = () => {
+const SortBar = ({totalCount , page, sort, _handleChangePage, _handleChangeSort}) => {
 
     const isTablet = useMediaQuery("(min-width: 768px)");
 
@@ -30,16 +34,38 @@ const Actionbar = () => {
     } = useModal();
 
     return (
-        <section className='flex md:hidden flex-col justify-center items-start gap-y-4 w-full'>
+        <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
             <div className="flex justify-between items-center gap-x-4 w-full">
 
-                <div className="flex justify-start items-center gap-x-4">
+                <div className="hidden md:flex justify-start items-center">
+
+                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
+                       <LuArrowDownWideNarrow size={20}/>
+                        مرتب سازی
+                    </span>
+
+                    {
+                        sortList?.map(sortItem =>
+                            <Button
+                                key={sortItem?.id}
+                                size="sm"
+                                variant={sortItem?.value === sort ? "contained" : "text"}
+                                color={sortItem?.value === sort ? "blue" : "gray"}
+                                onClick={() => _handleChangeSort(sortItem?.value)}
+                            >
+                                {sortItem?.label}
+                            </Button>
+                        )
+                    }
+
+                </div>
+
+                <div className="flex md:hidden justify-start items-center gap-x-4">
 
                     <Button
                         variant="contained"
                         color="light"
-                        size="md"
                         startIcon={<LuArrowDownWideNarrow size={20}/>}
                         onClick={_handleShowSortModal}
                     >
@@ -49,61 +75,18 @@ const Actionbar = () => {
                 </div>
 
                 <span className="text-base text-gray">
-                    12
+                    {totalCount}
                     <span className='text-xs mr-1'>
                         مورد
                     </span>
                 </span>
 
-            </div>
-
-            <SortModal
-                isOpenModal={isOpenSortModal && !isTablet}
-                onCloseModal={_handleHideSortModal}
-            />
-
-        </section>
-    )
-}
-
-const Sortbar = () => {
-
-    return (
-        <section className='hidden md:flex flex-col justify-center items-start gap-y-4 w-full'>
-
-            <div className="flex justify-between items-center gap-x-4 w-full">
-
-                <div className="flex justify-start items-center">
-
-                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-                       <LuArrowDownWideNarrow size={20}/>
-                        مرتب سازی
-                    </span>
-
-                    <Button
-                        size="sm"
-                        variant="text"
-                        color="gray"
-                    >
-                        جدید ترین
-                    </Button>
-
-                    <Button
-                        size="sm"
-                        variant="text"
-                        color="gray"
-                    >
-                        گران ترین
-                    </Button>
-
-                </div>
-
-                <span className="text-base text-gray">
-                    12
-                    <span className='text-xs mr-1'>
-                        مورد
-                    </span>
-                </span>
+                <SortModal
+                    sort={sort}
+                    _handleChangeSort={(value) => _handleChangeSort(value)}
+                    isOpenModal={isOpenSortModal && !isTablet}
+                    onCloseModal={_handleHideSortModal}
+                />
 
             </div>
 
@@ -111,45 +94,24 @@ const Sortbar = () => {
     )
 }
 
-const AdvertiseList = () => {
-
-    const isTablet = useMediaQuery("(min-width: 768px)");
-
-    const {
-        isOpenDialog: isOpenDeleteDialog,
-        _handleShowDialog: _handleShowDeleteDialog,
-        _handleHideDialog: _handleHideDeleteDialog
-    } = useDialog();
-
-    const _handleShareAdvertise = async () => {
-
-        const {notification} = await import("@/components/modules/Notification");
-
-        return copyToClipboard("link")
-            .then(res => notification(res , "success"))
-            .catch(err => notification(err , "error"));
-    }
+const AdvertiseList = ({data}) => {
 
     return (
-        <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
+        <section className='flex flex-col justify-center items-start gap-y-4 w-full mb-auto'>
 
             <ul className="grid grid-cols-12 gap-4 w-full">
 
                 {
-                    Array(10).fill("").map((advertiseItem , index) =>
+                    data.map(advertiseItem =>
                         <li
+                            key={advertiseItem?._id}
                             className="col-span-12 lg:col-span-6"
-                            key={index}
                         >
                             <AdvertiseCard
-                                advertise={advertiseItem}
+                                advertiseItem={advertiseItem}
                                 toolbar={{
-                                    share: {
-                                        onClick: _handleShareAdvertise
-                                    },
-                                    delete: {
-                                        onClick: _handleShowDeleteDialog
-                                    }
+                                    delete: true,
+                                    share: true,
                                 }}
                             />
                         </li>
@@ -158,31 +120,68 @@ const AdvertiseList = () => {
 
             </ul>
 
-            <DeleteAdvertiseDialog
-                isOpenDialog={isOpenDeleteDialog}
-                onCloseDialog={_handleHideDeleteDialog}
-            />
-
         </section>
     )
 }
 
 export const Favorites = () => {
 
+    const {page, limit, sort, _handleChangePage, _handleChangeSort} = useFilter();
+
+    const {isPending, data} = useQuery({
+        queryKey: ['allFavorite', {page, limit, sort}],
+        queryFn: () => getAllFavoriteService({page, limit, sort})
+    });
+
     return (
-        <div className="flex flex-col justify-start items-center gap-y-4 w-full">
+        <div className="flex flex-col justify-start items-center gap-y-4 w-full h-full min-h-[calc(100dvh_-_32px)]">
 
-            <Actionbar/>
+            {
+                !isPending && data?.data?.length > 0 && (
+                    <SortBar
+                        totalCount={data?.totalCount}
+                        page={page}
+                        sort={sort}
+                        _handleChangePage={(value) => _handleChangePage(value)}
+                        _handleChangeSort={(value) => _handleChangeSort(value)}
+                    />
+                )
+            }
 
-            <Sortbar/>
+            {
+                !isPending && data?.data?.length > 0 && (
+                    <AdvertiseList data={data?.data}/>
+                )
+            }
 
-            <AdvertiseList/>
+            {
+                !isPending && data?.totalCount > limit && (
+                    <Pagination
+                        currentPage={page}
+                        pageCount={data?.totalCount}
+                        pageSize={limit}
+                        onChange={(value) => _handleChangePage(value)}
+                    />
+                )
+            }
 
-            <Pagination
-                currentPage={1}
-                pageCount={100}
-                pageSize={10}
-            />
+            {
+                isPending && (
+                    <SortBarPlaceholder/>
+                )
+            }
+
+            {
+                isPending && (
+                    <AdvertiseListPlaceholder/>
+                )
+            }
+
+            {
+                isPending && (
+                    <PaginationPlaceholder/>
+                )
+            }
 
         </div>
     )

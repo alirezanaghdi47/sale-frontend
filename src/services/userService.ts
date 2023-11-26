@@ -3,7 +3,9 @@ import axios from "axios";
 import Cookie from "js-cookie";
 
 export const editProfileService = async (data) => {
+
     try {
+
         const token = Cookie.get("accessToken");
         const formData = new FormData();
 
@@ -17,17 +19,24 @@ export const editProfileService = async (data) => {
                 token,
             }
         });
+
         return response.data;
+
     } catch (err) {
+
         return {
             message: err?.response?.data?.message,
             status: err?.response?.data?.status,
         };
+
     }
+
 }
 
 export const editPasswordService = async (data) => {
+
     try {
+
         const token = Cookie.get("accessToken");
 
         const response = await axios.put(process.env.API_URL + "/api/user/editPassword" , data , {
@@ -35,11 +44,16 @@ export const editPasswordService = async (data) => {
                 token,
             }
         });
+
         return response.data;
+
     } catch (err) {
+
         return {
             message: err?.response?.data?.message,
             status: err?.response?.data?.status,
         };
+
     }
+
 }

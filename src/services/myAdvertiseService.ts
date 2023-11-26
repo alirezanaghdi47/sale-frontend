@@ -3,7 +3,9 @@ import axios from "axios";
 import Cookie from "js-cookie";
 
 export const addMyAdvertiseService = async (data) => {
+
     try {
+
         const token = Cookie.get("accessToken");
         const formData = new FormData();
 
@@ -24,36 +26,50 @@ export const addMyAdvertiseService = async (data) => {
                 token,
             }
         });
+
         return response.data;
+
     } catch (err) {
+
         return {
             message: err?.response?.data?.message,
             status: err?.response?.data?.status,
         };
+
     }
+
 }
 
 export const getAllMyAdvertiseService = async (data) => {
+
     try {
+
         const token = Cookie.get("accessToken");
-        const {page = 1, limit = 12, sort = "newest"} = data;
+        const {page , limit , sort} = data;
 
         const response = await axios.get(process.env.API_URL + "/api/myAdvertise/getAllMyAdvertise" + `?page=${page}&limit=${limit}&sort=${sort}`, {
             headers: {
                 token,
             }
         });
+
         return response.data;
+
     } catch (err) {
+
         return {
             message: err?.response?.data?.message,
             status: err?.response?.data?.status,
         };
+
     }
+
 }
 
 export const deleteMyAdvertiseService = async (advertiseId) => {
+
     try {
+
         const token = Cookie.get("accessToken");
 
         const response = await axios.delete(process.env.API_URL + "/api/myAdvertise/deleteMyAdvertise", {
@@ -62,11 +78,16 @@ export const deleteMyAdvertiseService = async (advertiseId) => {
                 advertiseId: advertiseId
             }
         });
+
         return response.data;
+
     } catch (err) {
+
         return {
             message: err?.response?.data?.message,
             status: err?.response?.data?.status,
         };
+
     }
+
 }

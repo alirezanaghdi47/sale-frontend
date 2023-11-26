@@ -38,3 +38,8 @@ export const addEditAdvertiseStepList = [
     {id: 2, title: "جزییات"},
     {id: 3, title: "فروشنده"},
 ];
+
+export const sortList = [
+    {id: "1", label: "جدید ترین", value: "newest"},
+    {id: "2", label: "گران ترین", value: "expensive"},
+];

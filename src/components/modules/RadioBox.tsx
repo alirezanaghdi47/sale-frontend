@@ -9,7 +9,7 @@ const RadioBox = ({name, value , checked , onChange}) => {
                 name={name}
                 value={value}
                 checked={checked}
-                onChange={onChange}
+                onChange={(e) => onChange(e.target.value)}
                 className="hidden"
             />
 

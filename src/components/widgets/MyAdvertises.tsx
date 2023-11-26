@@ -2,7 +2,6 @@
 
 // libraries
 import dynamic from "next/dynamic";
-import {useRouter, useSearchParams} from "next/navigation";
 import {useQuery} from "@tanstack/react-query";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {LuArrowDownWideNarrow} from "react-icons/lu";
@@ -11,15 +10,20 @@ import {LuArrowDownWideNarrow} from "react-icons/lu";
 import {Button} from "@/components/modules/Button";
 import Pagination from "@/components/modules/Pagination";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-const SortModal = dynamic(() => import("@/components/partials/SortModal") , {ssr: false});
+import {PaginationPlaceholder , AdvertiseListPlaceholder , SortBarPlaceholder} from "@/components/partials/Placeholders";
+const SortModal = dynamic(() => import("@/components/partials/SortModal"), {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
+import {useFilter} from "@/hooks/useFilter";
 
 // services
 import {getAllMyAdvertiseService} from "@/services/myAdvertiseService";
 
-const Actionbar = () => {
+// utils
+import {sortList} from "@/utils/constants";
+
+const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort}) => {
 
     const isTablet = useMediaQuery("(min-width: 768px)");
 
@@ -30,11 +34,34 @@ const Actionbar = () => {
     } = useModal();
 
     return (
-        <section className='flex md:hidden flex-col justify-center items-start gap-y-4 w-full'>
+        <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
             <div className="flex justify-between items-center gap-x-4 w-full">
 
-                <div className="flex justify-start items-center gap-x-4">
+                <div className="hidden md:flex justify-start items-center">
+
+                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
+                       <LuArrowDownWideNarrow size={20}/>
+                        مرتب سازی
+                    </span>
+
+                    {
+                        sortList?.map(sortItem =>
+                            <Button
+                                key={sortItem?.id}
+                                size="sm"
+                                variant={sortItem?.value === sort ? "contained" : "text"}
+                                color={sortItem?.value === sort ? "blue" : "gray"}
+                                onClick={() => _handleChangeSort(sortItem?.value)}
+                            >
+                                {sortItem?.label}
+                            </Button>
+                        )
+                    }
+
+                </div>
+
+                <div className="flex md:hidden justify-start items-center gap-x-4">
 
                     <Button
                         variant="contained"
@@ -48,66 +75,18 @@ const Actionbar = () => {
                 </div>
 
                 <span className="text-base text-gray">
-                    12
+                    {totalCount}
                     <span className='text-xs mr-1'>
                         مورد
                     </span>
                 </span>
 
-            </div>
-
-            <SortModal
-                isOpenModal={isOpenSortModal && !isTablet}
-                onCloseModal={_handleHideSortModal}
-            />
-
-        </section>
-    )
-}
-
-const Sortbar = () => {
-
-    const router = useRouter();
-    const searchParams = useSearchParams();
-
-    return (
-        <section className='hidden md:flex flex-col justify-center items-start gap-y-4 w-full'>
-
-            <div className="flex justify-between items-center gap-x-4 w-full">
-
-                <div className="flex justify-start items-center">
-
-                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-                       <LuArrowDownWideNarrow size={20}/>
-                        مرتب سازی
-                    </span>
-
-                    <Button
-                        size="sm"
-                        variant={searchParams.get("sort") === "newest" ? "contained" : "text"}
-                        color={searchParams.get("sort") === "newest" ? "blue" : "gray"}
-                        onClick={() => router.push(`${process.env.BASE_URL}/account/my-advertises?page=${searchParams.get("page") || 1}&sort=newest`)}
-                    >
-                        جدید ترین
-                    </Button>
-
-                    <Button
-                        size="sm"
-                        variant={searchParams.get("sort") === "expensive" ? "contained" : "text"}
-                        color={searchParams.get("sort") === "expensive" ? "blue" : "gray"}
-                        onClick={() => router.push(`${process.env.BASE_URL}/account/my-advertises?page=${searchParams.get("page") || 1}&sort=expensive`)}
-                    >
-                        گران ترین
-                    </Button>
-
-                </div>
-
-                <span className="text-base text-gray">
-                    12
-                    <span className='text-xs mr-1'>
-                        مورد
-                    </span>
-                </span>
+                <SortModal
+                    sort={sort}
+                    _handleChangeSort={(value) => _handleChangeSort(value)}
+                    isOpenModal={isOpenSortModal && !isTablet}
+                    onCloseModal={_handleHideSortModal}
+                />
 
             </div>
 
@@ -115,25 +94,24 @@ const Sortbar = () => {
     )
 }
 
-const AdvertiseList = ({data , isPending}) => {
+const AdvertiseList = ({data}) => {
 
     return (
-        <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
+        <section className='flex flex-col justify-center items-start gap-y-4 w-full mb-auto'>
 
             <ul className="grid grid-cols-12 gap-4 w-full">
 
                 {
-                   !isPending && data?.length > 0 && data.map(advertiseItem =>
+                    data.map(advertiseItem =>
                         <li
-                            className="col-span-12 lg:col-span-6"
                             key={advertiseItem?._id}
+                            className="col-span-12 lg:col-span-6"
                         >
                             <AdvertiseCard
                                 advertiseItem={advertiseItem}
                                 toolbar={{
                                     delete: true,
                                     share: true,
-                                    edit: true
                                 }}
                             />
                         </li>
@@ -148,32 +126,62 @@ const AdvertiseList = ({data , isPending}) => {
 
 export const MyAdvertises = () => {
 
-    const router = useRouter();
-    const searchParams = useSearchParams();
+    const {page, limit, sort, _handleChangePage, _handleChangeSort} = useFilter();
 
-    const { isPending, data } = useQuery({
-        queryKey: ['allMyAdvertise' , {page: searchParams.get("page") , sort: searchParams.get("sort")}],
-        queryFn: () => getAllMyAdvertiseService({page: searchParams.get("page") , sort: searchParams.get("sort")})
+    const {isPending, data} = useQuery({
+        queryKey: ['allMyAdvertise', {page, limit, sort}],
+        queryFn: () => getAllMyAdvertiseService({page, limit, sort})
     });
 
     return (
-        <div className="flex flex-col justify-start items-center gap-y-4 w-full">
+        <div className="flex flex-col justify-start items-center gap-y-4 w-full h-full min-h-[calc(100dvh_-_32px)]">
 
-            <Actionbar/>
+            {
+                !isPending && data?.data?.length > 0 && (
+                    <SortBar
+                        totalCount={data?.totalCount}
+                        page={page}
+                        sort={sort}
+                        _handleChangePage={(value) => _handleChangePage(value)}
+                        _handleChangeSort={(value) => _handleChangeSort(value)}
+                    />
+                )
+            }
 
-            <Sortbar/>
+            {
+                !isPending && data?.data?.length > 0 && (
+                    <AdvertiseList data={data?.data}/>
+                )
+            }
 
-            <AdvertiseList
-                data={data?.data}
-                isPending={isPending}
-            />
+            {
+                !isPending && data?.totalCount > limit && (
+                    <Pagination
+                        currentPage={page}
+                        pageCount={data?.totalCount}
+                        pageSize={limit}
+                        onChange={(value) => _handleChangePage(value)}
+                    />
+                )
+            }
 
-            <Pagination
-                currentPage={parseInt(searchParams.get("page")) || 1}
-                pageCount={100}
-                pageSize={12}
-                onChange={(page) => router.push(`${process.env.BASE_URL}/account/my-advertises?page=${page}&sort=${searchParams.get("sort") || "newest"}`)}
-            />
+            {
+                isPending && (
+                    <SortBarPlaceholder/>
+                )
+            }
+
+            {
+                isPending && (
+                    <AdvertiseListPlaceholder/>
+                )
+            }
+
+            {
+                isPending && (
+                    <PaginationPlaceholder/>
+                )
+            }
 
         </div>
     )
