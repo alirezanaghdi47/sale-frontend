@@ -66,7 +66,7 @@ export const SortBarPlaceholder = () => {
 export const AdvertiseListPlaceholder = () => {
 
     return (
-        <section className='flex flex-col justify-center items-start gap-y-4 w-full mb-auto'>
+        <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
             <ul className="grid grid-cols-12 gap-4 w-full">
 

@@ -5,9 +5,22 @@ export const getAllAdvertiseService = async (data) => {
 
     try {
 
-        const {page = 1 , limit = 12 , sort = "newest" , search = "" , startPrice = 0 , endPrice = 1_000_000_000 , city , category } = data;
+        const {
+            page = 1,
+            limit = 8,
+            sort = "newest",
+            search = "",
+            startPrice = 0,
+            endPrice = 100_000_000,
+            city,
+            category
+        } = data;
 
-        const response = await axios.get(process.env.API_URL + "/api/advertise/getAllAdvertise" + `?page=${page}&limit=${limit}&sort=${sort}`);
+        const response = await axios.get(process.env.API_URL + "/api/advertise/getAllAdvertise", {
+            params: {
+                page, limit, sort, search, startPrice, endPrice, city, category
+            }
+        });
 
         return response.data;
 

@@ -35,7 +35,10 @@ export const getAllFavoriteService = async (data) => {
         const token = Cookie.get("accessToken");
         const {page , limit , sort} = data;
 
-        const response = await axios.get(process.env.API_URL + "/api/favorite/getAllFavorite" + `?page=${page}&limit=${limit}&sort=${sort}`, {
+        const response = await axios.get(process.env.API_URL + "/api/favorite/getAllFavorite", {
+            params:{
+                page , limit , sort
+            },
             headers: {
                 token,
             }

@@ -11,6 +11,14 @@
   &-handle{
     @apply w-[16px] h-[16px] opacity-100 bg-blue border-none #{!important};
 
+    &-1{
+      @apply ml-2 #{!important};
+    }
+
+    &-2{
+      @apply -ml-2 #{!important};
+    }
+
     &-dragging{
       @apply shadow-none #{!important};
     }

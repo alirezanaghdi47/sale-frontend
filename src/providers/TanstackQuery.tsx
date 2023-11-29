@@ -1,7 +1,7 @@
 "use client";
 
 // libraries
-import {QueryClient, QueryClientProvider,} from '@tanstack/react-query';
+import {dehydrate, HydrationBoundary, QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -15,9 +15,12 @@ const queryClient = new QueryClient({
 });
 
 const TanstackQuery = ({children}) => {
+
     return (
         <QueryClientProvider client={queryClient}>
-            {children}
+            <HydrationBoundary state={dehydrate(queryClient)}>
+                {children}
+            </HydrationBoundary>
         </QueryClientProvider>
     )
 }

@@ -2,7 +2,7 @@
 import {Metadata, Viewport} from "next";
 
 // components
-import {Header , Appbar , BottomNavigation , Footer} from "@/components/widgets/Public";
+import {Header , Appbar , BottomNavigation} from "@/components/widgets/Public";
 
 export const metadata: Metadata = {
     metadataBase: process.env.BASE_URL,
@@ -29,8 +29,6 @@ const HomeLayout = (props) => {
             {props.children}
 
             <BottomNavigation/>
-
-            <Footer/>
 
         </div>
     )

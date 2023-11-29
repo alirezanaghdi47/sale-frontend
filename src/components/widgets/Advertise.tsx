@@ -8,6 +8,7 @@ import Image from "next/image";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
+import {useMediaQuery} from "@react-hooks-library/core";
 import {formatDistance} from "date-fns";
 import {faIR} from "date-fns/locale";
 import {
@@ -37,7 +38,6 @@ import "@/styles/customize/swiper.scss";
 // utils
 import {copyToClipboard} from "@/utils/functions";
 import {categoryList, cityList} from "@/utils/constants";
-import {useMediaQuery} from "@react-hooks-library/core";
 
 const Gallery = ({data}) => {
 
@@ -190,22 +190,22 @@ const Features = ({data}) => {
 
                 <ul className="grid grid-cols-12 gap-4 w-full">
 
-                    <li className="col-span-12 sm:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuMapPin size={24}/>
                         {cityList.find(cityItem => cityItem.value === data?.city)?.label}
                     </li>
 
-                    <li className="col-span-12 sm:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuLayers size={24}/>
                         {categoryList.find(categoryItem => categoryItem.value === data?.category)?.label}
                     </li>
 
-                    <li className="col-span-12 sm:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuCalendar size={24}/>
                         {formatDistance(new Date(data?.createdAt), new Date(), {addSuffix: true, locale: faIR})}
                     </li>
 
-                    <li className="col-span-12 sm:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
+                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuDollarSign size={24}/>
                         {data?.price.toLocaleString()}
                         &nbsp;
@@ -295,9 +295,7 @@ const Visual = ({data}) => {
 
     return (
         <div
-            className="md:sticky md:top-[86px] flex flex-col justify-start items-center gap-y-4 w-full md:w-[320px]">
-
-            <Summary data={data}/>
+            className="md:sticky md:top-[86px] flex flex-col justify-start items-center gap-y-4 w-full md:w-[320px] lg:w-[360px]">
 
             <Gallery data={data}/>
 
@@ -313,6 +311,8 @@ const Content = ({data}) => {
 
     return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
+
+            <Summary data={data}/>
 
             <Description data={data}/>
 
@@ -339,11 +339,14 @@ export const Advertise = () => {
         <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
             {
-                !isPending && data && (
-                    <>
-                        <Visual data={data?.data}/>
-                        <Content data={data?.data}/>
-                    </>
+                !isPending && (
+                    <Visual data={data?.data}/>
+                )
+            }
+
+            {
+                !isPending && (
+                    <Content data={data?.data}/>
                 )
             }
 

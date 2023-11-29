@@ -1,8 +1,9 @@
 'use client';
 
 // libraries
+import {usePathname , useRouter , useSearchParams} from "next/navigation";
 import {useFormik} from "formik";
-import {LuCheck, LuX} from "react-icons/lu";
+import {LuCheck} from "react-icons/lu";
 
 // components
 import {Modal, ModalHeader, ModalBody, ModalFooter} from "@/components/modules/Modal";
@@ -12,17 +13,33 @@ import CheckBox from "@/components/modules/CheckBox";
 import RangeInput from "@/components/modules/RangeInput";
 import SwitchBox from "@/components/modules/SwitchBox";
 
+// utils
+import {categoryList} from "@/utils/constants";
+import {generateQueryParams} from "@/utils/functions";
+
 const FilterModal = ({isOpenModal, onCloseModal}) => {
 
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            prices: [2_500_000, 7_500_000],
-            hasImage: false,
-            categories: []
+            prices: searchParams.get("startPrice") && searchParams.get("endPrice") ? [parseInt(searchParams.get("startPrice")), parseInt(searchParams.get("endPrice"))] : [0, 100_000_000],
+            categories: searchParams.getAll("category") ?? []
         },
-        // validationSchema: ,
-        onSubmit: async (data) => {
-            console.log(data)
+        onSubmit: async (result) => {
+            const query = generateQueryParams({
+                search: searchParams.get("search"),
+                page: searchParams.get("page"),
+                sort: searchParams.get("sort"),
+                startPrice: result.prices[0],
+                endPrice: result.prices[1],
+                categories: result.categories,
+                cities: searchParams.getAll("city"),
+            });
+            router.push(`${pathname}?${query}`);
         }
     });
 
@@ -44,58 +61,39 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                 <Accordion>
 
-                    <AccordionItem
-                        initialEntered
-                        header="دسته بندی ها"
-                    >
+                    <AccordionItem header="دسته بندی ها">
 
-                        <label
-                            htmlFor="checkbox-mobile"
-                            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
-                        >
+                        {
+                            categoryList.map(categoryItem =>
+                                <label
+                                    key={categoryItem?.id}
+                                    htmlFor={`checkbox-${categoryItem?.value}`}
+                                    className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
+                                >
 
-                            <CheckBox
-                                name="categories"
-                                value="mobile"
-                                checked={formik.values.categories.includes("mobile")}
-                                onChange={formik.handleChange}
-                            />
+                                    <CheckBox
+                                        name="categories"
+                                        value={categoryItem?.value}
+                                        checked={formik.values.categories.includes(categoryItem?.value)}
+                                        onChange={formik.handleChange}
+                                    />
 
-                            <span className="text-xs font-bold text-dark">
-                                موبایل
-                            </span>
+                                    <span className="text-xs font-bold text-dark">
+                                        {categoryItem?.label}
+                                    </span>
 
-                        </label>
-
-                        <label
-                            htmlFor="checkbox-laptop"
-                            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
-                        >
-
-                            <CheckBox
-                                name="categories"
-                                value="laptop"
-                                checked={formik.values.categories.includes("laptop")}
-                                onChange={formik.handleChange}
-                            />
-
-                            <span className="text-xs font-bold text-dark">
-                                لپتاپ
-                            </span>
-
-                        </label>
+                                </label>
+                            )
+                        }
 
                     </AccordionItem>
 
-                    <AccordionItem
-                        initialEntered
-                        header="قیمت"
-                    >
+                    <AccordionItem header="قیمت">
 
                         <RangeInput
                             min={0}
-                            max={10_000_000}
-                            step={1000}
+                            max={100_000_000}
+                            step={10_000_000}
                             values={formik.values.prices}
                             onChange={(values) => formik.setFieldValue("prices", values)}
                         />
@@ -118,30 +116,27 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                     </AccordionItem>
 
-                    <AccordionItem
-                        initialEntered
-                        header="وضعیت"
-                    >
+                    {/*<AccordionItem header="وضعیت">*/}
 
-                        <label
-                            htmlFor="switchbox-hasImage"
-                            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
-                        >
+                    {/*    <label*/}
+                    {/*        htmlFor="switchbox-hasImage"*/}
+                    {/*        className="flex justify-start items-center gap-x-2 w-full cursor-pointer"*/}
+                    {/*    >*/}
 
-                            <SwitchBox
-                                name="hasImage"
-                                value={true}
-                                checked={formik.values.hasImage}
-                                onChange={formik.handleChange}
-                            />
+                    {/*        <SwitchBox*/}
+                    {/*            name="hasImage"*/}
+                    {/*            value={true}*/}
+                    {/*            checked={formik.values.hasImage}*/}
+                    {/*            onChange={formik.handleChange}*/}
+                    {/*        />*/}
 
-                            <span className="text-xs font-bold text-dark">
-                                عکس دار
-                            </span>
+                    {/*        <span className="text-xs font-bold text-dark">*/}
+                    {/*            عکس دار*/}
+                    {/*        </span>*/}
 
-                        </label>
+                    {/*    </label>*/}
 
-                    </AccordionItem>
+                    {/*</AccordionItem>*/}
 
                 </Accordion>
 
@@ -162,6 +157,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                         variant="contained"
                         color="blue"
                         startIcon={<LuCheck size={20}/>}
+                        onClick={formik.handleSubmit}
                     >
                         ثبت
                     </Button>

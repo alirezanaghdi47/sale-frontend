@@ -97,7 +97,7 @@ const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort})
 const AdvertiseList = ({data}) => {
 
     return (
-        <section className='flex flex-col justify-center items-start gap-y-4 w-full mb-auto'>
+        <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
             <ul className="grid grid-cols-12 gap-4 w-full">
 

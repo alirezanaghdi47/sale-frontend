@@ -45,9 +45,12 @@ export const getAllMyAdvertiseService = async (data) => {
     try {
 
         const token = Cookie.get("accessToken");
-        const {page , limit , sort} = data;
+        const {page, limit, sort} = data;
 
-        const response = await axios.get(process.env.API_URL + "/api/myAdvertise/getAllMyAdvertise" + `?page=${page}&limit=${limit}&sort=${sort}`, {
+        const response = await axios.get(process.env.API_URL + "/api/myAdvertise/getAllMyAdvertise", {
+            params: {
+                page, limit, sort
+            },
             headers: {
                 token,
             }

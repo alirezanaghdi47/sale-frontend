@@ -1,6 +1,7 @@
 'use client';
 
 // libraries
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useFormik} from "formik";
 import {LuCheck, LuSearch, LuX} from "react-icons/lu";
 
@@ -12,60 +13,32 @@ import TextInput from "@/components/modules/TextInput";
 
 // utils
 import {cityList} from "@/utils/constants";
+import {generateQueryParams} from "@/utils/functions";
 
-const CityItem = ({cityItem , formik}) => {
+const CitiesModal = ({isOpenModal, onCloseModal}) => {
 
-    return (
-        <label
-            htmlFor={`checkbox-${cityItem.value}`}
-            className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
-        >
-
-            <CheckBox
-                name="cities"
-                value={cityItem.value}
-                checked={formik.values.cities.includes(cityItem.value)}
-                onChange={formik.handleChange}
-            />
-
-            <span className="text-xs font-bold text-dark">
-                {cityItem.label}
-            </span>
-
-        </label>
-    )
-}
-
-const CityList = () => {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const formik = useFormik({
         initialValues:{
-            cities: []
+            cities: searchParams.getAll("city") ?? []
         },
-        // validationSchema: ,
-        onSubmit: async (data) => {
-            console.log(data)
+        onSubmit: async (result) => {
+            const query = generateQueryParams({
+                search: searchParams.get("search"),
+                page: searchParams.get("page"),
+                sort: searchParams.get("sort"),
+                startPrice: searchParams.get("startPrice"),
+                endPrice: searchParams.get("endPrice"),
+                categories: searchParams.getAll("category"),
+                cities: result.cities,
+            });
+            router.push(`${pathname}?${query}`);
+            onCloseModal();
         }
     });
-
-    return (
-        <ul className='flex flex-col justify-start items-start gap-y-4 w-full max-h-[200px] overflow-y-scroll'>
-
-            {
-                cityList.map(cityItem =>
-                    <CityItem
-                        key={cityItem.id}
-                        cityItem={cityItem}
-                        formik={formik}
-                    />
-                )
-            }
-
-        </ul>
-    )
-}
-
-const CitiesModal = ({isOpenModal, onCloseModal}) => {
 
     return (
         <Modal
@@ -93,7 +66,32 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                     }
                 />
 
-                <CityList/>
+                <ul className='flex flex-col justify-start items-start gap-y-4 w-full max-h-[200px] overflow-y-scroll'>
+
+                    {
+                        cityList.map(cityItem =>
+                            <label
+                                key={cityItem.id}
+                                htmlFor={`checkbox-${cityItem.value}`}
+                                className="flex justify-start items-center gap-x-2 w-full cursor-pointer"
+                            >
+
+                                <CheckBox
+                                    name="cities"
+                                    value={cityItem.value}
+                                    checked={formik.values.cities.includes(cityItem.value)}
+                                    onChange={formik.handleChange}
+                                />
+
+                                <span className="text-xs font-bold text-dark">
+                                    {cityItem.label}
+                                </span>
+
+                            </label>
+                        )
+                    }
+
+                </ul>
 
             </ModalBody>
 
@@ -103,6 +101,7 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                         variant="text"
                         color="gray"
                         startIcon={<LuX size={20}/>}
+                        onClick={onCloseModal}
                     >
                         انصراف
                     </Button>
@@ -112,6 +111,7 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                         variant="contained"
                         color="blue"
                         startIcon={<LuCheck size={20}/>}
+                        onClick={formik.handleSubmit}
                     >
                         ثبت
                     </Button>

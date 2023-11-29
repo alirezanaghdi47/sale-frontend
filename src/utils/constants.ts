@@ -17,6 +17,10 @@ export const cityList = [
 export const categoryList = [
     {id: "1", label: "موبایل", value: "mobile"},
     {id: "2", label: "لپتاپ", value: "laptop"},
+    {id: "3", label: "تبلت", value: "tablet"},
+    {id: "4", label: "دسکتاپ", value: "pc"},
+    {id: "5", label: "هدفون", value: "headphone"},
+    {id: "6", label: "گجت پوشیدنی", value: "gadget"},
 ];
 
 export const qualityList = [
