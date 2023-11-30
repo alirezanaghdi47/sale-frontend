@@ -1,17 +1,17 @@
 "use client";
 
 // components
-import {NotFoundClient} from "@/components/partials/Empties";
+import {NotFoundServer} from "@/components/partials/Empties";
 
-const NotFound = () => {
+const Error = () => {
 
     return (
         <div className="flex flex-col justify-center items-center gap-y-4 w-full p-4">
 
-            <NotFoundClient/>
+            <NotFoundServer/>
 
         </div>
     )
 }
 
-export default NotFound;
+export default Error;

@@ -1,9 +1,9 @@
 'use client';
 
 // libraries
-import {usePathname , useRouter , useSearchParams} from "next/navigation";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useFormik} from "formik";
-import {LuCheck} from "react-icons/lu";
+import {LuCheck, LuX} from "react-icons/lu";
 
 // components
 import {Modal, ModalHeader, ModalBody, ModalFooter} from "@/components/modules/Modal";
@@ -26,7 +26,8 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            prices: searchParams.get("startPrice") && searchParams.get("endPrice") ? [parseInt(searchParams.get("startPrice")), parseInt(searchParams.get("endPrice"))] : [0, 100_000_000],
+            startPrice: searchParams.get("startPrice") ? parseInt(searchParams.get("startPrice")) : 0,
+            endPrice: searchParams.get("endPrice") ? parseInt(searchParams.get("endPrice")) : 100_000_000,
             categories: searchParams.getAll("category") ?? []
         },
         onSubmit: async (result) => {
@@ -34,8 +35,8 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                 search: searchParams.get("search"),
                 page: searchParams.get("page"),
                 sort: searchParams.get("sort"),
-                startPrice: result.prices[0],
-                endPrice: result.prices[1],
+                startPrice: result.startPrice,
+                endPrice: result.endPrice,
                 categories: result.categories,
                 cities: searchParams.getAll("city"),
             });
@@ -94,20 +95,23 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                             min={0}
                             max={100_000_000}
                             step={10_000_000}
-                            values={formik.values.prices}
-                            onChange={(values) => formik.setFieldValue("prices", values)}
+                            values={[formik.values.startPrice , formik.values.endPrice]}
+                            onChange={(values) => {
+                                formik.setFieldValue("startPrice", values[0]);
+                                formik.setFieldValue("endPrice", values[1]);
+                            }}
                         />
 
                         <div className="flex justify-between items-center gap-x-4 w-full">
 
                             <span className="text-xs text-gray">
-                                {formik.values.prices[1]?.toLocaleString()}
+                                {formik.values.endPrice?.toLocaleString()}
                                 &nbsp;
                                 تومان
                             </span>
 
                             <span className="text-xs text-gray">
-                                {formik.values.prices[0]?.toLocaleString()}
+                                {formik.values.startPrice?.toLocaleString()}
                                 &nbsp;
                                 تومان
                             </span>
@@ -116,42 +120,34 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                     </AccordionItem>
 
-                    {/*<AccordionItem header="وضعیت">*/}
-
-                    {/*    <label*/}
-                    {/*        htmlFor="switchbox-hasImage"*/}
-                    {/*        className="flex justify-start items-center gap-x-2 w-full cursor-pointer"*/}
-                    {/*    >*/}
-
-                    {/*        <SwitchBox*/}
-                    {/*            name="hasImage"*/}
-                    {/*            value={true}*/}
-                    {/*            checked={formik.values.hasImage}*/}
-                    {/*            onChange={formik.handleChange}*/}
-                    {/*        />*/}
-
-                    {/*        <span className="text-xs font-bold text-dark">*/}
-                    {/*            عکس دار*/}
-                    {/*        </span>*/}
-
-                    {/*    </label>*/}
-
-                    {/*</AccordionItem>*/}
-
                 </Accordion>
 
             </ModalBody>
 
             <ModalFooter
-                // cancelButton={
-                //     <Button
-                //         variant="text"
-                //         color="red"
-                //         startIcon={<LuX size={20}/>}
-                //     >
-                //         حذف همه
-                //     </Button>
-                // }
+                cancelButton={
+                    (searchParams.getAll("category").length > 0 || searchParams.get("startPrice") || searchParams.get("endPrice")) && (
+                        <Button
+                            variant="text"
+                            color="red"
+                            startIcon={<LuX size={20}/>}
+                            onClick={() => {
+                                const query = generateQueryParams({
+                                    search: searchParams.get("search"),
+                                    page: searchParams.get("page"),
+                                    sort: searchParams.get("sort"),
+                                    startPrice: 0,
+                                    endPrice: 0,
+                                    categories: [],
+                                    cities: searchParams.getAll("city"),
+                                });
+                                router.push(`${pathname}?${query}`);
+                            }}
+                        >
+                            حذف فیلتر ها
+                        </Button>
+                    )
+                }
                 submitButton={
                     <Button
                         variant="contained"

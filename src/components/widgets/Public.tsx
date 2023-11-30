@@ -4,25 +4,23 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useFormik} from "formik";
 import {
     LuPlus,
     LuScrollText,
     LuUser,
     LuSearch,
-    LuCopyright,
     LuMapPin,
     LuBookmark,
     LuLogOut,
     LuLogIn
 } from "react-icons/lu";
-import {BsInstagram, BsTelegram, BsTwitter, BsWhatsapp} from "react-icons/bs";
 
 // components
 import {Button, LinkButton} from "@/components/modules/Button";
-import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
-
+import SearchInput from "@/components/modules/SearchInput";
 const Menu = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
 const MenuItem = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
 const CitiesModal = dynamic(() => import("@/components/partials/CitiesModal"), {ssr: false});
@@ -30,6 +28,10 @@ const CitiesModal = dynamic(() => import("@/components/partials/CitiesModal"), {
 // hooks
 import {useModal} from "@/hooks/useModal";
 import {useAuth} from "@/hooks/useAuth";
+
+// utils
+import {cityList} from "@/utils/constants";
+import {generateQueryParams} from "@/utils/functions";
 
 const Logo = () => {
 
@@ -47,6 +49,8 @@ const Logo = () => {
 }
 
 const AppbarActions = () => {
+
+    const searchParams = useSearchParams();
 
     const {
         isOpenModal: isOpenCitiesModal,
@@ -71,7 +75,9 @@ const AppbarActions = () => {
                     startIcon={<LuMapPin size={20}/>}
                     onClick={_handleShowCitiesModal}
                 >
-                    تهران
+                    {searchParams.getAll("city").length === 0 && "انتخاب کنید"}
+                    {searchParams.getAll("city").length === 1 && cityList.find(cityItem => cityItem.value === searchParams.get("city"))?.label}
+                    {searchParams.getAll("city").length > 1 && `${searchParams.getAll("city").length} شهر `}
                 </Button>
 
             </div>
@@ -106,7 +112,9 @@ export const Appbar = () => {
 const BottomLinks = () => {
 
     const pathname = usePathname();
-    const {isAuth, user, _handleLogout} = useAuth();
+    const {isAuth, user} = useAuth();
+
+
 
     return (
         <ul className="grid grid-cols-12 gap-2 w-full">
@@ -129,20 +137,42 @@ const BottomLinks = () => {
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                    href="/account/my-advertises/add"
-                    vertical
-                    startIcon={
-                        <LuPlus
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                >
-                    آگهی جدید
-                </LinkButton>
+                {
+                    (!user?.name || !user?.family || !user?.phoneNumber) ? (
+                        <Button
+                            variant="text"
+                            color="gray"
+                            vertical
+                            startIcon={
+                                <LuPlus
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                            onClick={async () => {
+                                const {notification} = await import("@/components/modules/Notification");
+                                notification(isAuth ? "ابتدا حساب کاربری خود را تکمیل کنید" : "ابتدا وارد حساب کاربری خود شوید", "error");
+                            }}
+                        >
+                            آگهی جدید
+                        </Button>
+                    ) : (
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
+                            href="/account/my-advertises/add"
+                            vertical
+                            startIcon={
+                                <LuPlus
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                        >
+                            آگهی جدید
+                        </LinkButton>
+                    )
+                }
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
@@ -230,11 +260,33 @@ export const BottomNavigation = () => {
 
 const HeaderActions = () => {
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
     const {
         isOpenModal: isOpenCitiesModal,
         _handleShowModal: _handleShowCitiesModal,
         _handleHideModal: _handleHideCitiesModal
     } = useModal();
+
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues: {
+            search: searchParams.get("search") ?? ""
+        },
+        onSubmit: async (result) => {
+            const query = generateQueryParams({
+                search: result.search,
+                page: searchParams.get("page"),
+                sort: searchParams.get("sort"),
+                startPrice: searchParams.get("startPrice"),
+                endPrice: searchParams.get("endPrice"),
+                categories: searchParams.getAll("category"),
+                cities: searchParams.getAll("city"),
+            });
+            router.push(`${process.env.BASE_URL}/advertises?${query}`);
+        }
+    });
 
     return (
         <>
@@ -247,13 +299,17 @@ const HeaderActions = () => {
                     startIcon={<LuMapPin size={20}/>}
                     onClick={_handleShowCitiesModal}
                 >
-                    تهران
+                    {searchParams.getAll("city").length === 0 && "انتخاب کنید"}
+                    {searchParams.getAll("city").length === 1 && cityList.find(cityItem => cityItem.value === searchParams.get("city"))?.label}
+                    {searchParams.getAll("city").length > 1 && `${searchParams.getAll("city").length} شهر `}
                 </Button>
 
-                <TextInput
+                <SearchInput
                     name="search"
                     placeholder="جستجو"
-                    startIcon={<LuSearch size={20}/>}
+                    value={formik.values.search}
+                    onChange={formik.handleChange}
+                    onSubmit={formik.handleSubmit}
                 />
 
             </div>
@@ -379,19 +435,40 @@ const HeaderLinks = () => {
                 )
             }
 
-            <LinkButton
-                variant="contained"
-                color="blue"
-                href="/account/my-advertises/add"
-                startIcon={
-                    <LuPlus
-                        size={20}
-                        className="text-current"
-                    />
-                }
-            >
-                آگهی جدید
-            </LinkButton>
+            {
+                (!user?.name || !user?.family || !user?.phoneNumber) ? (
+                    <Button
+                        variant="contained"
+                        color="blue"
+                        startIcon={
+                            <LuPlus
+                                size={20}
+                                className="text-current"
+                            />
+                        }
+                        onClick={async () => {
+                            const {notification} = await import("@/components/modules/Notification");
+                            notification(isAuth ? "ابتدا حساب کاربری خود را تکمیل کنید" : "ابتدا وارد حساب کاربری خود شوید", "error");
+                        }}
+                    >
+                        آگهی جدید
+                    </Button>
+                ) : (
+                    <LinkButton
+                        variant="contained"
+                        color="blue"
+                        href="/account/my-advertises/add"
+                        startIcon={
+                            <LuPlus
+                                size={20}
+                                className="text-current"
+                            />
+                        }
+                    >
+                        آگهی جدید
+                    </LinkButton>
+                )
+            }
 
         </div>
     )

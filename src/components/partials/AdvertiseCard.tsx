@@ -1,10 +1,8 @@
 "use client";
 
 // libraries
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {formatDistance} from "date-fns";
 import {faIR} from 'date-fns/locale';
 import {LuDot, LuPen, LuShare2, LuTrash2} from "react-icons/lu";
@@ -12,56 +10,10 @@ import {LuDot, LuPen, LuShare2, LuTrash2} from "react-icons/lu";
 // components
 import {IconButton} from "@/components/modules/IconButton";
 
-const DeleteAdvertiseDialog = dynamic(() => import("@/components/partials/DeleteAdvertiseDialog"), {ssr: false});
-
-// hooks
-import {useDialog} from "@/hooks/useDialog";
-
-// services
-import {deleteMyAdvertiseService} from "@/services/myAdvertiseService";
-
 // utils
 import {cityList, qualityList} from "@/utils/constants";
-import {copyToClipboard} from "@/utils/functions";
 
 const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
-
-    const queryClient = useQueryClient();
-
-    const {mutate, isPending} = useMutation({
-        mutationFn: (data) => deleteMyAdvertiseService(data),
-        onSuccess: async (data) => {
-            const {notification} = await import("@/components/modules/Notification");
-
-            if (data.status === "success") {
-                queryClient.invalidateQueries({queryKey: ["allMyAdvertise"]});
-                notification(data.message, "success");
-            } else {
-                notification(data.message, "error");
-            }
-        }
-    });
-
-    const {
-        isOpenDialog: isOpenDeleteDialog,
-        _handleShowDialog: _handleShowDeleteDialog,
-        _handleHideDialog: _handleHideDeleteDialog
-    } = useDialog();
-
-    const _handleDeleteAdvertise = async (advertiseId) => {
-        mutate(advertiseId);
-    }
-
-    const _handleEditAdvertise = async () => {
-
-    }
-
-    const _handleShareAdvertise = async (link) => {
-        const {notification} = await import("@/components/modules/Notification");
-        return copyToClipboard(link)
-            .then(res => notification(res, "success"))
-            .catch(err => notification(err, "error"));
-    }
 
     return (
         <>
@@ -87,7 +39,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                         alt="advertise"
                         width={120}
                         height={120}
-                        className="min-w-[120px] min-h-[120px] object-cover object-center rounded-lg"
+                        className="min-w-[120px] w-[120px] min-h-[120px] h-[120px] object-cover object-center rounded-lg"
                     />
                 </Link>
 
@@ -137,7 +89,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                     <IconButton
                                         variant="text"
                                         color="gray"
-                                        onClick={() => _handleShareAdvertise(`${process.env.BASE_URL}/advertises/${advertiseItem?._id}`)}
+                                        onClick={toolbar.share.onClick}
                                     >
                                         <LuShare2 size={20}/>
                                     </IconButton>
@@ -149,7 +101,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                     <IconButton
                                         variant="text"
                                         color="yellow"
-                                        onClick={() => _handleEditAdvertise(advertiseItem?._id)}
+                                        onClick={toolbar.edit.onClick}
                                     >
                                         <LuPen size={20}/>
                                     </IconButton>
@@ -161,7 +113,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                     <IconButton
                                         variant="text"
                                         color="red"
-                                        onClick={_handleShowDeleteDialog}
+                                        onClick={toolbar.delete.onClick}
                                     >
                                         <LuTrash2 size={20}/>
                                     </IconButton>
@@ -171,12 +123,6 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                         </div>
                     )
                 }
-
-                <DeleteAdvertiseDialog
-                    onDelete={() => _handleDeleteAdvertise(advertiseItem?._id)}
-                    isOpenDialog={isOpenDeleteDialog}
-                    onCloseDialog={_handleHideDeleteDialog}
-                />
 
             </article>
 

@@ -9,7 +9,6 @@ const queryClient = new QueryClient({
             retry: false,
             refetchOnWindowFocus: false,
             refetchOnReconnect: false,
-            refetchOnMount: false,
         }
     }
 });

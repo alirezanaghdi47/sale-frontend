@@ -1,12 +1,13 @@
 'use client';
 
 // libraries
+import {useState} from "react";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useFormik} from "formik";
 import {LuCheck, LuSearch, LuX} from "react-icons/lu";
 
 // components
-import {Modal , ModalHeader , ModalBody , ModalFooter} from "@/components/modules/Modal";
+import {Modal, ModalHeader, ModalBody, ModalFooter} from "@/components/modules/Modal";
 import {Button} from "@/components/modules/Button";
 import CheckBox from "@/components/modules/CheckBox";
 import TextInput from "@/components/modules/TextInput";
@@ -21,8 +22,11 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
+    const [search, setSearch] = useState("");
+    const regex = new RegExp(search, "g");
+
     const formik = useFormik({
-        initialValues:{
+        initialValues: {
             cities: searchParams.getAll("city") ?? []
         },
         onSubmit: async (result) => {
@@ -35,7 +39,7 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                 categories: searchParams.getAll("category"),
                 cities: result.cities,
             });
-            router.push(`${pathname}?${query}`);
+            router.push(`${process.env.BASE_URL}/advertises?${query}`);
             onCloseModal();
         }
     });
@@ -64,12 +68,14 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                             className="text-gray"
                         />
                     }
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
                 />
 
                 <ul className='flex flex-col justify-start items-start gap-y-4 w-full max-h-[200px] overflow-y-scroll'>
 
                     {
-                        cityList.map(cityItem =>
+                        cityList.filter(item => item.label.match(regex)).map(cityItem =>
                             <label
                                 key={cityItem.id}
                                 htmlFor={`checkbox-${cityItem.value}`}

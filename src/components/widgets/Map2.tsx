@@ -8,8 +8,6 @@ import markerIcon from "../../../public/assets/images/marker.svg";
 // styles
 import "leaflet/dist/leaflet.css";
 import "@/styles/customize/leaflet.scss";
-import {IconButton} from "@/components/modules/IconButton";
-import {LuMinus, LuPlus} from "react-icons/lu";
 
 const Map2 = ({setLocation}) => {
 

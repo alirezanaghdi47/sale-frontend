@@ -2,7 +2,7 @@
 
 // libraries
 import dynamic from "next/dynamic";
-import {useQuery} from "@tanstack/react-query";
+import {useQuery , useMutation, useQueryClient} from "@tanstack/react-query";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {LuArrowDownWideNarrow} from "react-icons/lu";
 
@@ -11,17 +11,21 @@ import {Button} from "@/components/modules/Button";
 import Pagination from "@/components/modules/Pagination";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import {PaginationPlaceholder , AdvertiseListPlaceholder , SortBarPlaceholder} from "@/components/partials/Placeholders";
+import {MyAdvertiseListEmpty} from "@/components/partials/Empties";
 const SortModal = dynamic(() => import("@/components/partials/SortModal"), {ssr: false});
+const DeleteAdvertiseDialog = dynamic(() => import("@/components/partials/DeleteAdvertiseDialog"), {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
 import {useFilter} from "@/hooks/useFilter";
+import {useDialog} from "@/hooks/useDialog";
 
 // services
-import {getAllMyAdvertiseService} from "@/services/myAdvertiseService";
+import {getAllMyAdvertiseService , deleteMyAdvertiseService} from "@/services/myAdvertiseService";
 
 // utils
 import {sortList} from "@/utils/constants";
+import {copyToClipboard} from "@/utils/functions";
 
 const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort}) => {
 
@@ -96,6 +100,47 @@ const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort})
 
 const AdvertiseList = ({data}) => {
 
+    const queryClient = useQueryClient();
+
+    const {
+        dialogData,
+        isOpenDialog: isOpenDeleteDialog,
+        _handleShowDialog: _handleShowDeleteDialog,
+        _handleHideDialog: _handleHideDeleteDialog
+    } = useDialog();
+
+    const {mutate, isPending} = useMutation({
+        mutationFn: (data) => deleteMyAdvertiseService(data),
+        onSuccess: async (data) => {
+
+            const {notification} = await import("@/components/modules/Notification");
+
+            if (data.status === "success") {
+                queryClient.invalidateQueries({queryKey: ["allMyAdvertise"]});
+                notification(data.message, "success");
+            } else {
+                notification(data.message, "error");
+            }
+
+            _handleHideDeleteDialog();
+
+        }
+    });
+
+    const _handleDeleteFromFavorite = async () => {
+        mutate(dialogData);
+    }
+
+    const _handleShareAdvertise = async (link) => {
+
+        const {notification} = await import("@/components/modules/Notification");
+
+        return copyToClipboard(link)
+            .then(res => notification(res, "success"))
+            .catch(err => notification(err, "error"));
+
+    }
+
     return (
         <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
 
@@ -110,8 +155,12 @@ const AdvertiseList = ({data}) => {
                             <AdvertiseCard
                                 advertiseItem={advertiseItem}
                                 toolbar={{
-                                    delete: true,
-                                    share: true,
+                                    delete: {
+                                        onClick: () => _handleShowDeleteDialog(advertiseItem?._id)
+                                    },
+                                    share: {
+                                        onClick: () => _handleShareAdvertise(`${process.env.BASE_URL}/advertises/${advertiseItem?._id}`)
+                                    },
                                 }}
                             />
                         </li>
@@ -119,6 +168,12 @@ const AdvertiseList = ({data}) => {
                 }
 
             </ul>
+
+            <DeleteAdvertiseDialog
+                onDelete={() => _handleDeleteFromFavorite()}
+                isOpenDialog={isOpenDeleteDialog}
+                onCloseDialog={_handleHideDeleteDialog}
+            />
 
         </section>
     )
@@ -128,13 +183,13 @@ export const MyAdvertises = () => {
 
     const {page, limit, sort, _handleChangePage, _handleChangeSort} = useFilter();
 
-    const {isPending, data} = useQuery({
+    const {isPending, data , error} = useQuery({
         queryKey: ['allMyAdvertise', {page, limit, sort}],
         queryFn: () => getAllMyAdvertiseService({page, limit, sort})
     });
 
     return (
-        <div className="flex flex-col justify-start items-center gap-y-4 w-full h-full min-h-[calc(100dvh_-_32px)]">
+        <div className="flex flex-col justify-start items-center gap-y-4 w-full h-full">
 
             {
                 !isPending && data?.data?.length > 0 && (
@@ -180,6 +235,12 @@ export const MyAdvertises = () => {
             {
                 isPending && (
                     <PaginationPlaceholder/>
+                )
+            }
+
+            {
+                !isPending && (error || data?.data?.length === 0) && (
+                    <MyAdvertiseListEmpty/>
                 )
             }
 

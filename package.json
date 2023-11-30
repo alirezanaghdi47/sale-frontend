@@ -1,6 +1,6 @@
 {
   "name": "sale-frontend",
-  "version": "0.8.8",
+  "version": "0.9.1",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -1,11 +1,12 @@
 // libraries
+import {notFound} from "next/navigation";
 import {QueryClient} from "@tanstack/react-query";
 
 // components
 import {Advertise} from "@/components/widgets/Advertise";
 
 // services
-import {getAdvertiseService} from "@/services/advertiseService";
+import {getAdvertiseService, getRelativeAdvertiseService} from "@/services/advertiseService";
 
 const AdvertisePage = async ({params}) => {
 
@@ -14,6 +15,11 @@ const AdvertisePage = async ({params}) => {
     await queryClient.prefetchQuery({
         queryKey: ["advertise" , {advertiseId: params?.advertiseId}],
         queryFn: () => getAdvertise({advertiseId: params?.advertiseId})
+    });
+
+    await queryClient.prefetchQuery({
+        queryKey: ["relativeAdvertise" , {advertiseId: params?.advertiseId}],
+        queryFn: () => getRelativeAdvertise({advertiseId: params?.advertiseId})
     });
 
     return (
@@ -26,22 +32,40 @@ const AdvertisePage = async ({params}) => {
 }
 
 export async function getAdvertise(id) {
+
     const advertise = await getAdvertiseService(id);
-    return advertise;
+
+    if (advertise?.data) {
+        return advertise;
+    } else {
+        return notFound();
+    }
+
+}
+
+export async function getRelativeAdvertise(id) {
+
+    const relativeAdvertise = await getRelativeAdvertiseService(id);
+
+    return relativeAdvertise;
+
 }
 
 export async function generateMetadata({ params }) {
 
+    const advertise = await getAdvertise(params.advertiseId)
+
     return {
-        title: params.advertiseId,
+        title: advertise?.data?.title,
+        description: advertise?.data?.description,
         openGraph: {
-            title: 'advertise title',
-            description: 'advertise description',
-            url: process.env.BASE_URL,
+            title: advertise?.data?.title,
+            description: advertise?.data?.description,
+            url: `${process.env.BASE_URL}/advertises/${advertise?.data?._id}`,
             siteName: 'Next.js',
             images: [
                 {
-                    url: 'advertise image url',
+                    url: advertise?.data?.gallery[0],
                     width: 120,
                     height: 120,
                 },
@@ -51,9 +75,15 @@ export async function generateMetadata({ params }) {
         },
         twitter: {
             card: 'summary_large_image',
-            title: 'advertise title',
-            description: 'advertise description',
-            images: ['advertise image url'],
+            title: advertise?.data?.title,
+            description: advertise?.data?.description,
+            images: [
+                {
+                    url: advertise?.data?.gallery[0],
+                    width: 120,
+                    height: 120,
+                },
+            ],
         },
     }
 }

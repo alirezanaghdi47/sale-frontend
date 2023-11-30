@@ -17,7 +17,6 @@ import SelectBox from "@/components/modules/SelectBox";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import FileInput from "@/components/modules/FileInput";
-
 const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
 
 // hooks
@@ -261,7 +260,10 @@ const Detail = ({data, setData, onPrev, onNext}) => {
                                 className="text-current"
                             />
                         }
-                        onClick={onPrev}
+                        onClick={() => {
+                            onPrev();
+                            setData({...data, ...formik.values});
+                        }}
                     >
                         قبلی
                     </Button>
@@ -288,7 +290,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
     )
 }
 
-const Vendor = ({data, onPrev, onSubmit}) => {
+const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
     const queryClient = useQueryClient();
 
@@ -298,7 +300,7 @@ const Vendor = ({data, onPrev, onSubmit}) => {
             const {notification} = await import("@/components/modules/Notification");
 
             if (data.status === "success") {
-                queryClient.invalidateQueries({queryKey: ["allMyAdvertise" , {page: 1,sort: "newest"}]});
+                queryClient.invalidateQueries({queryKey: ["allMyAdvertise", {page: 1, sort: "newest"}]});
                 onSubmit();
                 notification(data.message, "success");
             } else {
@@ -315,7 +317,8 @@ const Vendor = ({data, onPrev, onSubmit}) => {
         },
         validationSchema: addAdvertiseLocationSchema,
         onSubmit: async (result) => {
-            mutate({...data , ...result});
+            setData({...data, ...result});
+            mutate({...data, ...result});
         }
     });
 
@@ -394,7 +397,10 @@ const Vendor = ({data, onPrev, onSubmit}) => {
                                 className="text-current"
                             />
                         }
-                        onClick={onPrev}
+                        onClick={() => {
+                            onPrev();
+                            setData({...data, ...formik.values});
+                        }}
                     >
                         قبلی
                     </Button>
@@ -491,6 +497,7 @@ export const AddAdvertise = () => {
 
                 <Vendor
                     data={segment?.data}
+                    setData={(data) => _handleSegment(data)}
                     onPrev={_handlePrevSegment}
                     onSubmit={() => router.push("/account/my-advertises")}
                 />

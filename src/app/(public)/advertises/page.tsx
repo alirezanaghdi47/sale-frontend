@@ -30,8 +30,11 @@ const AdvertisesPage = async ({searchParams}) => {
 }
 
 export async function getAllAdvertise() {
+
     const allAdvertise = await getAllAdvertiseService({});
+
     return allAdvertise;
+
 }
 
 export default AdvertisesPage;

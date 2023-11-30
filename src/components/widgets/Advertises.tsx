@@ -8,16 +8,15 @@ import {useInView} from "react-intersection-observer";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {useFormik} from "formik";
-import {LuArrowDownWideNarrow, LuCheck, LuFilter} from "react-icons/lu";
+import {LuArrowDownWideNarrow, LuCheck, LuFilter, LuX} from "react-icons/lu";
 
 // components
 import {Accordion, AccordionItem} from "@/components/modules/Accordion";
 import {Button} from "@/components/modules/Button";
 import RangeInput from "@/components/modules/RangeInput";
 import CheckBox from "@/components/modules/CheckBox";
-import SwitchBox from "@/components/modules/SwitchBox";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-
+import {AdvertiseListEmpty} from "@/components/partials/Empties";
 const SortModal = dynamic(() => import("@/components/partials/SortModal"), {ssr: false});
 const FilterModal = dynamic(() => import("@/components/widgets/FilterModal"), {ssr: false});
 
@@ -158,7 +157,8 @@ const FilterBar = () => {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            prices: searchParams.get("startPrice") && searchParams.get("endPrice") ? [parseInt(searchParams.get("startPrice")), parseInt(searchParams.get("endPrice"))] : [0, 100_000_000],
+            startPrice: searchParams.get("startPrice") ? parseInt(searchParams.get("startPrice")) : 0,
+            endPrice: searchParams.get("endPrice") ? parseInt(searchParams.get("endPrice")) : 100_000_000,
             categories: searchParams.getAll("category") ?? []
         },
         onSubmit: async (result) => {
@@ -166,8 +166,8 @@ const FilterBar = () => {
                 search: searchParams.get("search"),
                 page: searchParams.get("page"),
                 sort: searchParams.get("sort"),
-                startPrice: result.prices[0],
-                endPrice: result.prices[1],
+                startPrice: result.startPrice,
+                endPrice: result.endPrice,
                 categories: result.categories,
                 cities: searchParams.getAll("city"),
             });
@@ -220,20 +220,23 @@ const FilterBar = () => {
                             min={0}
                             max={100_000_000}
                             step={10_000_000}
-                            values={formik.values.prices}
-                            onChange={(values) => formik.setFieldValue("prices", values)}
+                            values={[formik.values.startPrice, formik.values.endPrice]}
+                            onChange={(values) => {
+                                formik.setFieldValue("startPrice", values[0]);
+                                formik.setFieldValue("endPrice", values[1]);
+                            }}
                         />
 
                         <div className="flex justify-between items-center gap-x-4 w-full">
 
                             <span className="text-xs text-gray">
-                                {formik.values.prices[1]?.toLocaleString()}
+                                {formik.values.endPrice?.toLocaleString()}
                                 &nbsp;
                                 تومان
                             </span>
 
                             <span className="text-xs text-gray">
-                                {formik.values.prices[0]?.toLocaleString()}
+                                {formik.values.startPrice?.toLocaleString()}
                                 &nbsp;
                                 تومان
                             </span>
@@ -242,33 +245,35 @@ const FilterBar = () => {
 
                     </AccordionItem>
 
-                    {/*<AccordionItem header="وضعیت">*/}
-
-                    {/*    <label*/}
-                    {/*        htmlFor="switchbox-hasImage"*/}
-                    {/*        className="flex justify-start items-center gap-x-2 w-full cursor-pointer"*/}
-                    {/*    >*/}
-
-                    {/*        <SwitchBox*/}
-                    {/*            name="hasImage"*/}
-                    {/*            value={true}*/}
-                    {/*            checked={formik.values.hasImage}*/}
-                    {/*            onChange={formik.handleChange}*/}
-                    {/*        />*/}
-
-                    {/*        <span className="text-xs font-bold text-dark">*/}
-                    {/*            عکس دار*/}
-                    {/*        </span>*/}
-
-                    {/*    </label>*/}
-
-                    {/*</AccordionItem>*/}
-
                 </Accordion>
 
             </div>
 
             <div className="flex justify-end items-center gap-x-2 w-full">
+
+                {
+                    (searchParams.getAll("category").length > 0 || searchParams.get("startPrice") || searchParams.get("endPrice")) && (
+                        <Button
+                            variant="text"
+                            color="red"
+                            startIcon={<LuX size={20}/>}
+                            onClick={() => {
+                                const query = generateQueryParams({
+                                    search: searchParams.get("search"),
+                                    page: searchParams.get("page"),
+                                    sort: searchParams.get("sort"),
+                                    startPrice: 0,
+                                    endPrice: 0,
+                                    categories: [],
+                                    cities: searchParams.getAll("city"),
+                                });
+                                router.push(`${pathname}?${query}`);
+                            }}
+                        >
+                            حذف فیلتر ها
+                        </Button>
+                    )
+                }
 
                 <Button
                     variant="contained"
@@ -350,7 +355,12 @@ export const Advertises = () => {
     const {ref, inView} = useInView();
 
     const {
-        data, isPending, hasNextPage, fetchNextPage, isFetchingNextPage
+        data,
+        isPending,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+        error,
     } = useInfiniteQuery({
         queryKey: ['allAdvertise', {
             sort: searchParams.get("sort"),
@@ -391,11 +401,17 @@ export const Advertises = () => {
             }
 
             {
-                !isPending && (
+                !isPending && data?.pages[0].length > 0 && (
                     <Content
                         data={data}
                         ref={ref}
                     />
+                )
+            }
+
+            {
+                !isPending && (error || data?.pages[0].length === 0) && (
+                    <AdvertiseListEmpty/>
                 )
             }
 

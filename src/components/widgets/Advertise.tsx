@@ -13,21 +13,25 @@ import {formatDistance} from "date-fns";
 import {faIR} from "date-fns/locale";
 import {
     LuBookmark,
+    LuBookmarkMinus,
     LuCalendar,
     LuDollarSign,
-    LuLayers, LuMapPin,
+    LuLayers,
+    LuMapPin,
     LuShare2,
 } from "react-icons/lu";
 
 // components
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-
 const Map = dynamic(() => import("@/components/widgets/Map"), {ssr: false});
 
+// hooks
+import {useAuth} from "@/hooks/useAuth";
+
 // services
-import {addFavoriteService} from "@/services/favoriteService";
-import {getAdvertiseService} from "@/services/advertiseService";
+import {addFavoriteService , deleteFavoriteService , getIsMyFavoriteService} from "@/services/favoriteService";
+import {getAdvertiseService, getRelativeAdvertiseService} from "@/services/advertiseService";
 
 // styles
 import 'swiper/css';
@@ -64,7 +68,7 @@ const Gallery = ({data}) => {
                                 alt="advertise"
                                 width={240}
                                 height={240}
-                                className="w-full min-w-[240px] h-full min-h-[240px] object-cover object-center rounded-lg"
+                                className="w-full min-h-[320px] h-[320px] lg:min-h-[360px] lg:h-[360px] object-cover object-center rounded-lg"
                             />
                         </SwiperSlide>
                     )
@@ -119,15 +123,22 @@ const ContactUs = ({data}) => {
 
 const Summary = ({data}) => {
 
+    const {isAuth} = useAuth();
     const queryClient = useQueryClient();
 
-    const {mutate} = useMutation({
+    const {isPending: isPendingMyFavorite , data: isMyFavoriteData} = useQuery({
+        queryKey: ['isMyFavorite', {advertiseId: data?._id}],
+        queryFn: () => getIsMyFavoriteService(data?._id),
+        enabled: isAuth
+    });
+
+    const {mutate: mutateAddToFavorite} = useMutation({
         mutationFn: (data) => addFavoriteService(data),
         onSuccess: async (data) => {
             const {notification} = await import("@/components/modules/Notification");
 
             if (data.status === "success") {
-                queryClient.invalidateQueries({queryKey: ["advertise"]});
+                queryClient.invalidateQueries({queryKey: ["isMyFavorite"]});
                 notification(data.message, "success");
             } else {
                 notification(data.message, "error");
@@ -135,8 +146,42 @@ const Summary = ({data}) => {
         }
     });
 
-    const _handleAddToFavoriteAdvertise = (advertiseId) => {
-        mutate(advertiseId);
+    const {mutate: mutateDeleteFromFavorite} = useMutation({
+        mutationFn: (data) => deleteFavoriteService(data),
+        onSuccess: async (data) => {
+            const {notification} = await import("@/components/modules/Notification");
+
+            if (data.status === "success") {
+                queryClient.invalidateQueries({queryKey: ["isMyFavorite"]});
+                notification(data.message, "success");
+            } else {
+                notification(data.message, "error");
+            }
+        }
+    });
+
+    const _handleAddToFavorite = async (advertiseId) => {
+
+        const {notification} = await import("@/components/modules/Notification");
+
+        if (!isAuth){
+            return notification("ابتدا وارد حساب کاربری خود شوید", "error");
+        }
+
+        mutateAddToFavorite(advertiseId);
+
+    }
+
+    const _handleDeleteFromFavorite = async (advertiseId) => {
+
+        const {notification} = await import("@/components/modules/Notification");
+
+        if (!isAuth){
+            return notification("ابتدا وارد حساب کاربری خود شوید", "error");
+        }
+
+        mutateDeleteFromFavorite(advertiseId);
+
     }
 
     const _handleShareAdvertise = async (link) => {
@@ -157,10 +202,18 @@ const Summary = ({data}) => {
 
                 <IconButton
                     variant="text"
-                    color='gray'
-                    onClick={() => _handleAddToFavoriteAdvertise(data?._id)}
+                    color={!isMyFavoriteData?.data || !isAuth ? 'gray' : 'red'}
+                    onClick={() => {
+                        isMyFavoriteData?.data ? _handleDeleteFromFavorite(data?._id) : _handleAddToFavorite(data?._id)
+                    }}
                 >
-                    <LuBookmark size={20}/>
+                    {
+                        (!isMyFavoriteData?.data || !isAuth) ? (
+                            <LuBookmark size={20}/>
+                        ) : (
+                            <LuBookmarkMinus size={20}/>
+                        )
+                    }
                 </IconButton>
 
                 <IconButton
@@ -241,53 +294,53 @@ const Description = ({data}) => {
     )
 }
 
-// export const RelativeAdvertises = () => {
-//
-//     return (
-//         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
-//
-//             <h3 className="text-dark font-bold">
-//                 آگهی های مشابه
-//             </h3>
-//
-//             <div className="flex justify-center items-center w-full">
-//
-//                 <Swiper
-//                     modules={[Navigation]}
-//                     spaceBetween={16}
-//                     navigation={true}
-//                     breakpoints={{
-//                         320: {
-//                             slidesPerView: 1
-//                         },
-//                         768: {
-//                             slidesPerView: 2
-//                         },
-//                         1200: {
-//                             slidesPerView: 3
-//                         },
-//                     }}
-//                     className="w-full"
-//                 >
-//
-//                     {
-//                         Array(8).fill("").map((item, index) =>
-//                             <SwiperSlide key={index}>
-//                                 <AdvertiseCard
-//                                     advertiseItem={item}
-//                                     toolbar={false}
-//                                 />
-//                             </SwiperSlide>
-//                         )
-//                     }
-//
-//                 </Swiper>
-//
-//             </div>
-//
-//         </section>
-//     )
-// }
+export const RelativeAdvertises = ({data}) => {
+
+    return (
+        <section className="flex flex-col justify-center items-start gap-y-2 w-full">
+
+            <h3 className="text-dark font-bold">
+                آگهی های مشابه
+            </h3>
+
+            <div className="flex justify-center items-center w-full">
+
+                <Swiper
+                    modules={[Navigation]}
+                    spaceBetween={16}
+                    navigation={true}
+                    breakpoints={{
+                        320: {
+                            slidesPerView: 1
+                        },
+                        768: {
+                            slidesPerView: 2
+                        },
+                        1200: {
+                            slidesPerView: 3
+                        },
+                    }}
+                    className="w-full"
+                >
+
+                    {
+                        data.map((item, index) =>
+                            <SwiperSlide key={index}>
+                                <AdvertiseCard
+                                    advertiseItem={item}
+                                    toolbar={false}
+                                />
+                            </SwiperSlide>
+                        )
+                    }
+
+                </Swiper>
+
+            </div>
+
+        </section>
+    )
+}
 
 const Visual = ({data}) => {
 
@@ -330,25 +383,44 @@ export const Advertise = () => {
 
     const params = useParams();
 
-    const {isPending, data} = useQuery({
+    const {isPending: isPendingAdvertise, data: advertiseData} = useQuery({
         queryKey: ['advertise', {advertiseId: params.advertiseId}],
         queryFn: () => getAdvertiseService(params.advertiseId)
     });
 
+    const {isPending: isPendingRelativeAdvertise, data: relativeAdvertiseData} = useQuery({
+        queryKey: ['relativeAdvertise', {advertiseId: params.advertiseId}],
+        queryFn: () => getRelativeAdvertiseService(params.advertiseId)
+    });
+
     return (
-        <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
+        <div className="flex flex-col justify-start items-start gap-y-4 w-full">
 
-            {
-                !isPending && (
-                    <Visual data={data?.data}/>
-                )
-            }
+            <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
-            {
-                !isPending && (
-                    <Content data={data?.data}/>
-                )
-            }
+                {
+                    !isPendingAdvertise && (
+                        <Visual data={advertiseData?.data}/>
+                    )
+                }
+
+                {
+                    !isPendingAdvertise && (
+                        <Content data={advertiseData?.data}/>
+                    )
+                }
+
+            </div>
+
+            <div className="flex justify-center items-center w-full">
+
+                {
+                    !isPendingRelativeAdvertise && relativeAdvertiseData?.data?.length >= 3 && (
+                        <RelativeAdvertises data={relativeAdvertiseData?.data}/>
+                    )
+                }
+
+            </div>
 
         </div>
     )

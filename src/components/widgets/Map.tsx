@@ -27,7 +27,7 @@ const Map = ({location}) => {
         map.current = L.map('map', {
             zoomControl: false,
             drawControl: false,
-        }).setView(new L.LatLng(35.696, 51.362), 17);
+        }).setView(new L.LatLng(location[0], location[1]), 17);
 
         // set initial layer
         map.current.addLayer(layers.osm);

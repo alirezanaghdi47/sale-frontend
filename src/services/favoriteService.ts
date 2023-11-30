@@ -55,3 +55,54 @@ export const getAllFavoriteService = async (data) => {
 
     }
 }
+
+export const getIsMyFavoriteService = async (advertiseId) => {
+
+    try {
+
+        const token = Cookie.get("accessToken");
+
+        const response = await axios.get(process.env.API_URL + "/api/favorite/getIsMyFavorite", {
+            headers: {
+                token,
+                advertiseId: advertiseId
+            }
+        });
+
+        return response.data;
+
+    } catch (err) {
+
+        return {
+            message: err?.response?.data?.message,
+            status: err?.response?.data?.status,
+        };
+
+    }
+}
+
+export const deleteFavoriteService = async (advertiseId) => {
+
+    try {
+
+        const token = Cookie.get("accessToken");
+
+        const response = await axios.delete(process.env.API_URL + "/api/favorite/deleteFavorite", {
+            headers: {
+                token,
+                advertiseId: advertiseId
+            }
+        });
+
+        return response.data;
+
+    } catch (err) {
+
+        return {
+            message: err?.response?.data?.message,
+            status: err?.response?.data?.status,
+        };
+
+    }
+
+}
