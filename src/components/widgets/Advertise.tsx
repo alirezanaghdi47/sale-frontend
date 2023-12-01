@@ -24,13 +24,14 @@ import {
 // components
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
+
 const Map = dynamic(() => import("@/components/widgets/Map"), {ssr: false});
 
 // hooks
 import {useAuth} from "@/hooks/useAuth";
 
 // services
-import {addFavoriteService , deleteFavoriteService , getIsMyFavoriteService} from "@/services/favoriteService";
+import {addFavoriteService, deleteFavoriteService, getIsMyFavoriteService} from "@/services/favoriteService";
 import {getAdvertiseService, getRelativeAdvertiseService} from "@/services/advertiseService";
 
 // styles
@@ -126,7 +127,7 @@ const Summary = ({data}) => {
     const {isAuth} = useAuth();
     const queryClient = useQueryClient();
 
-    const {isPending: isPendingMyFavorite , data: isMyFavoriteData} = useQuery({
+    const {isPending: isPendingMyFavorite, data: isMyFavoriteData} = useQuery({
         queryKey: ['isMyFavorite', {advertiseId: data?._id}],
         queryFn: () => getIsMyFavoriteService(data?._id),
         enabled: isAuth
@@ -164,7 +165,7 @@ const Summary = ({data}) => {
 
         const {notification} = await import("@/components/modules/Notification");
 
-        if (!isAuth){
+        if (!isAuth) {
             return notification("ابتدا وارد حساب کاربری خود شوید", "error");
         }
 
@@ -176,7 +177,7 @@ const Summary = ({data}) => {
 
         const {notification} = await import("@/components/modules/Notification");
 
-        if (!isAuth){
+        if (!isAuth) {
             return notification("ابتدا وارد حساب کاربری خود شوید", "error");
         }
 
@@ -184,11 +185,16 @@ const Summary = ({data}) => {
 
     }
 
-    const _handleShareAdvertise = async (link) => {
+    const _handleShareAdvertise = async (data) => {
+
         const {notification} = await import("@/components/modules/Notification");
-        return copyToClipboard(link)
-            .then(res => notification(res, "success"))
-            .catch(err => notification(err, "error"));
+
+        copyToClipboard(data).then(res => {
+            if (res === "unSupported"){
+                notification("کپی شد" , "success");
+            }
+        });
+
     }
 
     return (
@@ -219,7 +225,12 @@ const Summary = ({data}) => {
                 <IconButton
                     variant="text"
                     color='gray'
-                    onClick={() => _handleShareAdvertise(`${process.env.BASE_URL}/advertises/${data?._id}`)}
+                    onClick={() => _handleShareAdvertise({
+                            title: data?.title,
+                            text: data?.description,
+                            url: `${process.env.BASE_URL}/advertises/${data?._id}`,
+                        })
+                    }
                 >
                     <LuShare2 size={20}/>
                 </IconButton>

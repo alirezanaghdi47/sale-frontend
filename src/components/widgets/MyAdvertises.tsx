@@ -131,13 +131,15 @@ const AdvertiseList = ({data}) => {
         mutate(dialogData);
     }
 
-    const _handleShareAdvertise = async (link) => {
+    const _handleShareAdvertise = async (data) => {
 
         const {notification} = await import("@/components/modules/Notification");
 
-        return copyToClipboard(link)
-            .then(res => notification(res, "success"))
-            .catch(err => notification(err, "error"));
+        copyToClipboard(data).then(res => {
+            if (res === "unSupported"){
+                notification("کپی شد" , "success");
+            }
+        });
 
     }
 
@@ -159,7 +161,11 @@ const AdvertiseList = ({data}) => {
                                         onClick: () => _handleShowDeleteDialog(advertiseItem?._id)
                                     },
                                     share: {
-                                        onClick: () => _handleShareAdvertise(`${process.env.BASE_URL}/advertises/${advertiseItem?._id}`)
+                                        onClick: () => _handleShareAdvertise({
+                                            title: advertiseItem?.title,
+                                            text: advertiseItem?.description,
+                                            url: `${process.env.BASE_URL}/advertises/${advertiseItem?._id}`,
+                                        })
                                     },
                                 }}
                             />

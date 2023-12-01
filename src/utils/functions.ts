@@ -1,9 +1,15 @@
-export const copyToClipboard = (text) => {
-    return new Promise((resolve, reject) => {
-        return navigator.clipboard.writeText(text)
-            .then(res => resolve("کپی شد"))
-            .catch(err => reject("کپی نشد"));
-    })
+export const copyToClipboard = (data) => {
+
+    const {title, text, url} = data;
+
+    if (navigator.share) {
+        return navigator.share({title, text, url})
+            .then(res => "supported");
+    } else {
+        return navigator.clipboard.writeText(url)
+            .then(res => "unSupported");
+    }
+
 }
 
 export const generateQueryParams = (data) => {

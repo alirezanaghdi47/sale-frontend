@@ -114,8 +114,6 @@ const BottomLinks = () => {
     const pathname = usePathname();
     const {isAuth, user} = useAuth();
 
-
-
     return (
         <ul className="grid grid-cols-12 gap-2 w-full">
 
