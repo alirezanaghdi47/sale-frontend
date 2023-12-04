@@ -1,7 +1,8 @@
 'use client';
 
 // libraries
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useSession, signIn} from "next-auth/react";
 import {useMutation} from "@tanstack/react-query";
 import {useFormik} from "formik";
 import {LuCheck, LuChevronLeft} from "react-icons/lu";
@@ -11,9 +12,6 @@ import {Button, LinkButton} from "@/components/modules/Button";
 import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
 import PasswordInput from "@/components/modules/PasswordInput";
-
-// hooks
-import {useAuth} from "@/hooks/useAuth";
 
 // services
 import {loginService} from "@/services/authService";
@@ -45,22 +43,7 @@ const Heading = () => {
 const Form = () => {
 
     const router = useRouter();
-    const {_handleLogin} = useAuth();
-
-    const {mutate, isPending} = useMutation({
-        mutationFn: (data) => loginService(data),
-        onSuccess: async (data) => {
-            const {notification} = await import("@/components/modules/Notification");
-
-            if (data.status === "success") {
-                notification(data.message, "success");
-                _handleLogin(data.token);
-                router.push("/advertises");
-            } else {
-                notification(data.message, "error");
-            }
-        }
-    });
+    const searchParams = useSearchParams();
 
     const formik = useFormik({
         initialValues: {
@@ -69,7 +52,25 @@ const Form = () => {
         },
         validationSchema: SignInSchema,
         onSubmit: async (result) => {
-            mutate(result);
+
+            const {notification} = await import("@/components/modules/Notification");
+
+            const response = await signIn(
+                "credentials",
+                {
+                    redirect: false,
+                    email: result.email,
+                    password: result.password
+                }
+            );
+
+            if (response.ok) {
+                notification("خوش آمدید", "success");
+                router.push(`${process.env.BASE_URL}/${searchParams.get("callbackUrl")}` ?? `${process.env.BASE_URL}/advertises`);
+            } else {
+                notification(response.error, "error");
+            }
+
         }
     });
 
@@ -149,7 +150,6 @@ const Form = () => {
                             className="text-current"
                         />
                     }
-                    disabled={isPending}
                     onClick={() => formik.handleSubmit()}
                 >
                     ورود

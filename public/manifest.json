@@ -1,7 +1,7 @@
 {
-  "name": "Sale",
-  "short_name": "Sale Shop",
-  "description": "a sale shop for selling or buying anything",
+  "name": "تکنو نما",
+  "short_name": "تکنو نما",
+  "description": "وب سایتی برای خرید و فروش محصولات دیجیتال",
   "theme_color": "#2563eb",
   "background_color": "#f8fafc",
   "display": "standalone",

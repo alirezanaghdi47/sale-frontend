@@ -105,8 +105,6 @@ export const NotFoundClient = () => {
 
 export const NotFoundServer = () => {
 
-    const router = useRouter();
-
     return (
         <section className='flex flex-col justify-center items-center gap-y-8 w-full h-full min-h-[calc(100dvh_-_172px)] md:min-h-[calc(100dvh_-_102px)]'>
 

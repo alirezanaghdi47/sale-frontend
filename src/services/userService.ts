@@ -1,12 +1,12 @@
 // libraries
 import axios from "axios";
-import Cookie from "js-cookie";
+import {getSession} from "next-auth/react";
 
 export const editProfileService = async (data) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
         const formData = new FormData();
 
         formData.append("avatar" , data.avatar);
@@ -16,7 +16,7 @@ export const editProfileService = async (data) => {
 
         const response = await axios.put(process.env.API_URL + "/api/user/editProfile" , formData , {
             headers:{
-                token,
+                token: session?.accessToken,
             }
         });
 
@@ -37,11 +37,11 @@ export const editPasswordService = async (data) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
 
         const response = await axios.put(process.env.API_URL + "/api/user/editPassword" , data , {
             headers:{
-                token,
+                token: session?.accessToken,
             }
         });
 

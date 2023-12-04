@@ -3,6 +3,7 @@
 // libraries
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
+import {useCookies} from "react-cookie";
 import {useMediaQuery} from '@react-hooks-library/core';
 import {LuX} from "react-icons/lu";
 import {CSSTransition} from 'react-transition-group';
@@ -11,25 +12,22 @@ import {CSSTransition} from 'react-transition-group';
 import {IconButton} from "@/components/modules/IconButton";
 import {Button} from "@/components/modules/Button";
 
-let deferredPrompt = null;
-
 const InstallBanner = () => {
 
-    const isStandalone = useMediaQuery('(display-mode: standalone)');
-
     const nodeRef = useRef(null);
-    const [showBanner, setShowBanner] = useState(false);
+    const [deferredPrompt , setDeferredPrompt] = useState(null);
+    const [cookies, setCookie] = useCookies(['pwa-install-status']);
+    const isStandalone = useMediaQuery('(display-mode: standalone)');
 
     useEffect(() => {
 
-        if (!isStandalone) {
+        if (cookies["pwa-install-status"] !== "dismissed") {
             window.addEventListener("beforeinstallprompt", (e) => {
                 e.preventDefault();
-                deferredPrompt = e;
-                setShowBanner(true);
+                setDeferredPrompt(e);
             });
         } else {
-            setShowBanner(false);
+            setCookie("pwa-install-status", "dismissed");
         }
 
     }, [isStandalone]);
@@ -38,19 +36,19 @@ const InstallBanner = () => {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === "accepted"){
-                setShowBanner(false);
+                setCookie("pwa-install-status", "accepted");
             } else {
-                setShowBanner(true);
+                setCookie("pwa-install-status", "dismissed");
             }
         });
     };
 
-    const _handleClose = () => setShowBanner(false);
+    const _handleClose = () => setCookie("pwa-install-status", "dismissed");
 
     return (
         <CSSTransition
             nodeRef={nodeRef}
-            in={showBanner}
+            in={!isStandalone && deferredPrompt && cookies["pwa-install-status"] !== "dismissed"}
             timeout={300}
             classNames="fade-in"
             mountOnEnter

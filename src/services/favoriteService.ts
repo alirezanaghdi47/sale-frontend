@@ -1,16 +1,16 @@
 // libraries
 import axios from "axios";
-import Cookie from "js-cookie";
+import {getSession} from "next-auth/react";
 
 export const addFavoriteService = async (advertiseId) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
 
         const response = await axios.post(process.env.API_URL + "/api/favorite/addFavorite", null, {
             headers: {
-                token,
+                token: session?.accessToken,
                 advertiseId: advertiseId
             }
         });
@@ -32,7 +32,7 @@ export const getAllFavoriteService = async (data) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
         const {page , limit , sort} = data;
 
         const response = await axios.get(process.env.API_URL + "/api/favorite/getAllFavorite", {
@@ -40,7 +40,7 @@ export const getAllFavoriteService = async (data) => {
                 page , limit , sort
             },
             headers: {
-                token,
+                token: session?.accessToken,
             }
         });
 
@@ -60,11 +60,11 @@ export const getIsMyFavoriteService = async (advertiseId) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
 
         const response = await axios.get(process.env.API_URL + "/api/favorite/getIsMyFavorite", {
             headers: {
-                token,
+                token: session?.accessToken,
                 advertiseId: advertiseId
             }
         });
@@ -85,11 +85,11 @@ export const deleteFavoriteService = async (advertiseId) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
 
         const response = await axios.delete(process.env.API_URL + "/api/favorite/deleteFavorite", {
             headers: {
-                token,
+                token: session?.accessToken,
                 advertiseId: advertiseId
             }
         });

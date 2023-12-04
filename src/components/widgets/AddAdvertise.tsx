@@ -414,6 +414,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
                                 className="text-current"
                             />
                         }
+                        disabled={isPending}
                         onClick={formik.handleSubmit}
                     >
                         ثبت

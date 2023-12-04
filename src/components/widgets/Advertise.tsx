@@ -5,6 +5,7 @@ import {useState} from "react";
 import {useParams} from "next/navigation";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import {useSession} from "next-auth/react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
@@ -26,9 +27,6 @@ import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 
 const Map = dynamic(() => import("@/components/widgets/Map"), {ssr: false});
-
-// hooks
-import {useAuth} from "@/hooks/useAuth";
 
 // services
 import {addFavoriteService, deleteFavoriteService, getIsMyFavoriteService} from "@/services/favoriteService";
@@ -124,13 +122,13 @@ const ContactUs = ({data}) => {
 
 const Summary = ({data}) => {
 
-    const {isAuth} = useAuth();
+    const {data: session , status } = useSession();
     const queryClient = useQueryClient();
 
     const {isPending: isPendingMyFavorite, data: isMyFavoriteData} = useQuery({
         queryKey: ['isMyFavorite', {advertiseId: data?._id}],
         queryFn: () => getIsMyFavoriteService(data?._id),
-        enabled: isAuth
+        enabled: status === "authenticated"
     });
 
     const {mutate: mutateAddToFavorite} = useMutation({
@@ -165,7 +163,7 @@ const Summary = ({data}) => {
 
         const {notification} = await import("@/components/modules/Notification");
 
-        if (!isAuth) {
+        if (status !== "authenticated") {
             return notification("ابتدا وارد حساب کاربری خود شوید", "error");
         }
 
@@ -177,7 +175,7 @@ const Summary = ({data}) => {
 
         const {notification} = await import("@/components/modules/Notification");
 
-        if (!isAuth) {
+        if (status !== "authenticated") {
             return notification("ابتدا وارد حساب کاربری خود شوید", "error");
         }
 
@@ -208,13 +206,13 @@ const Summary = ({data}) => {
 
                 <IconButton
                     variant="text"
-                    color={!isMyFavoriteData?.data || !isAuth ? 'gray' : 'red'}
+                    color={!isMyFavoriteData?.data || status !== "authenticated" ? 'gray' : 'red'}
                     onClick={() => {
                         isMyFavoriteData?.data ? _handleDeleteFromFavorite(data?._id) : _handleAddToFavorite(data?._id)
                     }}
                 >
                     {
-                        (!isMyFavoriteData?.data || !isAuth) ? (
+                        (!isMyFavoriteData?.data || status !== "authenticated") ? (
                             <LuBookmark size={20}/>
                         ) : (
                             <LuBookmarkMinus size={20}/>

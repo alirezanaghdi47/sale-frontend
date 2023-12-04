@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {signOut, useSession} from "next-auth/react";
 import {useFormik} from "formik";
 import {
     LuPlus,
@@ -21,13 +22,13 @@ import {
 import {Button, LinkButton} from "@/components/modules/Button";
 import TextInput from "@/components/modules/TextInput";
 import SearchInput from "@/components/modules/SearchInput";
+
 const Menu = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
 const MenuItem = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
 const CitiesModal = dynamic(() => import("@/components/partials/CitiesModal"), {ssr: false});
 
 // hooks
 import {useModal} from "@/hooks/useModal";
-import {useAuth} from "@/hooks/useAuth";
 
 // utils
 import {cityList} from "@/utils/constants";
@@ -112,7 +113,7 @@ export const Appbar = () => {
 const BottomLinks = () => {
 
     const pathname = usePathname();
-    const {isAuth, user} = useAuth();
+    const {data: session, status} = useSession();
 
     return (
         <ul className="grid grid-cols-12 gap-2 w-full">
@@ -136,7 +137,7 @@ const BottomLinks = () => {
 
             <li className="col-span-3 flex justify-center items-center">
                 {
-                    (!user?.name || !user?.family || !user?.phoneNumber) ? (
+                    (!session?.user?.name || !session?.user?.family || !session?.user?.phoneNumber) ? (
                         <Button
                             variant="text"
                             color="gray"
@@ -149,7 +150,7 @@ const BottomLinks = () => {
                             }
                             onClick={async () => {
                                 const {notification} = await import("@/components/modules/Notification");
-                                notification(isAuth ? "ابتدا حساب کاربری خود را تکمیل کنید" : "ابتدا وارد حساب کاربری خود شوید", "error");
+                                notification(status === "authenticated" ? "ابتدا حساب کاربری خود را تکمیل کنید" : "ابتدا وارد حساب کاربری خود شوید", "error");
                             }}
                         >
                             آگهی جدید
@@ -192,16 +193,16 @@ const BottomLinks = () => {
 
             <li className="col-span-3 flex justify-center items-center">
                 {
-                    isAuth ? (
+                    status === "authenticated" ? (
                         <LinkButton
                             variant="text"
                             color={pathname === "/account/profile" ? "blue" : "gray"}
                             href="/account/profile"
                             vertical
                             startIcon={
-                                user?.avatar ? (
+                                session?.user?.avatar ? (
                                     <Image
-                                        src={user?.avatar}
+                                        src={session?.user?.avatar}
                                         alt="avatar"
                                         width={24}
                                         height={24}
@@ -215,7 +216,7 @@ const BottomLinks = () => {
                                 )
                             }
                         >
-                            {user?.name && user?.family ? `${user?.name} ${user?.family}` : "کاربر سایت"}
+                            {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
                         </LinkButton>
                     ) : (
                         <LinkButton
@@ -323,22 +324,22 @@ const HeaderActions = () => {
 
 const HeaderLinks = () => {
 
-    const {isAuth, user, _handleLogout} = useAuth();
+    const {data: session, status} = useSession();
 
     return (
         <div className="flex justify-start items-center gap-x-4">
 
             {
-                isAuth ? (
+                status === "authenticated" ? (
                     <Menu
                         menuButton={
                             <Button
                                 variant="text"
                                 color="gray"
                                 startIcon={
-                                    user?.avatar ? (
+                                    session?.user?.avatar ? (
                                         <Image
-                                            src={user?.avatar}
+                                            src={session?.user?.avatar}
                                             alt="avatar"
                                             width={24}
                                             height={24}
@@ -352,7 +353,7 @@ const HeaderLinks = () => {
                                     )
                                 }
                             >
-                                {user?.name && user?.family ? `${user?.name} ${user?.family}` : "کاربر سایت"}
+                                {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
                             </Button>
                         }
                         align="start"
@@ -410,7 +411,7 @@ const HeaderLinks = () => {
                                     className="text-current"
                                 />
                             }
-                            onClick={_handleLogout}
+                            onClick={() => signOut({callbackUrl: "/advertises"})}
                         >
                             خروج
                         </MenuItem>
@@ -434,7 +435,7 @@ const HeaderLinks = () => {
             }
 
             {
-                (!user?.name || !user?.family || !user?.phoneNumber) ? (
+                (!session?.user?.name || !session?.user?.family || !session?.user?.phoneNumber) ? (
                     <Button
                         variant="contained"
                         color="blue"
@@ -446,7 +447,7 @@ const HeaderLinks = () => {
                         }
                         onClick={async () => {
                             const {notification} = await import("@/components/modules/Notification");
-                            notification(isAuth ? "ابتدا حساب کاربری خود را تکمیل کنید" : "ابتدا وارد حساب کاربری خود شوید", "error");
+                            notification(status === "authenticated" ? "ابتدا حساب کاربری خود را تکمیل کنید" : "ابتدا وارد حساب کاربری خود شوید", "error");
                         }}
                     >
                         آگهی جدید

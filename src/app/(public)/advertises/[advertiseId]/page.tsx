@@ -53,7 +53,7 @@ export async function getRelativeAdvertise(id) {
 
 export async function generateMetadata({ params }) {
 
-    const advertise = await getAdvertise(params.advertiseId)
+    const advertise = await getAdvertise(params.advertiseId);
 
     return {
         title: advertise?.data?.title,

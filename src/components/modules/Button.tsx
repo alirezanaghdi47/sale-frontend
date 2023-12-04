@@ -35,7 +35,7 @@ export const Button = ({children , as = "button", size = "md", color, variant, s
 
     return (
         <CustomTag
-            className={`flex ${vertical ? "flex-col gap-y-2" : "flex-row gap-x-2"} ${styles.justify[justify]} items-center ${styles.variant[variant][color]} ${styles.size[size]} rounded-lg whitespace-nowrap transition-colors duration-300 ease-out-expo`}
+            className={`flex ${vertical ? "flex-col gap-y-2" : "flex-row gap-x-2"} ${styles.justify[justify]} items-center ${styles.variant[variant][color]} ${styles.size[size]} rounded-lg ${disabled && "bg-opacity-50"} whitespace-nowrap transition-colors duration-300 ease-out-expo`}
             onClick={onClick}
             disabled={disabled}
         >

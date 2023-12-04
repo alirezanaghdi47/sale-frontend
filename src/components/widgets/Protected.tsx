@@ -12,9 +12,9 @@ export const Logo = () => {
             <Image
                 src="/assets/images/logo.png"
                 alt='logo'
-                width={32}
-                height={32}
-                className="min-w-[32px] min-h-[32px] rounded-full"
+                width={48}
+                height={48}
+                className="min-w-[48px] min-h-[48px] rounded-full"
             />
         </Link>
     )

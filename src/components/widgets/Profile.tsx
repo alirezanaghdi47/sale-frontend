@@ -3,6 +3,7 @@
 // libraries
 import {useState} from "react";
 import Image from "next/image";
+import {signOut, useSession} from "next-auth/react";
 import {useMutation} from "@tanstack/react-query";
 import {useFormik} from "formik";
 import {LuBadgeCheck, LuCheck, LuUser} from "react-icons/lu";
@@ -15,9 +16,6 @@ import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import PasswordInput from "@/components/modules/PasswordInput";
 
-// hooks
-import {useAuth} from "@/hooks/useAuth";
-
 // services
 import {editPasswordService, editProfileService} from "@/services/userService";
 
@@ -27,7 +25,7 @@ import {profileTabList} from "@/utils/constants";
 
 const Information = () => {
 
-    const {user} = useAuth();
+    const {data: session} = useSession();
 
     return (
         <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
@@ -37,9 +35,9 @@ const Information = () => {
                 <div className="flex justify-center md:justify-start items-center min-w-[120px]">
 
                     {
-                        user?.avatar ? (
+                        session?.user?.avatar ? (
                             <Image
-                                src={user?.avatar}
+                                src={session?.user?.avatar}
                                 alt="avatar"
                                 width={120}
                                 height={120}
@@ -58,23 +56,23 @@ const Information = () => {
                 <div className='flex flex-col justify-center items-center md:items-start gap-y-2 w-full'>
 
                     <p className="text-base font-bold text-dark">
-                        {user?.name && user?.family ? `${user?.name} ${user?.family}` : "کاربر سایت"}
+                        {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
                     </p>
 
                     <p className="text-xs font-bold text-dark">
-                        {user?.email}
+                        {session?.user?.email}
                     </p>
 
                     {
-                        user?.phoneNumber && (
+                        session?.user?.phoneNumber && (
                             <p className="text-xs font-bold text-dark">
-                                {user?.phoneNumber}
+                                {session?.user?.phoneNumber}
                             </p>
                         )
                     }
 
                     {
-                        user?.name && user?.family && user?.phoneNumber ? (
+                        session?.user?.name && session?.user?.family && session?.user?.phoneNumber ? (
                             <span className="flex justify-start items-center gap-x-2 text-xs font-bold text-green">
                                 <LuBadgeCheck size={20}/>
                                 هویت تایید شده است
@@ -96,18 +94,23 @@ const Information = () => {
 
 const Edit = () => {
 
-    const {user, _handleUpdate} = useAuth();
+    const {data: session, update} = useSession();
+
     const {mutate, isPending} = useMutation({
         mutationFn: (data) => editProfileService(data),
         onSuccess: async (data) => {
+
             const {notification} = await import("@/components/modules/Notification");
 
-            if (data.status === "success") {
-                notification(data.message, "success");
-                _handleUpdate(data.token);
-            } else {
-                notification(data.message, "error");
-            }
+            const response = await update({
+                avatar: data.data.avatar,
+                name: data.data.name,
+                family: data.data.family,
+                phoneNumber: data.data.phoneNumber,
+            });
+
+            notification("ویرایش انجام شد", "success");
+
         }
     });
 
@@ -115,10 +118,10 @@ const Edit = () => {
         enableReinitialize: true,
         initialValues: {
             avatar: null,
-            name: user?.name || "",
-            family: user?.family || "",
-            email: user?.email || "",
-            phoneNumber: user?.phoneNumber || "",
+            name: session?.user?.name || "",
+            family: session?.user?.family || "",
+            email: session?.user?.email || "",
+            phoneNumber: session?.user?.phoneNumber || "",
         },
         validationSchema: EditProfileInformationSchema,
         onSubmit: async (result) => {
@@ -143,7 +146,7 @@ const Edit = () => {
                             title="آواتار"
                             name="avatar"
                             value={formik.values.avatar}
-                            preview={user?.avatar || null}
+                            preview={session?.user?.avatar || null}
                             onChange={(value) => formik.setFieldValue("avatar", value)}
                         />
 
@@ -279,18 +282,21 @@ const Edit = () => {
 
 const Security = () => {
 
-    const {user, _handleLogout} = useAuth();
+    const {data: session} = useSession();
+
     const {mutate, isPending} = useMutation({
         mutationFn: (data) => editPasswordService(data),
         onSuccess: async (data) => {
+
             const {notification} = await import("@/components/modules/Notification");
 
             if (data.status === "success") {
                 notification(data.message, "success");
-                _handleLogout();
+                signOut();
             } else {
                 notification(data.message, "error");
             }
+
         }
     });
 

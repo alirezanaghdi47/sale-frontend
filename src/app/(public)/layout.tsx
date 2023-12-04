@@ -1,8 +1,10 @@
 // libraries
 import {Metadata, Viewport} from "next";
+import dynamic from "next/dynamic";
 
 // components
 import {Header , Appbar , BottomNavigation} from "@/components/widgets/Public";
+const InstallBanner = dynamic(() => import("@/components/widgets/InstallBanner"), {ssr: false});
 
 export const metadata: Metadata = {
     metadataBase: process.env.BASE_URL,
@@ -29,6 +31,8 @@ const HomeLayout = (props) => {
             {props.children}
 
             <BottomNavigation/>
+
+            <InstallBanner/>
 
         </div>
     )

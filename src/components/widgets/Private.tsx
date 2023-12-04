@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
+import {useSession , signOut} from "next-auth/react";
 import {LuBookmark, LuList, LuLogOut, LuPlus, LuScrollText, LuUser} from "react-icons/lu";
 
 // components
@@ -13,9 +14,6 @@ import {Collapse, CollapseItem} from "@/components/modules/Collapse";
 
 const Menu = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
 const MenuItem = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
-
-// hooks
-import {useAuth} from "@/hooks/useAuth";
 
 const Logo = () => {
 
@@ -35,7 +33,7 @@ const Logo = () => {
 const AppbarActions = () => {
 
     const pathname = usePathname();
-    const {user, _handleLogout} = useAuth();
+    const {data: session } = useSession();
 
     return (
         <div className="flex justify-between items-center gap-x-4 w-full">
@@ -49,9 +47,9 @@ const AppbarActions = () => {
                         size="md"
                         color="gray"
                         startIcon={
-                            user?.avatar ? (
+                            session?.user?.avatar ? (
                                 <Image
-                                    src={user?.avatar}
+                                    src={session?.user?.avatar}
                                     alt="avatar"
                                     width={24}
                                     height={24}
@@ -65,7 +63,7 @@ const AppbarActions = () => {
                             )
                         }
                     >
-                        {user?.name && user?.family ? `${user?.name} ${user?.family}` : "کاربر سایت"}
+                        {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
                     </Button>
                 }
                 align="start"
@@ -95,7 +93,7 @@ const AppbarActions = () => {
                             className="text-current"
                         />
                     }
-                    onClick={_handleLogout}
+                    onClick={() => signOut({callbackUrl: "/advertises"})}
                 >
                     خروج
                 </MenuItem>
@@ -109,7 +107,7 @@ const AppbarActions = () => {
 const SidebarLinks = () => {
 
     const pathname = usePathname();
-    const {user} = useAuth();
+    const {data: session } = useSession();
 
     return (
         <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
@@ -146,7 +144,7 @@ const SidebarLinks = () => {
                         </LinkButton>
 
                         {
-                            (!user?.name || !user?.family || !user?.phoneNumber) ? (
+                            (!session?.user?.name || !session?.user?.family || !session?.user?.phoneNumber) ? (
                                 <Button
                                     variant="text"
                                     color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
@@ -215,7 +213,7 @@ const SidebarLinks = () => {
 const SidebarActions = () => {
 
     const pathname = usePathname();
-    const {user, _handleLogout} = useAuth();
+    const {data: session } = useSession();
 
     return (
         <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
@@ -228,9 +226,9 @@ const SidebarActions = () => {
                     justify="start"
                     href="/account/profile"
                     startIcon={
-                        user?.avatar ? (
+                        session?.user?.avatar ? (
                             <Image
-                                src={user?.avatar}
+                                src={session?.user?.avatar}
                                 alt="avatar"
                                 width={24}
                                 height={24}
@@ -244,7 +242,7 @@ const SidebarActions = () => {
                         )
                     }
                 >
-                    {user?.name && user?.family ? `${user?.name} ${user?.family}` : "کاربر سایت"}
+                    {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
                 </LinkButton>
             </li>
 
@@ -260,7 +258,7 @@ const SidebarActions = () => {
                             className="text-current"
                         />
                     }
-                    onClick={_handleLogout}
+                    onClick={() => signOut({callbackUrl: "/advertises"})}
                 >
                     خروج
                 </Button>
@@ -305,7 +303,7 @@ export const Sidebar = () => {
 const BottomLinks = () => {
 
     const pathname = usePathname();
-    const {user} = useAuth();
+    const {data: session } = useSession();
 
     return (
         <ul className="grid grid-cols-12 gap-2 w-full">
@@ -346,7 +344,7 @@ const BottomLinks = () => {
 
             <li className="col-span-3 flex justify-center items-center">
                 {
-                    (!user?.name || !user?.family || !user?.phoneNumber) ? (
+                    (!session?.user?.name || !session?.user?.family || !session?.user?.phoneNumber) ? (
                         <Button
                             variant="text"
                             color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}

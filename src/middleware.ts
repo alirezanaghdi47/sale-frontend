@@ -1,25 +1,17 @@
 // libraries
-import {NextResponse} from "next/server";
-import type {NextRequest} from "next/server";
-import JwtDecode from "jwt-decode";
+import { withAuth } from "next-auth/middleware";
 
-export const middleware = async (request: NextRequest) => {
-
-    const token = request.cookies.get("accessToken")?.value;
-    const decodedToken = token ? JwtDecode(token) : null;
-
-    if (request.nextUrl.pathname.startsWith("/account") && (!token || Date.now() > decodedToken?.exp * 1000)){
-
-        request.cookies.delete("accessToken");
-        const response = NextResponse.redirect(new URL("/auth/sign-in" , request.url));
-        response.cookies.delete("accessToken");
-
-        return response;
-
+export default withAuth({
+    callbacks: {
+        authorized: ({ req, token }) => {
+            if (req.nextUrl.pathname.startsWith('/account') && !token?.accessToken && !token?.user?.id) {
+                return false;
+            }
+            return true;
+        }
+    },
+    pages:{
+        signIn: "/auth/sign-in",
+        error: "/auth/sign-in",
     }
-
-    if (request.nextUrl.pathname.startsWith("/auth") && token && Date.now() < decodedToken?.exp * 1000){
-        return NextResponse.redirect(new URL("/account/profile" , request.url));
-    }
-
-}
+});

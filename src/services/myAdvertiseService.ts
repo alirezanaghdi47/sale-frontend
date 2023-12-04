@@ -1,12 +1,12 @@
 // libraries
 import axios from "axios";
-import Cookie from "js-cookie";
+import {getSession} from "next-auth/react";
 
 export const addMyAdvertiseService = async (data) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
         const formData = new FormData();
 
         for (let i = 0; i < data.gallery.length; i++) {
@@ -23,7 +23,7 @@ export const addMyAdvertiseService = async (data) => {
 
         const response = await axios.post(process.env.API_URL + "/api/myAdvertise/addMyAdvertise", formData, {
             headers: {
-                token,
+                token: session?.accessToken,
             }
         });
 
@@ -44,7 +44,7 @@ export const getAllMyAdvertiseService = async (data) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
         const {page, limit, sort} = data;
 
         const response = await axios.get(process.env.API_URL + "/api/myAdvertise/getAllMyAdvertise", {
@@ -52,7 +52,7 @@ export const getAllMyAdvertiseService = async (data) => {
                 page, limit, sort
             },
             headers: {
-                token,
+                token: session?.accessToken,
             }
         });
 
@@ -73,11 +73,11 @@ export const deleteMyAdvertiseService = async (advertiseId) => {
 
     try {
 
-        const token = Cookie.get("accessToken");
+        const session = await getSession();
 
         const response = await axios.delete(process.env.API_URL + "/api/myAdvertise/deleteMyAdvertise", {
             headers: {
-                token,
+                token: session?.accessToken,
                 advertiseId: advertiseId
             }
         });
