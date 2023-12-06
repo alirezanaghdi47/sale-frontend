@@ -59,15 +59,13 @@ const Gallery = ({data}) => {
             >
                 {
                     data?.gallery?.map(galleryItem =>
-                        <SwiperSlide
-                            key={galleryItem}
-                        >
+                        <SwiperSlide key={galleryItem}>
                             <Image
                                 src={galleryItem}
                                 alt="advertise"
                                 width={240}
                                 height={240}
-                                className="w-full min-h-[320px] h-[320px] lg:min-h-[360px] lg:h-[360px] object-cover object-center rounded-lg"
+                                className="w-full min-h-[320px] h-[320px] lg:min-h-[360px] lg:h-[360px] object-cover object-center"
                             />
                         </SwiperSlide>
                     )
@@ -196,9 +194,9 @@ const Summary = ({data}) => {
     }
 
     return (
-        <section className="flex justify-between items-center gap-x-2 w-full">
+        <section className="flex justify-between items-start gap-x-2 w-full">
 
-            <h1 className="text-base text-dark font-bold line-clamp-1">
+            <h1 className="text-base text-dark font-bold line-clamp-2 leading-8">
                 {data?.title}
             </h1>
 
@@ -402,34 +400,28 @@ export const Advertise = () => {
         queryFn: () => getRelativeAdvertiseService(params.advertiseId)
     });
 
-    return (
+    return !isPendingAdvertise && (
+
         <div className="flex flex-col justify-start items-start gap-y-4 w-full">
 
             <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
 
-                {
-                    !isPendingAdvertise && (
-                        <Visual data={advertiseData?.data}/>
-                    )
-                }
+                <Visual data={advertiseData?.data}/>
 
-                {
-                    !isPendingAdvertise && (
-                        <Content data={advertiseData?.data}/>
-                    )
-                }
+                <Content data={advertiseData?.data}/>
 
             </div>
 
-            <div className="flex justify-center items-center w-full">
+            {
+                !isPendingRelativeAdvertise && relativeAdvertiseData?.data?.length >= 3 && (
 
-                {
-                    !isPendingRelativeAdvertise && relativeAdvertiseData?.data?.length >= 3 && (
+                    <div className="flex justify-center items-center w-full">
+
                         <RelativeAdvertises data={relativeAdvertiseData?.data}/>
-                    )
-                }
 
-            </div>
+                    </div>
+                )
+            }
 
         </div>
     )

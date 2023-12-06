@@ -66,7 +66,7 @@ const Form = () => {
 
             if (response.ok) {
                 notification("خوش آمدید", "success");
-                router.push(`${process.env.BASE_URL}/${searchParams.get("callbackUrl")}` ?? `${process.env.BASE_URL}/advertises`);
+                router.push(searchParams.get("callbackUrl") ? `${process.env.BASE_URL}/${searchParams.get("callbackUrl")}` : `${process.env.BASE_URL}/advertises`);
             } else {
                 notification(response.error, "error");
             }
@@ -109,14 +109,14 @@ const Form = () => {
                             رمز عبور
                         </span>
 
-                        <LinkButton
-                            variant="text"
-                            size="sm"
-                            color="blue"
-                            href="/auth/forget-password"
-                        >
-                            فراموشی رمز
-                        </LinkButton>
+                        {/*<LinkButton*/}
+                        {/*    variant="text"*/}
+                        {/*    size="sm"*/}
+                        {/*    color="blue"*/}
+                        {/*    href="/auth/forget-password"*/}
+                        {/*>*/}
+                        {/*    فراموشی رمز*/}
+                        {/*</LinkButton>*/}
 
                     </div>
 

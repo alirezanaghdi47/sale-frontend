@@ -9,7 +9,7 @@ import markerIcon from "../../../public/assets/images/marker.svg";
 import "leaflet/dist/leaflet.css";
 import "@/styles/customize/leaflet.scss";
 
-const Map2 = ({setLocation}) => {
+const Map2 = ({location , setLocation}) => {
 
     const mapRef = useRef(null);
 
@@ -37,7 +37,6 @@ const Map2 = ({setLocation}) => {
             // add zoom button
             L.control.zoom({
                 position: "topright",
-
             }).addTo(mapRef.current);
 
             // customize icon
@@ -47,7 +46,10 @@ const Map2 = ({setLocation}) => {
                 iconUrl: markerIcon.src
             });
 
-            // add pointer
+            // attach marker
+            marker = new L.marker([location.latitude , location.longitude], {icon: customMarker}).addTo(mapRef.current);
+
+            // add new marker & remove old one
             mapRef.current.on("click", (e) => {
                 if (marker) {
                     mapRef.current.removeLayer(marker);

@@ -27,7 +27,7 @@ const InstallBanner = () => {
                 setDeferredPrompt(e);
             });
         } else {
-            setCookie("pwa-install-status", "dismissed");
+            setCookie("pwa-install-status", "dismissed" , {path: "/"});
         }
 
     }, [isStandalone]);
@@ -36,14 +36,14 @@ const InstallBanner = () => {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === "accepted"){
-                setCookie("pwa-install-status", "accepted");
+                setCookie("pwa-install-status", "accepted" , {path: "/"});
             } else {
-                setCookie("pwa-install-status", "dismissed");
+                setCookie("pwa-install-status", "dismissed" , {path: "/"});
             }
         });
     };
 
-    const _handleClose = () => setCookie("pwa-install-status", "dismissed");
+    const _handleClose = () => setCookie("pwa-install-status", "dismissed" , {path: "/"});
 
     return (
         <CSSTransition

@@ -136,42 +136,20 @@ const BottomLinks = () => {
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
-                {
-                    (!session?.user?.name || !session?.user?.family || !session?.user?.phoneNumber) ? (
-                        <Button
-                            variant="text"
-                            color="gray"
-                            vertical
-                            startIcon={
-                                <LuPlus
-                                    size={20}
-                                    className="text-current"
-                                />
-                            }
-                            onClick={async () => {
-                                const {notification} = await import("@/components/modules/Notification");
-                                notification(status === "authenticated" ? "ابتدا حساب کاربری خود را تکمیل کنید" : "ابتدا وارد حساب کاربری خود شوید", "error");
-                            }}
-                        >
-                            آگهی جدید
-                        </Button>
-                    ) : (
-                        <LinkButton
-                            variant="text"
-                            color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                            href="/account/my-advertises/add"
-                            vertical
-                            startIcon={
-                                <LuPlus
-                                    size={20}
-                                    className="text-current"
-                                />
-                            }
-                        >
-                            آگهی جدید
-                        </LinkButton>
-                    )
-                }
+                <LinkButton
+                    variant="text"
+                    color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
+                    href="/account/my-advertises/add"
+                    vertical
+                    startIcon={
+                        <LuPlus
+                            size={20}
+                            className="text-current"
+                        />
+                    }
+                >
+                    آگهی جدید
+                </LinkButton>
             </li>
 
             <li className="col-span-3 flex justify-center items-center">
@@ -434,40 +412,19 @@ const HeaderLinks = () => {
                 )
             }
 
-            {
-                (!session?.user?.name || !session?.user?.family || !session?.user?.phoneNumber) ? (
-                    <Button
-                        variant="contained"
-                        color="blue"
-                        startIcon={
-                            <LuPlus
-                                size={20}
-                                className="text-current"
-                            />
-                        }
-                        onClick={async () => {
-                            const {notification} = await import("@/components/modules/Notification");
-                            notification(status === "authenticated" ? "ابتدا حساب کاربری خود را تکمیل کنید" : "ابتدا وارد حساب کاربری خود شوید", "error");
-                        }}
-                    >
-                        آگهی جدید
-                    </Button>
-                ) : (
-                    <LinkButton
-                        variant="contained"
-                        color="blue"
-                        href="/account/my-advertises/add"
-                        startIcon={
-                            <LuPlus
-                                size={20}
-                                className="text-current"
-                            />
-                        }
-                    >
-                        آگهی جدید
-                    </LinkButton>
-                )
-            }
+            <LinkButton
+                variant="contained"
+                color="blue"
+                href="/account/my-advertises/add"
+                startIcon={
+                    <LuPlus
+                        size={20}
+                        className="text-current"
+                    />
+                }
+            >
+                آگهی جدید
+            </LinkButton>
 
         </div>
     )

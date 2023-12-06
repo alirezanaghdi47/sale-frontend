@@ -2,6 +2,7 @@
 
 // libraries
 import dynamic from "next/dynamic";
+import {useRouter} from "next/navigation";
 import {useQuery , useMutation, useQueryClient} from "@tanstack/react-query";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {LuArrowDownWideNarrow} from "react-icons/lu";
@@ -100,6 +101,7 @@ const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort})
 
 const AdvertiseList = ({data}) => {
 
+    const router = useRouter();
     const queryClient = useQueryClient();
 
     const {
@@ -159,6 +161,9 @@ const AdvertiseList = ({data}) => {
                                 toolbar={{
                                     delete: {
                                         onClick: () => _handleShowDeleteDialog(advertiseItem?._id)
+                                    },
+                                    edit: {
+                                        onClick: () => router.push(`${process.env.BASE_URL}/account/my-advertises/${advertiseItem?._id}/edit`)
                                     },
                                     share: {
                                         onClick: () => _handleShareAdvertise({

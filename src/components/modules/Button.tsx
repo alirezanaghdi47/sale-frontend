@@ -6,6 +6,8 @@ const styles = {
         contained: {
             red: "bg-red text-light",
             blue: "bg-blue text-light",
+            yellow: "bg-yellow text-dark",
+            green: "bg-green text-light",
             light: "bg-light text-gray"
         },
         text: {

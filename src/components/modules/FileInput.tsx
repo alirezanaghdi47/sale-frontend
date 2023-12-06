@@ -7,9 +7,9 @@ import {LuImage, LuTrash2} from "react-icons/lu";
 // components
 import {IconButton} from "@/components/modules/IconButton";
 
-const FileInput = ({name, value, onChange, maxFiles = 1 , acceptTypes}) => {
+const FileInput = ({name, values, onChange, maxFiles = 1, acceptTypes}) => {
 
-    const [files, setFiles] = useState(value);
+    const [files, setFiles] = useState([]);
 
     const {getRootProps, getInputProps} = useDropzone({
         onDrop: acceptedFiles => {
@@ -19,6 +19,7 @@ const FileInput = ({name, value, onChange, maxFiles = 1 , acceptTypes}) => {
                     preview: URL.createObjectURL(file)
                 }))
             ]);
+            onChange([...files , ...acceptedFiles]);
         },
         maxFiles: maxFiles,
         accept: acceptTypes
@@ -26,11 +27,18 @@ const FileInput = ({name, value, onChange, maxFiles = 1 , acceptTypes}) => {
 
     const _handleDeleteFile = (file) => {
         setFiles(prevState => prevState.filter(fileItem => JSON.stringify(fileItem) !== JSON.stringify(file)));
+        onChange(files.filter(item => JSON.stringify(item) !== JSON.stringify(file)));
     }
 
     useEffect(() => {
-        onChange(files);
-    }, [files]);
+        setFiles(values.map(file => Object.assign(file, {
+            preview: URL.createObjectURL(file)
+        })))
+    }, [values]);
+
+    useEffect(() => {
+        return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+    }, []);
 
     return (
         <div className="flex flex-col justify-center items-center gap-y-4 w-full">

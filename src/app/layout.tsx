@@ -15,7 +15,7 @@ import TanstackQuery from "@/providers/TanstackQuery";
 // styles
 import '@/styles/globals.scss';
 
-const RootLayout = async (props) => {
+const RootLayout = (props) => {
 
     return (
         <html lang="fa" dir='rtl'>

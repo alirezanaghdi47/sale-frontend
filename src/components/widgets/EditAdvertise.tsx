@@ -1,10 +1,10 @@
 "use client";
 
 // libraries
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 import dynamic from "next/dynamic";
-import {useRouter} from "next/navigation";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useParams, useRouter} from "next/navigation";
+import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useFormik} from "formik";
 import {LuCheck, LuChevronLeft, LuChevronRight} from "react-icons/lu";
 import {CSSTransition} from 'react-transition-group';
@@ -17,18 +17,18 @@ import SelectBox from "@/components/modules/SelectBox";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import FileInput from "@/components/modules/FileInput";
-
 const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
 
 // hooks
 import {useSegment} from "@/hooks/useSegment";
 
 // services
-import {addMyAdvertiseService} from "@/services/myAdvertiseService";
+import {getMyAdvertiseService, editMyAdvertiseService} from "@/services/myAdvertiseService";
 
 // utils
 import {addEditAdvertiseStepList, categoryList, cityList, qualityList} from "@/utils/constants";
 import {addAdvertiseDetailSchema, addAdvertiseGallerySchema, addAdvertiseLocationSchema} from "@/utils/validations";
+import {dataUrlToFile} from "@/utils/functions";
 
 const Gallery = ({data, setData, onNext}) => {
 
@@ -65,8 +65,8 @@ const Gallery = ({data, setData, onNext}) => {
                                 "image/jpeg": [],
                                 "image/jpg": [],
                             }}
-                            value={formik.values.gallery}
-                            onChange={(value) => formik.setFieldValue("gallery", value)}
+                            values={formik.values.gallery}
+                            onChange={(values) => formik.setFieldValue("gallery", values)}
                         />
 
                         {
@@ -108,11 +108,12 @@ const Gallery = ({data, setData, onNext}) => {
 const Detail = ({data, setData, onPrev, onNext}) => {
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
             title: data?.title || "",
             category: data?.category || "",
             quality: data?.quality || "",
-            price: data?.price || "",
+            price: data?.price || 0,
             description: data?.description || "",
         },
         validationSchema: addAdvertiseDetailSchema,
@@ -293,10 +294,11 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
 const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
+    const params = useParams();
     const queryClient = useQueryClient();
 
     const {mutate, isPending} = useMutation({
-        mutationFn: (data) => addMyAdvertiseService(data),
+        mutationFn: (data) => editMyAdvertiseService({data, advertiseId: params?.advertiseId}),
         onSuccess: async (data) => {
             const {notification} = await import("@/components/modules/Notification");
 
@@ -311,10 +313,11 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
     });
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            city: data?.city || null,
-            latitude: data?.latitude || null,
-            longitude: data?.longitude || null,
+            city: data?.city || "",
+            latitude: data?.latitude || 0,
+            longitude: data?.longitude || 0,
         },
         validationSchema: addAdvertiseLocationSchema,
         onSubmit: async (result) => {
@@ -361,10 +364,13 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
                         </span>
 
                         <div className='w-full h-[320px] bg-secondary rounded-lg p-4'>
-                            <Map2 setLocation={(value) => {
-                                formik.setFieldValue("latitude", value.latitude);
-                                formik.setFieldValue("longitude", value.longitude);
-                            }}/>
+                            <Map2
+                                location={{latitude: formik.values.latitude, longitude: formik.values.longitude}}
+                                setLocation={(value) => {
+                                    formik.setFieldValue("latitude", value.latitude);
+                                    formik.setFieldValue("longitude", value.longitude);
+                                }}
+                            />
                         </div>
 
                         {
@@ -408,7 +414,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
                     <Button
                         variant="contained"
-                        color="green"
+                        color="yellow"
                         startIcon={
                             <LuCheck
                                 size={20}
@@ -418,7 +424,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
                         disabled={isPending}
                         onClick={formik.handleSubmit}
                     >
-                        ثبت
+                        ویرایش
                     </Button>
 
                 </div>
@@ -461,12 +467,37 @@ const Section = ({children, activeSection}) => {
     )
 }
 
-export const AddAdvertise = () => {
+export const EditAdvertise = () => {
 
     const router = useRouter();
+    const params = useParams();
     const {segment, _handlePrevSegment, _handleNextSegment, _handleSegment} = useSegment();
 
-    return (
+    const {isFetching: isPendingAdvertise, data: advertiseData} = useQuery({
+        queryKey: ['myAdvertise', {advertiseId: params.advertiseId}],
+        queryFn: () => getMyAdvertiseService(params.advertiseId)
+    });
+
+    useEffect(() => {
+
+        if (!isPendingAdvertise && advertiseData?.data) {
+            _handleSegment({
+                gallery: advertiseData?.data?.gallery.map(item => dataUrlToFile('data:image/png;base64,' + item, `${Date.now()}.png`)),
+                category: advertiseData?.data?.category,
+                quality: advertiseData?.data?.quality,
+                price: advertiseData?.data?.price,
+                title: advertiseData?.data?.title,
+                description: advertiseData?.data?.description,
+                city: advertiseData?.data?.city,
+                latitude: advertiseData?.data?.latitude,
+                longitude: advertiseData?.data?.longitude,
+            });
+        }
+
+    }, [isPendingAdvertise]);
+
+    return !isPendingAdvertise && (
+
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
 
             <Stepper
