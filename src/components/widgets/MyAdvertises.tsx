@@ -199,7 +199,7 @@ export const MyAdvertises = () => {
     });
 
     return (
-        <div className="flex flex-col justify-start items-center gap-y-4 w-full h-full">
+        <div className={`flex flex-col justify-start items-center gap-y-4 w-full h-full ${!isPending && (error || data?.data?.length === 0) && "my-auto"}`}>
 
             {
                 !isPending && data?.data?.length > 0 && (

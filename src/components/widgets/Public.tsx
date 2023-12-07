@@ -20,7 +20,6 @@ import {
 // components
 import {Button, LinkButton} from "@/components/modules/Button";
 import SearchInput from "@/components/modules/SearchInput";
-
 const Menu = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
 const MenuItem = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
 const CitiesModal = dynamic(() => import("@/components/partials/CitiesModal"), {ssr: false});
@@ -155,46 +154,22 @@ const BottomLinks = () => {
                 </LinkButton>
             </li>
 
-            {
-                Boolean(session?.user?.name && session?.user?.family && session?.user?.phoneNumber) ? (
-                    <li className="col-span-3 flex justify-center items-center">
-                        <LinkButton
-                            variant="text"
-                            color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                            href="/account/my-advertises/add"
-                            vertical
-                            startIcon={
-                                <LuPlus
-                                    size={20}
-                                    className="text-current"
-                                />
-                            }
-                        >
-                            آگهی جدید
-                        </LinkButton>
-                    </li>
-                ) : (
-                    <li className="col-span-3 flex justify-center items-center">
-                        <Button
-                            variant="text"
-                            color="gray"
-                            vertical
-                            startIcon={
-                                <LuPlus
-                                    size={20}
-                                    className="text-current"
-                                />
-                            }
-                            onClick={async () => {
-                                const {notification} = await import("@/components/modules/Notification");
-                                notification("ابتدا حساب کاربری خود را تکمیل نمایید", "error");
-                            }}
-                        >
-                            آگهی جدید
-                        </Button>
-                    </li>
-                )
-            }
+            <li className="col-span-3 flex justify-center items-center">
+                <LinkButton
+                    variant="text"
+                    color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
+                    href="/account/my-advertises/add"
+                    vertical
+                    startIcon={
+                        <LuPlus
+                            size={20}
+                            className="text-current"
+                        />
+                    }
+                >
+                    آگهی جدید
+                </LinkButton>
+            </li>
 
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
@@ -456,40 +431,19 @@ const HeaderLinks = () => {
                 )
             }
 
-            {
-                Boolean(session?.user?.name && session?.user?.family && session?.user?.phoneNumber) ? (
-                    <LinkButton
-                        variant="contained"
-                        color="blue"
-                        href="/account/my-advertises/add"
-                        startIcon={
-                            <LuPlus
-                                size={20}
-                                className="text-current"
-                            />
-                        }
-                    >
-                        آگهی جدید
-                    </LinkButton>
-                ) : (
-                    <Button
-                        variant="contained"
-                        color="blue"
-                        startIcon={
-                            <LuPlus
-                                size={20}
-                                className="text-current"
-                            />
-                        }
-                        onClick={async () => {
-                            const {notification} = await import("@/components/modules/Notification");
-                            notification("ابتدا حساب کاربری خود را تکمیل نمایید", "error");
-                        }}
-                    >
-                        آگهی جدید
-                    </Button>
-                )
-            }
+            <LinkButton
+                variant="contained"
+                color="blue"
+                href="/account/my-advertises/add"
+                startIcon={
+                    <LuPlus
+                        size={20}
+                        className="text-current"
+                    />
+                }
+            >
+                آگهی جدید
+            </LinkButton>
 
         </div>
     )

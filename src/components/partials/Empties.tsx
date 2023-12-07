@@ -3,7 +3,7 @@
 // libraries
 import Image from "next/image";
 import {useRouter} from "next/navigation";
-import {LuChevronRight} from "react-icons/lu";
+import {LuChevronRight, LuShieldAlert} from "react-icons/lu";
 
 // components
 import {Button} from "@/components/modules/Button";
@@ -11,7 +11,8 @@ import {Button} from "@/components/modules/Button";
 export const AdvertiseListEmpty = () => {
 
     return (
-        <section className='flex flex-col justify-center items-center gap-y-4 w-full h-full min-h-[calc(100dvh_-_172px)] md:min-h-[calc(100dvh_-_102px)]'>
+        <section
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-auto'>
 
             <Image
                 src="/assets/images/no-data.svg"
@@ -32,7 +33,8 @@ export const AdvertiseListEmpty = () => {
 export const FavoriteListEmpty = () => {
 
     return (
-        <section className='flex flex-col justify-center items-center gap-y-4 w-full h-full min-h-[calc(100dvh_-_172px)] md:min-h-[calc(100dvh_-_32px)]'>
+        <section
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-auto'>
 
             <Image
                 src="/assets/images/no-data.svg"
@@ -53,7 +55,8 @@ export const FavoriteListEmpty = () => {
 export const MyAdvertiseListEmpty = () => {
 
     return (
-        <section className='flex flex-col justify-center items-center gap-y-4 w-full h-full min-h-[calc(100dvh_-_172px)] md:min-h-[calc(100dvh_-_32px)]'>
+        <section
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-auto'>
 
             <Image
                 src="/assets/images/no-data.svg"
@@ -76,7 +79,8 @@ export const NotFoundClient = () => {
     const router = useRouter();
 
     return (
-        <section className='flex flex-col justify-center items-center gap-y-8 w-full h-full min-h-[calc(100dvh_-_172px)] md:min-h-[calc(100dvh_-_102px)]'>
+        <section
+            className='flex flex-col justify-center items-center gap-y-8 w-full h-full my-auto'>
 
             <Image
                 src="/assets/images/not-found.svg"
@@ -86,14 +90,19 @@ export const NotFoundClient = () => {
                 className="w-full max-w-[250px] h-full object-cover object-center"
             />
 
-            <h3 className="text-lg font-bold text-gray">
+            <h3 className="text-base font-bold text-gray">
                 صفحه مورد نظر یافت نشد
             </h3>
 
             <Button
                 variant="contained"
                 color="blue"
-                startIcon={<LuChevronRight size={20}/>}
+                startIcon={
+                    <LuChevronRight
+                        size={20}
+                        className="text-current"
+                    />
+                }
                 onClick={() => router.back()}
             >
                 بازگشت
@@ -106,7 +115,8 @@ export const NotFoundClient = () => {
 export const NotFoundServer = () => {
 
     return (
-        <section className='flex flex-col justify-center items-center gap-y-8 w-full h-full min-h-[calc(100dvh_-_172px)] md:min-h-[calc(100dvh_-_102px)]'>
+        <section
+            className='flex flex-col justify-center items-center gap-y-8 w-full h-full my-auto'>
 
             <Image
                 src="/assets/images/server-down.svg"
@@ -116,7 +126,7 @@ export const NotFoundServer = () => {
                 className="w-full max-w-[250px] h-full object-cover object-center"
             />
 
-            <h3 className="text-lg font-bold text-gray">
+            <h3 className="text-base font-bold text-gray">
                 خطایی رخ داده است ، در حال برطرف کردن آن هستیم
             </h3>
 
@@ -124,3 +134,40 @@ export const NotFoundServer = () => {
     )
 }
 
+export const NotVerified = () => {
+
+    const router = useRouter();
+
+    return (
+        <section
+            className='flex flex-col justify-center items-center gap-y-8 w-full h-full my-auto'>
+
+            <Image
+                src="/assets/images/verified.svg"
+                alt="server-down"
+                width={150}
+                height={150}
+                className="w-full max-w-[150px] h-full object-cover object-center"
+            />
+
+            <h3 className="text-base font-bold text-gray">
+                احراز هویت نشده اید
+            </h3>
+
+            <Button
+                variant="contained"
+                color="blue"
+                startIcon={
+                    <LuShieldAlert
+                        size={20}
+                        className="text-current"
+                    />
+                }
+                onClick={() => router.push("/account/profile")}
+            >
+                احراز هویت
+            </Button>
+
+        </section>
+    )
+}

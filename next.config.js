@@ -8,6 +8,10 @@ module.exports = {
                 hostname: 'shop.alirezanaghdi.ir',
                 port: '',
             },
+            // {
+            //     protocol: 'http',
+            //     hostname: '**',
+            // },
         ],
     },
     env:{

@@ -4,6 +4,7 @@
 import {useRef} from "react";
 import dynamic from "next/dynamic";
 import {useRouter} from "next/navigation";
+import {useSession} from "next-auth/react";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useFormik} from "formik";
 import {LuCheck, LuChevronLeft, LuChevronRight} from "react-icons/lu";
@@ -11,6 +12,7 @@ import {CSSTransition} from 'react-transition-group';
 
 // components
 import {Button} from "@/components/modules/Button";
+import {NotVerified} from "@/components/partials/Empties";
 import Stepper from "@/components/modules/Stepper";
 import TextArea from "@/components/modules/TextArea";
 import SelectBox from "@/components/modules/SelectBox";
@@ -465,9 +467,11 @@ const Section = ({children, activeSection}) => {
 export const AddAdvertise = () => {
 
     const router = useRouter();
+    const {data: session} = useSession();
     const {segment, _handlePrevSegment, _handleNextSegment, _handleSegment} = useSegment();
 
-    return (
+    return Boolean(session?.user?.name && session?.user?.family && session?.user?.phoneNumber) ? (
+
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
 
             <Stepper
@@ -508,5 +512,10 @@ export const AddAdvertise = () => {
             </Section>
 
         </div>
+
+    ) : (
+
+        <NotVerified/>
+
     )
 }
