@@ -111,7 +111,6 @@ const Form = () => {
 
                         {/*<LinkButton*/}
                         {/*    variant="text"*/}
-                        {/*    size="sm"*/}
                         {/*    color="blue"*/}
                         {/*    href="/auth/forget-password"*/}
                         {/*>*/}
@@ -174,7 +173,6 @@ const Links = () => {
 
                 <LinkButton
                     variant="text"
-                    size="sm"
                     color="blue"
                     href="/auth/sign-up"
                 >

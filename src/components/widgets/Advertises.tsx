@@ -17,6 +17,7 @@ import RangeInput from "@/components/modules/RangeInput";
 import CheckBox from "@/components/modules/CheckBox";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
 import {AdvertiseListEmpty} from "@/components/partials/Empties";
+
 const SortModal = dynamic(() => import("@/components/partials/SortModal"), {ssr: false});
 const FilterModal = dynamic(() => import("@/components/widgets/FilterModal"), {ssr: false});
 
@@ -57,7 +58,12 @@ const ActionBar = () => {
                 <Button
                     variant="contained"
                     color="light"
-                    startIcon={<LuFilter size={20}/>}
+                    startIcon={
+                        <LuFilter
+                            size={20}
+                            className="text-current"
+                        />
+                    }
                     onClick={_handleShowFilterModal}
                 >
                     فیلتر
@@ -66,7 +72,12 @@ const ActionBar = () => {
                 <Button
                     variant="contained"
                     color="light"
-                    startIcon={<LuArrowDownWideNarrow size={20}/>}
+                    startIcon={
+                        <LuArrowDownWideNarrow
+                            size={20}
+                            className="text-current"
+                        />
+                    }
                     onClick={_handleShowSortModal}
                 >
                     مرتب سازی
@@ -111,7 +122,10 @@ const SortBar = () => {
         <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
             <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
-                <LuArrowDownWideNarrow size={20}/>
+                <LuArrowDownWideNarrow
+                    size={20}
+                    className="text-current"
+                />
                 مرتب سازی
             </h3>
 
@@ -121,7 +135,6 @@ const SortBar = () => {
                     sortList.map(sortItem =>
                         <Button
                             key={sortItem?.id}
-                            size="sm"
                             variant={searchParams.get("sort") === sortItem?.value ? "contained" : "text"}
                             color={searchParams.get("sort") === sortItem?.value ? "blue" : "gray"}
                             onClick={() => {
@@ -179,7 +192,10 @@ const FilterBar = () => {
         <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
             <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
-                <LuFilter size={20}/>
+                <LuFilter
+                    size={20}
+                    className="text-current"
+                />
                 فیلتر ها
             </h3>
 

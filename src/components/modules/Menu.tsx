@@ -30,7 +30,7 @@ export const Menu = ({children, menuButton, arrow, align, direction}) => {
     )
 }
 
-export const MenuItem = ({children, color, size = "md", variant, onClick, href, active, icon}) => {
+export const MenuItem = ({children, color, size = "sm", variant, onClick, href, active, icon}) => {
 
     return href ? (
         <ReactMenuItem>

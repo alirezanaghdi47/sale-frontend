@@ -11,7 +11,6 @@ import {
     LuPlus,
     LuScrollText,
     LuUser,
-    LuSearch,
     LuMapPin,
     LuBookmark,
     LuLogOut,
@@ -20,7 +19,6 @@ import {
 
 // components
 import {Button, LinkButton} from "@/components/modules/Button";
-import TextInput from "@/components/modules/TextInput";
 import SearchInput from "@/components/modules/SearchInput";
 
 const Menu = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
@@ -51,6 +49,7 @@ const Logo = () => {
 
 const AppbarActions = () => {
 
+    const router = useRouter();
     const searchParams = useSearchParams();
 
     const {
@@ -59,20 +58,41 @@ const AppbarActions = () => {
         _handleHideModal: _handleHideCitiesModal
     } = useModal();
 
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues: {
+            search: searchParams.get("search") ?? ""
+        },
+        onSubmit: async (result) => {
+            const query = generateQueryParams({
+                search: result.search,
+                page: searchParams.get("page"),
+                sort: searchParams.get("sort"),
+                startPrice: searchParams.get("startPrice"),
+                endPrice: searchParams.get("endPrice"),
+                categories: searchParams.getAll("category"),
+                cities: searchParams.getAll("city"),
+            });
+            router.push(`${process.env.BASE_URL}/advertises?${query}`);
+        }
+    });
+
     return (
         <>
 
             <div className="flex justify-center items-center gap-x-4 w-full">
 
-                <TextInput
+                <SearchInput
                     name="search"
                     placeholder="جستجو"
-                    startIcon={<LuSearch size={20}/>}
+                    value={formik.values.search}
+                    onChange={formik.handleChange}
+                    onSubmit={formik.handleSubmit}
                 />
 
                 <Button
-                    color="gray"
                     variant="text"
+                    color="gray"
                     startIcon={<LuMapPin size={20}/>}
                     onClick={_handleShowCitiesModal}
                 >
@@ -135,22 +155,46 @@ const BottomLinks = () => {
                 </LinkButton>
             </li>
 
-            <li className="col-span-3 flex justify-center items-center">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                    href="/account/my-advertises/add"
-                    vertical
-                    startIcon={
-                        <LuPlus
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                >
-                    آگهی جدید
-                </LinkButton>
-            </li>
+            {
+                Boolean(session?.user?.name && session?.user?.family && session?.user?.phoneNumber) ? (
+                    <li className="col-span-3 flex justify-center items-center">
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
+                            href="/account/my-advertises/add"
+                            vertical
+                            startIcon={
+                                <LuPlus
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                        >
+                            آگهی جدید
+                        </LinkButton>
+                    </li>
+                ) : (
+                    <li className="col-span-3 flex justify-center items-center">
+                        <Button
+                            variant="text"
+                            color="gray"
+                            vertical
+                            startIcon={
+                                <LuPlus
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                            onClick={async () => {
+                                const {notification} = await import("@/components/modules/Notification");
+                                notification("ابتدا حساب کاربری خود را تکمیل نمایید", "error");
+                            }}
+                        >
+                            آگهی جدید
+                        </Button>
+                    </li>
+                )
+            }
 
             <li className="col-span-3 flex justify-center items-center">
                 <LinkButton
@@ -271,8 +315,8 @@ const HeaderActions = () => {
             <div className="flex justify-center items-center gap-x-4 w-full">
 
                 <Button
-                    color="gray"
                     variant="text"
+                    color="gray"
                     startIcon={<LuMapPin size={20}/>}
                     onClick={_handleShowCitiesModal}
                 >
@@ -412,19 +456,40 @@ const HeaderLinks = () => {
                 )
             }
 
-            <LinkButton
-                variant="contained"
-                color="blue"
-                href="/account/my-advertises/add"
-                startIcon={
-                    <LuPlus
-                        size={20}
-                        className="text-current"
-                    />
-                }
-            >
-                آگهی جدید
-            </LinkButton>
+            {
+                Boolean(session?.user?.name && session?.user?.family && session?.user?.phoneNumber) ? (
+                    <LinkButton
+                        variant="contained"
+                        color="blue"
+                        href="/account/my-advertises/add"
+                        startIcon={
+                            <LuPlus
+                                size={20}
+                                className="text-current"
+                            />
+                        }
+                    >
+                        آگهی جدید
+                    </LinkButton>
+                ) : (
+                    <Button
+                        variant="contained"
+                        color="blue"
+                        startIcon={
+                            <LuPlus
+                                size={20}
+                                className="text-current"
+                            />
+                        }
+                        onClick={async () => {
+                            const {notification} = await import("@/components/modules/Notification");
+                            notification("ابتدا حساب کاربری خود را تکمیل نمایید", "error");
+                        }}
+                    >
+                        آگهی جدید
+                    </Button>
+                )
+            }
 
         </div>
     )

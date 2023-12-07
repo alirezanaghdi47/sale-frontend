@@ -53,7 +53,6 @@ const SortBar = ({totalCount , page, sort, _handleChangePage, _handleChangeSort}
                         sortList?.map(sortItem =>
                             <Button
                                 key={sortItem?.id}
-                                size="sm"
                                 variant={sortItem?.value === sort ? "contained" : "text"}
                                 color={sortItem?.value === sort ? "blue" : "gray"}
                                 onClick={() => _handleChangeSort(sortItem?.value)}

@@ -17,8 +17,7 @@ import SelectBox from "@/components/modules/SelectBox";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import FileInput from "@/components/modules/FileInput";
-
-const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
+const Map3 = dynamic(() => import("@/components/widgets/Map3"), {ssr: false});
 
 // hooks
 import {useSegment} from "@/hooks/useSegment";
@@ -65,8 +64,8 @@ const Gallery = ({data, setData, onNext}) => {
                                 "image/jpeg": [],
                                 "image/jpg": [],
                             }}
-                            value={formik.values.gallery}
-                            onChange={(value) => formik.setFieldValue("gallery", value)}
+                            values={formik.values.gallery}
+                            onChange={(values) => formik.setFieldValue("gallery", values)}
                         />
 
                         {
@@ -361,10 +360,12 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
                         </span>
 
                         <div className='w-full h-[320px] bg-secondary rounded-lg p-4'>
-                            <Map2 setLocation={(value) => {
-                                formik.setFieldValue("latitude", value.latitude);
-                                formik.setFieldValue("longitude", value.longitude);
-                            }}/>
+                            <Map3
+                                setLocation={(value) => {
+                                    formik.setFieldValue("latitude", value.latitude);
+                                    formik.setFieldValue("longitude", value.longitude);
+                                }}
+                            />
                         </div>
 
                         {

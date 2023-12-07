@@ -2,7 +2,7 @@
 
 // libraries
 import {useState} from "react";
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {useFormik} from "formik";
 import {LuCheck, LuSearch, LuX} from "react-icons/lu";
 

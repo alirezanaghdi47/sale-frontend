@@ -87,7 +87,6 @@ const InstallBanner = () => {
                 <IconButton
                     variant="contained"
                     color="light"
-                    size="sm"
                     onClick={_handleClose}
                 >
                     <LuX size={20}/>

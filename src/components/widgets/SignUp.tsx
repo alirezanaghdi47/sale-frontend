@@ -179,7 +179,6 @@ const Links = () => {
 
                 <LinkButton
                     variant="text"
-                    size="sm"
                     color="blue"
                     href="/auth/sign-in"
                 >

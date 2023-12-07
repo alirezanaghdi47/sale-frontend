@@ -26,7 +26,7 @@ const styles = {
     }
 }
 
-export const IconButton = ({children , size = "md" ,color, variant , onClick , shape = "rounded"}) => {
+export const IconButton = ({children , size = "sm" ,color, variant , onClick , shape = "rounded"}) => {
 
     return (
         <button
@@ -39,7 +39,7 @@ export const IconButton = ({children , size = "md" ,color, variant , onClick , s
 }
 
 
-export const LinkIconButton = ({children ,size = "md" ,color, variant, href , shape = "rounded"}) => {
+export const LinkIconButton = ({children ,size = "sm" ,color, variant, href , shape = "rounded"}) => {
 
     return (
         <Link

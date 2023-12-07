@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {useSession , signOut} from "next-auth/react";
+import {useSession, signOut} from "next-auth/react";
 import {LuBookmark, LuList, LuLogOut, LuPlus, LuScrollText, LuUser} from "react-icons/lu";
 
 // components
@@ -33,7 +33,7 @@ const Logo = () => {
 const AppbarActions = () => {
 
     const pathname = usePathname();
-    const {data: session } = useSession();
+    const {data: session} = useSession();
 
     return (
         <div className="flex justify-between items-center gap-x-4 w-full">
@@ -44,7 +44,6 @@ const AppbarActions = () => {
                 menuButton={
                     <Button
                         variant="text"
-                        size="md"
                         color="gray"
                         startIcon={
                             session?.user?.avatar ? (
@@ -107,7 +106,7 @@ const AppbarActions = () => {
 const SidebarLinks = () => {
 
     const pathname = usePathname();
-    const {data: session } = useSession();
+    const {data: session} = useSession();
 
     return (
         <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
@@ -121,7 +120,7 @@ const SidebarLinks = () => {
                             children: "آگهی ها",
                             variant: "text",
                             color: "gray",
-                            size: "full",
+                            size: "sm",
                             justify: "start",
                             startIcon: <LuScrollText size={20} className="text-current"/>
                         }}
@@ -130,8 +129,6 @@ const SidebarLinks = () => {
                         <LinkButton
                             variant="text"
                             color={pathname === "/account/my-advertises" ? "blue" : "gray"}
-                            size="full"
-                            justify="start"
                             href="/account/my-advertises"
                             startIcon={
                                 <LuList
@@ -144,31 +141,10 @@ const SidebarLinks = () => {
                         </LinkButton>
 
                         {
-                            (!session?.user?.name || !session?.user?.family || !session?.user?.phoneNumber) ? (
-                                <Button
-                                    variant="text"
-                                    color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                                    size="full"
-                                    justify="start"
-                                    startIcon={
-                                        <LuPlus
-                                            size={20}
-                                            className="text-current"
-                                        />
-                                    }
-                                    onClick={async () => {
-                                        const {notification} = await import("@/components/modules/Notification");
-                                        notification("ابتدا حساب کاربری خود را تکمیل کنید", "error");
-                                    }}
-                                >
-                                    آگهی جدید
-                                </Button>
-                            ) : (
+                            Boolean(session?.user?.name && session?.user?.family && session?.user?.phoneNumber) ? (
                                 <LinkButton
                                     variant="text"
                                     color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                                    size="full"
-                                    justify="start"
                                     href="/account/my-advertises/add"
                                     startIcon={
                                         <LuPlus
@@ -179,6 +155,23 @@ const SidebarLinks = () => {
                                 >
                                     آگهی جدید
                                 </LinkButton>
+                            ) : (
+                                <Button
+                                    variant="text"
+                                    color="gray"
+                                    startIcon={
+                                        <LuPlus
+                                            size={20}
+                                            className="text-current"
+                                        />
+                                    }
+                                    onClick={async () => {
+                                        const {notification} = await import("@/components/modules/Notification");
+                                        notification("ابتدا حساب کاربری خود را تکمیل نمایید", "error");
+                                    }}
+                                >
+                                    آگهی جدید
+                                </Button>
                             )
                         }
 
@@ -192,8 +185,6 @@ const SidebarLinks = () => {
                 <LinkButton
                     variant="text"
                     color={pathname === "/account/favorites" ? "blue" : "gray"}
-                    size="full"
-                    justify="start"
                     href="/account/favorites"
                     startIcon={
                         <LuBookmark
@@ -213,7 +204,7 @@ const SidebarLinks = () => {
 const SidebarActions = () => {
 
     const pathname = usePathname();
-    const {data: session } = useSession();
+    const {data: session} = useSession();
 
     return (
         <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
@@ -222,8 +213,6 @@ const SidebarActions = () => {
                 <LinkButton
                     variant="text"
                     color={pathname === "/account/profile" ? "blue" : "gray"}
-                    size="full"
-                    justify="start"
                     href="/account/profile"
                     startIcon={
                         session?.user?.avatar ? (
@@ -250,8 +239,6 @@ const SidebarActions = () => {
                 <Button
                     variant="text"
                     color="red"
-                    size="full"
-                    justify="start"
                     startIcon={
                         <LuLogOut
                             size={20}
@@ -303,7 +290,7 @@ export const Sidebar = () => {
 const BottomLinks = () => {
 
     const pathname = usePathname();
-    const {data: session } = useSession();
+    const {data: session} = useSession();
 
     return (
         <ul className="grid grid-cols-12 gap-2 w-full">
@@ -344,25 +331,7 @@ const BottomLinks = () => {
 
             <li className="col-span-3 flex justify-center items-center">
                 {
-                    (!session?.user?.name || !session?.user?.family || !session?.user?.phoneNumber) ? (
-                        <Button
-                            variant="text"
-                            color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                            vertical
-                            startIcon={
-                                <LuPlus
-                                    size={20}
-                                    className="text-current"
-                                />
-                            }
-                            onClick={async () => {
-                                const {notification} = await import("@/components/modules/Notification");
-                                notification("ابتدا حساب کاربری خود را تکمیل کنید", "error");
-                            }}
-                        >
-                            آگهی جدید
-                        </Button>
-                    ) : (
+                    Boolean(session?.user?.name && session?.user?.family && session?.user?.phoneNumber) ? (
                         <LinkButton
                             variant="text"
                             color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
@@ -377,6 +346,24 @@ const BottomLinks = () => {
                         >
                             آگهی جدید
                         </LinkButton>
+                    ) : (
+                        <Button
+                            variant="text"
+                            color="gray"
+                            vertical
+                            startIcon={
+                                <LuPlus
+                                    size={20}
+                                    className="text-current"
+                                />
+                            }
+                            onClick={async () => {
+                                const {notification} = await import("@/components/modules/Notification");
+                                notification("ابتدا حساب کاربری خود را تکمیل کنید", "error");
+                            }}
+                        >
+                            آگهی جدید
+                        </Button>
                     )
                 }
             </li>

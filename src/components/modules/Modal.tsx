@@ -63,7 +63,6 @@ export const ModalHeader = ({title, onCloseModal}) => {
             <IconButton
                 variant="contained"
                 color="red"
-                size="sm"
                 onClick={onCloseModal}
             >
                 <LuX size={20}/>

@@ -25,7 +25,7 @@ const SearchInput = ({name, value, onChange , onSubmit, placeholder, endIcon}) =
                 name={name}
                 type="text"
                 placeholder={placeholder}
-                className={`w-full h-full bg-transparent text-gray font-bold placeholder-gray focus:outline-none`}
+                className={`w-full h-full bg-transparent text-gray text-sm font-bold placeholder-gray focus:outline-none`}
                 value={value}
                 onChange={onChange}
             />

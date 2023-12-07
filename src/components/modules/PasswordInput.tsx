@@ -33,7 +33,6 @@ const PasswordInput = ({name, value, onChange, placeholder, startIcon}) => {
 
             <IconButton
                 variant="text"
-                size="sm"
                 color="gray"
                 onClick={_handleToggleShowPassword}
             >

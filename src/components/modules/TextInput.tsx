@@ -14,7 +14,7 @@ const TextInput = ({name, value, onChange, placeholder , disabled, startIcon, en
                 type="text"
                 readOnly={readOnly || disabled}
                 placeholder={placeholder}
-                className={`w-full h-full bg-transparent ${disabled ? "text-gray/75 cursor-default" : "text-gray"} font-bold placeholder-gray focus:outline-none`}
+                className={`w-full h-full bg-transparent ${disabled ? "text-gray/75 cursor-default" : "text-gray"} text-sm font-bold placeholder-gray focus:outline-none`}
                 value={value}
                 onChange={onChange}
             />
