@@ -54,7 +54,7 @@ const Map = ({location}) => {
     }, []);
 
     return (
-        <div id="map" className='z-10 w-full h-[240px]'/>
+        <div id="map" className='z-10 w-full h-[240px] rounded-lg'/>
     )
 }
 

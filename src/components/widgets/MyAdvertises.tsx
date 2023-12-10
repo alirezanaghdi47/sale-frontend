@@ -3,7 +3,7 @@
 // libraries
 import dynamic from "next/dynamic";
 import {useRouter} from "next/navigation";
-import {useQuery , useMutation, useQueryClient} from "@tanstack/react-query";
+import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useMediaQuery} from "@react-hooks-library/core";
 import {LuArrowDownWideNarrow} from "react-icons/lu";
 
@@ -11,8 +11,9 @@ import {LuArrowDownWideNarrow} from "react-icons/lu";
 import {Button} from "@/components/modules/Button";
 import Pagination from "@/components/modules/Pagination";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-import {PaginationPlaceholder , AdvertiseListPlaceholder , SortBarPlaceholder} from "@/components/partials/Placeholders";
+import {PaginationPlaceholder, AdvertiseListPlaceholder, SortBarPlaceholder} from "@/components/partials/Placeholders";
 import {MyAdvertiseListEmpty} from "@/components/partials/Empties";
+
 const SortModal = dynamic(() => import("@/components/partials/SortModal"), {ssr: false});
 const DeleteAdvertiseDialog = dynamic(() => import("@/components/partials/DeleteAdvertiseDialog"), {ssr: false});
 
@@ -22,7 +23,7 @@ import {useFilter} from "@/hooks/useFilter";
 import {useDialog} from "@/hooks/useDialog";
 
 // services
-import {getAllMyAdvertiseService , deleteMyAdvertiseService} from "@/services/myAdvertiseService";
+import {getAllMyAdvertiseService, deleteMyAdvertiseService} from "@/services/myAdvertiseService";
 
 // utils
 import {sortList} from "@/utils/constants";
@@ -45,8 +46,11 @@ const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort})
 
                 <div className="hidden md:flex justify-start items-center">
 
-                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-                       <LuArrowDownWideNarrow size={20}/>
+                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs ml-2">
+                       <LuArrowDownWideNarrow
+                           size={16}
+                           className="text-current"
+                       />
                         مرتب سازی
                     </span>
 
@@ -70,7 +74,12 @@ const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort})
                     <Button
                         variant="contained"
                         color="light"
-                        startIcon={<LuArrowDownWideNarrow size={20}/>}
+                        startIcon={
+                            <LuArrowDownWideNarrow
+                                size={16}
+                                className="text-current"
+                            />
+                        }
                         onClick={_handleShowSortModal}
                     >
                         مرتب سازی
@@ -137,8 +146,8 @@ const AdvertiseList = ({data}) => {
         const {notification} = await import("@/components/modules/Notification");
 
         copyToClipboard(data).then(res => {
-            if (res === "unSupported"){
-                notification("کپی شد" , "success");
+            if (res === "unSupported") {
+                notification("کپی شد", "success");
             }
         });
 
@@ -153,7 +162,7 @@ const AdvertiseList = ({data}) => {
                     data.map(advertiseItem =>
                         <li
                             key={advertiseItem?._id}
-                            className="col-span-12 lg:col-span-6"
+                            className="col-span-12 md:col-span-6"
                         >
                             <AdvertiseCard
                                 advertiseItem={advertiseItem}
@@ -191,15 +200,16 @@ const AdvertiseList = ({data}) => {
 
 export const MyAdvertises = () => {
 
-    const {page, limit, sort, _handleChangePage, _handleChangeSort} = useFilter();
+    const {page, limit, sort, _handleChangePage, _handleChangeSort} = useFilter(6);
 
-    const {isPending, data , error} = useQuery({
+    const {isPending, data, error} = useQuery({
         queryKey: ['allMyAdvertise', {page, limit, sort}],
         queryFn: () => getAllMyAdvertiseService({page, limit, sort})
     });
 
     return (
-        <div className={`flex flex-col justify-start items-center gap-y-4 w-full h-full ${!isPending && (error || data?.data?.length === 0) && "my-auto"}`}>
+        <div
+            className={`flex flex-col justify-start items-center gap-y-4 w-full h-full ${!isPending && (error || data?.data?.length === 0) && "my-auto"}`}>
 
             {
                 !isPending && data?.data?.length > 0 && (

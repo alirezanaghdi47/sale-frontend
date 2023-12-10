@@ -77,37 +77,38 @@ const AppbarActions = () => {
     });
 
     return (
-        <>
+        <div className="flex justify-center items-center gap-x-4 w-full">
 
-            <div className="flex justify-center items-center gap-x-4 w-full">
+            <SearchInput
+                name="search"
+                placeholder="جستجو"
+                value={formik.values.search}
+                onChange={formik.handleChange}
+                onSubmit={formik.handleSubmit}
+            />
 
-                <SearchInput
-                    name="search"
-                    placeholder="جستجو"
-                    value={formik.values.search}
-                    onChange={formik.handleChange}
-                    onSubmit={formik.handleSubmit}
-                />
-
-                <Button
-                    variant="text"
-                    color="gray"
-                    startIcon={<LuMapPin size={20}/>}
-                    onClick={_handleShowCitiesModal}
-                >
-                    {searchParams.getAll("city").length === 0 && "انتخاب کنید"}
-                    {searchParams.getAll("city").length === 1 && cityList.find(cityItem => cityItem.value === searchParams.get("city"))?.label}
-                    {searchParams.getAll("city").length > 1 && `${searchParams.getAll("city").length} شهر `}
-                </Button>
-
-            </div>
+            <Button
+                variant="text"
+                color="gray"
+                startIcon={
+                    <LuMapPin
+                        size={16}
+                        className="text-current"
+                    />
+                }
+                onClick={_handleShowCitiesModal}
+            >
+                {searchParams.getAll("city").length === 0 && "انتخاب کنید"}
+                {searchParams.getAll("city").length === 1 && cityList.find(cityItem => cityItem.value === searchParams.get("city"))?.label}
+                {searchParams.getAll("city").length > 1 && `${searchParams.getAll("city").length} شهر `}
+            </Button>
 
             <CitiesModal
                 isOpenModal={isOpenCitiesModal}
                 onCloseModal={_handleHideCitiesModal}
             />
 
-        </>
+        </div>
     )
 }
 
@@ -117,7 +118,7 @@ export const Appbar = () => {
         <header
             className="fixed top-0 left-0 z-20 flex md:hidden justify-center items-center w-full h-[70px] bg-light shadow-3xl">
 
-            <div className='flex justify-between items-center gap-x-4 w-full max-w-[1200px] h-full p-4'>
+            <div className='flex justify-between items-center gap-x-4 w-full h-full p-4'>
 
                 <Logo/>
 
@@ -145,7 +146,7 @@ const BottomLinks = () => {
                     vertical
                     startIcon={
                         <LuScrollText
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -162,7 +163,7 @@ const BottomLinks = () => {
                     vertical
                     startIcon={
                         <LuPlus
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -179,7 +180,7 @@ const BottomLinks = () => {
                     vertical
                     startIcon={
                         <LuBookmark
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -201,13 +202,13 @@ const BottomLinks = () => {
                                     <Image
                                         src={session?.user?.avatar}
                                         alt="avatar"
-                                        width={24}
-                                        height={24}
-                                        className="rounded-full object-cover object-center"
+                                        width={20}
+                                        height={20}
+                                        className="w-[20px] h-[20px] rounded-full object-cover object-center"
                                     />
                                 ) : (
                                     <LuUser
-                                        size={20}
+                                        size={16}
                                         className="text-current"
                                     />
                                 )
@@ -223,7 +224,7 @@ const BottomLinks = () => {
                             vertical
                             startIcon={
                                 <LuUser
-                                    size={20}
+                                    size={16}
                                     className="text-current"
                                 />
                             }
@@ -244,7 +245,7 @@ export const BottomNavigation = () => {
         <nav
             className="fixed bottom-0 left-0 z-20 flex md:hidden justify-center items-center gap-x-2 w-full h-[70px] bg-light shadow-3xl">
 
-            <div className='flex justify-center items-center gap-x-2 w-full max-w-[1200px] h-full p-4'>
+            <div className='flex justify-center items-center gap-x-2 w-full h-full p-4'>
 
                 <BottomLinks/>
 
@@ -285,37 +286,38 @@ const HeaderActions = () => {
     });
 
     return (
-        <>
+        <div className="flex justify-center items-center gap-x-4 w-full">
 
-            <div className="flex justify-center items-center gap-x-4 w-full">
+            <Button
+                variant="text"
+                color="gray"
+                startIcon={
+                    <LuMapPin
+                        size={16}
+                        className="text-current"
+                    />
+                }
+                onClick={_handleShowCitiesModal}
+            >
+                {searchParams.getAll("city").length === 0 && "انتخاب کنید"}
+                {searchParams.getAll("city").length === 1 && cityList.find(cityItem => cityItem.value === searchParams.get("city"))?.label}
+                {searchParams.getAll("city").length > 1 && `${searchParams.getAll("city").length} شهر `}
+            </Button>
 
-                <Button
-                    variant="text"
-                    color="gray"
-                    startIcon={<LuMapPin size={20}/>}
-                    onClick={_handleShowCitiesModal}
-                >
-                    {searchParams.getAll("city").length === 0 && "انتخاب کنید"}
-                    {searchParams.getAll("city").length === 1 && cityList.find(cityItem => cityItem.value === searchParams.get("city"))?.label}
-                    {searchParams.getAll("city").length > 1 && `${searchParams.getAll("city").length} شهر `}
-                </Button>
-
-                <SearchInput
-                    name="search"
-                    placeholder="جستجو"
-                    value={formik.values.search}
-                    onChange={formik.handleChange}
-                    onSubmit={formik.handleSubmit}
-                />
-
-            </div>
+            <SearchInput
+                name="search"
+                placeholder="جستجو"
+                value={formik.values.search}
+                onChange={formik.handleChange}
+                onSubmit={formik.handleSubmit}
+            />
 
             <CitiesModal
                 isOpenModal={isOpenCitiesModal}
                 onCloseModal={_handleHideCitiesModal}
             />
 
-        </>
+        </div>
     )
 }
 
@@ -340,11 +342,11 @@ const HeaderLinks = () => {
                                             alt="avatar"
                                             width={24}
                                             height={24}
-                                            className="rounded-full object-cover object-center"
+                                            className="w-[24px] h-[24px] rounded-full object-cover object-center"
                                         />
                                     ) : (
                                         <LuUser
-                                            size={20}
+                                            size={16}
                                             className="text-current"
                                         />
                                     )
@@ -363,7 +365,7 @@ const HeaderLinks = () => {
                             href="/account/my-advertises"
                             icon={
                                 <LuScrollText
-                                    size={20}
+                                    size={16}
                                     className="text-current"
                                 />
                             }
@@ -377,7 +379,7 @@ const HeaderLinks = () => {
                             href="/account/favorites"
                             icon={
                                 <LuBookmark
-                                    size={20}
+                                    size={16}
                                     className="text-current"
                                 />
                             }
@@ -391,7 +393,7 @@ const HeaderLinks = () => {
                             href="/account/profile"
                             icon={
                                 <LuUser
-                                    size={20}
+                                    size={16}
                                     className="text-current"
                                 />
                             }
@@ -404,7 +406,7 @@ const HeaderLinks = () => {
                             color="red"
                             icon={
                                 <LuLogOut
-                                    size={20}
+                                    size={16}
                                     className="text-current"
                                 />
                             }
@@ -421,7 +423,7 @@ const HeaderLinks = () => {
                         href="/auth/sign-in"
                         startIcon={
                             <LuLogIn
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -437,7 +439,7 @@ const HeaderLinks = () => {
                 href="/account/my-advertises/add"
                 startIcon={
                     <LuPlus
-                        size={20}
+                        size={16}
                         className="text-current"
                     />
                 }
@@ -455,7 +457,7 @@ export const Header = () => {
         <header
             className="fixed top-0 left-0 z-20 hidden md:flex justify-center items-center w-full h-[70px] bg-light shadow-3xl">
 
-            <div className='flex justify-start items-center gap-x-4 w-full max-w-[1200px] h-full p-4'>
+            <div className='flex justify-start items-center gap-x-4 w-full max-w-[992px] h-full p-4'>
 
                 <Logo/>
 

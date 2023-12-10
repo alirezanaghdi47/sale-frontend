@@ -9,7 +9,7 @@
   }
 
   &-handle{
-    @apply w-[16px] h-[16px] opacity-100 bg-blue border-none #{!important};
+    @apply w-[16px] h-[16px] opacity-100 bg-blue border-2 border-solid border-light drop-shadow-xl #{!important};
 
     &-1{
       @apply ml-2 #{!important};

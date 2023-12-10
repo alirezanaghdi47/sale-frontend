@@ -63,7 +63,7 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                     color="secondary"
                     startIcon={
                         <LuSearch
-                            size={20}
+                            size={16}
                             className="text-gray"
                         />
                     }
@@ -104,8 +104,13 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                 cancelButton={
                     <Button
                         variant="text"
-                        color="gray"
-                        startIcon={<LuX size={20}/>}
+                        color="red"
+                        startIcon={
+                            <LuX
+                                size={16}
+                                className="text-current"
+                            />
+                        }
                         onClick={onCloseModal}
                     >
                         انصراف
@@ -115,7 +120,12 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                     <Button
                         variant="contained"
                         color="blue"
-                        startIcon={<LuCheck size={20}/>}
+                        startIcon={
+                            <LuCheck
+                                size={16}
+                                className="text-current"
+                            />
+                        }
                         onClick={formik.handleSubmit}
                     >
                         ثبت

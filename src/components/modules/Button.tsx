@@ -8,7 +8,8 @@ const styles = {
             blue: "bg-blue text-light",
             yellow: "bg-yellow text-dark",
             green: "bg-green text-light",
-            light: "bg-light text-gray"
+            light: "bg-light text-gray",
+            secondary: "bg-secondary text-gray",
         },
         text: {
             dark: "text-dark",
@@ -22,7 +23,7 @@ const styles = {
         sm: "text-xs font-bold px-3 py-1.5",
         md: "text-sm font-bold px-4 py-2",
         lg: "text-lg font-bold px-4 py-2",
-        full: "w-full text-sm font-bold px-4 py-2"
+        full: "w-full text-xs font-bold px-4 py-2"
     },
     justify: {
         start: "justify-start",
@@ -52,12 +53,13 @@ export const Button = ({children , as = "button", size = "sm", color, variant, s
     )
 }
 
-export const LinkButton = ({children, size = "sm", color, variant, startIcon, endIcon, justify = "center", href, vertical}) => {
+export const LinkButton = ({children, size = "sm", color, variant, startIcon, endIcon, justify = "center", href, vertical , onClick}) => {
 
     return (
         <Link
             className={`flex ${vertical ? "flex-col gap-y-2" : "flex-row gap-x-2"} ${styles.justify[justify]} items-center ${styles.variant[variant][color]} ${styles.size[size]} rounded-lg whitespace-nowrap transition-colors duration-300 ease-out-expo`}
             href={href}
+            onClick={onClick}
         >
 
             {startIcon && startIcon}

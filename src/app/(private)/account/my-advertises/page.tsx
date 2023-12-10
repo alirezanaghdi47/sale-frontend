@@ -8,7 +8,7 @@ export const metadata = {
 const AdvertisesPage = () => {
 
     return (
-        <main className="flex flex-col justify-start items-start gap-y-4 w-full md:max-w-[calc(100%_-_240px)] h-full min-h-[calc(100dvh_-_140px)] md:min-h-screen p-4">
+        <main className="flex flex-col justify-start items-start gap-y-4 w-full h-full p-4">
 
             <MyAdvertises/>
 

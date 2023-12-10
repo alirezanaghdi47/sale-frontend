@@ -44,8 +44,11 @@ const SortBar = ({totalCount , page, sort, _handleChangePage, _handleChangeSort}
 
                 <div className="hidden md:flex justify-start items-center">
 
-                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
-                       <LuArrowDownWideNarrow size={20}/>
+                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs ml-2">
+                       <LuArrowDownWideNarrow
+                           size={16}
+                           className="text-current"
+                       />
                         مرتب سازی
                     </span>
 
@@ -69,7 +72,12 @@ const SortBar = ({totalCount , page, sort, _handleChangePage, _handleChangeSort}
                     <Button
                         variant="contained"
                         color="light"
-                        startIcon={<LuArrowDownWideNarrow size={20}/>}
+                        startIcon={
+                        <LuArrowDownWideNarrow
+                            size={16}
+                            className="text-current"
+                        />
+                    }
                         onClick={_handleShowSortModal}
                     >
                         مرتب سازی
@@ -151,7 +159,7 @@ const AdvertiseList = ({data}) => {
                     data.map(advertiseItem =>
                         <li
                             key={advertiseItem?._id}
-                            className="col-span-12 lg:col-span-6"
+                            className="col-span-12 md:col-span-6"
                         >
                             <AdvertiseCard
                                 advertiseItem={advertiseItem}
@@ -186,7 +194,7 @@ const AdvertiseList = ({data}) => {
 
 export const Favorites = () => {
 
-    const {page, limit, sort, _handleChangePage, _handleChangeSort} = useFilter();
+    const {page, limit, sort, _handleChangePage, _handleChangeSort} = useFilter(6);
 
     const {isPending, data , error} = useQuery({
         queryKey: ['allFavorite', {page, limit, sort}],

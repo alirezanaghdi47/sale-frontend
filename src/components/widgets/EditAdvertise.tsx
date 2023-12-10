@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import {useParams, useRouter} from "next/navigation";
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useFormik} from "formik";
-import {LuCheck, LuChevronLeft, LuChevronRight} from "react-icons/lu";
+import {LuCheck, LuChevronLeft, LuChevronRight, LuPen, LuX} from "react-icons/lu";
 import {CSSTransition} from 'react-transition-group';
 
 // components
@@ -30,7 +30,7 @@ import {addEditAdvertiseStepList, categoryList, cityList, qualityList} from "@/u
 import {addAdvertiseDetailSchema, addAdvertiseGallerySchema, addAdvertiseLocationSchema} from "@/utils/validations";
 import {dataUrlToFile} from "@/utils/functions";
 
-const Gallery = ({data, setData, onNext}) => {
+const Gallery = ({data, setData, onCancel, onNext}) => {
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -53,7 +53,7 @@ const Gallery = ({data, setData, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             عکس ها
                         </span>
 
@@ -82,6 +82,20 @@ const Gallery = ({data, setData, onNext}) => {
                 </ul>
 
                 <div className="flex justify-end items-center gap-x-2 w-full">
+
+                    <Button
+                        variant="text"
+                        color="red"
+                        startIcon={
+                            <LuX
+                                size={20}
+                                className="text-current"
+                            />
+                        }
+                        onClick={onCancel}
+                    >
+                        انصراف
+                    </Button>
 
                     <Button
                         variant="contained"
@@ -132,7 +146,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             دسته بندی
                         </span>
 
@@ -156,7 +170,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             وضعیت محصول
                         </span>
 
@@ -180,7 +194,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             قیمت ( تومان )
                         </span>
 
@@ -206,7 +220,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             عنوان
                         </span>
 
@@ -228,7 +242,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             توضیحات
                         </span>
 
@@ -335,7 +349,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             شهر
                         </span>
 
@@ -359,7 +373,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             آدرس
                         </span>
 
@@ -416,7 +430,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
                         variant="contained"
                         color="yellow"
                         startIcon={
-                            <LuCheck
+                            <LuPen
                                 size={20}
                                 className="text-current"
                             />
@@ -510,6 +524,7 @@ export const EditAdvertise = () => {
                 <Gallery
                     data={segment?.data}
                     setData={(data) => _handleSegment(data)}
+                    onCancel={() => router.push("/account/my-advertises")}
                     onNext={_handleNextSegment}
                 />
 

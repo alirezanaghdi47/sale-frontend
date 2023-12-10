@@ -17,14 +17,14 @@ const DeleteAdvertiseDialog = ({isOpenDialog, onCloseDialog, onDelete}) => {
 
             <DialogBody>
 
-                <span className="text-red rounded-full p-2">
+                <span className="bg-red/25 text-red rounded-lg p-2">
                     <LuTrash
-                        size={32}
+                        size={24}
                         className="text-current"
                     />
                 </span>
 
-                <h3 className="text-lg font-bold text-gray">
+                <h3 className="text-sm font-bold text-gray">
                     آیا آگهی مورد نظر حذف شود ؟
                 </h3>
 
@@ -37,7 +37,7 @@ const DeleteAdvertiseDialog = ({isOpenDialog, onCloseDialog, onDelete}) => {
                         color="gray"
                         startIcon={
                             <LuX
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -52,7 +52,7 @@ const DeleteAdvertiseDialog = ({isOpenDialog, onCloseDialog, onDelete}) => {
                         color="red"
                         startIcon={
                             <LuCheck
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }

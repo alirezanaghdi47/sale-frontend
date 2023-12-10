@@ -19,29 +19,13 @@ export const viewport: Viewport = {
 const AuthLayout = (props) => {
 
     return (
-        <div className="grid grid-cols-12 justify-center items-center w-full max-w-[1200px] min-h-screen h-full mx-auto">
+        <div className="flex flex-col justify-center items-center gap-y-4 w-full min-h-screen h-full mx-auto p-4">
 
-            <div className="col-span-12 md:col-span-6 lg:col-span-4 flex flex-col justify-between items-center gap-y-4 min-h-screen h-full bg-light shadow-3xl px-8 py-4">
+            <Logo/>
 
-                <Logo/>
+            {props.children}
 
-                {props.children}
-
-                <CopyRight/>
-
-            </div>
-
-            <div className="md:col-span-6 lg:col-span-8 hidden md:flex flex-col justify-center items-center gap-y-4 min-h-screen h-full px-8 py-4">
-
-                <h3 className="text-xl text-dark font-bold">
-                    تکنو نما
-                </h3>
-
-                <p className="text-sm text-gray font-bold">
-                    وب سایتی برای خرید و فروش محصولات دیجیتال
-                </p>
-
-            </div>
+            <CopyRight/>
 
         </div>
     )

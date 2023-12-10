@@ -2,7 +2,7 @@
 import {Metadata, Viewport} from "next";
 
 // components
-import {Sidebar, BottomNavigation, Appbar} from "@/components/widgets/Private";
+import {Header} from "@/components/widgets/Private";
 
 export const metadata: Metadata = {
     metadataBase: process.env.BASE_URL,
@@ -21,15 +21,11 @@ const AccountLayout = (props) => {
 
     return (
         <div
-            className="relative flex flex-col md:flex-row justify-start items-start w-full max-w-[1200px] min-h-screen h-full py-[70px] md:py-0">
+            className="relative flex flex-col justify-start items-start w-full max-w-[992px] h-full min-h-screen pt-[70px]">
 
-            <Sidebar/>
-
-            <Appbar/>
+            <Header/>
 
             {props.children}
-
-            <BottomNavigation/>
 
         </div>
     )

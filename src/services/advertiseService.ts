@@ -7,7 +7,7 @@ export const getAllAdvertiseService = async (data) => {
 
         const {
             page = 1,
-            limit = 8,
+            limit = 6,
             sort = "newest",
             search = "",
             startPrice = 0,

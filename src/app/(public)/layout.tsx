@@ -3,7 +3,7 @@ import {Metadata, Viewport} from "next";
 import dynamic from "next/dynamic";
 
 // components
-import {Header , Appbar , BottomNavigation} from "@/components/widgets/Public";
+import {Header, Appbar, BottomNavigation} from "@/components/widgets/Public";
 const InstallBanner = dynamic(() => import("@/components/widgets/InstallBanner"), {ssr: false});
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 const HomeLayout = (props) => {
 
     return (
-        <div className="relative flex flex-col justify-start items-start w-full max-w-[1200px] min-h-screen h-full py-[70px] md:pb-0">
+        <div className="relative flex flex-col justify-start items-start w-full max-w-[992px] h-full min-h-screen py-[70px] md:pb-0">
 
             <Header/>
 

@@ -41,12 +41,15 @@ const Information = () => {
                                 alt="avatar"
                                 width={120}
                                 height={120}
-                                className='object-cover object-center rounded-full'
+                                className='w-[120px] h-[120px] object-cover object-center rounded-full'
                             />
                         ) : (
                             <div
                                 className="flex justify-center items-center min-w-[120px] h-[120px] bg-secondary text-gray rounded-full p-2">
-                                <LuUser size={32}/>
+                                <LuUser
+                                    size={32}
+                                    className='text-current'
+                                />
                             </div>
                         )
                     }
@@ -74,7 +77,10 @@ const Information = () => {
                     {
                         session?.user?.name && session?.user?.family && session?.user?.phoneNumber ? (
                             <span className="flex justify-start items-center gap-x-2 text-xs font-bold text-green">
-                                <LuBadgeCheck size={20}/>
+                                <LuBadgeCheck
+                                    size={16}
+                                    className="text-current"
+                                />
                                 هویت تایید شده است
                             </span>
                         ) : (
@@ -138,7 +144,7 @@ const Edit = () => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-4">
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             آواتار
                         </span>
 
@@ -162,7 +168,7 @@ const Edit = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             نام
                         </span>
 
@@ -184,7 +190,7 @@ const Edit = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             نام خانوادگی
                         </span>
 
@@ -206,7 +212,7 @@ const Edit = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             ایمیل
                         </span>
 
@@ -229,7 +235,7 @@ const Edit = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             شماره موبایل
                         </span>
 
@@ -262,7 +268,7 @@ const Edit = () => {
                         color="blue"
                         startIcon={
                             <LuCheck
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -292,7 +298,7 @@ const Security = () => {
 
             if (data.status === "success") {
                 notification(data.message, "success");
-                signOut();
+                signOut({callbackUrl: "/auth/sign-in"});
             } else {
                 notification(data.message, "error");
             }
@@ -321,7 +327,7 @@ const Security = () => {
 
                     <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             رمز عبور فعلی
                         </span>
 
@@ -343,7 +349,7 @@ const Security = () => {
 
                     <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             رمز عبور جدید
                         </span>
 
@@ -365,7 +371,7 @@ const Security = () => {
 
                     <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             تکرار رمز عبور جدید
                         </span>
 
@@ -394,7 +400,7 @@ const Security = () => {
                         color="blue"
                         startIcon={
                             <LuCheck
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }

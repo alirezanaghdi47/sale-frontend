@@ -21,7 +21,7 @@ const AdvertisesPage = async ({searchParams}) => {
     });
 
     return (
-        <main className="flex flex-col justify-start items-start gap-y-4 w-full h-full min-h-[calc(100dvh_-_140px)] md:min-h-[calc(100dvh_-_70px)] p-4">
+        <main className="flex flex-col justify-start items-start gap-y-4 w-full h-full p-4">
 
             <Advertises/>
 

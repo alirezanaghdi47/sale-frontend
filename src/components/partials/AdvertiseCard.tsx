@@ -17,7 +17,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
 
     return (
         <>
-            <article className="relative flex justify-start items-center gap-x-4 bg-light rounded-lg p-4">
+            <article className="relative flex justify-start items-center gap-x-4 bg-light rounded-lg p-2">
 
                 {/*{*/}
                 {/*    disabled && (*/}
@@ -49,7 +49,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                         className="flex flex-col justify-center items-start w-full"
                         href={`${process.env.BASE_URL}/advertises/${advertiseItem?._id}`}
                     >
-                        <h3 className="text-sm font-bold text-gray line-clamp-1">
+                        <h3 className="text-xs font-bold text-dark line-clamp-1">
                             {advertiseItem?.title}
                         </h3>
                     </Link>
@@ -91,7 +91,10 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                         color="gray"
                                         onClick={toolbar.share.onClick}
                                     >
-                                        <LuShare2 size={20}/>
+                                        <LuShare2
+                                            size={16}
+                                            className="text-current"
+                                        />
                                     </IconButton>
                                 )
                             }
@@ -103,7 +106,10 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                         color="yellow"
                                         onClick={toolbar.edit.onClick}
                                     >
-                                        <LuPen size={20}/>
+                                        <LuPen
+                                            size={16}
+                                            className="text-current"
+                                        />
                                     </IconButton>
                                 )
                             }
@@ -115,7 +121,10 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                         color="red"
                                         onClick={toolbar.delete.onClick}
                                     >
-                                        <LuTrash2 size={20}/>
+                                        <LuTrash2
+                                            size={16}
+                                            className="text-current"
+                                        />
                                     </IconButton>
                                 )
                             }

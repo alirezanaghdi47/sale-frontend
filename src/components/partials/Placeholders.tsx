@@ -74,7 +74,7 @@ export const AdvertiseListPlaceholder = () => {
                     Array(6).fill("").map((item , index) =>
                         <li
                             key={index}
-                            className="col-span-12 lg:col-span-6"
+                            className="col-span-12 md:col-span-6"
                         >
                             <Skeleton
                                 baseColor="#cbd5e1"

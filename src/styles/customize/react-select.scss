@@ -5,7 +5,7 @@
   }
 
   &__control {
-    @apply flex-row min-h-[40px] bg-secondary border-none rounded-lg shadow-none #{!important};
+    @apply flex-row min-h-[32px] bg-secondary border-none rounded-lg shadow-none #{!important};
 
     &--is-focused {
       @apply border-secondary #{!important};
@@ -21,7 +21,7 @@
   }
 
   &__input-container {
-    @apply text-xs text-dark #{!important};
+    @apply h-full text-xs text-dark m-0 p-0 #{!important};
   }
 
   &__input {
@@ -29,11 +29,11 @@
   }
 
   &__value-container {
-    @apply justify-start items-start p-2 #{!important};
+    @apply flex justify-start items-start h-[32px] p-2 #{!important};
   }
 
   &__single-value{
-    @apply text-gray font-bold #{!important};
+    @apply text-xs text-gray font-bold #{!important};
   }
 
   &__indicators {
@@ -61,14 +61,14 @@
   }
 
   &__menu-list {
-    @apply p-2 #{!important};
+    @apply max-h-[180px] p-2 overflow-y-scroll #{!important};
   }
 
   &__option {
-    @apply text-sm text-dark rounded-lg p-1 cursor-pointer #{!important};
+    @apply text-xs font-bold text-gray rounded-lg p-1 cursor-pointer #{!important};
 
     &--is-focused {
-      @apply bg-inherit text-inherit #{!important};
+      @apply bg-inherit text-gray #{!important};
     }
 
     &--is-selected {

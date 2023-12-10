@@ -1,7 +1,10 @@
+// components
+import {FaCircle} from "react-icons/fa6";
+
 const RadioBox = ({name, value , checked , onChange}) => {
 
     return (
-        <span className={`flex justify-center items-center w-[20px] h-[20px] ${checked ? "bg-blue" : "bg-secondary"} rounded-full transition-colors duration-300 ease-out-expo`}>
+        <span className={`flex justify-center items-center w-[16px] h-[16px] ${checked ? "bg-blue" : "bg-secondary"} rounded-full transition-colors duration-300 ease-out-expo`}>
 
             <input
                 id={`radiobox-${value}`}
@@ -13,7 +16,12 @@ const RadioBox = ({name, value , checked , onChange}) => {
                 className="hidden"
             />
 
-            <span className={`w-[12px] h-[12px] bg-light rounded-full ${checked ? "scale-100" : "scale-0"} transition-transform duration-300 ease-out-expo`}/>
+            <span className={`text-light ${checked ? "scale-100" : "scale-0"} transition-transform duration-300 ease-out-expo`}>
+                <FaCircle
+                    size={8}
+                    className="text-current"
+                />
+            </span>
 
         </span>
     )

@@ -32,15 +32,15 @@ export const qualityList = [
 ];
 
 export const profileTabList = [
-    {id: 1, title: "اطلاعات کاربری", value: "user-information", icon: LuInfo({size: 20})},
-    {id: 2, title: "ویرایش اطلاعات", value: "edit-information", icon: LuPen({size: 20})},
-    {id: 3, title: "تغییر رمز عبور", value: "edit-password", icon: LuLock({size: 20})},
+    {id: 1, title: "اطلاعات کاربری", value: "user-information", icon: LuInfo({size: 16})},
+    {id: 2, title: "ویرایش اطلاعات", value: "edit-information", icon: LuPen({size: 16})},
+    {id: 3, title: "تغییر رمز عبور", value: "edit-password", icon: LuLock({size: 16})},
 ];
 
 export const addEditAdvertiseStepList = [
-    {id: 1, title: "گالری"},
-    {id: 2, title: "جزییات"},
-    {id: 3, title: "فروشنده"},
+    {id: 1, title: "تصاویر آگهی"},
+    {id: 2, title: "جزییات آگهی"},
+    {id: 3, title: "مکان فروشنده"},
 ];
 
 export const sortList = [

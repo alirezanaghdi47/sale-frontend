@@ -60,7 +60,7 @@ const ActionBar = () => {
                     color="light"
                     startIcon={
                         <LuFilter
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -74,7 +74,7 @@ const ActionBar = () => {
                     color="light"
                     startIcon={
                         <LuArrowDownWideNarrow
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -121,15 +121,15 @@ const SortBar = () => {
     return (
         <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
+            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs">
                 <LuArrowDownWideNarrow
-                    size={20}
+                    size={16}
                     className="text-current"
                 />
                 مرتب سازی
             </h3>
 
-            <div className="flex justify-start items-center gap-x-2 w-full bg-light rounded-lg p-4">
+            <div className="flex justify-start items-center gap-x-2 w-full bg-light rounded-lg p-2">
 
                 {
                     sortList.map(sortItem =>
@@ -191,15 +191,15 @@ const FilterBar = () => {
     return (
         <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
+            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs">
                 <LuFilter
-                    size={20}
+                    size={16}
                     className="text-current"
                 />
                 فیلتر ها
             </h3>
 
-            <div className="flex flex-col justify-end items-center gap-y-4 w-full bg-light rounded-lg p-4">
+            <div className="flex flex-col justify-end items-center gap-y-4 w-full bg-light rounded-lg p-2">
 
                 <Accordion>
 
@@ -272,7 +272,12 @@ const FilterBar = () => {
                         <Button
                             variant="text"
                             color="red"
-                            startIcon={<LuX size={20}/>}
+                            startIcon={
+                                <LuX
+                                    size={16}
+                                    className="text-current"
+                                />
+                            }
                             onClick={() => {
                                 const query = generateQueryParams({
                                     search: searchParams.get("search"),
@@ -294,7 +299,12 @@ const FilterBar = () => {
                 <Button
                     variant="contained"
                     color="blue"
-                    startIcon={<LuCheck size={20}/>}
+                    startIcon={
+                        <LuCheck
+                            size={16}
+                            className="text-current"
+                        />
+                    }
                     onClick={formik.handleSubmit}
                 >
                     ثبت
@@ -309,7 +319,7 @@ const FilterBar = () => {
 const Actions = () => {
 
     return (
-        <div className='sticky top-[86px] hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[280px]'>
+        <div className='sticky top-[86px] hidden md:flex flex-col justify-start items-start gap-y-4 min-w-[240px]'>
 
             <SortBar/>
 
@@ -322,7 +332,7 @@ const Actions = () => {
 const AdvertiseList = forwardRef(({data}, ref) => {
 
     return (
-        <section className='flex flex-col justify-center items-start gap-y-4 w-full'>
+        <section className='flex flex-col justify-start items-start gap-y-4 w-full h-full'>
 
             <ul className="grid grid-cols-12 gap-4 w-full">
 
@@ -349,7 +359,7 @@ const AdvertiseList = forwardRef(({data}, ref) => {
     )
 })
 
-export const Content = forwardRef(({data}, ref) => {
+export const Content = forwardRef(({data, hasNextPage}, ref) => {
 
     return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
@@ -360,6 +370,14 @@ export const Content = forwardRef(({data}, ref) => {
                 data={data}
                 ref={ref}
             />
+
+            {
+                !hasNextPage && (
+                    <span className="text-sm font-bold text-gray py-4">
+                        داده ی دیگری وجود ندارد
+                    </span>
+                )
+            }
 
         </div>
     )
@@ -396,7 +414,7 @@ export const Advertises = () => {
             category: searchParams.getAll("category")
         }),
         getNextPageParam: (lastPage, allPages) => {
-            const nextPage = lastPage.length === 8 ? allPages.length + 1 : undefined;
+            const nextPage = lastPage.length === 6 ? allPages.length + 1 : undefined;
             return nextPage;
         },
     });
@@ -408,7 +426,7 @@ export const Advertises = () => {
     }, [inView, fetchNextPage, hasNextPage]);
 
     return (
-        <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full">
+        <div className="flex flex-col md:flex-row justify-start items-start gap-4 w-full h-full">
 
             {
                 !isPending && (
@@ -421,6 +439,7 @@ export const Advertises = () => {
                     <Content
                         data={data}
                         ref={ref}
+                        hasNextPage={hasNextPage}
                     />
                 )
             }

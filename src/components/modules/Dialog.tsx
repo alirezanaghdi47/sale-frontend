@@ -21,8 +21,8 @@ export const Dialog = ({children, isOpenDialog, onCloseDialog}) => {
             onRequestClose={onCloseDialog}
             ariaHideApp={false}
             closeTimeoutMS={300}
-            className={`flex flex-col justify-start items-center gap-y-8 w-max h-max rounded-lg bg-light px-16 py-8`}
-            overlayClassName={`fixed top-0 left-0 z-30 flex justify-center items-center w-full h-full bg-gray/75 p-4`}
+            className={`flex flex-col justify-start items-center gap-y-4 w-max h-max rounded-lg bg-light px-8 py-4`}
+            overlayClassName={`fixed top-0 left-0 z-30 flex justify-center items-center w-full h-full bg-gray/75 p-2`}
         >
             {children}
         </ReactModal>

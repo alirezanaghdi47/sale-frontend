@@ -1,20 +1,15 @@
 'use client';
 
 // libraries
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {useSession, signIn} from "next-auth/react";
-import {useMutation} from "@tanstack/react-query";
+import {useRouter, useSearchParams} from "next/navigation";
+import {signIn} from "next-auth/react";
 import {useFormik} from "formik";
-import {LuCheck, LuChevronLeft} from "react-icons/lu";
+import {LuLogIn} from "react-icons/lu";
 
 // components
 import {Button, LinkButton} from "@/components/modules/Button";
-import {LinkIconButton} from "@/components/modules/IconButton";
 import TextInput from "@/components/modules/TextInput";
 import PasswordInput from "@/components/modules/PasswordInput";
-
-// services
-import {loginService} from "@/services/authService";
 
 // utils
 import {SignInSchema} from "@/utils/validations";
@@ -24,17 +19,9 @@ const Heading = () => {
     return (
         <div className="flex justify-between items-center gap-x-2 w-full">
 
-            <h3 className="text-gray font-bold text-xl">
+            <h3 className="text-lg text-dark font-bold">
                 ورود
             </h3>
-
-            <LinkIconButton
-                variant="text"
-                color="gray"
-                href="/"
-            >
-                <LuChevronLeft size={20}/>
-            </LinkIconButton>
 
         </div>
     )
@@ -81,7 +68,7 @@ const Form = () => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-sm font-bold">
+                    <span className="text-gray text-xs font-bold">
                         ایمیل
                     </span>
 
@@ -105,7 +92,7 @@ const Form = () => {
 
                     <div className="flex justify-between items-center w-full">
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             رمز عبور
                         </span>
 
@@ -144,8 +131,8 @@ const Form = () => {
                     color="blue"
                     size="full"
                     startIcon={
-                        <LuCheck
-                            size={20}
+                        <LuLogIn
+                            size={16}
                             className="text-current"
                         />
                     }

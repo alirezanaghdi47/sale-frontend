@@ -6,45 +6,187 @@ import Image from "next/image";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {useSession, signOut} from "next-auth/react";
-import {LuBookmark, LuList, LuLogOut, LuPlus, LuScrollText, LuUser} from "react-icons/lu";
+import {useMediaQuery} from "@react-hooks-library/core";
+import {LuBookmark, LuLogOut, LuMenu, LuPlus, LuScrollText, LuUser} from "react-icons/lu";
 
 // components
 import {Button, LinkButton} from "@/components/modules/Button";
-import {Collapse, CollapseItem} from "@/components/modules/Collapse";
+import {IconButton, LinkIconButton} from "@/components/modules/IconButton";
+import {Modal, ModalBody} from "@/components/modules/Modal";
+
 const Menu = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
 const MenuItem = dynamic(() => import("@/components/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
+
+// hooks
+import {useModal} from "@/hooks/useModal";
+
+const MenuModal = ({isOpenModal, onCloseModal}) => {
+
+    const pathname = usePathname();
+    const isTablet = useMediaQuery("(min-width: 768px)");
+
+    return (
+        <Modal
+            isOpenModal={isOpenModal}
+            onCloseModal={onCloseModal}
+            width={isTablet ? "lg" : "full"}
+            position={isTablet ? "center" : "bottom"}
+        >
+
+            <ModalBody>
+
+                <ul className="flex flex-col justify-center items-center gap-y-2">
+
+                    <li className="flex justify-start items-center w-full">
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/account/my-advertises" ? "blue" : "gray"}
+                            href="/account/my-advertises"
+                            startIcon={
+                                <LuScrollText
+                                    size={16}
+                                    className="text-current"
+                                />
+                            }
+                            onClick={onCloseModal}
+                        >
+                            آگهی های من
+                        </LinkButton>
+                    </li>
+
+                    <li className="flex justify-start items-center w-full">
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
+                            href="/account/my-advertises/add"
+                            startIcon={
+                                <LuPlus
+                                    size={16}
+                                    className="text-current"
+                                />
+                            }
+                            onClick={onCloseModal}
+                        >
+                            آگهی جدید
+                        </LinkButton>
+                    </li>
+
+                    <li className="flex justify-start items-center w-full">
+                        <LinkButton
+                            variant="text"
+                            color={pathname === "/account/favorites" ? "blue" : "gray"}
+                            href="/account/favorites"
+                            startIcon={
+                                <LuBookmark
+                                    size={16}
+                                    className="text-current"
+                                />
+                            }
+                            onClick={onCloseModal}
+                        >
+                            علاقه مندی ها
+                        </LinkButton>
+                    </li>
+
+                </ul>
+
+            </ModalBody>
+
+        </Modal>
+    )
+}
 
 const Logo = () => {
 
     return (
-        <Link href="/">
-            <Image
-                src="/assets/images/logo.png"
-                alt='logo'
-                width={32}
-                height={32}
-                className="min-w-[32px] min-h-[32px] rounded-full"
-            />
-        </Link>
+        <div className='flex justify-center md:justify-start items-center'>
+
+            <Link href="/">
+                <Image
+                    src="/assets/images/logo.png"
+                    alt='logo'
+                    width={32}
+                    height={32}
+                    className="min-w-[32px] min-h-[32px] rounded-full"
+                />
+            </Link>
+
+        </div>
     )
 }
 
-const AppbarActions = () => {
+const Links = () => {
+
+    const isTablet = useMediaQuery("(min-width: 768px)");
+
+    const {
+        isOpenModal: isOpenMenuModal,
+        _handleHideModal: _handleHideMenuModal,
+        _handleShowModal: _handleShowMenuModal
+    } = useModal();
+
+    return (
+        <div className="flex md:hidden justify-start items-center">
+
+            <IconButton
+                variant="text"
+                color="gray"
+                onClick={_handleShowMenuModal}
+            >
+                <LuMenu
+                    size={16}
+                    className="text-current"
+                />
+            </IconButton>
+
+            <MenuModal
+                isOpenModal={Boolean(isOpenMenuModal && !isTablet)}
+                onCloseModal={_handleHideMenuModal}
+            />
+
+        </div>
+    )
+}
+
+const Actions = () => {
 
     const pathname = usePathname();
     const {data: session} = useSession();
 
     return (
-        <div className="flex justify-between items-center gap-x-4 w-full">
+        <div className="flex justify-end items-center">
 
-            <Logo/>
+            {/*<LinkButton*/}
+            {/*    variant="text"*/}
+            {/*    color={pathname === "/account/profile" ? "blue" : "gray"}*/}
+            {/*    href="/account/profile"*/}
+            {/*    startIcon={*/}
+            {/*        session?.user?.avatar ? (*/}
+            {/*            <Image*/}
+            {/*                src={session?.user?.avatar}*/}
+            {/*                alt="avatar"*/}
+            {/*                width={24}*/}
+            {/*                height={24}*/}
+            {/*                className="w-[24px] h-[24px] rounded-full object-cover object-center"*/}
+            {/*            />*/}
+            {/*        ) : (*/}
+            {/*            <LuUser*/}
+            {/*                size={16}*/}
+            {/*                className="text-current"*/}
+            {/*            />*/}
+            {/*        )*/}
+            {/*    }*/}
+            {/*>*/}
+            {/*    {session?.user?.name + " " + session?.user?.family}*/}
+            {/*</LinkButton>*/}
 
             <Menu
                 menuButton={
-                    <Button
+                    <IconButton
                         variant="text"
                         color="gray"
-                        startIcon={
+                    >
+                        {
                             session?.user?.avatar ? (
                                 <Image
                                     src={session?.user?.avatar}
@@ -55,39 +197,31 @@ const AppbarActions = () => {
                                 />
                             ) : (
                                 <LuUser
-                                    size={20}
+                                    size={16}
                                     className="text-current"
                                 />
                             )
                         }
-                    >
-                        {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
-                    </Button>
+                    </IconButton>
                 }
                 align="start"
                 direction="bottom"
             >
 
-                <MenuItem
-                    variant="text"
-                    color={pathname === "/account/profile" ? "blue" : "gray"}
-                    href="/account/profile"
-                    icon={
-                        <LuUser
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                >
-                    پروفایل
-                </MenuItem>
+                <div className="px-4 py-2">
+
+                    <h3 className="text-xs font-bold text-gray">
+                        {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
+                    </h3>
+
+                </div>
 
                 <MenuItem
                     variant="text"
                     color="red"
                     icon={
                         <LuLogOut
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -102,259 +236,69 @@ const AppbarActions = () => {
     )
 }
 
-const SidebarLinks = () => {
+const Navbar = () => {
 
     const pathname = usePathname();
 
     return (
-        <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
+        <div className="hidden md:flex justify-center items-center">
 
-            <li className="flex justify-start items-center w-full">
+            <ul className="flex justify-center items-center gap-x-2">
 
-                <Collapse>
-
-                    <CollapseItem
-                        button={{
-                            children: "آگهی ها",
-                            variant: "text",
-                            color: "gray",
-                            size: "sm",
-                            justify: "start",
-                            startIcon: <LuScrollText size={20} className="text-current"/>
-                        }}
+                <li>
+                    <LinkButton
+                        variant="text"
+                        color={pathname === "/account/my-advertises" ? "blue" : "gray"}
+                        href="/account/my-advertises"
                     >
+                        آگهی های من
+                    </LinkButton>
+                </li>
 
-                        <LinkButton
-                            variant="text"
-                            color={pathname === "/account/my-advertises" ? "blue" : "gray"}
-                            href="/account/my-advertises"
-                            startIcon={
-                                <LuList
-                                    size={20}
-                                    className="text-current"
-                                />
-                            }
-                        >
-                            آگهی های من
-                        </LinkButton>
+                <li>
+                    <LinkButton
+                        variant="text"
+                        color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
+                        href="/account/my-advertises/add"
+                    >
+                        آگهی جدید
+                    </LinkButton>
+                </li>
 
-                        <LinkButton
-                            variant="text"
-                            color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                            href="/account/my-advertises/add"
-                            startIcon={
-                                <LuPlus
-                                    size={20}
-                                    className="text-current"
-                                />
-                            }
-                        >
-                            آگهی جدید
-                        </LinkButton>
+                <li>
+                    <LinkButton
+                        variant="text"
+                        color={pathname === "/account/favorites" ? "blue" : "gray"}
+                        href="/account/favorites"
+                    >
+                        علاقه مندی ها
+                    </LinkButton>
+                </li>
 
-                    </CollapseItem>
+            </ul>
 
-                </Collapse>
-
-            </li>
-
-            <li className="flex justify-start items-center w-full">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/account/favorites" ? "blue" : "gray"}
-                    href="/account/favorites"
-                    startIcon={
-                        <LuBookmark
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                >
-                    علاقه مندی ها
-                </LinkButton>
-            </li>
-
-        </ul>
+        </div>
     )
 }
 
-const SidebarActions = () => {
-
-    const pathname = usePathname();
-    const {data: session} = useSession();
-
-    return (
-        <ul className="flex flex-col justify-start items-start gap-y-2 w-full">
-
-            <li className="flex justify-start items-center w-full">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/account/profile" ? "blue" : "gray"}
-                    href="/account/profile"
-                    startIcon={
-                        session?.user?.avatar ? (
-                            <Image
-                                src={session?.user?.avatar}
-                                alt="avatar"
-                                width={24}
-                                height={24}
-                                className="rounded-full object-cover object-center"
-                            />
-                        ) : (
-                            <LuUser
-                                size={20}
-                                className="text-current"
-                            />
-                        )
-                    }
-                >
-                    {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
-                </LinkButton>
-            </li>
-
-            <li className="flex justify-start items-center w-full">
-                <Button
-                    variant="text"
-                    color="red"
-                    startIcon={
-                        <LuLogOut
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                    onClick={() => signOut({callbackUrl: "/advertises"})}
-                >
-                    خروج
-                </Button>
-            </li>
-
-        </ul>
-    )
-}
-
-export const Appbar = () => {
+export const Header = () => {
 
     return (
         <header
-            className="fixed top-0 left-0 z-20 flex md:hidden justify-center items-center w-full h-[70px] bg-light shadow-3xl">
+            className="fixed top-0 left-0 z-20 flex justify-center items-center w-full h-[70px] bg-light shadow-3xl">
 
-            <div className='flex justify-between items-center gap-x-4 w-full max-w-[1200px] h-full p-4'>
+            <div className='flex justify-between items-center gap-x-4 w-full max-w-[992px] h-full p-4'>
 
-                <AppbarActions/>
+                <Links/>
+
+                <Logo/>
+
+                <Navbar/>
+
+                <Actions/>
 
             </div>
 
         </header>
-    )
-}
-
-export const Sidebar = () => {
-
-    return (
-        <aside
-            className="sticky top-0 right-0 z-20 hidden md:flex flex-col justify-between items-start min-w-[240px] h-full min-h-screen bg-light shadow-3xl p-4">
-
-            <Logo/>
-
-            <SidebarLinks/>
-
-            <SidebarActions/>
-
-        </aside>
-    )
-}
-
-const BottomLinks = () => {
-
-    const pathname = usePathname();
-
-    return (
-        <ul className="grid grid-cols-12 gap-2 w-full">
-
-            <li className="col-span-3 flex justify-center items-center">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/advertises" ? "blue" : "gray"}
-                    href="/advertises"
-                    vertical
-                    startIcon={
-                        <LuScrollText
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                >
-                    آگهی ها
-                </LinkButton>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/account/my-advertises" ? "blue" : "gray"}
-                    href="/account/my-advertises"
-                    vertical
-                    startIcon={
-                        <LuList
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                >
-                    آگهی های من
-                </LinkButton>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                    href="/account/my-advertises/add"
-                    vertical
-                    startIcon={
-                        <LuPlus
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                >
-                    آگهی جدید
-                </LinkButton>
-            </li>
-
-            <li className="col-span-3 flex justify-center items-center">
-                <LinkButton
-                    variant="text"
-                    color={pathname === "/account/favorites" ? "blue" : "gray"}
-                    href="/account/favorites"
-                    vertical
-                    startIcon={
-                        <LuBookmark
-                            size={20}
-                            className="text-current"
-                        />
-                    }
-                >
-                    علاقه مندی ها
-                </LinkButton>
-            </li>
-
-        </ul>
-    )
-}
-
-export const BottomNavigation = () => {
-
-    return (
-        <nav
-            className="fixed bottom-0 left-0 z-20 flex md:hidden justify-center items-center gap-x-2 w-full h-[70px] bg-light shadow-3xl">
-
-            <div className='flex justify-center items-center gap-x-2 w-full max-w-[1200px] h-full p-4'>
-
-                <BottomLinks/>
-
-            </div>
-
-        </nav>
     )
 }

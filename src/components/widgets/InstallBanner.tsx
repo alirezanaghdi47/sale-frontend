@@ -89,7 +89,10 @@ const InstallBanner = () => {
                     color="light"
                     onClick={_handleClose}
                 >
-                    <LuX size={20}/>
+                    <LuX
+                        size={16}
+                        className="text-current"
+                    />
                 </IconButton>
 
             </div>

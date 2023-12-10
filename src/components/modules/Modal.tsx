@@ -56,7 +56,7 @@ export const ModalHeader = ({title, onCloseModal}) => {
     return (
         <div className="flex justify-between items-center w-full gap-x-4">
 
-            <h3 className="text-dark font-bold">
+            <h3 className="text-sm text-dark font-bold">
                 {title}
             </h3>
 
@@ -65,7 +65,7 @@ export const ModalHeader = ({title, onCloseModal}) => {
                 color="red"
                 onClick={onCloseModal}
             >
-                <LuX size={20}/>
+                <LuX size={16}/>
             </IconButton>
 
         </div>

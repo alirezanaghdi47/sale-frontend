@@ -54,10 +54,12 @@ const FileInput = ({name, values, onChange, maxFiles = 1, acceptTypes}) => {
                 />
 
                 <div className="flex justify-center items-center w-max h-[180px]">
-                    <span className="flex flex-col justify-center items-center gap-y-2 text-sm font-bold text-gray">
-                        <LuImage size={32}/>
+
+                    <span className="flex flex-col justify-center items-center gap-y-2 text-xs font-bold text-gray">
+                        <LuImage size={24}/>
                         فایل خود انتخاب کنید
                     </span>
+
                 </div>
 
             </div>

@@ -1,14 +1,13 @@
 'use client';
 
 // libraries
-import {useState} from "react";
 import {useParams} from "next/navigation";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import {useSession} from "next-auth/react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {FreeMode, Navigation, Thumbs} from 'swiper/modules';
+import {Navigation} from 'swiper/modules';
 import {useMediaQuery} from "@react-hooks-library/core";
 import {formatDistance} from "date-fns";
 import {faIR} from "date-fns/locale";
@@ -25,7 +24,6 @@ import {
 // components
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-
 const Map = dynamic(() => import("@/components/widgets/Map"), {ssr: false});
 
 // services
@@ -44,16 +42,13 @@ import {categoryList, cityList} from "@/utils/constants";
 
 const Gallery = ({data}) => {
 
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
     return (
-        <section className="flex flex-col justify-center items-center w-full gap-y-4">
+        <section className="flex flex-col justify-center items-center w-full gap-y-4 bg-light rounded-lg p-2">
 
             <Swiper
-                spaceBetween={10}
+                spaceBetween={16}
                 navigation={true}
-                thumbs={{swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null}}
-                modules={[FreeMode, Navigation, Thumbs]}
+                modules={[Navigation]}
                 slidesPerView={1}
                 className="w-full"
             >
@@ -65,7 +60,7 @@ const Gallery = ({data}) => {
                                 alt="advertise"
                                 width={240}
                                 height={240}
-                                className="w-full min-h-[320px] h-[320px] lg:min-h-[360px] lg:h-[360px] object-cover object-center"
+                                className="w-full min-h-[320px] h-[320px] lg:min-h-[360px] lg:h-[360px] object-cover object-center rounded-lg"
                             />
                         </SwiperSlide>
                     )
@@ -81,11 +76,11 @@ const Location = ({data}) => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <h3 className="text-dark font-bold">
+            <h3 className="text-sm text-dark font-bold">
                 موقعیت فروشنده
             </h3>
 
-            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-2">
                 <Map location={[data?.latitude, data?.longitude]}/>
             </div>
 
@@ -98,15 +93,15 @@ const ContactUs = ({data}) => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <h3 className="text-dark font-bold">
+            <h3 className="text-sm text-dark font-bold">
                 ارتباط با فروشنده
             </h3>
 
-            <div className="flex justify-between items-center gap-x-4 w-full bg-light rounded-lg p-4">
+            <div className="flex justify-between items-center gap-x-4 w-full bg-light rounded-lg p-2">
 
-                <p className="text-xs text-gray">
+                <p className="text-xs text-gray leading-8">
                     شما میتوانید با شماره همراه
-                    <span className="text-dark font-bold text-sm mx-2">
+                    <span className="bg-secondary text-dark font-bold rounded-lg px-2 py-1 mx-2">
                         {data?.userId?.phoneNumber}
                     </span>
                     با فروشنده در ارتباط باشید
@@ -205,15 +200,19 @@ const Summary = ({data}) => {
                 <IconButton
                     variant="text"
                     color={!isMyFavoriteData?.data || status !== "authenticated" ? 'gray' : 'red'}
-                    onClick={() => {
-                        isMyFavoriteData?.data ? _handleDeleteFromFavorite(data?._id) : _handleAddToFavorite(data?._id)
-                    }}
+                    onClick={() => isMyFavoriteData?.data ? _handleDeleteFromFavorite(data?._id) : _handleAddToFavorite(data?._id)}
                 >
                     {
                         (!isMyFavoriteData?.data || status !== "authenticated") ? (
-                            <LuBookmark size={20}/>
+                            <LuBookmark
+                                size={16}
+                                className="text-current"
+                            />
                         ) : (
-                            <LuBookmarkMinus size={20}/>
+                            <LuBookmarkMinus
+                                size={16}
+                                className="text-current"
+                            />
                         )
                     }
                 </IconButton>
@@ -228,7 +227,10 @@ const Summary = ({data}) => {
                         })
                     }
                 >
-                    <LuShare2 size={20}/>
+                    <LuShare2
+                        size={16}
+                        className="text-current"
+                    />
                 </IconButton>
 
             </div>
@@ -242,31 +244,43 @@ const Features = ({data}) => {
     return (
         <section className="flex flex-col justify-start items-start gap-y-2 w-full h-full">
 
-            <h3 className="text-dark font-bold">
+            <h3 className="text-sm text-dark font-bold">
                 مشخصات محصول
             </h3>
 
-            <div className="flex flex-col justify-center items-start gap-y-4 w-full h-full bg-light rounded-lg p-4">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full h-full bg-light rounded-lg px-2 py-4">
 
-                <ul className="grid grid-cols-12 gap-4 w-full">
+                <ul className="grid grid-cols-12 gap-8 w-full">
 
-                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
-                        <LuMapPin size={24}/>
+                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                        <LuMapPin
+                            size={20}
+                            className="text-current"
+                        />
                         {cityList.find(cityItem => cityItem.value === data?.city)?.label}
                     </li>
 
-                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
-                        <LuLayers size={24}/>
+                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                        <LuLayers
+                            size={20}
+                            className="text-current"
+                        />
                         {categoryList.find(categoryItem => categoryItem.value === data?.category)?.label}
                     </li>
 
-                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
-                        <LuCalendar size={24}/>
+                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                        <LuCalendar
+                            size={20}
+                            className="text-current"
+                        />
                         {formatDistance(new Date(data?.createdAt), new Date(), {addSuffix: true, locale: faIR})}
                     </li>
 
-                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
-                        <LuDollarSign size={24}/>
+                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                        <LuDollarSign
+                            size={20}
+                            className="text-current"
+                        />
                         {data?.price.toLocaleString()}
                         &nbsp;
                         تومان
@@ -285,13 +299,13 @@ const Description = ({data}) => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <h3 className="text-dark font-bold">
+            <h3 className="text-sm text-dark font-bold">
                 بررسی محصول
             </h3>
 
-            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-2">
 
-                <p className="text-sm text-dark leading-8">
+                <p className="text-xs text-dark leading-8">
                     {data?.description}
                 </p>
 
@@ -306,7 +320,7 @@ export const RelativeAdvertises = ({data}) => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <h3 className="text-dark font-bold">
+            <h3 className="text-sm text-dark font-bold">
                 آگهی های مشابه
             </h3>
 
