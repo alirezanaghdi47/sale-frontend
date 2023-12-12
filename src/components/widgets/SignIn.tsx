@@ -96,13 +96,13 @@ const Form = () => {
                             رمز عبور
                         </span>
 
-                        {/*<LinkButton*/}
-                        {/*    variant="text"*/}
-                        {/*    color="blue"*/}
-                        {/*    href="/auth/forget-password"*/}
-                        {/*>*/}
-                        {/*    فراموشی رمز*/}
-                        {/*</LinkButton>*/}
+                        <LinkButton
+                            variant="text"
+                            color="blue"
+                            href="/auth/forget-password"
+                        >
+                            فراموشی رمز
+                        </LinkButton>
 
                     </div>
 
