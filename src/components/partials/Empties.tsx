@@ -3,7 +3,7 @@
 // libraries
 import Image from "next/image";
 import {useRouter} from "next/navigation";
-import {LuChevronRight, LuShieldAlert} from "react-icons/lu";
+import {LuChevronRight, LuUser} from "react-icons/lu";
 
 // components
 import {Button} from "@/components/modules/Button";
@@ -17,9 +17,9 @@ export const AdvertiseListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
-                width={150}
-                height={150}
-                className="w-full max-w-[150px] h-full object-cover object-center"
+                width={100}
+                height={100}
+                className="w-full max-w-[100px] h-full object-cover object-center"
             />
 
             <h3 className="text-sm font-bold text-gray">
@@ -39,9 +39,9 @@ export const FavoriteListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
-                width={150}
-                height={150}
-                className="w-full max-w-[150px] h-full object-cover object-center"
+                width={100}
+                height={100}
+                className="w-full max-w-[100px] h-full object-cover object-center"
             />
 
             <h3 className="text-sm font-bold text-gray">
@@ -61,9 +61,9 @@ export const MyAdvertiseListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
-                width={150}
-                height={150}
-                className="w-full max-w-[150px] h-full object-cover object-center"
+                width={100}
+                height={100}
+                className="w-full max-w-[100px] h-full object-cover object-center"
             />
 
             <h3 className="text-sm font-bold text-gray">
@@ -85,9 +85,9 @@ export const NotFoundClient = () => {
             <Image
                 src="/assets/images/not-found.svg"
                 alt="not-found"
-                width={250}
-                height={250}
-                className="w-full max-w-[250px] h-full object-cover object-center"
+                width={200}
+                height={200}
+                className="w-full max-w-[200px] h-full object-cover object-center"
             />
 
             <h3 className="text-base font-bold text-gray">
@@ -99,7 +99,7 @@ export const NotFoundClient = () => {
                 color="blue"
                 startIcon={
                     <LuChevronRight
-                        size={20}
+                        size={16}
                         className="text-current"
                     />
                 }
@@ -121,9 +121,9 @@ export const NotFoundServer = () => {
             <Image
                 src="/assets/images/server-down.svg"
                 alt="server-down"
-                width={250}
-                height={250}
-                className="w-full max-w-[250px] h-full object-cover object-center"
+                width={200}
+                height={200}
+                className="w-full max-w-[200px] h-full object-cover object-center"
             />
 
             <h3 className="text-base font-bold text-gray">
@@ -143,29 +143,29 @@ export const NotVerified = () => {
             className='flex flex-col justify-center items-center gap-y-8 w-full h-full my-auto'>
 
             <Image
-                src="/assets/images/verified.svg"
-                alt="server-down"
-                width={150}
-                height={150}
-                className="w-full max-w-[150px] h-full object-cover object-center"
+                src="/assets/images/not-found.svg"
+                alt="not-found"
+                width={200}
+                height={200}
+                className="w-full max-w-[200px] h-full object-cover object-center"
             />
 
-            <h3 className="text-base font-bold text-gray">
-                احراز هویت نشده اید
+            <h3 className="text-sm font-bold text-gray">
+                ابتدا حساب کاربری خود را تکمیل نمایید
             </h3>
 
             <Button
                 variant="contained"
                 color="blue"
                 startIcon={
-                    <LuShieldAlert
-                        size={20}
+                    <LuUser
+                        size={16}
                         className="text-current"
                     />
                 }
                 onClick={() => router.push("/account/profile")}
             >
-                احراز هویت
+                حساب کاربری
             </Button>
 
         </section>

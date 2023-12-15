@@ -96,7 +96,7 @@ const FileInput = ({name, values, onChange, maxFiles = 1, acceptTypes}) => {
                                         alt={file?.name}
                                         width={120}
                                         height={120}
-                                        className="w-full h-full object-center object-cover rounded-lg"
+                                        className="max-w-[120px] w-full h-full object-center object-cover rounded-lg"
                                     />
 
                                 </div>

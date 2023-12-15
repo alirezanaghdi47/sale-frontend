@@ -1,22 +1,23 @@
 "use client";
 
 // libraries
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import dynamic from "next/dynamic";
 import {useParams, useRouter} from "next/navigation";
+import Image from "next/image";
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useFormik} from "formik";
-import {LuCheck, LuChevronLeft, LuChevronRight, LuPen, LuX} from "react-icons/lu";
+import {LuCheck, LuChevronLeft, LuChevronRight, LuPen, LuPlus, LuX} from "react-icons/lu";
 import {CSSTransition} from 'react-transition-group';
 
 // components
 import {Button} from "@/components/modules/Button";
 import Stepper from "@/components/modules/Stepper";
-import TextArea from "@/components/modules/TextArea";
 import SelectBox from "@/components/modules/SelectBox";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import FileInput from "@/components/modules/FileInput";
+const TextEditor = dynamic(() => import("@/components/modules/TextEditor"), {ssr: false});
 const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
 
 // hooks
@@ -27,19 +28,22 @@ import {getMyAdvertiseService, editMyAdvertiseService} from "@/services/myAdvert
 
 // utils
 import {addEditAdvertiseStepList, categoryList, cityList, qualityList} from "@/utils/constants";
-import {addAdvertiseDetailSchema, addAdvertiseGallerySchema, addAdvertiseLocationSchema} from "@/utils/validations";
-import {dataUrlToFile} from "@/utils/functions";
+import {addAdvertiseDetailSchema, editAdvertiseGallerySchema, addAdvertiseLocationSchema} from "@/utils/validations";
 
 const Gallery = ({data, setData, onCancel, onNext}) => {
+
+    const [showEditGallery , setShowEditGallery] = useState(false);
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            gallery: data?.gallery || [],
+            gallery: [],
         },
-        validationSchema: addAdvertiseGallerySchema,
+        validationSchema: editAdvertiseGallerySchema,
         onSubmit: async (result) => {
-            setData({...data, ...result});
+            if (result.gallery.length > 0) {
+                setData({...data, ...result});
+            }
             onNext();
         }
     });
@@ -49,37 +53,84 @@ const Gallery = ({data, setData, onCancel, onNext}) => {
 
             <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
 
-                <ul className='grid grid-cols-12 justify-start items-start gap-4 w-full'>
+                <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
+                    <span className="text-gray text-xs font-bold">
+                        عکس ها
+                    </span>
 
-                        <span className="text-gray text-xs font-bold">
-                            عکس ها
-                        </span>
+                    {
+                        !showEditGallery && data?.gallery?.length > 0 && (
 
-                        <FileInput
-                            name="gallery"
-                            maxFiles={2}
-                            acceptTypes={{
-                                "image/png": [],
-                                "image/jpeg": [],
-                                "image/jpg": [],
-                            }}
-                            values={formik.values.gallery}
-                            onChange={(values) => formik.setFieldValue("gallery", values)}
-                        />
+                            <ul className="flex flex-wrap gap-4 w-full">
 
-                        {
-                            formik.errors.gallery && formik.touched.gallery && (
-                                <p className='text-red text-xs'>
-                                    {formik.errors.gallery}
-                                </p>
-                            )
-                        }
+                                {
+                                    data.gallery.map((galleryItem , index) =>
+                                        <li
+                                            key={index}
+                                            className=""
+                                        >
 
-                    </li>
+                                            <Image
+                                                src={galleryItem}
+                                                alt={galleryItem}
+                                                width={120}
+                                                height={120}
+                                                className="max-w-[120px] w-full h-full object-center object-cover rounded-lg"
+                                            />
 
-                </ul>
+                                        </li>
+                                    )
+                                }
+
+                                <li
+                                    className="flex flex-col justify-center items-center gap-y-2 w-[120px] h-[120px] bg-secondary rounded-lg p-4 cursor-pointer"
+                                    onClick={() => setShowEditGallery(true)}
+                                >
+
+                                    <LuPlus
+                                        size={16}
+                                        className="text-gray"
+                                    />
+
+                                    <span className="text-xs font-bold text-gray">
+                                        عکس جدید
+                                    </span>
+
+                                </li>
+
+                            </ul>
+
+                        )
+                    }
+
+                    {
+                        showEditGallery && (
+                            <>
+                                <FileInput
+                                    name="gallery"
+                                    maxFiles={2}
+                                    acceptTypes={{
+                                        "image/png": [],
+                                        "image/jpeg": [],
+                                        "image/jpg": [],
+                                    }}
+                                    values={formik.values.gallery}
+                                    onChange={(values) => formik.setFieldValue("gallery", values)}
+                                />
+
+                                {
+                                    formik.errors.gallery && formik.touched.gallery && (
+                                        <p className='text-red text-xs'>
+                                            {formik.errors.gallery}
+                                        </p>
+                                    )
+                                }
+                            </>
+                        )
+                    }
+
+                </div>
 
                 <div className="flex justify-end items-center gap-x-2 w-full">
 
@@ -246,11 +297,10 @@ const Detail = ({data, setData, onPrev, onNext}) => {
                             توضیحات
                         </span>
 
-                        <TextArea
+                        <TextEditor
                             name="description"
-                            rows={10}
                             value={formik.values.description}
-                            onChange={formik.handleChange}
+                            onChange={(value) => formik.setFieldValue("description", value)}
                         />
 
                         {
@@ -496,7 +546,8 @@ export const EditAdvertise = () => {
 
         if (!isPendingAdvertise && advertiseData?.data) {
             _handleSegment({
-                gallery: advertiseData?.data?.gallery.map(item => dataUrlToFile('data:image/png;base64,' + item, `${Date.now()}.png`)),
+                // gallery: advertiseData?.data?.gallery.map(item => dataUrlToFile('data:image/png;base64,' + item, `${Date.now()}.png`)),
+                gallery: advertiseData?.data?.gallery,
                 category: advertiseData?.data?.category,
                 quality: advertiseData?.data?.quality,
                 price: advertiseData?.data?.price,

@@ -25,7 +25,7 @@ export const Logo = () => {
                 />
             }
         >
-            تکنو نما
+            نما گجت
         </LinkButton>
     )
 }

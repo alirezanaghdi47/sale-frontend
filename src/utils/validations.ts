@@ -48,6 +48,35 @@ export const addAdvertiseLocationSchema = Yup.object().shape({
     longitude: Yup.number().required("عرض جغرافیایی الزامی است"),
 });
 
+export const editAdvertiseGallerySchema = Yup.object().shape({
+    gallery: Yup.mixed().nullable()
+        .test("maxLength", "حداکثر تعداد عکس های ارسالی 5 عدد است", (value) => {
+            if (value?.length > 5) return false;
+            return true;
+        })
+        .test("fileSize", "حجم هر عکس باید حداکثر 1 مگابایت باشد", (value) => {
+            if (value && value?.length > 0) {
+                for (let i = 0; i < value.length; i++) {
+                    if (value[i].size > 1_024_000) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        })
+        .test("fileType", "فرمت هر عکس باید از نوع ( png , jpg , jpeg ) باشد", (value) => {
+                if (value && value.length > 0) {
+                    for (let i = 0; i < value.length; i++) {
+                        if (value[i].type != "image/png" && value[i].type != "image/jpg" && value[i].type != "image/jpeg") {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+        )
+});
+
 export const EditProfileInformationSchema = Yup.object().shape({
     avatar: Yup.mixed().nullable().test("fileSize", "حجم عکس حداکثر 1 مگابایت باشد", (value) => {
         if (value === null) {

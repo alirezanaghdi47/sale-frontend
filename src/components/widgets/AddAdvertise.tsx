@@ -11,13 +11,13 @@ import {CSSTransition} from 'react-transition-group';
 
 // components
 import {Button} from "@/components/modules/Button";
-import {NotVerified} from "@/components/partials/Empties";
 import Stepper from "@/components/modules/Stepper";
-import TextArea from "@/components/modules/TextArea";
 import SelectBox from "@/components/modules/SelectBox";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import FileInput from "@/components/modules/FileInput";
+
+const TextEditor = dynamic(() => import("@/components/modules/TextEditor"), {ssr: false});
 const Map3 = dynamic(() => import("@/components/widgets/Map3"), {ssr: false});
 
 // hooks
@@ -30,7 +30,7 @@ import {addMyAdvertiseService} from "@/services/myAdvertiseService";
 import {addEditAdvertiseStepList, categoryList, cityList, qualityList} from "@/utils/constants";
 import {addAdvertiseDetailSchema, addAdvertiseGallerySchema, addAdvertiseLocationSchema} from "@/utils/validations";
 
-const Gallery = ({data, setData, onCancel , onNext}) => {
+const Gallery = ({data, setData, onCancel, onNext}) => {
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -49,37 +49,33 @@ const Gallery = ({data, setData, onCancel , onNext}) => {
 
             <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
 
-                <ul className='grid grid-cols-12 justify-start items-start gap-4 w-full'>
+                <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-                    <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
+                    <span className="text-gray text-xs font-bold">
+                        عکس ها
+                    </span>
 
-                        <span className="text-gray text-xs font-bold">
-                            عکس ها
-                        </span>
+                    <FileInput
+                        name="gallery"
+                        maxFiles={2}
+                        acceptTypes={{
+                            "image/png": [],
+                            "image/jpeg": [],
+                            "image/jpg": [],
+                        }}
+                        values={formik.values.gallery}
+                        onChange={(values) => formik.setFieldValue("gallery", values)}
+                    />
 
-                        <FileInput
-                            name="gallery"
-                            maxFiles={2}
-                            acceptTypes={{
-                                "image/png": [],
-                                "image/jpeg": [],
-                                "image/jpg": [],
-                            }}
-                            values={formik.values.gallery}
-                            onChange={(values) => formik.setFieldValue("gallery", values)}
-                        />
+                    {
+                        formik.errors.gallery && formik.touched.gallery && (
+                            <p className='text-red text-xs'>
+                                {formik.errors.gallery}
+                            </p>
+                        )
+                    }
 
-                        {
-                            formik.errors.gallery && formik.touched.gallery && (
-                                <p className='text-red text-xs'>
-                                    {formik.errors.gallery}
-                                </p>
-                            )
-                        }
-
-                    </li>
-
-                </ul>
+                </div>
 
                 <div className="flex justify-end items-center gap-x-2 w-full">
 
@@ -245,11 +241,10 @@ const Detail = ({data, setData, onPrev, onNext}) => {
                             توضیحات
                         </span>
 
-                        <TextArea
+                        <TextEditor
                             name="description"
-                            rows={10}
                             value={formik.values.description}
-                            onChange={formik.handleChange}
+                            onChange={(value) => formik.setFieldValue("description", value)}
                         />
 
                         {
@@ -483,6 +478,7 @@ export const AddAdvertise = () => {
     const {segment, _handlePrevSegment, _handleNextSegment, _handleSegment} = useSegment();
 
     return (
+
         <div className="flex flex-col justify-start items-center gap-y-4 w-full">
 
             <Stepper

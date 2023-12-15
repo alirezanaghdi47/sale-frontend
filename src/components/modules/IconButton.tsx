@@ -5,6 +5,7 @@ const styles = {
     variant: {
         contained: {
             blue:"bg-blue text-light",
+            secondary:"bg-secondary text-gray",
             light:"bg-light text-gray",
             red: "bg-red text-light",
         },

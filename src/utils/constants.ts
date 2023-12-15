@@ -47,3 +47,9 @@ export const sortList = [
     {id: "1", label: "جدید ترین", value: "newest"},
     {id: "2", label: "گران ترین", value: "expensive"},
 ];
+
+export const colorList = [
+    {id: 1, label: "مشکی", value: "#334155"},
+    {id: 2, label: "آبی", value: "#2563eb"},
+    {id: 3, label: "قرمز", value: "#ef4444"}
+];

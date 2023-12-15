@@ -36,6 +36,10 @@
     @apply text-xs text-gray font-bold #{!important};
   }
 
+  &__placeholder{
+    @apply text-xs text-gray/75 font-bold #{!important};
+  }
+
   &__indicators {
     @apply flex justify-start items-center gap-x-2 p-2 #{!important};
   }
@@ -61,7 +65,7 @@
   }
 
   &__menu-list {
-    @apply max-h-[180px] p-2 overflow-y-scroll #{!important};
+    @apply max-h-[180px] pr-2 pl-0 overflow-y-scroll #{!important};
   }
 
   &__option {

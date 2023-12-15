@@ -1,0 +1,31 @@
+.ProseMirror {
+  @apply w-full h-full outline-none select-none #{!important};
+
+  hr{
+    @apply my-2 border border-solid border-gray #{!important};
+  }
+
+  h1 {
+    @apply text-lg #{!important};
+  }
+
+  h2 {
+    @apply text-base #{!important};
+  }
+
+  h3 {
+    @apply text-sm #{!important};
+  }
+
+  p {
+    @apply text-xs #{!important};
+  }
+
+  ul {
+    @apply list-disc pr-6 #{!important};
+  }
+
+  ol {
+    @apply list-decimal pr-6 #{!important};
+  }
+}
