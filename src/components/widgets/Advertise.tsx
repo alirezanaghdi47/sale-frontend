@@ -25,6 +25,7 @@ import {
 // components
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
+
 const Map = dynamic(() => import("@/components/widgets/Map"), {ssr: false});
 
 // services
@@ -117,7 +118,7 @@ const ContactUs = ({data}) => {
 
 const Summary = ({data}) => {
 
-    const {data: session , status } = useSession();
+    const {data: session, status} = useSession();
     const queryClient = useQueryClient();
 
     const {isPending: isPendingMyFavorite, data: isMyFavoriteData} = useQuery({
@@ -183,8 +184,8 @@ const Summary = ({data}) => {
         const {notification} = await import("@/components/modules/Notification");
 
         copyToClipboard(data).then(res => {
-            if (res === "unSupported"){
-                notification("کپی شد" , "success");
+            if (res === "unSupported") {
+                notification("کپی شد", "success");
             }
         });
 
@@ -223,11 +224,9 @@ const Summary = ({data}) => {
                     variant="text"
                     color='gray'
                     onClick={() => _handleShareAdvertise({
-                            title: data?.title,
-                            text: data?.description,
-                            url: `${process.env.BASE_URL}/advertises/${data?._id}`,
-                        })
-                    }
+                        title: data?.title,
+                        url: `${process.env.BASE_URL}/advertises/${data?._id}`,
+                    })}
                 >
                     <LuShare2
                         size={16}
@@ -250,11 +249,12 @@ const Features = ({data}) => {
                 مشخصات محصول
             </h3>
 
-            <div className="flex flex-col justify-center items-start gap-y-4 w-full h-full bg-light rounded-lg px-2 py-4">
+            <div
+                className="flex flex-col justify-center items-start gap-y-4 w-full h-full bg-light rounded-lg px-2 py-4">
 
-                <ul className="grid grid-cols-12 gap-8 w-full">
+                <ul className="grid grid-cols-12 gap-y-4 sm:gap-4 w-full">
 
-                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
                         <LuMapPin
                             size={20}
                             className="text-current"
@@ -262,7 +262,7 @@ const Features = ({data}) => {
                         {cityList.find(cityItem => cityItem.value === data?.city)?.label}
                     </li>
 
-                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
                         <LuLayers
                             size={20}
                             className="text-current"
@@ -270,7 +270,7 @@ const Features = ({data}) => {
                         {categoryList.find(categoryItem => categoryItem.value === data?.category)?.label}
                     </li>
 
-                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
                         <LuCalendar
                             size={20}
                             className="text-current"
@@ -278,7 +278,7 @@ const Features = ({data}) => {
                         {formatDistance(new Date(data?.createdAt), new Date(), {addSuffix: true, locale: faIR})}
                     </li>
 
-                    <li className="col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
                         <LuDollarSign
                             size={20}
                             className="text-current"

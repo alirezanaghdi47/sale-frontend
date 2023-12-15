@@ -38,7 +38,7 @@ const Form = () => {
             if (data.status === "success") {
                 notification(data.message, "success");
             } else {
-                notification(data.error, "error");
+                notification(data.message, "error");
             }
         }
     });

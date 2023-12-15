@@ -8,7 +8,7 @@ import {Advertises} from "@/components/widgets/Advertises";
 import {getAllAdvertiseService} from "@/services/advertiseService";
 
 export const metadata = {
-    title: 'آگهی ها',
+    title: 'نما گجت',
 }
 
 const AdvertisesPage = async ({searchParams}) => {

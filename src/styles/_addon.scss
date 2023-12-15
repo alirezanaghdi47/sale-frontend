@@ -27,7 +27,7 @@
 //=============================================================//
 
 ::-webkit-scrollbar {
-  @apply w-2 #{!important};
+  @apply w-2 h-2 #{!important};
 }
 
 ::-webkit-scrollbar-track {

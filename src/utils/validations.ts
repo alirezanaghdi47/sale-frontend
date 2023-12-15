@@ -114,6 +114,10 @@ export const SignUpSchema = Yup.object().shape({
     passwordRepeat: Yup.string().matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, "تکرار رمز عبور باید حداقل 8 کاراکتر به همراه حروف بزرگ و کوچک و عدد و علائم باشد").oneOf([Yup.ref('password'), null], "رمز عبور با تکرار آن یکسان نیست").required("تکرار رمز عبور الزامی است"),
 });
 
+export const ConfirmSignUpSchema = Yup.object().shape({
+    code: Yup.string().min(6, "کد اعتبارسنجی 6 رقمی است").max(6, "کد اعتبارسنجی 6 رقمی است").required("کد اعتبارسنجی الزامی است"),
+});
+
 export const ForgetPasswordSchema = Yup.object().shape({
     email: Yup.string().email("فرمت ایمیل نادرست است").required("ایمیل الزامی است"),
 });

@@ -176,7 +176,6 @@ const AdvertiseList = ({data}) => {
                                     share: {
                                         onClick: () => _handleShareAdvertise({
                                             title: advertiseItem?.title,
-                                            text: advertiseItem?.description,
                                             url: `${process.env.BASE_URL}/advertises/${advertiseItem?._id}`,
                                         })
                                     },

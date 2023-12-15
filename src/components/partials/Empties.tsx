@@ -12,7 +12,7 @@ export const AdvertiseListEmpty = () => {
 
     return (
         <section
-            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-auto'>
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-8'>
 
             <Image
                 src="/assets/images/no-data.svg"
@@ -34,7 +34,7 @@ export const FavoriteListEmpty = () => {
 
     return (
         <section
-            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-auto'>
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-8'>
 
             <Image
                 src="/assets/images/no-data.svg"
@@ -56,7 +56,7 @@ export const MyAdvertiseListEmpty = () => {
 
     return (
         <section
-            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-auto'>
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-8'>
 
             <Image
                 src="/assets/images/no-data.svg"
@@ -80,7 +80,7 @@ export const NotFoundClient = () => {
 
     return (
         <section
-            className='flex flex-col justify-center items-center gap-y-8 w-full h-full my-auto'>
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-8'>
 
             <Image
                 src="/assets/images/not-found.svg"
@@ -116,7 +116,7 @@ export const NotFoundServer = () => {
 
     return (
         <section
-            className='flex flex-col justify-center items-center gap-y-8 w-full h-full my-auto'>
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-8'>
 
             <Image
                 src="/assets/images/server-down.svg"
@@ -140,7 +140,7 @@ export const NotVerified = () => {
 
     return (
         <section
-            className='flex flex-col justify-center items-center gap-y-8 w-full h-full my-auto'>
+            className='flex flex-col justify-center items-center gap-y-4 w-full h-full my-8'>
 
             <Image
                 src="/assets/images/not-found.svg"

@@ -44,7 +44,7 @@ const Form = () => {
                 router.push("/auth/sign-in");
                 notification(data.message, "success");
             } else {
-                notification(data.error, "error");
+                notification(data.message, "error");
             }
         }
     });

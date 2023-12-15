@@ -57,12 +57,12 @@ export async function generateMetadata({ params }) {
 
     return {
         title: advertise?.data?.title,
-        description: advertise?.data?.description,
+        description: "",
         openGraph: {
             title: advertise?.data?.title,
-            description: advertise?.data?.description,
+            description: "",
             url: `${process.env.BASE_URL}/advertises/${advertise?.data?._id}`,
-            siteName: 'Next.js',
+            siteName: 'نما گجت',
             images: [
                 {
                     url: advertise?.data?.gallery[0],
@@ -76,7 +76,7 @@ export async function generateMetadata({ params }) {
         twitter: {
             card: 'summary_large_image',
             title: advertise?.data?.title,
-            description: advertise?.data?.description,
+            description: "",
             images: [
                 {
                     url: advertise?.data?.gallery[0],

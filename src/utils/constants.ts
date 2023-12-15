@@ -53,3 +53,10 @@ export const colorList = [
     {id: 2, label: "آبی", value: "#2563eb"},
     {id: 3, label: "قرمز", value: "#ef4444"}
 ];
+
+export const sizeList = [
+    {id: 1, label: "عنوان 1", value: 1},
+    {id: 2, label: "عنوان 2", value: 2},
+    {id: 3, label: "عنوان 3", value: 3},
+    {id: 4, label: "متن", value: 4}
+];

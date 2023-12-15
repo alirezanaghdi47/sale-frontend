@@ -63,7 +63,7 @@ const Map2 = ({setLocation}) => {
     }, []);
 
     return (
-        <div id="map" className='z-0 w-full h-full'/>
+        <div id="map" className='z-10 w-full h-full rounded-lg'/>
     )
 };
 

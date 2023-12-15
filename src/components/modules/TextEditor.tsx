@@ -22,9 +22,6 @@ import {
     LuAlignLeft, LuAlignRight,
     LuBold,
     LuCornerDownLeft,
-    LuHeading1,
-    LuHeading2,
-    LuHeading3,
     LuItalic,
     LuList,
     LuListOrdered,
@@ -33,7 +30,6 @@ import {
     LuRotateCcw,
     LuRotateCw,
     LuStrikethrough,
-    LuType
 } from "react-icons/lu";
 
 // components
@@ -44,26 +40,14 @@ import SelectBox from "@/components/modules/SelectBox";
 import "@/styles/customize/tiptap.scss";
 
 // utils
-import {colorList} from "@/utils/constants";
+import {colorList, sizeList} from "@/utils/constants";
 
 const Toolbar = ({editor, ...props}) => {
 
     if (!editor) return null;
 
     return (
-        <ul className="flex flex-wrap justify-center items-center gap-2 w-full">
-
-            <li className='w-[100px]'>
-                <SelectBox
-                    name="color"
-                    options={colorList}
-                    placeholder="رنگ"
-                    value={colorList.find(colorItem => colorItem.value === editor.getAttributes('textStyle').color)}
-                    onChange={(item) => editor.chain().focus().setColor(item.value).run()}
-                />
-            </li>
-
-            <li className="mr-2"/>
+        <ul className="flex flex-wrap justify-start items-center gap-2 w-full">
 
             <li>
                 <IconButton
@@ -104,7 +88,7 @@ const Toolbar = ({editor, ...props}) => {
                 </IconButton>
             </li>
 
-            <li className="mr-2"/>
+            <li className="w-[0.5px] h-[16px] bg-gray"/>
 
             <li>
                 <IconButton
@@ -145,61 +129,31 @@ const Toolbar = ({editor, ...props}) => {
                 </IconButton>
             </li>
 
-            <li className="mr-2"/>
+            <li className="w-[0.5px] h-[16px] bg-gray"/>
 
-            <li>
-                <IconButton
-                    variant="contained"
-                    color={editor.isActive('heading', {level: 3}) ? "blue" : "secondary"}
-                    onClick={() => editor.chain().focus().toggleHeading({level: 3}).run()}
-                >
-                    <LuHeading3
-                        size={16}
-                        className="text-current"
-                    />
-                </IconButton>
+            <li className='min-w-[100px]'>
+                <SelectBox
+                    name="color"
+                    options={colorList}
+                    placeholder="رنگ"
+                    value={colorList.find(colorItem => colorItem.value === editor.getAttributes('textStyle').color)}
+                    onChange={(item) => editor.chain().focus().setColor(item.value).run()}
+                />
             </li>
 
-            <li>
-                <IconButton
-                    variant="contained"
-                    color={editor.isActive('heading', {level: 2}) ? "blue" : "secondary"}
-                    onClick={() => editor.chain().focus().toggleHeading({level: 2}).run()}
-                >
-                    <LuHeading2
-                        size={16}
-                        className="text-current"
-                    />
-                </IconButton>
+            <li className="w-[0.5px] h-[16px] bg-gray"/>
+
+            <li className='min-w-[100px]'>
+                <SelectBox
+                    name="size"
+                    options={sizeList}
+                    placeholder="اندازه"
+                    value={sizeList.find(sizeItem => sizeItem.value === editor.getAttributes('heading').level)}
+                    onChange={(item) => editor.chain().focus().toggleHeading({level: item.value}).run()}
+                />
             </li>
 
-            <li>
-                <IconButton
-                    variant="contained"
-                    color={editor.isActive('heading', {level: 1}) ? "blue" : "secondary"}
-                    onClick={() => editor.chain().focus().toggleHeading({level: 1}).run()}
-                >
-                    <LuHeading1
-                        size={16}
-                        className="text-current"
-                    />
-                </IconButton>
-            </li>
-
-            <li>
-                <IconButton
-                    variant="contained"
-                    color={editor.isActive('paragraph') ? "blue" : "secondary"}
-                    onClick={() => editor.chain().focus().setParagraph().run()}
-                >
-                    <LuType
-                        size={16}
-                        className="text-current"
-                    />
-                </IconButton>
-            </li>
-
-            <li className="mr-2"/>
+            <li className="w-[0.5px] h-[16px] bg-gray"/>
 
             <li>
                 <IconButton
@@ -253,7 +207,7 @@ const Toolbar = ({editor, ...props}) => {
                 </IconButton>
             </li>
 
-            <li className="mr-2"/>
+            <li className="w-[0.5px] h-[16px] bg-gray"/>
 
             <li>
                 <IconButton
@@ -339,7 +293,8 @@ const TextEditor = ({name , value , onChange}) => {
     });
 
     return (
-        <>
+        <div className="flex flex-col justify-start items-start gap-y-4 w-full h-full bg-secondary rounded-lg">
+
             <Toolbar
                 editor={editor}
                 className="toolbar"
@@ -347,9 +302,10 @@ const TextEditor = ({name , value , onChange}) => {
 
             <EditorContent
                 editor={editor}
-                className='w-full min-h-[300px] h-full bg-secondary rounded-lg p-4'
+                className='w-full h-full max-h-[320px] overflow-y-scroll'
             />
-        </>
+
+        </div>
     )
 }
 

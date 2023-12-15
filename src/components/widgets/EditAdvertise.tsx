@@ -7,7 +7,7 @@ import {useParams, useRouter} from "next/navigation";
 import Image from "next/image";
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useFormik} from "formik";
-import {LuCheck, LuChevronLeft, LuChevronRight, LuPen, LuPlus, LuX} from "react-icons/lu";
+import {LuChevronLeft, LuChevronRight, LuPen, LuPlus, LuX} from "react-icons/lu";
 import {CSSTransition} from 'react-transition-group';
 
 // components
@@ -17,6 +17,7 @@ import SelectBox from "@/components/modules/SelectBox";
 import TextInput from "@/components/modules/TextInput";
 import NumberInput from "@/components/modules/NumberInput";
 import FileInput from "@/components/modules/FileInput";
+
 const TextEditor = dynamic(() => import("@/components/modules/TextEditor"), {ssr: false});
 const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
 
@@ -32,7 +33,7 @@ import {addAdvertiseDetailSchema, editAdvertiseGallerySchema, addAdvertiseLocati
 
 const Gallery = ({data, setData, onCancel, onNext}) => {
 
-    const [showEditGallery , setShowEditGallery] = useState(false);
+    const [showEditGallery, setShowEditGallery] = useState(false);
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -65,7 +66,7 @@ const Gallery = ({data, setData, onCancel, onNext}) => {
                             <ul className="flex flex-wrap gap-4 w-full">
 
                                 {
-                                    data.gallery.map((galleryItem , index) =>
+                                    data.gallery.map((galleryItem, index) =>
                                         <li
                                             key={index}
                                             className=""
@@ -297,11 +298,13 @@ const Detail = ({data, setData, onPrev, onNext}) => {
                             توضیحات
                         </span>
 
-                        <TextEditor
-                            name="description"
-                            value={formik.values.description}
-                            onChange={(value) => formik.setFieldValue("description", value)}
-                        />
+                        <div className='w-full h-[320px] bg-secondary rounded-lg p-4'>
+                            <TextEditor
+                                name="description"
+                                value={formik.values.description}
+                                onChange={(value) => formik.setFieldValue("description", value)}
+                            />
+                        </div>
 
                         {
                             formik.errors.description && formik.touched.description && (

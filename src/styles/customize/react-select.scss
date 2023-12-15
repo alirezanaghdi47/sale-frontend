@@ -65,7 +65,7 @@
   }
 
   &__menu-list {
-    @apply max-h-[180px] pr-2 pl-0 overflow-y-scroll #{!important};
+    @apply max-h-[180px] pr-2 pl-0 py-2 overflow-y-scroll #{!important};
   }
 
   &__option {
