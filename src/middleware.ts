@@ -1,16 +1,18 @@
 // libraries
-import { withAuth } from "next-auth/middleware";
+import {withAuth} from "next-auth/middleware";
 
 export default withAuth({
     callbacks: {
-        authorized: ({ req, token }) => {
-            if (req.nextUrl.pathname.startsWith('/account') && (token?.user?.expire < Math.floor(Date.now() / 1000) || !token?.accessToken)) {
-                return false;
+        authorized: ({req, token}) => {
+            if (req.nextUrl.pathname.startsWith('/account')) {
+                if (!token?.accessToken) return false;
+                if (token?.user?.expire > Math.floor(Date.now() / 1000)) return true;
             }
+
             return true;
         }
     },
-    pages:{
+    pages: {
         signIn: "/auth/sign-in",
         error: "/auth/sign-in",
     }

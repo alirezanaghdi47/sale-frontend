@@ -94,7 +94,7 @@ const RegisterForm = ({data, setData, onNext}) => {
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
                     <span className="text-gray text-xs font-bold">
-                        رمز عبور جدید
+                        رمز عبور
                     </span>
 
                     <PasswordInput
@@ -116,7 +116,7 @@ const RegisterForm = ({data, setData, onNext}) => {
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
                     <span className="text-gray text-xs font-bold">
-                        تکرار رمز عبور جدید
+                        تکرار رمز عبور
                     </span>
 
                     <PasswordInput

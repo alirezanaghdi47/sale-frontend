@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import {useSession} from "next-auth/react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import parse from 'html-react-parser';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from 'swiper/modules';
 import {useMediaQuery} from "@react-hooks-library/core";
@@ -25,7 +24,6 @@ import {
 // components
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
-
 const Map = dynamic(() => import("@/components/widgets/Map"), {ssr: false});
 
 // services
@@ -37,7 +35,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import "@/styles/customize/swiper.scss";
-import "@/styles/customize/tiptap.scss";
 
 // utils
 import {copyToClipboard} from "@/utils/functions";
@@ -305,11 +302,11 @@ const Description = ({data}) => {
                 بررسی محصول
             </h3>
 
-            <div className="w-full bg-light rounded-lg p-2">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-2">
 
-                <div className="ProseMirror">
-                    {parse(data?.description)}
-                </div>
+                <p className="text-xs text-dark leading-8">
+                    {data?.description}
+                </p>
 
             </div>
 

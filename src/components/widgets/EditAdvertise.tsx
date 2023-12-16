@@ -15,10 +15,9 @@ import {Button} from "@/components/modules/Button";
 import Stepper from "@/components/modules/Stepper";
 import SelectBox from "@/components/modules/SelectBox";
 import TextInput from "@/components/modules/TextInput";
+import TextArea from "@/components/modules/TextArea";
 import NumberInput from "@/components/modules/NumberInput";
 import FileInput from "@/components/modules/FileInput";
-
-const TextEditor = dynamic(() => import("@/components/modules/TextEditor"), {ssr: false});
 const Map2 = dynamic(() => import("@/components/widgets/Map2"), {ssr: false});
 
 // hooks
@@ -298,13 +297,12 @@ const Detail = ({data, setData, onPrev, onNext}) => {
                             توضیحات
                         </span>
 
-                        <div className='w-full h-[320px] bg-secondary rounded-lg p-4'>
-                            <TextEditor
-                                name="description"
-                                value={formik.values.description}
-                                onChange={(value) => formik.setFieldValue("description", value)}
-                            />
-                        </div>
+                        <TextArea
+                            name="description"
+                            rows={10}
+                            value={formik.values.description}
+                            onChange={formik.handleChange}
+                        />
 
                         {
                             formik.errors.description && formik.touched.description && (
