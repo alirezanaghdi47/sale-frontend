@@ -11,7 +11,7 @@ export const addFavoriteService = async (advertiseId) => {
         const response = await axios.post(process.env.API_URL + "/api/favorite/addFavorite", null, {
             headers: {
                 token: session?.accessToken,
-                advertiseId: advertiseId
+                advertiseId
             }
         });
 
@@ -65,7 +65,7 @@ export const getIsMyFavoriteService = async (advertiseId) => {
         const response = await axios.get(process.env.API_URL + "/api/favorite/getIsMyFavorite", {
             headers: {
                 token: session?.accessToken,
-                advertiseId: advertiseId
+                advertiseId
             }
         });
 
@@ -90,7 +90,7 @@ export const deleteFavoriteService = async (advertiseId) => {
         const response = await axios.delete(process.env.API_URL + "/api/favorite/deleteFavorite", {
             headers: {
                 token: session?.accessToken,
-                advertiseId: advertiseId
+                advertiseId
             }
         });
 

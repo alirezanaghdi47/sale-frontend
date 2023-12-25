@@ -119,7 +119,7 @@ const Summary = ({data}) => {
     const queryClient = useQueryClient();
 
     const {isPending: isPendingMyFavorite, data: isMyFavoriteData} = useQuery({
-        queryKey: ['isMyFavorite', {advertiseId: data?._id}],
+        queryKey: ['isMyFavorite', {advertise: data?._id}],
         queryFn: () => getIsMyFavoriteService(data?._id),
         enabled: status === "authenticated"
     });
@@ -404,13 +404,13 @@ export const Advertise = () => {
     const params = useParams();
 
     const {isPending: isPendingAdvertise, data: advertiseData} = useQuery({
-        queryKey: ['advertise', {advertiseId: params.advertiseId}],
-        queryFn: () => getAdvertiseService(params.advertiseId)
+        queryKey: ['advertise', {advertiseId: params?.advertiseId}],
+        queryFn: () => getAdvertiseService(params?.advertiseId)
     });
 
     const {isPending: isPendingRelativeAdvertise, data: relativeAdvertiseData} = useQuery({
-        queryKey: ['relativeAdvertise', {advertiseId: params.advertiseId}],
-        queryFn: () => getRelativeAdvertiseService(params.advertiseId)
+        queryKey: ['relativeAdvertise', {advertiseId: params?.advertiseId}],
+        queryFn: () => getRelativeAdvertiseService(params?.advertiseId)
     });
 
     return !isPendingAdvertise && (

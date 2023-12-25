@@ -9,6 +9,7 @@ export const editProfileService = async (data) => {
         const session = await getSession();
         const formData = new FormData();
 
+        formData.append("preview" , data.preview);
         formData.append("avatar" , data.avatar);
         formData.append("name" , data.name);
         formData.append("family" , data.family);

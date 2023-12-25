@@ -103,7 +103,7 @@ const Edit = () => {
     const {data: session, update} = useSession();
 
     const {mutate, isPending} = useMutation({
-        mutationFn: (data) => editProfileService(data),
+        mutationFn: (data) => editProfileService({...data , preview: session?.user?.avatar}),
         onSuccess: async (data) => {
 
             const {notification} = await import("@/components/modules/Notification");

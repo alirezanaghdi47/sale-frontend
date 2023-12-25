@@ -79,8 +79,6 @@ export const forgetPasswordService = async (data) => {
 
 export const verifyPasswordService = async (data) => {
 
-    console.log(data)
-
     try {
 
         const response = await axios.post(process.env.API_URL + "/api/auth/verifyPassword" , {newPassword: data.newPassword} , {

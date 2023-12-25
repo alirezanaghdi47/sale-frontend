@@ -13,13 +13,13 @@ const AdvertisePage = async ({params}) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
-        queryKey: ["advertise" , {advertiseId: params?.advertiseId}],
-        queryFn: () => getAdvertise({advertiseId: params?.advertiseId})
+        queryKey: ["advertise" , {advertise: params?.advertise}],
+        queryFn: () => getAdvertise(params?.advertise)
     });
 
     await queryClient.prefetchQuery({
-        queryKey: ["relativeAdvertise" , {advertiseId: params?.advertiseId}],
-        queryFn: () => getRelativeAdvertise({advertiseId: params?.advertiseId})
+        queryKey: ["relativeAdvertise" , {advertise: params?.advertiseId}],
+        queryFn: () => getRelativeAdvertise(params?.advertiseId)
     });
 
     return (
@@ -57,10 +57,10 @@ export async function generateMetadata({ params }) {
 
     return {
         title: advertise?.data?.title,
-        description: "",
+        description: advertise?.data?.description,
         openGraph: {
             title: advertise?.data?.title,
-            description: "",
+            description: advertise?.data?.description,
             url: `${process.env.BASE_URL}/advertises/${advertise?.data?._id}`,
             siteName: 'نما گجت',
             images: [
@@ -76,7 +76,7 @@ export async function generateMetadata({ params }) {
         twitter: {
             card: 'summary_large_image',
             title: advertise?.data?.title,
-            description: "",
+            description: advertise?.data?.description,
             images: [
                 {
                     url: advertise?.data?.gallery[0],

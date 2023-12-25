@@ -143,7 +143,7 @@ export const deleteMyAdvertiseService = async (advertiseId) => {
         const response = await axios.delete(process.env.API_URL + "/api/myAdvertise/deleteMyAdvertise", {
             headers: {
                 token: session?.accessToken,
-                advertiseId: advertiseId
+                advertiseId
             }
         });
 

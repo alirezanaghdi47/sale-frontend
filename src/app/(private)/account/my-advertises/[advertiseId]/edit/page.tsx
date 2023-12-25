@@ -17,8 +17,8 @@ const EditAdvertisePage = async (params) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
-        queryKey: ["myAdvertise" , {advertiseId: params?.advertiseId}],
-        queryFn: () => getMyAdvertise({advertiseId: params?.advertiseId})
+        queryKey: ["myAdvertise" , {advertise: params?.advertise}],
+        queryFn: () => getMyAdvertise({advertise: params?.advertise})
     });
 
     return (
