@@ -1,7 +1,7 @@
 // libraries
 import {NextAuthOptions} from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import JwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 // services
 import {loginService} from "@/services/authService";
@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
                 if (response.status === "success") {
                     return {
                         accessToken: response.token,
-                        user: JwtDecode(response.token)?.user
+                        user: jwtDecode(response.token)?.user
                     };
                 } else {
                     return Promise.reject(new Error(response?.message));

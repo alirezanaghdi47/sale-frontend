@@ -12,7 +12,7 @@ const Alert = ({message ,color, actionButton}) => {
             className={`flex justify-between items-center gap-x-4 w-full ${styles.color[color]} rounded-lg p-4`}
         >
 
-            <p className="text-sm font-bold">
+            <p className="text-base font-bold">
                 {message}
             </p>
 

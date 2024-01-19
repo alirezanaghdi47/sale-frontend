@@ -46,9 +46,9 @@ const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort})
 
                 <div className="hidden md:flex justify-start items-center">
 
-                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs ml-2">
+                    <span className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm ml-2">
                        <LuArrowDownWideNarrow
-                           size={16}
+                           size={20}
                            className="text-current"
                        />
                         مرتب سازی
@@ -76,7 +76,7 @@ const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort})
                         color="light"
                         startIcon={
                             <LuArrowDownWideNarrow
-                                size={16}
+                                size={20}
                                 className="text-current"
                             />
                         }
@@ -87,9 +87,9 @@ const SortBar = ({totalCount, page, sort, _handleChangePage, _handleChangeSort})
 
                 </div>
 
-                <span className="text-base text-gray">
+                <span className="text-lg text-gray">
                     {totalCount}
-                    <span className='text-xs mr-1'>
+                    <span className='text-sm mr-1'>
                         مورد
                     </span>
                 </span>

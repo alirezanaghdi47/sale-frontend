@@ -18,7 +18,7 @@ const StepperItem = ({stepItem, step}) => {
                 {stepItem?.number}
             </span>
 
-            <span className={`text-xs font-bold ${stepItem?.number === step ? 'text-blue' : 'text-gray'}`}>
+            <span className={`text-sm font-bold ${stepItem?.number === step ? 'text-blue' : 'text-gray'}`}>
                 {stepItem?.title}
             </span>
 

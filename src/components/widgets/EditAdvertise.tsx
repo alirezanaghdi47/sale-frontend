@@ -55,7 +55,7 @@ const Gallery = ({data, setData, onCancel, onNext}) => {
 
                 <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-                    <span className="text-gray text-xs font-bold">
+                    <span className="text-gray text-sm font-bold">
                         عکس ها
                     </span>
 
@@ -89,11 +89,11 @@ const Gallery = ({data, setData, onCancel, onNext}) => {
                                 >
 
                                     <LuPlus
-                                        size={16}
+                                        size={20}
                                         className="text-gray"
                                     />
 
-                                    <span className="text-xs font-bold text-gray">
+                                    <span className="text-sm font-bold text-gray">
                                         عکس جدید
                                     </span>
 
@@ -197,7 +197,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-xs font-bold">
+                         <span className="text-gray text-sm font-bold">
                             دسته بندی
                         </span>
 
@@ -221,7 +221,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-xs font-bold">
+                         <span className="text-gray text-sm font-bold">
                             وضعیت محصول
                         </span>
 
@@ -245,7 +245,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-xs font-bold">
+                         <span className="text-gray text-sm font-bold">
                             قیمت ( تومان )
                         </span>
 
@@ -271,7 +271,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-xs font-bold">
+                         <span className="text-gray text-sm font-bold">
                             عنوان
                         </span>
 
@@ -293,7 +293,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-xs font-bold">
+                         <span className="text-gray text-sm font-bold">
                             توضیحات
                         </span>
 
@@ -400,7 +400,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-xs font-bold">
+                         <span className="text-gray text-sm font-bold">
                             شهر
                         </span>
 
@@ -424,7 +424,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                        <span className="text-gray text-xs font-bold">
+                        <span className="text-gray text-sm font-bold">
                             آدرس
                         </span>
 

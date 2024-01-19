@@ -10,7 +10,7 @@ const ReactSelectDropdownIndicator = (props: any) => {
     return components.DropdownIndicator && (
         <components.DropdownIndicator {...props}>
             <LuChevronDown
-                size={16}
+                size={20}
                 className="text-gray"
             />
         </components.DropdownIndicator>
@@ -22,7 +22,7 @@ const ReactSelectClearIndicator = (props: any) => {
     return components.ClearIndicator && (
         <components.ClearIndicator {...props}>
             <LuX
-                size={16}
+                size={20}
                 className="text-gray"
             />
         </components.ClearIndicator>

@@ -1,6 +1,6 @@
 // libraries
 import {redirect} from "next/navigation";
-import JwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 // components
 import {VerifyPassword} from "@/components/widgets/VerifyPassword";
@@ -13,7 +13,7 @@ const VerifyPasswordPage = async ({searchParams}) => {
 
     try {
 
-        const decodedUser = JwtDecode(searchParams.token);
+        const decodedUser = jwtDecode(searchParams.token);
 
         if (decodedUser?.user?.expire < Math.floor(Date.now() / 1000)) {
             return redirect("/auth/sign-in");

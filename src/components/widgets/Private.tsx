@@ -23,9 +23,9 @@ const Logo = () => {
                 <Image
                     src="/assets/images/logo.png"
                     alt='logo'
-                    width={32}
-                    height={32}
-                    className="min-w-[32px] min-h-[32px] rounded-full"
+                    width={40}
+                    height={40}
+                    className="min-w-[40px] min-h-[40px] rounded-full"
                 />
             </Link>
 
@@ -48,7 +48,7 @@ const Links = () => {
                         color="gray"
                     >
                         <LuMenu
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     </IconButton>
@@ -62,7 +62,7 @@ const Links = () => {
                     color={pathname === "/account/my-advertises" ? "blue" : "gray"}
                     icon={
                         <LuScrollText
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -76,7 +76,7 @@ const Links = () => {
                     color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
                     icon={
                         <LuPlus
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -90,7 +90,7 @@ const Links = () => {
                     color={pathname === "/account/favorites" ? "blue" : "gray"}
                     icon={
                         <LuBookmark
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -125,13 +125,13 @@ const Actions = () => {
                                 <Image
                                     src={session?.user?.avatar}
                                     alt="avatar"
-                                    width={24}
-                                    height={24}
-                                    className="rounded-full object-cover object-center"
+                                    width={32}
+                                    height={32}
+                                    className="w-[32px] h-[32px] rounded-full object-cover object-center"
                                 />
                             ) : (
                                 <LuUser
-                                    size={16}
+                                    size={20}
                                     className="text-current"
                                 />
                             )
@@ -147,7 +147,7 @@ const Actions = () => {
                     color={pathname === "/account/profile" ? "blue" : "gray"}
                     icon={
                         <LuUser
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -161,7 +161,7 @@ const Actions = () => {
                     color="red"
                     icon={
                         <LuLogOut
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }

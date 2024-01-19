@@ -44,7 +44,7 @@ const SortModal = ({sort , _handleChangeSort , isOpenModal, onCloseModal}) => {
                                 onChange={(value) => _handleChangeSort(value)}
                             />
 
-                            <span className="text-xs font-bold text-dark">
+                            <span className="text-sm font-bold text-dark">
                                 {sortItem?.label}
                             </span>
 

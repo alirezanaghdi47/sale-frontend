@@ -3,6 +3,11 @@ module.exports = {
     reactStrictMode: false,
     images: {
         remotePatterns: [
+            // {
+            //     protocol: 'https',
+            //     hostname: 'api.namagadget.ir',
+            //     port: '',
+            // },
             {
                 protocol: 'http',
                 hostname: '**',

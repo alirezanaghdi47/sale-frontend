@@ -19,7 +19,7 @@ const Heading = () => {
     return (
         <div className="flex justify-between items-center gap-x-2 w-full">
 
-            <h3 className="text-lg text-dark font-bold">
+            <h3 className="text-2xl text-dark font-bold">
                 ورود
             </h3>
 
@@ -68,7 +68,7 @@ const Form = () => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-xs font-bold">
+                    <span className="text-gray text-sm font-bold">
                         ایمیل
                     </span>
 
@@ -92,7 +92,7 @@ const Form = () => {
 
                     <div className="flex justify-between items-center w-full">
 
-                        <span className="text-gray text-xs font-bold">
+                        <span className="text-gray text-sm font-bold">
                             رمز عبور
                         </span>
 
@@ -132,7 +132,7 @@ const Form = () => {
                     size="full"
                     startIcon={
                         <LuLogIn
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -154,7 +154,7 @@ const Links = () => {
 
             <div className='flex justify-center items-center gap-x-2 w-full mt-2'>
 
-                <p className="text-gray font-bold text-xs">
+                <p className="text-gray font-bold text-sm">
                     اگر حساب کاربری ندارید
                 </p>
 

@@ -20,10 +20,10 @@ const styles = {
         },
     },
     size: {
-        sm: "text-xs font-bold px-3 py-1.5",
-        md: "text-sm font-bold px-4 py-2",
+        sm: "text-sm font-bold px-3 py-1.5",
+        md: "text-base font-bold px-4 py-2",
         lg: "text-lg font-bold px-4 py-2",
-        full: "w-full text-xs font-bold px-4 py-2"
+        full: "w-full text-sm font-bold px-4 py-2"
     },
     justify: {
         start: "justify-start",

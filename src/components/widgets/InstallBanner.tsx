@@ -90,7 +90,7 @@ const InstallBanner = () => {
                     onClick={_handleClose}
                 >
                     <LuX
-                        size={16}
+                        size={20}
                         className="text-current"
                     />
                 </IconButton>

@@ -79,7 +79,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                                         onChange={formik.handleChange}
                                     />
 
-                                    <span className="text-xs font-bold text-dark">
+                                    <span className="text-sm font-bold text-dark">
                                         {categoryItem?.label}
                                     </span>
 
@@ -89,7 +89,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                     </AccordionItem>
 
-                    <AccordionItem header="قیمت">
+                    <AccordionItem header="قیمت ( تومان )">
 
                         <RangeInput
                             min={0}
@@ -104,16 +104,12 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                         <div className="flex justify-between items-center gap-x-4 w-full">
 
-                            <span className="text-xs text-gray">
+                            <span className="text-sm text-gray">
                                 {formik.values.endPrice?.toLocaleString()}
-                                &nbsp;
-                                تومان
                             </span>
 
-                            <span className="text-xs text-gray">
+                            <span className="text-sm text-gray">
                                 {formik.values.startPrice?.toLocaleString()}
-                                &nbsp;
-                                تومان
                             </span>
 
                         </div>

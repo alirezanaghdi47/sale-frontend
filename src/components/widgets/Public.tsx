@@ -38,9 +38,9 @@ const Logo = () => {
             <Image
                 src="/assets/images/logo.png"
                 alt='logo'
-                width={32}
-                height={32}
-                className="min-w-[32px] min-h-[32px] rounded-full"
+                width={40}
+                height={40}
+                className="min-w-[40px] min-h-[40px] rounded-full"
             />
         </Link>
     )
@@ -92,7 +92,7 @@ const AppbarActions = () => {
                 color="gray"
                 startIcon={
                     <LuMapPin
-                        size={16}
+                        size={20}
                         className="text-current"
                     />
                 }
@@ -146,7 +146,7 @@ const BottomLinks = () => {
                     vertical
                     startIcon={
                         <LuScrollText
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -163,7 +163,7 @@ const BottomLinks = () => {
                     vertical
                     startIcon={
                         <LuPlus
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -180,7 +180,7 @@ const BottomLinks = () => {
                     vertical
                     startIcon={
                         <LuBookmark
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -208,7 +208,7 @@ const BottomLinks = () => {
                                     />
                                 ) : (
                                     <LuUser
-                                        size={16}
+                                        size={20}
                                         className="text-current"
                                     />
                                 )
@@ -224,7 +224,7 @@ const BottomLinks = () => {
                             vertical
                             startIcon={
                                 <LuUser
-                                    size={16}
+                                    size={20}
                                     className="text-current"
                                 />
                             }
@@ -293,7 +293,7 @@ const HeaderActions = () => {
                 color="gray"
                 startIcon={
                     <LuMapPin
-                        size={16}
+                        size={20}
                         className="text-current"
                     />
                 }
@@ -340,13 +340,13 @@ const HeaderLinks = () => {
                                         <Image
                                             src={session?.user?.avatar}
                                             alt="avatar"
-                                            width={24}
-                                            height={24}
-                                            className="w-[24px] h-[24px] rounded-full object-cover object-center"
+                                            width={32}
+                                            height={32}
+                                            className="w-[32px] h-[32px] rounded-full object-cover object-center"
                                         />
                                     ) : (
                                         <LuUser
-                                            size={16}
+                                            size={20}
                                             className="text-current"
                                         />
                                     )
@@ -365,7 +365,7 @@ const HeaderLinks = () => {
                             href="/account/my-advertises"
                             icon={
                                 <LuScrollText
-                                    size={16}
+                                    size={20}
                                     className="text-current"
                                 />
                             }
@@ -379,7 +379,7 @@ const HeaderLinks = () => {
                             href="/account/favorites"
                             icon={
                                 <LuBookmark
-                                    size={16}
+                                    size={20}
                                     className="text-current"
                                 />
                             }
@@ -393,7 +393,7 @@ const HeaderLinks = () => {
                             href="/account/profile"
                             icon={
                                 <LuUser
-                                    size={16}
+                                    size={20}
                                     className="text-current"
                                 />
                             }
@@ -406,7 +406,7 @@ const HeaderLinks = () => {
                             color="red"
                             icon={
                                 <LuLogOut
-                                    size={16}
+                                    size={20}
                                     className="text-current"
                                 />
                             }
@@ -423,7 +423,7 @@ const HeaderLinks = () => {
                         href="/auth/sign-in"
                         startIcon={
                             <LuLogIn
-                                size={16}
+                                size={20}
                                 className="text-current"
                             />
                         }
@@ -439,7 +439,7 @@ const HeaderLinks = () => {
                 href="/account/my-advertises/add"
                 startIcon={
                     <LuPlus
-                        size={16}
+                        size={20}
                         className="text-current"
                     />
                 }

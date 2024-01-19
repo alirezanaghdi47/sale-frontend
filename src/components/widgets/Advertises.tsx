@@ -60,7 +60,7 @@ const ActionBar = () => {
                     color="light"
                     startIcon={
                         <LuFilter
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -74,7 +74,7 @@ const ActionBar = () => {
                     color="light"
                     startIcon={
                         <LuArrowDownWideNarrow
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }
@@ -121,15 +121,15 @@ const SortBar = () => {
     return (
         <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs">
+            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
                 <LuArrowDownWideNarrow
-                    size={16}
+                    size={20}
                     className="text-current"
                 />
                 مرتب سازی
             </h3>
 
-            <div className="flex justify-start items-center gap-x-2 w-full bg-light rounded-lg p-2">
+            <div className="flex justify-start items-center gap-x-2 w-full bg-light rounded-lg p-4">
 
                 {
                     sortList.map(sortItem =>
@@ -191,15 +191,15 @@ const FilterBar = () => {
     return (
         <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs">
+            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
                 <LuFilter
-                    size={16}
+                    size={20}
                     className="text-current"
                 />
                 فیلتر ها
             </h3>
 
-            <div className="flex flex-col justify-end items-center gap-y-4 w-full bg-light rounded-lg p-2">
+            <div className="flex flex-col justify-end items-center gap-y-4 w-full bg-light rounded-lg p-4">
 
                 <Accordion>
 
@@ -220,7 +220,7 @@ const FilterBar = () => {
                                         onChange={formik.handleChange}
                                     />
 
-                                    <span className="text-xs font-bold text-dark">
+                                    <span className="text-sm font-bold text-dark">
                                         {categoryItem?.label}
                                     </span>
 
@@ -230,7 +230,7 @@ const FilterBar = () => {
 
                     </AccordionItem>
 
-                    <AccordionItem header="قیمت">
+                    <AccordionItem header="قیمت ( تومان )">
 
                         <RangeInput
                             min={0}
@@ -245,16 +245,12 @@ const FilterBar = () => {
 
                         <div className="flex justify-between items-center gap-x-4 w-full">
 
-                            <span className="text-xs text-gray">
+                            <span className="text-sm text-gray">
                                 {formik.values.endPrice?.toLocaleString()}
-                                &nbsp;
-                                تومان
                             </span>
 
-                            <span className="text-xs text-gray">
+                            <span className="text-sm text-gray">
                                 {formik.values.startPrice?.toLocaleString()}
-                                &nbsp;
-                                تومان
                             </span>
 
                         </div>
@@ -274,7 +270,7 @@ const FilterBar = () => {
                             color="red"
                             startIcon={
                                 <LuX
-                                    size={16}
+                                    size={20}
                                     className="text-current"
                                 />
                             }
@@ -301,7 +297,7 @@ const FilterBar = () => {
                     color="blue"
                     startIcon={
                         <LuCheck
-                            size={16}
+                            size={20}
                             className="text-current"
                         />
                     }

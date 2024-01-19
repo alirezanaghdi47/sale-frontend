@@ -24,6 +24,7 @@ import {
 // components
 import {IconButton} from "@/components/modules/IconButton";
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
+
 const Map = dynamic(() => import("@/components/widgets/Map"), {ssr: false});
 
 // services
@@ -43,7 +44,7 @@ import {categoryList, cityList} from "@/utils/constants";
 const Gallery = ({data}) => {
 
     return (
-        <section className="flex flex-col justify-center items-center w-full gap-y-4 bg-light rounded-lg p-2">
+        <section className="flex flex-col justify-center items-center w-full gap-y-4 bg-light rounded-lg p-4">
 
             <Swiper
                 spaceBetween={16}
@@ -53,8 +54,8 @@ const Gallery = ({data}) => {
                 className="w-full"
             >
                 {
-                    data?.gallery?.map(galleryItem =>
-                        <SwiperSlide key={galleryItem}>
+                    data?.gallery.map((galleryItem , index) =>
+                        <SwiperSlide key={index}>
                             <Image
                                 src={galleryItem}
                                 alt="advertise"
@@ -76,11 +77,11 @@ const Location = ({data}) => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <h3 className="text-sm text-dark font-bold">
+            <h3 className="text-base text-dark font-bold">
                 موقعیت فروشنده
             </h3>
 
-            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-2">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
                 <Map location={[data?.latitude, data?.longitude]}/>
             </div>
 
@@ -93,13 +94,13 @@ const ContactUs = ({data}) => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <h3 className="text-sm text-dark font-bold">
+            <h3 className="text-base text-dark font-bold">
                 ارتباط با فروشنده
             </h3>
 
-            <div className="flex justify-between items-center gap-x-4 w-full bg-light rounded-lg p-2">
+            <div className="flex justify-between items-center gap-x-4 w-full bg-light rounded-lg p-4">
 
-                <p className="text-xs text-gray leading-8">
+                <p className="text-sm text-gray leading-8">
                     شما میتوانید با شماره همراه
                     <span className="bg-secondary text-dark font-bold rounded-lg px-2 py-1 mx-2">
                         {data?.userId?.phoneNumber}
@@ -191,7 +192,7 @@ const Summary = ({data}) => {
     return (
         <section className="flex justify-between items-start gap-x-2 w-full">
 
-            <h1 className="text-base text-dark font-bold line-clamp-2 leading-8">
+            <h1 className="text-lg text-dark font-bold line-clamp-2 leading-8">
                 {data?.title}
             </h1>
 
@@ -205,12 +206,12 @@ const Summary = ({data}) => {
                     {
                         (!isMyFavoriteData?.data || status !== "authenticated") ? (
                             <LuBookmark
-                                size={16}
+                                size={20}
                                 className="text-current"
                             />
                         ) : (
                             <LuBookmarkMinus
-                                size={16}
+                                size={20}
                                 className="text-current"
                             />
                         )
@@ -226,7 +227,7 @@ const Summary = ({data}) => {
                     })}
                 >
                     <LuShare2
-                        size={16}
+                        size={20}
                         className="text-current"
                     />
                 </IconButton>
@@ -242,16 +243,16 @@ const Features = ({data}) => {
     return (
         <section className="flex flex-col justify-start items-start gap-y-2 w-full h-full">
 
-            <h3 className="text-sm text-dark font-bold">
+            <h3 className="text-base text-dark font-bold">
                 مشخصات محصول
             </h3>
 
             <div
-                className="flex flex-col justify-center items-start gap-y-4 w-full h-full bg-light rounded-lg px-2 py-4">
+                className="flex flex-col justify-center items-start gap-y-4 w-full h-full bg-light rounded-lg p-4">
 
-                <ul className="grid grid-cols-12 gap-y-4 sm:gap-4 w-full">
+                <ul className="grid grid-cols-12 gap-y-8 sm:gap-4 w-full">
 
-                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuMapPin
                             size={20}
                             className="text-current"
@@ -259,7 +260,7 @@ const Features = ({data}) => {
                         {cityList.find(cityItem => cityItem.value === data?.city)?.label}
                     </li>
 
-                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuLayers
                             size={20}
                             className="text-current"
@@ -267,7 +268,7 @@ const Features = ({data}) => {
                         {categoryList.find(categoryItem => categoryItem.value === data?.category)?.label}
                     </li>
 
-                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuCalendar
                             size={20}
                             className="text-current"
@@ -275,7 +276,7 @@ const Features = ({data}) => {
                         {formatDistance(new Date(data?.createdAt), new Date(), {addSuffix: true, locale: faIR})}
                     </li>
 
-                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-xs font-bold line-clamp-1">
+                    <li className="col-span-12 sm:col-span-3 md:col-span-6 lg:col-span-3 flex flex-col justify-center items-center gap-y-2 text-gray text-sm line-clamp-1">
                         <LuDollarSign
                             size={20}
                             className="text-current"
@@ -298,13 +299,13 @@ const Description = ({data}) => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <h3 className="text-sm text-dark font-bold">
+            <h3 className="text-base text-dark font-bold">
                 بررسی محصول
             </h3>
 
-            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-2">
+            <div className="flex flex-col justify-center items-start gap-y-4 w-full bg-light rounded-lg p-4">
 
-                <p className="text-xs text-dark leading-8">
+                <p className="text-sm text-dark leading-8">
                     {data?.description}
                 </p>
 
@@ -319,7 +320,7 @@ export const RelativeAdvertises = ({data}) => {
     return (
         <section className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-            <h3 className="text-sm text-dark font-bold">
+            <h3 className="text-base text-dark font-bold">
                 آگهی های مشابه
             </h3>
 

@@ -22,7 +22,7 @@ const Heading = () => {
     return (
         <div className="flex justify-between items-center gap-x-2 w-full">
 
-            <h3 className="text-gray font-bold text-lg">
+            <h3 className="text-gray font-bold text-xl">
                 تغییر رمز
             </h3>
 
@@ -67,7 +67,7 @@ const Form = () => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-xs font-bold">
+                    <span className="text-gray text-sm font-bold">
                         رمز عبور جدید
                     </span>
 
@@ -89,7 +89,7 @@ const Form = () => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-xs font-bold">
+                    <span className="text-gray text-sm font-bold">
                         تکرار رمز عبور جدید
                     </span>
 

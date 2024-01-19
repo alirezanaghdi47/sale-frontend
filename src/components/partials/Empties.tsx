@@ -17,12 +17,12 @@ export const AdvertiseListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
-                width={100}
-                height={100}
-                className="w-full max-w-[100px] h-full object-cover object-center"
+                width={120}
+                height={120}
+                className="w-full max-w-[120px] h-full object-cover object-center"
             />
 
-            <h3 className="text-sm font-bold text-gray">
+            <h3 className="text-base font-bold text-gray">
                 داده ای یافت نشد
             </h3>
 
@@ -39,12 +39,12 @@ export const FavoriteListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
-                width={100}
-                height={100}
-                className="w-full max-w-[100px] h-full object-cover object-center"
+                width={120}
+                height={120}
+                className="w-full max-w-[120px] h-full object-cover object-center"
             />
 
-            <h3 className="text-sm font-bold text-gray">
+            <h3 className="text-base font-bold text-gray">
                 داده ای یافت نشد
             </h3>
 
@@ -61,12 +61,12 @@ export const MyAdvertiseListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
-                width={100}
-                height={100}
-                className="w-full max-w-[100px] h-full object-cover object-center"
+                width={120}
+                height={120}
+                className="w-full max-w-[120px] h-full object-cover object-center"
             />
 
-            <h3 className="text-sm font-bold text-gray">
+            <h3 className="text-base font-bold text-gray">
                 داده ای یافت نشد
             </h3>
 
@@ -85,9 +85,9 @@ export const NotFoundClient = () => {
             <Image
                 src="/assets/images/not-found.svg"
                 alt="not-found"
-                width={200}
-                height={200}
-                className="w-full max-w-[200px] h-full object-cover object-center"
+                width={240}
+                height={240}
+                className="w-full max-w-[240px] h-full object-cover object-center"
             />
 
             <h3 className="text-base font-bold text-gray">
@@ -121,9 +121,9 @@ export const NotFoundServer = () => {
             <Image
                 src="/assets/images/server-down.svg"
                 alt="server-down"
-                width={200}
-                height={200}
-                className="w-full max-w-[200px] h-full object-cover object-center"
+                width={240}
+                height={240}
+                className="w-full max-w-[240px] h-full object-cover object-center"
             />
 
             <h3 className="text-base font-bold text-gray">
@@ -145,12 +145,12 @@ export const NotVerified = () => {
             <Image
                 src="/assets/images/not-found.svg"
                 alt="not-found"
-                width={200}
-                height={200}
-                className="w-full max-w-[200px] h-full object-cover object-center"
+                width={240}
+                height={240}
+                className="w-full max-w-[240px] h-full object-cover object-center"
             />
 
-            <h3 className="text-sm font-bold text-gray">
+            <h3 className="text-base font-bold text-gray">
                 ابتدا حساب کاربری خود را تکمیل نمایید
             </h3>
 

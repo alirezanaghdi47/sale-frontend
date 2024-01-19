@@ -5,7 +5,7 @@
   }
 
   &__control {
-    @apply flex-row min-h-[32px] bg-secondary border-none rounded-lg shadow-none #{!important};
+    @apply flex-row min-h-[40px] bg-secondary border-none rounded-lg shadow-none #{!important};
 
     &--is-focused {
       @apply border-secondary #{!important};
@@ -21,23 +21,23 @@
   }
 
   &__input-container {
-    @apply h-full text-xs text-dark m-0 p-0 #{!important};
+    @apply h-full text-sm text-dark m-0 p-0 #{!important};
   }
 
   &__input {
-    @apply text-xs text-dark #{!important};
+    @apply text-sm text-dark #{!important};
   }
 
   &__value-container {
-    @apply flex justify-start items-start h-[32px] p-2 #{!important};
+    @apply flex justify-start items-start h-[40px] p-2 #{!important};
   }
 
   &__single-value{
-    @apply text-xs text-gray font-bold #{!important};
+    @apply text-sm text-gray font-bold #{!important};
   }
 
   &__placeholder{
-    @apply text-xs text-gray/75 font-bold #{!important};
+    @apply text-sm text-gray/75 font-bold #{!important};
   }
 
   &__indicators {
@@ -56,7 +56,7 @@
     }
 
     &__label {
-      @apply text-xs px-2 py-1 #{!important};
+      @apply text-sm px-2 py-1 #{!important};
     }
   }
 
@@ -69,7 +69,7 @@
   }
 
   &__option {
-    @apply text-xs font-bold text-gray rounded-lg p-1 cursor-pointer #{!important};
+    @apply text-sm font-bold text-gray rounded-lg p-1 cursor-pointer #{!important};
 
     &--is-focused {
       @apply bg-inherit text-gray #{!important};

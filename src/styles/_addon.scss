@@ -2,21 +2,21 @@
 //========================= animation =========================//
 //=============================================================//
 
-.fade-in{
+.fade-in {
 
-  &-enter{
+  &-enter {
     @apply opacity-0 scale-90;
   }
 
-  &-enter-active{
+  &-enter-active {
     @apply opacity-100 scale-100 transform transition-all duration-300 ease-out-expo;
   }
 
-  &-exit{
+  &-exit {
     @apply opacity-100 scale-100;
   }
 
-  &-exit-active{
+  &-exit-active {
     @apply opacity-0 scale-90 transform transition-all duration-300 ease-out-expo;
   }
 
@@ -42,11 +42,11 @@
   @apply bg-gray #{!important};
 }
 
-.remove-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
 .remove-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

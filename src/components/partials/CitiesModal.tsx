@@ -63,7 +63,7 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                     color="secondary"
                     startIcon={
                         <LuSearch
-                            size={16}
+                            size={20}
                             className="text-gray"
                         />
                     }
@@ -88,7 +88,7 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                                     onChange={formik.handleChange}
                                 />
 
-                                <span className="text-xs font-bold text-dark">
+                                <span className="text-sm font-bold text-dark">
                                     {cityItem.label}
                                 </span>
 

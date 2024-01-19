@@ -20,7 +20,7 @@ const Heading = () => {
     return (
         <div className="flex justify-between items-center gap-x-2 w-full">
 
-            <h3 className="text-gray font-bold text-lg">
+            <h3 className="text-gray font-bold text-xl">
                 فراموشی رمز
             </h3>
 
@@ -60,7 +60,7 @@ const Form = () => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-xs font-bold">
+                    <span className="text-gray text-sm font-bold">
                         ایمیل
                     </span>
 
@@ -91,7 +91,7 @@ const Form = () => {
                     onClick={() => formik.handleSubmit()}
                 >
                     <LuCheck
-                        size={16}
+                        size={20}
                         className="text-current"
                     />
                     اعتبارسنجی
@@ -110,7 +110,7 @@ const Links = () => {
 
             <div className='flex justify-center items-center gap-x-2 w-full mt-2'>
 
-                <p className="text-gray font-bold text-xs">
+                <p className="text-gray font-bold text-sm">
                     اگر میخواهید وارد شوید
                 </p>
 
