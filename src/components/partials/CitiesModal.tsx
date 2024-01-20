@@ -15,6 +15,7 @@ import TextInput from "@/components/modules/TextInput";
 // utils
 import {cityList} from "@/utils/constants";
 import {generateQueryParams} from "@/utils/functions";
+import SearchInput from "@/components/modules/SearchInput";
 
 const CitiesModal = ({isOpenModal, onCloseModal}) => {
 
@@ -57,18 +58,10 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
 
             <ModalBody>
 
-                <TextInput
+                <SearchInput
                     name="search"
-                    placeholder="جستجو"
-                    color="secondary"
-                    startIcon={
-                        <LuSearch
-                            size={20}
-                            className="text-gray"
-                        />
-                    }
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(value) => setSearch(value)}
                 />
 
                 <ul className='flex flex-col justify-start items-start gap-y-4 w-full max-h-[200px] overflow-y-scroll'>
@@ -88,7 +81,7 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                                     onChange={formik.handleChange}
                                 />
 
-                                <span className="text-sm font-bold text-dark">
+                                <span className="text-xs text-dark">
                                     {cityItem.label}
                                 </span>
 

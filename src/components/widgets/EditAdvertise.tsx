@@ -55,7 +55,7 @@ const Gallery = ({data, setData, onCancel, onNext}) => {
 
                 <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-                    <span className="text-gray text-sm font-bold">
+                    <span className="text-gray text-xs font-bold">
                         عکس ها
                     </span>
 
@@ -89,11 +89,11 @@ const Gallery = ({data, setData, onCancel, onNext}) => {
                                 >
 
                                     <LuPlus
-                                        size={20}
+                                        size={16}
                                         className="text-gray"
                                     />
 
-                                    <span className="text-sm font-bold text-gray">
+                                    <span className="text-xs font-bold text-gray">
                                         عکس جدید
                                     </span>
 
@@ -139,7 +139,7 @@ const Gallery = ({data, setData, onCancel, onNext}) => {
                         color="red"
                         startIcon={
                             <LuX
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -153,7 +153,7 @@ const Gallery = ({data, setData, onCancel, onNext}) => {
                         color="blue"
                         endIcon={
                             <LuChevronLeft
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -197,7 +197,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             دسته بندی
                         </span>
 
@@ -221,7 +221,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             وضعیت محصول
                         </span>
 
@@ -245,7 +245,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             قیمت ( تومان )
                         </span>
 
@@ -271,7 +271,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             عنوان
                         </span>
 
@@ -293,7 +293,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             توضیحات
                         </span>
 
@@ -323,7 +323,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
                         color="gray"
                         startIcon={
                             <LuChevronRight
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -340,7 +340,7 @@ const Detail = ({data, setData, onPrev, onNext}) => {
                         color="blue"
                         endIcon={
                             <LuChevronLeft
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -400,7 +400,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             شهر
                         </span>
 
@@ -424,7 +424,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-2">
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             آدرس
                         </span>
 
@@ -465,7 +465,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
                         color="gray"
                         startIcon={
                             <LuChevronRight
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -482,7 +482,7 @@ const Vendor = ({data, setData, onPrev, onSubmit}) => {
                         color="yellow"
                         startIcon={
                             <LuPen
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }

@@ -79,7 +79,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                                         onChange={formik.handleChange}
                                     />
 
-                                    <span className="text-sm font-bold text-dark">
+                                    <span className="text-xs text-dark">
                                         {categoryItem?.label}
                                     </span>
 
@@ -104,11 +104,11 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
 
                         <div className="flex justify-between items-center gap-x-4 w-full">
 
-                            <span className="text-sm text-gray">
+                            <span className="text-xs text-gray">
                                 {formik.values.endPrice?.toLocaleString()}
                             </span>
 
-                            <span className="text-sm text-gray">
+                            <span className="text-xs text-gray">
                                 {formik.values.startPrice?.toLocaleString()}
                             </span>
 
@@ -126,7 +126,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                         <Button
                             variant="text"
                             color="red"
-                            startIcon={<LuX size={20}/>}
+                            startIcon={<LuX size={16}/>}
                             onClick={() => {
                                 const query = generateQueryParams({
                                     search: searchParams.get("search"),
@@ -148,7 +148,7 @@ const FilterModal = ({isOpenModal, onCloseModal}) => {
                     <Button
                         variant="contained"
                         color="blue"
-                        startIcon={<LuCheck size={20}/>}
+                        startIcon={<LuCheck size={16}/>}
                         onClick={formik.handleSubmit}
                     >
                         ثبت

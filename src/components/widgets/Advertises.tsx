@@ -60,7 +60,7 @@ const ActionBar = () => {
                     color="light"
                     startIcon={
                         <LuFilter
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -74,7 +74,7 @@ const ActionBar = () => {
                     color="light"
                     startIcon={
                         <LuArrowDownWideNarrow
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -121,15 +121,15 @@ const SortBar = () => {
     return (
         <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
+            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs">
                 <LuArrowDownWideNarrow
-                    size={20}
+                    size={16}
                     className="text-current"
                 />
                 مرتب سازی
             </h3>
 
-            <div className="flex justify-start items-center gap-x-2 w-full bg-light rounded-lg p-4">
+            <div className="flex justify-start items-center gap-x-2 w-full bg-light rounded-lg p-2">
 
                 {
                     sortList.map(sortItem =>
@@ -191,15 +191,15 @@ const FilterBar = () => {
     return (
         <div className="flex flex-col justify-start items-start gap-y-2 w-full">
 
-            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-sm">
+            <h3 className="flex justify-start items-center gap-x-2 font-bold text-dark text-xs">
                 <LuFilter
-                    size={20}
+                    size={16}
                     className="text-current"
                 />
                 فیلتر ها
             </h3>
 
-            <div className="flex flex-col justify-end items-center gap-y-4 w-full bg-light rounded-lg p-4">
+            <div className="flex flex-col justify-end items-center gap-y-4 w-full bg-light rounded-lg p-2">
 
                 <Accordion>
 
@@ -220,7 +220,7 @@ const FilterBar = () => {
                                         onChange={formik.handleChange}
                                     />
 
-                                    <span className="text-sm font-bold text-dark">
+                                    <span className="text-xs text-dark">
                                         {categoryItem?.label}
                                     </span>
 
@@ -245,11 +245,11 @@ const FilterBar = () => {
 
                         <div className="flex justify-between items-center gap-x-4 w-full">
 
-                            <span className="text-sm text-gray">
+                            <span className="text-xs text-gray">
                                 {formik.values.endPrice?.toLocaleString()}
                             </span>
 
-                            <span className="text-sm text-gray">
+                            <span className="text-xs text-gray">
                                 {formik.values.startPrice?.toLocaleString()}
                             </span>
 
@@ -270,7 +270,7 @@ const FilterBar = () => {
                             color="red"
                             startIcon={
                                 <LuX
-                                    size={20}
+                                    size={16}
                                     className="text-current"
                                 />
                             }
@@ -297,7 +297,7 @@ const FilterBar = () => {
                     color="blue"
                     startIcon={
                         <LuCheck
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -369,7 +369,7 @@ export const Content = forwardRef(({data, hasNextPage}, ref) => {
 
             {
                 !hasNextPage && (
-                    <span className="text-sm font-bold text-gray py-4">
+                    <span className="text-xs font-bold text-gray py-4">
                         داده ی دیگری وجود ندارد
                     </span>
                 )

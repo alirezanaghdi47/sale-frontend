@@ -27,7 +27,7 @@ const Heading = () => {
     return (
         <div className="flex justify-between items-center gap-x-2 w-full">
 
-            <h3 className="text-xl text-gray font-bold">
+            <h3 className="text-lg text-gray font-bold">
                 عضویت
             </h3>
 
@@ -71,7 +71,7 @@ const RegisterForm = ({data, setData, onNext}) => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-sm font-bold">
+                    <span className="text-gray text-xs font-bold">
                         ایمیل
                     </span>
 
@@ -93,7 +93,7 @@ const RegisterForm = ({data, setData, onNext}) => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-sm font-bold">
+                    <span className="text-gray text-xs font-bold">
                         رمز عبور
                     </span>
 
@@ -115,7 +115,7 @@ const RegisterForm = ({data, setData, onNext}) => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-sm font-bold">
+                    <span className="text-gray text-xs font-bold">
                         تکرار رمز عبور
                     </span>
 
@@ -145,7 +145,7 @@ const RegisterForm = ({data, setData, onNext}) => {
                     size="full"
                     endIcon={
                         <LuArrowLeft
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -194,7 +194,7 @@ const ConfirmForm = ({data, setData, onSubmit}) => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-sm font-bold">
+                    <span className="text-gray text-xs font-bold">
                         کد اعتبارسنجی
                     </span>
 
@@ -224,7 +224,7 @@ const ConfirmForm = ({data, setData, onSubmit}) => {
                     size="full"
                     startIcon={
                         <LuUserPlus
-                            size={20}
+                            size={16}
                             className="text-current"
                         />
                     }
@@ -247,7 +247,7 @@ const Links = () => {
 
             <div className='flex justify-center items-center gap-x-2 w-full'>
 
-                <p className="text-gray font-bold text-sm">
+                <p className="text-gray font-bold text-xs">
                     اگر حساب کاربری دارید
                 </p>
 

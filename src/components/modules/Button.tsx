@@ -20,10 +20,10 @@ const styles = {
         },
     },
     size: {
-        sm: "text-sm font-bold px-3 py-1.5",
-        md: "text-base font-bold px-4 py-2",
-        lg: "text-lg font-bold px-4 py-2",
-        full: "w-full text-sm font-bold px-4 py-2"
+        sm: "text-xs px-3 py-1.5",
+        md: "text-sm px-4 py-2",
+        lg: "text-lg px-4 py-2",
+        full: "w-full text-xs px-4 py-2"
     },
     justify: {
         start: "justify-start",
@@ -32,7 +32,19 @@ const styles = {
     }
 }
 
-export const Button = ({children , as = "button", size = "sm", color, variant, startIcon, endIcon, justify = "center", onClick, vertical, disabled}) => {
+export const Button = ({
+                           children,
+                           as = "button",
+                           size = "sm",
+                           color,
+                           variant,
+                           startIcon,
+                           endIcon,
+                           justify = "center",
+                           onClick,
+                           vertical,
+                           disabled
+                       }) => {
 
     const CustomTag = as;
 
@@ -53,7 +65,18 @@ export const Button = ({children , as = "button", size = "sm", color, variant, s
     )
 }
 
-export const LinkButton = ({children, size = "sm", color, variant, startIcon, endIcon, justify = "center", href, vertical , onClick}) => {
+export const LinkButton = ({
+                               children,
+                               size = "sm",
+                               color,
+                               variant,
+                               startIcon,
+                               endIcon,
+                               justify = "center",
+                               href,
+                               vertical,
+                               onClick
+                           }) => {
 
     return (
         <Link

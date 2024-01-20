@@ -49,18 +49,18 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                         className="flex flex-col justify-center items-start w-full"
                         href={`${process.env.BASE_URL}/advertises/${advertiseItem?._id}`}
                     >
-                        <h3 className="text-base font-bold text-dark line-clamp-1">
+                        <h3 className="text-sm font-bold text-dark line-clamp-1">
                             {advertiseItem?.title}
                         </h3>
                     </Link>
 
                     <div className="flex flex-col justify-center items-start gap-y-2 w-full">
 
-                        <span className="w-full text-sm text-gray line-clamp-1">
+                        <span className="w-full text-xs text-gray line-clamp-1">
                             {qualityList.find(qualityItem => qualityItem.value === advertiseItem?.quality)?.label}
                         </span>
 
-                        <span className="flex justify-start items-center w-full text-sm text-gray line-clamp-1">
+                        <span className="flex justify-start items-center w-full text-xs text-gray line-clamp-1">
                             {advertiseItem?.price.toLocaleString()}
                             &nbsp;
                             تومان
@@ -92,7 +92,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                         onClick={toolbar.share.onClick}
                                     >
                                         <LuShare2
-                                            size={20}
+                                            size={16}
                                             className="text-current"
                                         />
                                     </IconButton>
@@ -107,7 +107,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                         onClick={toolbar.edit.onClick}
                                     >
                                         <LuPen
-                                            size={20}
+                                            size={16}
                                             className="text-current"
                                         />
                                     </IconButton>
@@ -122,7 +122,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
                                         onClick={toolbar.delete.onClick}
                                     >
                                         <LuTrash2
-                                            size={20}
+                                            size={16}
                                             className="text-current"
                                         />
                                     </IconButton>

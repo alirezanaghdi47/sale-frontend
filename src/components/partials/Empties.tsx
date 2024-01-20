@@ -22,7 +22,7 @@ export const AdvertiseListEmpty = () => {
                 className="w-full max-w-[120px] h-full object-cover object-center"
             />
 
-            <h3 className="text-base font-bold text-gray">
+            <h3 className="text-sm font-bold text-gray">
                 داده ای یافت نشد
             </h3>
 
@@ -44,7 +44,7 @@ export const FavoriteListEmpty = () => {
                 className="w-full max-w-[120px] h-full object-cover object-center"
             />
 
-            <h3 className="text-base font-bold text-gray">
+            <h3 className="text-sm font-bold text-gray">
                 داده ای یافت نشد
             </h3>
 
@@ -66,7 +66,7 @@ export const MyAdvertiseListEmpty = () => {
                 className="w-full max-w-[120px] h-full object-cover object-center"
             />
 
-            <h3 className="text-base font-bold text-gray">
+            <h3 className="text-sm font-bold text-gray">
                 داده ای یافت نشد
             </h3>
 
@@ -90,7 +90,7 @@ export const NotFoundClient = () => {
                 className="w-full max-w-[240px] h-full object-cover object-center"
             />
 
-            <h3 className="text-base font-bold text-gray">
+            <h3 className="text-sm font-bold text-gray">
                 صفحه مورد نظر یافت نشد
             </h3>
 
@@ -126,7 +126,7 @@ export const NotFoundServer = () => {
                 className="w-full max-w-[240px] h-full object-cover object-center"
             />
 
-            <h3 className="text-base font-bold text-gray">
+            <h3 className="text-sm font-bold text-gray">
                 خطایی رخ داده است ، در حال برطرف کردن آن هستیم
             </h3>
 
@@ -150,7 +150,7 @@ export const NotVerified = () => {
                 className="w-full max-w-[240px] h-full object-cover object-center"
             />
 
-            <h3 className="text-base font-bold text-gray">
+            <h3 className="text-sm font-bold text-gray">
                 ابتدا حساب کاربری خود را تکمیل نمایید
             </h3>
 

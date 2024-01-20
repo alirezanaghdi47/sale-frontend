@@ -70,7 +70,7 @@ const InstallBanner = () => {
                         className="min-w-[32px] min-h-[32px] rounded-full"
                     />
 
-                    <h3 className="text-sm text-light ml-4">
+                    <h3 className="text-xs text-light ml-4">
                         وب اپلیکیشن ( PWA )
                     </h3>
 
@@ -90,7 +90,7 @@ const InstallBanner = () => {
                     onClick={_handleClose}
                 >
                     <LuX
-                        size={20}
+                        size={16}
                         className="text-current"
                     />
                 </IconButton>

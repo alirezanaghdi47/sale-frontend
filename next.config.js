@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+
+const withSerwist = require("@serwist/next").default({
+    swSrc: "src/app/sw.ts",
+    swDest: "public/sw.js",
+});
+
+module.exports = withSerwist({
     reactStrictMode: false,
     images: {
         remotePatterns: [
@@ -29,4 +35,4 @@ module.exports = {
     eslint:{
         ignoreDuringBuilds: true,
     }
-};
+});

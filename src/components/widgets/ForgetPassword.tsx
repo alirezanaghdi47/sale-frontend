@@ -60,7 +60,7 @@ const Form = () => {
 
                 <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                    <span className="text-gray text-sm font-bold">
+                    <span className="text-gray text-xs font-bold">
                         ایمیل
                     </span>
 
@@ -91,7 +91,7 @@ const Form = () => {
                     onClick={() => formik.handleSubmit()}
                 >
                     <LuCheck
-                        size={20}
+                        size={16}
                         className="text-current"
                     />
                     اعتبارسنجی
@@ -110,7 +110,7 @@ const Links = () => {
 
             <div className='flex justify-center items-center gap-x-2 w-full mt-2'>
 
-                <p className="text-gray font-bold text-sm">
+                <p className="text-gray font-bold text-xs">
                     اگر میخواهید وارد شوید
                 </p>
 

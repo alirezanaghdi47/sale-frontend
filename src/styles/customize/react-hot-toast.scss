@@ -1,13 +1,13 @@
 .react-hot-toast {
   &--success{
-    @apply bg-green text-base text-light #{!important};
+    @apply bg-green text-sm text-light #{!important};
   }
 
   &--error{
-    @apply bg-red text-base text-light #{!important};
+    @apply bg-red text-sm text-light #{!important};
   }
 
   &--info{
-    @apply bg-blue text-base text-light #{!important};
+    @apply bg-blue text-sm text-light #{!important};
   }
 }

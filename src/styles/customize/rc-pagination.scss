@@ -2,7 +2,7 @@
   @apply flex flex-row-reverse justify-center items-center gap-x-2 #{!important};
 
   &-item {
-    @apply flex justify-center items-center min-w-[32px] h-[32px] bg-light text-base text-gray font-bold rounded-lg p-2 cursor-pointer #{!important};
+    @apply flex justify-center items-center min-w-[32px] h-[32px] bg-light text-sm text-gray font-bold rounded-lg p-2 cursor-pointer #{!important};
 
     &-active{
       @apply bg-blue text-light #{!important};

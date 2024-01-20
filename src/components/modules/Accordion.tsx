@@ -14,14 +14,14 @@ const ReactAccordionHeader = ({header, icon}) => {
 
                 {icon}
 
-                <span className='text-gray text-sm font-bold'>
+                <span className='text-gray text-xs font-bold'>
                     {header}
                 </span>
 
             </div>
 
             <LuChevronDown
-                size={20}
+                size={16}
                 className="text-gray"
             />
 

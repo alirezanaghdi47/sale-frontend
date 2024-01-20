@@ -25,7 +25,7 @@ const ReactCollapseHeader = ({button}) => {
             </Button>
 
             <LuChevronDown
-                size={20}
+                size={16}
                 className="text-gray"
             />
 

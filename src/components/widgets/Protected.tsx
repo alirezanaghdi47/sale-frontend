@@ -19,9 +19,9 @@ export const Logo = () => {
                 <Image
                     src="/assets/images/logo.png"
                     alt='logo'
-                    width={40}
-                    height={40}
-                    className="min-w-[40px] min-h-[40px] rounded-full"
+                    width={32}
+                    height={32}
+                    className="min-w-[32px] min-h-[32px] rounded-full"
                 />
             }
         >
@@ -35,7 +35,7 @@ export const CopyRight = () => {
     return (
         <div className="flex justify-center items-center w-full">
 
-            <p className="flex justify-center items-center gap-x-2 text-sm text-gray">
+            <p className="flex justify-center items-center gap-x-2 text-xs text-gray">
 
                 <LuCopyright
                     size={16}

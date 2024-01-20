@@ -5,6 +5,9 @@ import {Metadata, Viewport} from "next";
 import {Header} from "@/components/widgets/Private";
 
 export const metadata: Metadata = {
+    applicationName: "نماگجت",
+    title: "نماگجت",
+    description: "وب سایتی برای خرید و فروش محصولات دیجیتال",
     metadataBase: process.env.BASE_URL,
     manifest: "/manifest.json",
     icons: {

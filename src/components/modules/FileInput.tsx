@@ -55,7 +55,7 @@ const FileInput = ({name, values, onChange, maxFiles = 1, acceptTypes}) => {
 
                 <div className="flex justify-center items-center w-max h-[180px]">
 
-                    <span className="flex flex-col justify-center items-center gap-y-2 text-base font-bold text-gray">
+                    <span className="flex flex-col justify-center items-center gap-y-2 text-xs font-bold text-gray">
                         فایل خود انتخاب کنید
                     </span>
 
@@ -82,9 +82,10 @@ const FileInput = ({name, values, onChange, maxFiles = 1, acceptTypes}) => {
                                         <IconButton
                                             variant='contained'
                                             color='red'
+                                            size="sm"
                                             onClick={() => _handleDeleteFile(file)}
                                         >
-                                            <LuTrash2 size={20}/>
+                                            <LuTrash2 size={16}/>
                                         </IconButton>
 
                                     </div>

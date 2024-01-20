@@ -58,17 +58,17 @@ const Information = () => {
 
                 <div className='flex flex-col justify-center items-center md:items-start gap-y-2 w-full'>
 
-                    <p className="text-lg font-bold text-dark">
+                    <p className="text-base font-bold text-dark">
                         {session?.user?.name && session?.user?.family ? `${session?.user?.name} ${session?.user?.family}` : "کاربر سایت"}
                     </p>
 
-                    <p className="text-sm text-dark">
+                    <p className="text-xs text-dark">
                         {session?.user?.email}
                     </p>
 
                     {
                         session?.user?.phoneNumber && (
-                            <p className="text-sm text-dark">
+                            <p className="text-xs text-dark">
                                 {session?.user?.phoneNumber}
                             </p>
                         )
@@ -76,15 +76,15 @@ const Information = () => {
 
                     {
                         session?.user?.name && session?.user?.family && session?.user?.phoneNumber ? (
-                            <span className="flex justify-start items-center gap-x-2 text-sm font-bold text-green">
+                            <span className="flex justify-start items-center gap-x-2 text-xs font-bold text-green">
                                 <LuBadgeCheck
-                                    size={20}
+                                    size={16}
                                     className="text-current"
                                 />
                                 هویت تایید شده است
                             </span>
                         ) : (
-                            <span className="text-sm text-red font-bold">
+                            <span className="text-xs text-red font-bold">
                                 هویت تایید نشده است
                             </span>
                         )
@@ -144,7 +144,7 @@ const Edit = () => {
 
                     <li className="col-span-12 flex flex-col justify-start items-start gap-y-4">
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             آواتار
                         </span>
 
@@ -168,7 +168,7 @@ const Edit = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             نام
                         </span>
 
@@ -190,7 +190,7 @@ const Edit = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             نام خانوادگی
                         </span>
 
@@ -212,7 +212,7 @@ const Edit = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             ایمیل
                         </span>
 
@@ -235,7 +235,7 @@ const Edit = () => {
 
                     <li className="col-span-12 sm:col-span-6 flex flex-col justify-start items-start gap-y-2">
 
-                         <span className="text-gray text-sm font-bold">
+                         <span className="text-gray text-xs font-bold">
                             شماره موبایل
                         </span>
 
@@ -268,7 +268,7 @@ const Edit = () => {
                         color="blue"
                         startIcon={
                             <LuCheck
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
@@ -327,7 +327,7 @@ const Security = () => {
 
                     <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             رمز عبور فعلی
                         </span>
 
@@ -349,7 +349,7 @@ const Security = () => {
 
                     <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             رمز عبور جدید
                         </span>
 
@@ -371,7 +371,7 @@ const Security = () => {
 
                     <div className='flex flex-col justify-start items-start gap-y-2 w-full'>
 
-                        <span className="text-gray text-sm font-bold">
+                        <span className="text-gray text-xs font-bold">
                             تکرار رمز عبور جدید
                         </span>
 
@@ -400,7 +400,7 @@ const Security = () => {
                         color="blue"
                         startIcon={
                             <LuCheck
-                                size={20}
+                                size={16}
                                 className="text-current"
                             />
                         }
