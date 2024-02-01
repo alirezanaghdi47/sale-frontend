@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 
-const withSerwist = require("@serwist/next").default({
-    swSrc: "src/app/sw.ts",
-    swDest: "public/sw.js",
-});
+// const withSerwist = require("@serwist/next").default({
+//     swSrc: "src/app/sw.ts",
+//     swDest: "public/sw.js",
+// });
 
-module.exports = withSerwist({
+// module.exports = withSerwist({
+module.exports = {
+    output: "standalone",
     reactStrictMode: false,
     images: {
         remotePatterns: [
@@ -35,4 +37,5 @@ module.exports = withSerwist({
     eslint:{
         ignoreDuringBuilds: true,
     }
-});
+};
+// });

@@ -31,22 +31,58 @@
     },
     {
       "src": "/maskable_icon.png",
-      "sizes": "192x192",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
   ],
   "screenshots": [
     {
-      "src": "/screenshot-1.png",
+      "src": "/screenshot-desktop-1.png",
       "type": "image/png",
-      "sizes": "2560x1346",
+      "sizes": "2560x1345",
       "form_factor": "wide"
     },
     {
-      "src": "/screenshot-2.png",
+      "src": "/screenshot-desktop-2.png",
       "type": "image/png",
-      "sizes": "562x1216",
+      "sizes": "2560x1345",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-desktop-3.png",
+      "type": "image/png",
+      "sizes": "2560x1345",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-desktop-4.png",
+      "type": "image/png",
+      "sizes": "2560x1345",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-mobile-1.png",
+      "type": "image/png",
+      "sizes": "560x1000",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-mobile-2.png",
+      "type": "image/png",
+      "sizes": "560x1000",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-mobile-3.png",
+      "type": "image/png",
+      "sizes": "560x1000",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-mobile-4.png",
+      "type": "image/png",
+      "sizes": "560x1000",
       "form_factor": "narrow"
     }
   ]
