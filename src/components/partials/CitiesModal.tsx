@@ -4,20 +4,22 @@
 import {useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {useFormik} from "formik";
-import {LuCheck, LuSearch, LuX} from "react-icons/lu";
+import {LuCheck, LuX} from "react-icons/lu";
 
-// components
-import {Modal, ModalHeader, ModalBody, ModalFooter} from "@/components/modules/Modal";
-import {Button} from "@/components/modules/Button";
-import CheckBox from "@/components/modules/CheckBox";
-import TextInput from "@/components/modules/TextInput";
+// modules
+import {Modal, ModalHeader, ModalBody, ModalFooter} from "@/modules/Modal";
+import {Button} from "@/modules/Button";
+import CheckBox from "@/modules/CheckBox";
+import SearchInput from "@/modules/SearchInput";
+
+// types
+import {CitiesModalType} from "@/types/components";
 
 // utils
 import {cityList} from "@/utils/constants";
 import {generateQueryParams} from "@/utils/functions";
-import SearchInput from "@/components/modules/SearchInput";
 
-const CitiesModal = ({isOpenModal, onCloseModal}) => {
+const CitiesModal = ({isOpenModal, onCloseModal}: CitiesModalType) => {
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -61,7 +63,7 @@ const CitiesModal = ({isOpenModal, onCloseModal}) => {
                 <SearchInput
                     name="search"
                     value={search}
-                    onChange={(value) => setSearch(value)}
+                    onChange={(value: string) => setSearch(value)}
                 />
 
                 <ul className='flex flex-col justify-start items-start gap-y-4 w-full max-h-[200px] overflow-y-scroll'>

@@ -31,12 +31,6 @@ export const qualityList = [
     {id: "5", label: "خراب", value: "broken"},
 ];
 
-export const profileTabList = [
-    {id: 1, title: "اطلاعات کاربری", value: "user-information", icon: LuInfo({size: 16})},
-    {id: 2, title: "ویرایش اطلاعات", value: "edit-information", icon: LuPen({size: 16})},
-    {id: 3, title: "تغییر رمز عبور", value: "edit-password", icon: LuLock({size: 16})},
-];
-
 export const addEditAdvertiseStepList = [
     {id: 1, title: "تصاویر آگهی"},
     {id: 2, title: "جزییات آگهی"},
@@ -48,15 +42,8 @@ export const sortList = [
     {id: "2", label: "گران ترین", value: "expensive"},
 ];
 
-export const colorList = [
-    {id: 1, label: "مشکی", value: "#334155"},
-    {id: 2, label: "آبی", value: "#2563eb"},
-    {id: 3, label: "قرمز", value: "#ef4444"}
-];
-
-export const sizeList = [
-    {id: 1, label: "عنوان 1", value: 1},
-    {id: 2, label: "عنوان 2", value: 2},
-    {id: 3, label: "عنوان 3", value: 3},
-    {id: 4, label: "متن", value: 4}
+export const profileTabList = [
+    {id: 1, title: "اطلاعات کاربری", value: "user-information", icon: LuInfo({size: 16})},
+    {id: 2, title: "ویرایش اطلاعات", value: "edit-information", icon: LuPen({size: 16})},
+    {id: 3, title: "تغییر رمز عبور", value: "edit-password", icon: LuLock({size: 16})},
 ];

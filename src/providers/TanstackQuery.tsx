@@ -3,6 +3,9 @@
 // libraries
 import {dehydrate, HydrationBoundary, QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
+// types
+import {TanstackProviderType} from "@/types/providers";
+
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -13,12 +16,12 @@ const queryClient = new QueryClient({
     }
 });
 
-const TanstackQuery = ({children}) => {
+const TanstackQuery = (props:TanstackProviderType) => {
 
     return (
         <QueryClientProvider client={queryClient}>
             <HydrationBoundary state={dehydrate(queryClient)}>
-                {children}
+                {props.children}
             </HydrationBoundary>
         </QueryClientProvider>
     )

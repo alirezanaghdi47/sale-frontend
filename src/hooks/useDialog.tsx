@@ -2,13 +2,11 @@
 import {useState} from "react";
 
 export const useDialog = () => {
-
-    const [dialogData, setDialogData] = useState(null);
+    const [dialogData, setDialogData] = useState<string | null>(null);
     const [showDialog, setShowDialog] = useState(false);
-
     const isOpenDialog = showDialog;
 
-    const _handleShowDialog = (data) => {
+    const _handleShowDialog = (data: any) => {
         setShowDialog(true);
         setDialogData(data ?? dialogData);
     }

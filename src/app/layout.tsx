@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 
 // components
-const Notification = dynamic(() => import("@/components/modules/Notification"), {ssr: false});
+const Notification = dynamic(() => import("@/modules/Notification"), {ssr: false});
 
 // helpers
 import {vazirmatn} from "@/helpers/fonts";
@@ -15,25 +15,23 @@ import TanstackQuery from "@/providers/TanstackQuery";
 // styles
 import '@/styles/globals.scss';
 
-const RootLayout = (props) => {
+// types
+import {RootLayoutType} from "@/types/layouts";
+
+const RootLayout = (props: RootLayoutType) => {
 
     return (
         <html lang="fa" dir='rtl'>
-
-        <body className={`${vazirmatn.className} flex justify-center items-center w-full h-full min-h-screen bg-secondary`}>
-
-        <Notification/>
-
-        <NextAuth>
-            <ReactCookie>
-                <TanstackQuery>
-                    {props.children}
-                </TanstackQuery>
-            </ReactCookie>
-        </NextAuth>
-
-        </body>
-
+            <body className={`${vazirmatn.className} flex justify-center items-center w-full h-full min-h-screen bg-secondary`}>
+            <Notification/>
+            <NextAuth>
+                <ReactCookie>
+                    <TanstackQuery>
+                        {props.children}
+                    </TanstackQuery>
+                </ReactCookie>
+            </NextAuth>
+            </body>
         </html>
     )
 }

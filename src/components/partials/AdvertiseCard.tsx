@@ -7,32 +7,24 @@ import {formatDistance} from "date-fns";
 import {faIR} from 'date-fns/locale';
 import {LuDot, LuPen, LuShare2, LuTrash2} from "react-icons/lu";
 
-// components
-import {IconButton} from "@/components/modules/IconButton";
+// modules
+import {IconButton} from "@/modules/IconButton";
+
+// types
+import {AdvertiseCardType} from "@/types/components";
 
 // utils
 import {cityList, qualityList} from "@/utils/constants";
 
-const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
+const AdvertiseCard = ({advertiseItem, toolbar}: AdvertiseCardType) => {
 
     return (
         <>
             <article className="relative flex justify-start items-center gap-x-4 bg-light rounded-lg p-2">
 
-                {/*{*/}
-                {/*    disabled && (*/}
-                {/*        <div*/}
-                {/*            className="absolute top-0 left-0 z-10 flex justify-center items-center w-full h-full bg-light/90 rounded-lg">*/}
-                {/*            <span className="bg-secondary text-gray font-bold rounded-lg px-4 py-2">*/}
-                {/*                {disabled?.message}*/}
-                {/*            </span>*/}
-                {/*        </div>*/}
-                {/*    )*/}
-                {/*}*/}
-
                 <Link
                     className="flex justify-center items-center"
-                    href={`${process.env.BASE_URL}/advertises/${advertiseItem?._id}`}
+                    href={`${process.env.BASE_URL}/advertises/${advertiseItem?.slug}`}
                 >
                     <Image
                         src={advertiseItem?.gallery[0]}
@@ -47,7 +39,7 @@ const AdvertiseCard = ({advertiseItem, toolbar, disabled}) => {
 
                     <Link
                         className="flex flex-col justify-center items-start w-full"
-                        href={`${process.env.BASE_URL}/advertises/${advertiseItem?._id}`}
+                        href={`${process.env.BASE_URL}/advertises/${advertiseItem?.slug}`}
                     >
                         <h3 className="text-sm font-bold text-dark line-clamp-1">
                             {advertiseItem?.title}

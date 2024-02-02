@@ -1,4 +1,8 @@
-export const copyToClipboard = (data) => {
+// types
+
+import {copyToClipboardType, generateQueryParamsType} from "@/types/functions";
+
+export const copyToClipboard = (data: copyToClipboardType) => {
 
     const {title, text, url} = data;
 
@@ -12,7 +16,7 @@ export const copyToClipboard = (data) => {
 
 }
 
-export const generateQueryParams = (data) => {
+export const generateQueryParams = (data: generateQueryParamsType) => {
 
     const {search, page, sort, startPrice, endPrice, categories, cities} = data;
 
@@ -38,3 +42,9 @@ export const generateQueryParams = (data) => {
     return resultQuery.startsWith("&") ? resultQuery.substring(1).trim() : resultQuery.trim();
 
 }
+
+export const arrayRange = (start: number, stop: number, step: number) =>
+    Array.from(
+        {length: (stop - start) / step + 1},
+        (value, index) => start + index * step
+    );

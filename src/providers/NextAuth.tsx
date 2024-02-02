@@ -6,11 +6,14 @@ import {SessionProvider} from "next-auth/react";
 // helpers
 import AuthHandler from "@/helpers/AuthHandler";
 
-const NextAuth = ({children}) => {
+// types
+import {NextAuthProviderType} from "@/types/providers";
+
+const NextAuth = (props: NextAuthProviderType) => {
 
     return (
         <SessionProvider refetchInterval={60}>
-            {children}
+            {props.children}
             <AuthHandler/>
         </SessionProvider>
     )

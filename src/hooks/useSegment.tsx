@@ -2,13 +2,12 @@
 import {useState} from "react";
 
 export const useSegment = () => {
-
     const [segment, setSegment] = useState({
         data: null,
         active: 0,
     });
 
-    const _handleSegment = (data) => setSegment(prevState => ({
+    const _handleSegment = (data: any) => setSegment(prevState => ({
         data: data ?? prevState?.data,
         active: prevState?.active
     }));
@@ -28,7 +27,6 @@ export const useSegment = () => {
         active: 0
     }));
 
-    return {segment, _handleNextSegment, _handlePrevSegment, _handleResetSegment , _handleSegment};
-
+    return {segment, _handleNextSegment, _handlePrevSegment, _handleResetSegment, _handleSegment};
 }
 

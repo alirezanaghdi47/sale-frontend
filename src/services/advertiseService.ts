@@ -1,10 +1,11 @@
 // libraries
 import axios from "axios";
 
-export const getAllAdvertiseService = async (data) => {
+// types
+import {IAdvertiseFilter} from "@/types/global";
 
+export const getAllAdvertiseService = async (data: IAdvertiseFilter) => {
     try {
-
         const {
             page = 1,
             limit = 6,
@@ -17,64 +18,44 @@ export const getAllAdvertiseService = async (data) => {
         } = data;
 
         const response = await axios.get(process.env.API_URL + "/api/advertise/getAllAdvertise", {
-            params: {
-                page, limit, sort, search, startPrice, endPrice, city, category
-            }
+            params: {page, limit, sort, search, startPrice, endPrice, city, category}
         });
 
         return response.data;
-
-    } catch (err) {
+    } catch (err: any) {
         return {
             message: err?.response?.data?.message,
             status: err?.response?.data?.status,
         };
     }
-
 }
 
-export const getAdvertiseService = async (advertiseId) => {
-
+export const getAdvertiseService = async (slug: string) => {
     try {
-
         const response = await axios.get(process.env.API_URL + "/api/advertise/getAdvertise", {
-            headers: {
-                advertiseId,
-            }
+            headers: {advertiseSlug: slug}
         });
 
         return response.data;
-
-    } catch (err) {
-
+    } catch (err: any) {
         return {
             message: err?.response?.data?.message,
             status: err?.response?.data?.status,
         };
-
     }
-
 }
 
-export const getRelativeAdvertiseService = async (advertiseId) => {
-
+export const getRelativeAdvertiseService = async (slug: string) => {
     try {
-
         const response = await axios.get(process.env.API_URL + "/api/advertise/getRelativeAdvertise", {
-            headers: {
-                advertiseId,
-            }
+            headers: {advertiseSlug: slug}
         });
 
         return response.data;
-
-    } catch (err) {
-
+    } catch (err: any) {
         return {
             message: err?.response?.data?.message,
             status: err?.response?.data?.status,
         };
-
     }
-
 }

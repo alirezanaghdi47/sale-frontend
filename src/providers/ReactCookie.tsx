@@ -3,11 +3,14 @@
 // libraries
 import { CookiesProvider } from 'react-cookie';
 
-const ReactCookie = ({children}) => {
+// types
+import {ReactCookieProviderType} from "@/types/providers";
+
+const ReactCookie = (props:ReactCookieProviderType) => {
 
     return (
         <CookiesProvider>
-            {children}
+            {props.children}
         </CookiesProvider>
     )
 }

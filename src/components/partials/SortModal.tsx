@@ -3,14 +3,17 @@
 // libraries
 import {useMediaQuery} from "@react-hooks-library/core";
 
-// components
-import {Modal , ModalHeader , ModalBody} from "@/components/modules/Modal";
-import RadioBox from "@/components/modules/RadioBox";
+// modules
+import {Modal , ModalHeader , ModalBody} from "@/modules/Modal";
+import RadioBox from "@/modules/RadioBox";
+
+//types
+import {SortModalType} from "@/types/components";
 
 // utils
 import {sortList} from "@/utils/constants";
 
-const SortModal = ({sort , _handleChangeSort , isOpenModal, onCloseModal}) => {
+const SortModal = ({sort , _handleChangeSort , isOpenModal, onCloseModal}: SortModalType) => {
 
     const isTablet = useMediaQuery("(min-width: 768px)");
 
@@ -41,7 +44,7 @@ const SortModal = ({sort , _handleChangeSort , isOpenModal, onCloseModal}) => {
                                 name="sort"
                                 value={sortItem?.value}
                                 checked={sortItem?.value === sort}
-                                onChange={(value) => _handleChangeSort(value)}
+                                onChange={(value: any) => _handleChangeSort(value)}
                             />
 
                             <span className="text-xs text-dark">

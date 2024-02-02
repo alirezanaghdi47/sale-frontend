@@ -5,8 +5,8 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {LuChevronRight, LuUser} from "react-icons/lu";
 
-// components
-import {Button} from "@/components/modules/Button";
+// modules
+import {Button} from "@/modules/Button";
 
 export const AdvertiseListEmpty = () => {
 

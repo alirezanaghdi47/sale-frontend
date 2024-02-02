@@ -3,11 +3,14 @@
 // libraries
 import {LuCheck, LuTrash, LuX} from "react-icons/lu";
 
-// components
-import {Dialog, DialogBody, DialogFooter} from "@/components/modules/Dialog";
-import {Button} from "@/components/modules/Button";
+// modules
+import {Dialog, DialogBody, DialogFooter} from "@/modules/Dialog";
+import {Button} from "@/modules/Button";
 
-const DeleteAdvertiseDialog = ({isOpenDialog, onCloseDialog, onDelete}) => {
+// types
+import {DeleteAdvertiseDialogType} from "@/types/components"; 
+
+const DeleteAdvertiseDialog = ({isOpenDialog, onCloseDialog, onDelete}: DeleteAdvertiseDialogType) => {
 
     return (
         <Dialog

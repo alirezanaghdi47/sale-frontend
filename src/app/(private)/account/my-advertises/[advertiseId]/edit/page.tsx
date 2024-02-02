@@ -3,35 +3,34 @@ import {notFound} from "next/navigation";
 import {QueryClient} from "@tanstack/react-query";
 
 // components
-import {EditAdvertise} from "@/components/widgets/EditAdvertise";
+import Content from "@/components/widgets/edit-advertise/Content";
 
 // services
 import {getMyAdvertiseService} from "@/services/myAdvertiseService";
+
+// types
+import {EditMyAdvertisePageType} from "@/types/pages";
 
 export const metadata = {
     title: 'افزودن آگهی',
 }
 
-const EditAdvertisePage = async (params) => {
-
+const EditMyAdvertisePage = async (params: EditMyAdvertisePageType) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
-        queryKey: ["myAdvertise" , {advertise: params?.advertise}],
-        queryFn: () => getMyAdvertise({advertise: params?.advertise})
+        queryKey: ["myAdvertise" , {advertiseId: params?.advertiseId}],
+        queryFn: () => getMyAdvertise(params?.advertiseId as string)
     });
 
     return (
         <main className="flex flex-col justify-start items-start gap-y-4 w-full h-full p-4">
-
-            <EditAdvertise/>
-
+            <Content/>
         </main>
     );
 }
 
-export async function getMyAdvertise(id) {
-
+export async function getMyAdvertise(id: string) {
     const advertise = await getMyAdvertiseService(id);
 
     if (advertise?.data) {
@@ -39,7 +38,6 @@ export async function getMyAdvertise(id) {
     } else {
         return notFound();
     }
-
 }
 
-export default EditAdvertisePage;
+export default EditMyAdvertisePage;

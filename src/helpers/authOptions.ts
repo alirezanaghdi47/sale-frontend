@@ -14,28 +14,27 @@ export const authOptions: NextAuthOptions = {
                 email: {label: "email"},
                 password: {label: "password"}
             },
-            async authorize(credentials, req) {
-
+            // @ts-ignore
+            async authorize(credentials: any, req) {
                 const response = await loginService({
-                    email: credentials.email,
+                    phoneNumber: credentials.phoneNumber,
                     password: credentials.password
                 });
 
                 if (response.status === "success") {
                     return {
                         accessToken: response.token,
+                        // @ts-ignore
                         user: jwtDecode(response.token)?.user
                     };
                 } else {
                     return Promise.reject(new Error(response?.message));
                 }
-
             },
         })
     ],
     callbacks: {
         jwt: async ({token, user, account, session, profile, trigger}) => {
-
             if (user) {
                 token.accessToken = user.accessToken;
                 token.user = user.user;
@@ -45,14 +44,12 @@ export const authOptions: NextAuthOptions = {
                 token.user.avatar = session.avatar;
                 token.user.name = session.name;
                 token.user.family = session.family;
-                token.user.phoneNumber = session.phoneNumber;
+                token.user.age = session.age;
             }
 
             return token;
-
         },
         session: async ({session, token, user, newSession, trigger}) => {
-
             session.accessToken = token.accessToken;
             session.user = token.user;
 
@@ -60,11 +57,10 @@ export const authOptions: NextAuthOptions = {
                 session.user.avatar = newSession.avatar ?? token.user.avatar;
                 session.user.name = newSession.name ?? token.user.name;
                 session.user.family = newSession.family ?? token.user.family;
-                session.user.phoneNumber = newSession.phoneNumber ?? token.user.phoneNumber;
+                session.user.age = newSession.age ?? token.user.age;
             }
 
             return session;
-
         }
     },
     session: {strategy: "jwt"},
