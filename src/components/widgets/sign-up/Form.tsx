@@ -28,7 +28,7 @@ const Form = () => {
     const {mutate, isPending} = useMutation({
         mutationFn: (data: IRegisterService) => registerService(data),
         onSuccess: async (data) => {
-            const {notification} = await import("@/modules/Notification");
+            const {notification} = await import("@/components/partials/Notification");
 
             if (data.status === "success") {
                 notification(data.message, "success");

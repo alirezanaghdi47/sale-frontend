@@ -4,6 +4,7 @@
 import dynamic from "next/dynamic";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {FormikProps, useFormik} from "formik";
+import toast from "react-hot-toast";
 import {LuCheck, LuChevronRight} from "react-icons/lu";
 
 // components
@@ -32,14 +33,12 @@ const Vendor = ({data, setData, onPrev, onSubmit}: AddAdvertiseVendorType) => {
     const {mutate, isPending} = useMutation({
         mutationFn: (data: IAddMyAdvertise) => addMyAdvertiseService(data),
         onSuccess: async (data) => {
-            const {notification} = await import("@/modules/Notification");
-
             if (data.status === "success") {
                 queryClient.invalidateQueries({queryKey: ["allMyAdvertise", {page: 1, sort: "newest"}]});
+                toast.success(data.message);
                 onSubmit();
-                notification(data.message, "success");
             } else {
-                notification(data.message, "error");
+                toast.success(data.message);
             }
         }
     });

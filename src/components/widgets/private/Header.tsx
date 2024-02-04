@@ -1,7 +1,6 @@
 'use client';
 
 // libraries
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import {usePathname, useRouter} from "next/navigation";
@@ -11,8 +10,7 @@ import {LuBookmark, LuLogOut, LuMenu, LuPlus, LuScrollText, LuUser} from "react-
 // modules
 import {LinkButton} from "@/modules/Button";
 import {IconButton} from "@/modules/IconButton";
-const Menu = dynamic(() => import("@/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
-const MenuItem = dynamic(() => import("@/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
+import {Menu , MenuItem} from "@/modules/Menu";
 
 const Logo = () => {
 

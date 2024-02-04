@@ -43,7 +43,7 @@ export const sortList = [
 ];
 
 export const profileTabList = [
-    {id: 1, title: "اطلاعات کاربری", value: "user-information", icon: LuInfo({size: 16})},
-    {id: 2, title: "ویرایش اطلاعات", value: "edit-information", icon: LuPen({size: 16})},
-    {id: 3, title: "تغییر رمز عبور", value: "edit-password", icon: LuLock({size: 16})},
+    {id: 1, title: "اطلاعات کاربری", value: 0, icon: LuInfo({size: 16})},
+    {id: 2, title: "ویرایش اطلاعات", value: 1, icon: LuPen({size: 16})},
+    {id: 3, title: "تغییر رمز عبور", value: 2, icon: LuLock({size: 16})},
 ];

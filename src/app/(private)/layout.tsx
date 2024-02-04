@@ -27,8 +27,11 @@ const PrivateLayout = (props: PrivateLayoutType) => {
 
     return (
         <div className="relative flex flex-col justify-start items-start w-full max-w-[992px] h-full min-h-screen pt-[70px]">
+
             <Header/>
+
             {props.children}
+
         </div>
     )
 }

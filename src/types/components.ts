@@ -1,6 +1,3 @@
-// libraries
-import React from "react";
-
 // types
 import {IAdvertise} from "@/types/global";
 
@@ -70,7 +67,7 @@ export type SortBarType = {
 
 export type AdvertiseCardType = {
     advertiseItem: IAdvertise,
-    toolbar: {
+    toolbar?: {
         share?: {
             onClick: () => void
         },
@@ -80,7 +77,7 @@ export type AdvertiseCardType = {
         delete?: {
             onClick: () => void
         },
-    } | boolean
+    }
 }
 
 export type CitiesModalType = {

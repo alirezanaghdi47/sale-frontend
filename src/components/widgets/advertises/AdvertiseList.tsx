@@ -26,10 +26,7 @@ const AdvertiseList = forwardRef(({data}: {data: AdvertisesAdvertiseListType}, r
                                 key={advertiseItem?._id}
                                 className="col-span-12 lg:col-span-6"
                             >
-                                <AdvertiseCard
-                                    advertiseItem={advertiseItem}
-                                    toolbar={false}
-                                />
+                                <AdvertiseCard advertiseItem={advertiseItem}/>
                             </li>
                         )
                     )

@@ -26,8 +26,7 @@ import {useModal} from "@/hooks/useModal";
 // modules
 import {Button, LinkButton} from "@/modules/Button";
 import SearchInput from "@/modules/SearchInput";
-const Menu = dynamic(() => import("@/modules/Menu").then(module => ({default: module.Menu})), {ssr: false});
-const MenuItem = dynamic(() => import("@/modules/Menu").then(module => ({default: module.MenuItem})), {ssr: false});
+import {Menu , MenuItem} from "@/modules/Menu";
 
 // utils
 import {cityList} from "@/utils/constants";

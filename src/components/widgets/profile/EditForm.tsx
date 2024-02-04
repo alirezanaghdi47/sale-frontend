@@ -4,7 +4,9 @@
 import {useRouter} from "next/navigation";
 import {useSession} from "next-auth/react";
 import {useMutation} from "@tanstack/react-query";
+import {jwtDecode} from "jwt-decode";
 import {FormikProps, useFormik} from "formik";
+import toast from "react-hot-toast";
 import {LuCheck} from "react-icons/lu";
 
 // modules
@@ -27,8 +29,8 @@ import {ProfileEditFormType} from "@/types/constants";
 import {EditProfileInformationSchema} from "@/utils/validations";
 import {arrayRange} from "@/utils/functions";
 
-const ageList = arrayRange(18, 99, 1).map((ageItem, index) => ({
-    id: `${index + 1}`,
+const ageList = arrayRange(18, 99, 1).map(ageItem => ({
+    id: `${ageItem}`,
     label: `${ageItem}`,
     value: `${ageItem}`
 }))
@@ -41,17 +43,8 @@ const EditForm = () => {
     const {mutate, isPending} = useMutation({
         mutationFn: (data: IEditProfileService) => editProfileService({...data, preview: session?.user?.avatar}),
         onSuccess: async (data) => {
-            const {notification} = await import("@/modules/Notification");
-
-            await update({
-                avatar: data.data.avatar ? data.data.avatar : null,
-                name: data.data.name,
-                family: data.data.family,
-                age: data.data.age,
-            });
-
-            notification("ویرایش انجام شد", "success");
-
+            await update(jwtDecode(data.token));
+            toast.success("ویرایش انجام شد");
             router.refresh();
         }
     });

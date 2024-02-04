@@ -11,6 +11,7 @@ const NumberInput = ({name , options, value, onChange, placeholder , disabled}: 
             htmlFor={`input-${name}`}
             className="flex justify-center items-center gap-x-2 w-full h-[32px] bg-secondary rounded-lg px-4 py-2"
         >
+
             <Cleave
                 id={`input-${name}`}
                 name={name}
@@ -25,6 +26,7 @@ const NumberInput = ({name , options, value, onChange, placeholder , disabled}: 
                 className="w-full h-full bg-transparent text-xs text-gray font-bold placeholder-gray focus:outline-none"
                 style={{direction: "ltr"}}
             />
+
         </label>
     )
 }

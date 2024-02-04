@@ -17,6 +17,7 @@ export const AdvertiseListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
+                priority
                 width={120}
                 height={120}
                 className="w-full max-w-[120px] h-full object-cover object-center"
@@ -39,6 +40,7 @@ export const FavoriteListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
+                priority
                 width={120}
                 height={120}
                 className="w-full max-w-[120px] h-full object-cover object-center"
@@ -61,6 +63,7 @@ export const MyAdvertiseListEmpty = () => {
             <Image
                 src="/assets/images/no-data.svg"
                 alt="no-data"
+                priority
                 width={120}
                 height={120}
                 className="w-full max-w-[120px] h-full object-cover object-center"
@@ -85,6 +88,7 @@ export const NotFoundClient = () => {
             <Image
                 src="/assets/images/not-found.svg"
                 alt="not-found"
+                priority
                 width={240}
                 height={240}
                 className="w-full max-w-[240px] h-full object-cover object-center"
@@ -121,6 +125,7 @@ export const NotFoundServer = () => {
             <Image
                 src="/assets/images/server-down.svg"
                 alt="server-down"
+                priority
                 width={240}
                 height={240}
                 className="w-full max-w-[240px] h-full object-cover object-center"
@@ -145,6 +150,7 @@ export const NotVerified = () => {
             <Image
                 src="/assets/images/not-found.svg"
                 alt="not-found"
+                priority
                 width={240}
                 height={240}
                 className="w-full max-w-[240px] h-full object-cover object-center"

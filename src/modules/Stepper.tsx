@@ -37,10 +37,10 @@ const Stepper = ({step, stepList}: StepperType) => {
 
             {
                 // @ts-ignore
-                stepList.map((stepItem, index) =>
+                stepList.map(stepItem =>
                     <StepperItem
                         key={stepItem.id}
-                        stepItem={{...stepItem, number: index + 1}}
+                        stepItem={{...stepItem, number: stepItem.id}}
                         step={step}
                     />
                 )

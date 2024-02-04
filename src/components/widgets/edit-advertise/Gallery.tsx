@@ -29,9 +29,7 @@ const Gallery = ({data, setData, onCancel, onNext}: EditAdvertiseGalleryType) =>
         },
         validationSchema: editAdvertiseGallerySchema,
         onSubmit: async (result) => {
-            if (result.gallery.length > 0) {
-                setData({...data, ...result});
-            }
+            if (result.gallery.length > 0) setData({...data, ...result});
             onNext();
         }
     });
@@ -53,9 +51,9 @@ const Gallery = ({data, setData, onCancel, onNext}: EditAdvertiseGalleryType) =>
                             <ul className="flex flex-wrap gap-4 w-full">
 
                                 {
-                                    data.gallery.map((galleryItem: string, index: number) =>
+                                    data.gallery.map((galleryItem: string) =>
                                         <li
-                                            key={index}
+                                            key={galleryItem}
                                             className=""
                                         >
 

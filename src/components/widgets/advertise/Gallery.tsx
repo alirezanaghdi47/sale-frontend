@@ -27,8 +27,8 @@ const Gallery = ({data}: {data: IAdvertise}) => {
                 className="w-full"
             >
                 {
-                    data?.gallery.map((galleryItem , index) =>
-                        <SwiperSlide key={index}>
+                    data?.gallery.map(galleryItem =>
+                        <SwiperSlide key={galleryItem}>
                             <Image
                                 src={galleryItem}
                                 alt="advertise"

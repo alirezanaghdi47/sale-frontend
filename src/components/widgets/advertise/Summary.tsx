@@ -3,6 +3,7 @@
 // libraries
 import {useSession} from "next-auth/react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import {LuBookmark, LuBookmarkMinus, LuShare2,} from "react-icons/lu";
 
 // modules
@@ -19,7 +20,7 @@ import {copyToClipboard} from "@/utils/functions";
 
 const Summary = ({data}: {data: IAdvertise}) => {
 
-    const {data: session, status} = useSession();
+    const {status} = useSession();
     const queryClient = useQueryClient();
 
     const {isPending: isPendingMyFavorite, data: isMyFavoriteData} = useQuery({
@@ -31,13 +32,11 @@ const Summary = ({data}: {data: IAdvertise}) => {
     const {mutate: mutateAddToFavorite} = useMutation({
         mutationFn: (data: string) => addFavoriteService(data),
         onSuccess: async (data) => {
-            const {notification} = await import("@/modules/Notification");
-
             if (data.status === "success") {
                 queryClient.invalidateQueries({queryKey: ["isMyFavorite"]});
-                notification(data.message, "success");
+                toast.success(data.message);
             } else {
-                notification(data.message, "error");
+                toast.error(data.message);
             }
         }
     });
@@ -45,44 +44,28 @@ const Summary = ({data}: {data: IAdvertise}) => {
     const {mutate: mutateDeleteFromFavorite} = useMutation({
         mutationFn: (data: string) => deleteFavoriteService(data),
         onSuccess: async (data) => {
-            const {notification} = await import("@/modules/Notification");
-
             if (data.status === "success") {
                 queryClient.invalidateQueries({queryKey: ["isMyFavorite"]});
-                notification(data.message, "success");
+                toast.success(data.message);
             } else {
-                notification(data.message, "error");
+                toast.error(data.message);
             }
         }
     });
 
     const _handleAddToFavorite = async (id: string) => {
-        const {notification} = await import("@/modules/Notification");
-
-        if (status !== "authenticated") {
-            return notification("ابتدا وارد حساب کاربری خود شوید", "error");
-        }
-
+        if (status !== "authenticated") return toast.error("ابتدا وارد حساب کاربری خود شوید");
         mutateAddToFavorite(id);
     }
 
     const _handleDeleteFromFavorite = async (id: string) => {
-        const {notification} = await import("@/modules/Notification");
-
-        if (status !== "authenticated") {
-            return notification("ابتدا وارد حساب کاربری خود شوید", "error");
-        }
-
+        if (status !== "authenticated") return toast.error("ابتدا وارد حساب کاربری خود شوید");
         mutateDeleteFromFavorite(id);
     }
 
     const _handleShareAdvertise = async (data: {title: string, url: string}) => {
-        const {notification} = await import("@/modules/Notification");
-
         copyToClipboard(data).then(res => {
-            if (res === "unSupported") {
-                notification("کپی شد", "success");
-            }
+            if (res === "unSupported") toast.success("کپی شد");
         });
     }
 

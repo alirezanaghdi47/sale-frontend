@@ -23,7 +23,6 @@ const CitiesModal = ({isOpenModal, onCloseModal}: CitiesModalType) => {
 
     const router = useRouter();
     const searchParams = useSearchParams();
-
     const [search, setSearch] = useState("");
     const regex = new RegExp(search, "g");
 

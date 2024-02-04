@@ -46,12 +46,9 @@ const RelativeAdvertises = ({data}: {data: IAdvertise[]}) => {
                 >
 
                     {
-                        data.map((item, index) =>
-                            <SwiperSlide key={index}>
-                                <AdvertiseCard
-                                    advertiseItem={item}
-                                    toolbar={false}
-                                />
+                        data.map(item =>
+                            <SwiperSlide key={item._id}>
+                                <AdvertiseCard advertiseItem={item}/>
                             </SwiperSlide>
                         )
                     }

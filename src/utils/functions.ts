@@ -1,9 +1,7 @@
 // types
-
 import {copyToClipboardType, generateQueryParamsType} from "@/types/functions";
 
 export const copyToClipboard = (data: copyToClipboardType) => {
-
     const {title, text, url} = data;
 
     if (navigator.share) {
@@ -13,11 +11,9 @@ export const copyToClipboard = (data: copyToClipboardType) => {
         return navigator.clipboard.writeText(url)
             .then(res => "unSupported");
     }
-
 }
 
 export const generateQueryParams = (data: generateQueryParamsType) => {
-
     const {search, page, sort, startPrice, endPrice, categories, cities} = data;
 
     let searchQuery = "";
@@ -40,7 +36,6 @@ export const generateQueryParams = (data: generateQueryParamsType) => {
     resultQuery = searchQuery + pageQuery + sortQuery + startPriceQuery + endPriceQuery + categoriesQuery + citiesQuery;
 
     return resultQuery.startsWith("&") ? resultQuery.substring(1).trim() : resultQuery.trim();
-
 }
 
 export const arrayRange = (start: number, stop: number, step: number) =>

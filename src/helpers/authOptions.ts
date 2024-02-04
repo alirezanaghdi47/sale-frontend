@@ -41,10 +41,8 @@ export const authOptions: NextAuthOptions = {
             }
 
             if (trigger === "update") {
-                token.user.avatar = session.avatar;
-                token.user.name = session.name;
-                token.user.family = session.family;
-                token.user.age = session.age;
+                token.accessToken = user.accessToken;
+                token.user = user.user;
             }
 
             return token;
@@ -54,6 +52,7 @@ export const authOptions: NextAuthOptions = {
             session.user = token.user;
 
             if (trigger === "update") {
+                session.accessToken = token.accessToken;
                 session.user.avatar = newSession.avatar ?? token.user.avatar;
                 session.user.name = newSession.name ?? token.user.name;
                 session.user.family = newSession.family ?? token.user.family;

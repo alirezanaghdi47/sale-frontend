@@ -19,7 +19,7 @@ import {profileTabList} from "@/utils/constants";
 
 const Content = () => {
 
-    const [activeTab, setActiveTab] = useState("user-information");
+    const [activeTab, setActiveTab] = useState(0);
 
     return (
         <div className="flex flex-col justify-start items-center gap-y-4 w-full h-full">
@@ -34,6 +34,7 @@ const Content = () => {
                                 key={profileTab.id}
                                 tabItem={profileTab}
                                 activeTab={activeTab}
+                                // @ts-ignore
                                 setActiveTab={(value) => setActiveTab(value)}
                             />
                         )
@@ -41,15 +42,15 @@ const Content = () => {
 
                 </TabList>
 
-                <FadeTransition active={activeTab === "user-information"}>
+                <FadeTransition active={activeTab === 0}>
                     <Information/>
                 </FadeTransition>
 
-                <FadeTransition active={activeTab === "edit-information"}>
+                <FadeTransition active={activeTab === 1}>
                     <EditForm/>
                 </FadeTransition>
 
-                <FadeTransition active={activeTab === "edit-password"}>
+                <FadeTransition active={activeTab === 2}>
                     <SecurityForm/>
                 </FadeTransition>
 

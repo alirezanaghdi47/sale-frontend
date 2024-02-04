@@ -1,9 +1,10 @@
 "use client";
 
 // libraries
-import {signOut, useSession} from "next-auth/react";
+import {signOut} from "next-auth/react";
 import {useMutation} from "@tanstack/react-query";
 import {FormikProps, useFormik} from "formik";
+import toast from "react-hot-toast";
 import {LuCheck} from "react-icons/lu";
 
 // modules
@@ -22,21 +23,15 @@ import {EditProfileSecuritySchema} from "@/utils/validations";
 
 const SecurityForm = () => {
 
-    const {data: session} = useSession();
-
     const {mutate, isPending} = useMutation({
         mutationFn: (data: IEditPasswordService) => editPasswordService(data),
         onSuccess: async (data) => {
-
-            const {notification} = await import("@/modules/Notification");
-
             if (data.status === "success") {
-                notification(data.message, "success");
+                toast.success(data.message);
                 signOut({callbackUrl: "/auth/sign-in"});
             } else {
-                notification(data.message, "error");
+                toast.error(data.message);
             }
-
         }
     });
 

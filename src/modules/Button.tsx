@@ -58,9 +58,13 @@ export const Button = ({
             onClick={onClick}
             disabled={disabled}
         >
+
             {startIcon && startIcon}
+
             {children}
+
             {endIcon && endIcon}
+
         </CustomTag>
     )
 }
@@ -86,9 +90,13 @@ export const LinkButton = ({
             href={href}
             onClick={onClick}
         >
+
             {startIcon && startIcon}
+
             {children}
+
             {endIcon && endIcon}
+
         </Link>
     )
 }

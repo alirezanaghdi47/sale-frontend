@@ -29,7 +29,7 @@ const Form = () => {
         },
         validationSchema: SignInSchema,
         onSubmit: async (result) => {
-            const {notification} = await import("@/modules/Notification");
+            const {notification} = await import("@/components/partials/Notification");
 
             const response = await signIn(
                 "credentials",

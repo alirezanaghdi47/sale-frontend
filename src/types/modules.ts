@@ -125,7 +125,7 @@ export type ModalFooterType = {
 
 export type NumberInputType = {
     name: string,
-    value: number,
+    value: number | string,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => any
     placeholder?: string,
     disabled?: boolean,
@@ -224,11 +224,11 @@ export type TabsListType = {
 export type TabsItemType = {
     tabItem: {
         title: string,
-        value: string,
+        value: string | number,
         icon: React.ReactNode
     },
-    activeTab: string,
-    setActiveTab: (data: string) => void
+    activeTab: string | number,
+    setActiveTab: (data: string | number) => void
 }
 
 export type TextAreaType = {

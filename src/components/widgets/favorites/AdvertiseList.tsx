@@ -3,6 +3,7 @@
 // libraries
 import dynamic from "next/dynamic";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 // components
 import AdvertiseCard from "@/components/partials/AdvertiseCard";
@@ -34,13 +35,11 @@ const AdvertiseList = ({data}: {data: IAdvertise[]}) => {
     const {mutate, isPending} = useMutation({
         mutationFn: (data: string) => deleteFavoriteService(data),
         onSuccess: async (data) => {
-            const {notification} = await import("@/modules/Notification");
-
             if (data.status === "success") {
                 queryClient.invalidateQueries({queryKey: ["allFavorite"]});
-                notification(data.message, "success");
+                toast.success(data.message);
             } else {
-                notification(data.message, "error");
+                toast.error(data.message);
             }
 
             _handleHideDeleteDialog();
@@ -53,12 +52,8 @@ const AdvertiseList = ({data}: {data: IAdvertise[]}) => {
     }
 
     const _handleShareAdvertise = async (data: {title: string, url: string}) => {
-        const {notification} = await import("@/modules/Notification");
-
         copyToClipboard(data).then(res => {
-            if (res === "unSupported"){
-                notification("کپی شد" , "success");
-            }
+            if (res === "unSupported") toast.success("کپی شد");
         });
     }
 

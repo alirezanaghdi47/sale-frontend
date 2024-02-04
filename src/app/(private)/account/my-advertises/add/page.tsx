@@ -13,12 +13,12 @@ export const metadata = {
 }
 
 const AddMyAdvertisePage = async () => {
-
     const session = await getServerSession(authOptions);
     const isVerified = Boolean(session?.user?.name && session?.user?.family && session?.user?.age);
 
     return (
         <main className="flex flex-col justify-start items-start gap-y-4 w-full h-full p-4">
+
             {
                 isVerified ? (
                     <Content/>
@@ -26,6 +26,7 @@ const AddMyAdvertisePage = async () => {
                     <NotVerified/>
                 )
             }
+
         </main>
     );
 }

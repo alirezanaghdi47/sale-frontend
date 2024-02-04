@@ -37,7 +37,6 @@ const Content = () => {
     });
 
     useEffect(() => {
-
         if (!isPendingAdvertise && advertiseData?.data) {
             _handleSegment({
                 gallery: advertiseData?.data?.gallery,
@@ -51,7 +50,6 @@ const Content = () => {
                 longitude: advertiseData?.data?.longitude,
             });
         }
-
     }, [isPendingAdvertise]);
 
     return !isPendingAdvertise && (

@@ -31,11 +31,17 @@ const PublicLayout = (props: PublicLayoutType) => {
 
     return (
         <div className="relative flex flex-col justify-start items-start w-full max-w-[992px] h-full min-h-screen py-[70px] md:pb-0">
+
             <Header/>
+
             <AppBar/>
+
             {props.children}
+
             <BottomNavigation/>
+
             <InstallBanner/>
+
         </div>
     )
 }

@@ -40,16 +40,25 @@ const Content = () => {
 
                 <div
                     className="md:sticky md:top-[86px] flex flex-col justify-start items-center gap-y-4 w-full md:w-[320px] lg:w-[360px]">
+
                     <Gallery data={advertiseData?.data}/>
+
                     {isTablet && <Location data={advertiseData?.data}/>}
+
                 </div>
 
                 <div className="flex flex-col justify-start items-center gap-y-4 w-full">
+
                     <Summary data={advertiseData?.data}/>
+
                     <Detail data={advertiseData?.data}/>
+
                     <Features data={advertiseData?.data}/>
+
                     <ContactUs data={advertiseData?.data}/>
+
                     {!isTablet && <Location data={advertiseData?.data}/>}
+
                 </div>
 
             </div>
