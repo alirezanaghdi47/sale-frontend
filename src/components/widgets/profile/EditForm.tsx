@@ -4,7 +4,6 @@
 import {useRouter} from "next/navigation";
 import {useSession} from "next-auth/react";
 import {useMutation} from "@tanstack/react-query";
-import {jwtDecode} from "jwt-decode";
 import {FormikProps, useFormik} from "formik";
 import toast from "react-hot-toast";
 import {LuCheck} from "react-icons/lu";
@@ -43,7 +42,7 @@ const EditForm = () => {
     const {mutate, isPending} = useMutation({
         mutationFn: (data: IEditProfileService) => editProfileService({...data, preview: session?.user?.avatar}),
         onSuccess: async (data) => {
-            await update(jwtDecode(data.token));
+            await update(data.token);
             toast.success("ویرایش انجام شد");
             router.refresh();
         }

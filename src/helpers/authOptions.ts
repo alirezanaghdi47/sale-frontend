@@ -34,30 +34,22 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        jwt: async ({token, user, account, session, profile, trigger}) => {
+        jwt: async ({token, user, account, session, profile, trigger }) => {
             if (user) {
                 token.accessToken = user.accessToken;
                 token.user = user.user;
             }
 
             if (trigger === "update") {
-                token.accessToken = user.accessToken;
-                token.user = user.user;
+                token.accessToken = session;
+                token.user = jwtDecode(session)?.user;
             }
 
             return token;
         },
-        session: async ({session, token, user, newSession, trigger}) => {
+        session: async ({session, token, user, newSession, trigger }) => {
             session.accessToken = token.accessToken;
             session.user = token.user;
-
-            if (trigger === "update") {
-                session.accessToken = token.accessToken;
-                session.user.avatar = newSession.avatar ?? token.user.avatar;
-                session.user.name = newSession.name ?? token.user.name;
-                session.user.family = newSession.family ?? token.user.family;
-                session.user.age = newSession.age ?? token.user.age;
-            }
 
             return session;
         }

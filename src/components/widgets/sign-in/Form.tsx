@@ -4,6 +4,7 @@
 import {useRouter, useSearchParams} from "next/navigation";
 import {signIn} from "next-auth/react";
 import {FormikProps, useFormik} from "formik";
+import toast from "react-hot-toast";
 import {LuLogIn} from "react-icons/lu";
 
 // modules
@@ -29,8 +30,6 @@ const Form = () => {
         },
         validationSchema: SignInSchema,
         onSubmit: async (result) => {
-            const {notification} = await import("@/components/partials/Notification");
-
             const response = await signIn(
                 "credentials",
                 {
@@ -42,11 +41,11 @@ const Form = () => {
 
             // @ts-ignore
             if (response.ok) {
-                notification("خوش آمدید", "success");
+                toast.success("خوش آمدید");
                 router.push(searchParams.get("callbackUrl") ? `${process.env.BASE_URL}/${searchParams.get("callbackUrl")}` : `${process.env.BASE_URL}/advertises`);
             } else {
                 // @ts-ignore
-                notification(response.error, "error");
+                toast.error(response.error);
             }
         }
     });

@@ -18,7 +18,7 @@ const Notification = () => {
             reverseOrder={false}
             gutter={8}
             toastOptions={{
-                duration: 2000000,
+                duration: 1500,
                 className: "react-hot-toast",
                 success: {
                     icon: <LuCheck color="currentColor" size={20}/>,
