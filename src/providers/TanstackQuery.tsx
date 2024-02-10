@@ -20,9 +20,11 @@ const TanstackQuery = (props:TanstackProviderType) => {
 
     return (
         <QueryClientProvider client={queryClient}>
+
             <HydrationBoundary state={dehydrate(queryClient)}>
                 {props.children}
             </HydrationBoundary>
+
         </QueryClientProvider>
     )
 }

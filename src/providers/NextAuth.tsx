@@ -12,9 +12,15 @@ import {NextAuthProviderType} from "@/types/providers";
 const NextAuth = (props: NextAuthProviderType) => {
 
     return (
-        <SessionProvider refetchInterval={60}>
+        <SessionProvider
+            refetchInterval={5 * 60}
+            refetchOnWindowFocus={true}
+        >
+
             {props.children}
+
             <AuthHandler/>
+
         </SessionProvider>
     )
 }

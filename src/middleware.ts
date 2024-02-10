@@ -5,8 +5,12 @@ export default withAuth({
     callbacks: {
         authorized: ({req, token}) => {
             if (req.nextUrl.pathname.startsWith('/account')) {
-                if (!token?.accessToken) return false;
-                if (token?.user?.expire > Math.floor(Date.now() / 1000)) return true;
+                //@ts-ignore
+                if (token?.accessToken && token?.user?.expire < Math.floor(Date.now() / 1000)) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
             return true;
         }

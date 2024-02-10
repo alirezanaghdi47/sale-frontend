@@ -1,6 +1,6 @@
 // libraries
-import axios from "axios";
 import {getSession} from "next-auth/react";
+import axios from "axios";
 
 // types
 import {IAdvertiseFilter} from "@/types/global";

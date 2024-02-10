@@ -8,7 +8,6 @@ interface IUser {
     avatar: string | null,
     phoneNumber: string,
     age: string | null,
-    expire: number,
 }
 
 declare module "next-auth" {

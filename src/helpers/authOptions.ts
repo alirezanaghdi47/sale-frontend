@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        jwt: async ({token, user, account, session, profile, trigger }) => {
+        jwt: async ({token, user, account, session, profile, trigger}) => {
             if (user) {
                 token.accessToken = user.accessToken;
                 token.user = user.user;
@@ -42,18 +42,22 @@ export const authOptions: NextAuthOptions = {
 
             if (trigger === "update") {
                 token.accessToken = session;
+                //@ts-ignore
                 token.user = jwtDecode(session)?.user;
             }
 
             return token;
         },
-        session: async ({session, token, user, newSession, trigger }) => {
+        session: async ({session, token, user, newSession, trigger}) => {
             session.accessToken = token.accessToken;
             session.user = token.user;
 
             return session;
         }
     },
-    session: {strategy: "jwt"},
+    session: {
+        strategy: "jwt",
+        maxAge: 24 * 60 * 60
+    },
     debug: process.env.NODE_ENV === "development",
 }
