@@ -26,7 +26,7 @@ const BottomLinks = () => {
                 <LinkButton
                     variant="text"
                     color={pathname === "/advertises" ? "blue" : "gray"}
-                    href="/advertises"
+                    href={status === "unauthenticated" ? "/auth/sign-in" : "/advertises"}
                     vertical
                     startIcon={
                         <LuScrollText
@@ -43,7 +43,7 @@ const BottomLinks = () => {
                 <LinkButton
                     variant="text"
                     color={pathname === "/account/my-advertises/add" ? "blue" : "gray"}
-                    href="/account/my-advertises/add"
+                    href={status === "unauthenticated" ? "/auth/sign-in" :"/account/my-advertises/add"}
                     vertical
                     startIcon={
                         <LuPlus
@@ -60,7 +60,7 @@ const BottomLinks = () => {
                 <LinkButton
                     variant="text"
                     color={pathname === "/account/favorites" ? "blue" : "gray"}
-                    href="/account/favorites"
+                    href={status === "unauthenticated" ? "/auth/sign-in" :"/account/favorites"}
                     vertical
                     startIcon={
                         <LuBookmark

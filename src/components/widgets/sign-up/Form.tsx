@@ -4,6 +4,7 @@
 import {useRouter} from "next/navigation";
 import {useMutation} from "@tanstack/react-query";
 import {FormikProps, useFormik} from "formik";
+import toast from "react-hot-toast";
 import {LuUserPlus} from "react-icons/lu";
 
 // modules
@@ -28,13 +29,11 @@ const Form = () => {
     const {mutate, isPending} = useMutation({
         mutationFn: (data: IRegisterService) => registerService(data),
         onSuccess: async (data) => {
-            const {notification} = await import("@/components/partials/Notification");
-
             if (data.status === "success") {
-                notification(data.message, "success");
+                toast.success(data.message);
                 router.replace("/auth/sign-in");
             } else {
-                notification(data.message, "error");
+                toast.error(data.message);
             }
         }
     });

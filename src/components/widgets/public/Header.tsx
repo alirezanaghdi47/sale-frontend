@@ -232,7 +232,7 @@ const HeaderLinks = () => {
             <LinkButton
                 variant="contained"
                 color="blue"
-                href="/account/my-advertises/add"
+                href={status === "unauthenticated" ? "/auth/sign-in" : "/account/my-advertises/add"}
                 startIcon={
                     <LuPlus
                         size={16}

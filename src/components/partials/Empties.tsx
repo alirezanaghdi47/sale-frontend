@@ -18,9 +18,9 @@ export const AdvertiseListEmpty = () => {
                 src="/assets/images/no-data.svg"
                 alt="no-data"
                 priority
-                width={120}
-                height={120}
-                className="w-full max-w-[120px] h-full object-cover object-center"
+                width={100}
+                height={100}
+                className="w-full max-w-[100px] h-full object-cover object-center"
             />
 
             <h3 className="text-sm font-bold text-gray">
@@ -41,9 +41,9 @@ export const FavoriteListEmpty = () => {
                 src="/assets/images/no-data.svg"
                 alt="no-data"
                 priority
-                width={120}
-                height={120}
-                className="w-full max-w-[120px] h-full object-cover object-center"
+                width={100}
+                height={100}
+                className="w-full max-w-[100px] h-full object-cover object-center"
             />
 
             <h3 className="text-sm font-bold text-gray">
@@ -64,9 +64,9 @@ export const MyAdvertiseListEmpty = () => {
                 src="/assets/images/no-data.svg"
                 alt="no-data"
                 priority
-                width={120}
-                height={120}
-                className="w-full max-w-[120px] h-full object-cover object-center"
+                width={100}
+                height={100}
+                className="w-full max-w-[100px] h-full object-cover object-center"
             />
 
             <h3 className="text-sm font-bold text-gray">
@@ -151,9 +151,9 @@ export const NotVerified = () => {
                 src="/assets/images/not-found.svg"
                 alt="not-found"
                 priority
-                width={240}
-                height={240}
-                className="w-full max-w-[240px] h-full object-cover object-center"
+                width={180}
+                height={180}
+                className="w-full max-w-[180px] h-full object-cover object-center"
             />
 
             <h3 className="text-sm font-bold text-gray">
